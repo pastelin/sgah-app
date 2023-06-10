@@ -1,0 +1,129 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.formulario {
+	position: absolute;
+	background-color: v.$gris;
+	width: 100%;
+	height: 100%;
+	top: 0rem;
+	min-width: v.$minWidth;
+	overflow: hidden;
+
+	.icon__close {
+		text-align: right;
+
+		button {
+			font-size: 3rem;
+			color: #6a6969;
+			background-color: transparent;
+			cursor: pointer;
+			border: none;
+
+			&:hover {
+				color: v.$rojo;
+			}
+		}
+	}
+
+	.contenedor__formulario {
+		width: 90%;
+		max-width: 50rem;
+		min-width: v.$minWidth;
+		margin: auto;
+		background-color: v.$blanco;
+		border-radius: 0.5rem;
+		padding: 2rem;
+		margin-top: 10rem;
+		box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+		text-align: center;
+
+		h3 {
+			font-size: 2.4rem;
+			margin: 1rem auto 3rem;
+
+            @include m.tablet {
+                font-size: 3rem;
+            }
+		}
+
+		p {
+			color: v.$rojo;
+		}
+
+		span {
+			letter-spacing: 0.1rem;
+		}
+	}
+
+	form {
+		margin-top: 3rem;
+
+		.contenedor__btn {
+			margin-top: 2rem;
+
+			button {
+				width: 100%;
+				padding: 0.7rem 1rem;
+				border-radius: 0.5rem;
+				background-color: v.$azul;
+				color: v.$blanco;
+				border: none;
+				transition: all 0.3s ease-in;
+
+				&:hover {
+					opacity: 0.8;
+				}
+			}
+		}
+	}
+
+	.form__group {
+		margin-top: 2rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 2rem;
+
+		input,
+		textarea {
+			width: 70%;
+			min-width: 70%;
+		}
+
+		select {
+			width: 100%;
+		}
+
+		label {
+			font-size: 1.4rem;
+			width: 25%;
+
+            @include m.tablet {
+                font-size: 1.6rem;
+            }
+		}
+
+		input,
+		select {
+			height: 3.2rem;
+		}
+
+		input,
+		select,
+		textarea {
+			border-radius: 0.5rem;
+			border: 2px solid #6a6969;
+			font-size: 1.4rem;
+			outline: none;
+
+            @include m.tablet {
+                font-size: 1.6rem;
+            }
+		}
+
+		textarea {
+			height: 8rem;
+		}
+	}
+}

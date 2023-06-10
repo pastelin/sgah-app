@@ -1,0 +1,66 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.contenedor__table {
+	overflow: auto;
+	height: 37rem;
+
+	table {
+		width: 95%;
+		min-width: 53rem;
+		font-size: 1.2rem;
+		margin: 1rem 1rem;
+		box-shadow: 0.1rem 0.13rem 0.4rem #333;
+		border-radius: 0.5rem;
+		border-collapse: collapse;
+
+		@include m.desktop {
+			max-width: 73rem;
+			margin: 3rem auto;
+			font-size: 1.5rem;
+		}
+
+		thead,
+		tbody {
+			th,
+			td {
+				opacity: 0.9;
+				padding: 1.5rem 0.5rem;
+				text-align: center;
+			}
+
+			tr:nth-child(even) {
+				background-color: v.$azulClaro;
+				opacity: 0.7;
+			}
+		}
+	}
+}
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+.contenedor__table::-webkit-scrollbar {
+	-webkit-appearance: none;
+}
+
+.contenedor__table::-webkit-scrollbar:vertical {
+	width: 10px;
+}
+
+.contenedor__table::-webkit-scrollbar-button:increment,
+.contenedor__table::-webkit-scrollbar-button {
+	display: none;
+}
+
+.contenedor__table::-webkit-scrollbar:horizontal {
+	height: 10px;
+}
+
+.contenedor__table::-webkit-scrollbar-thumb {
+	background-color: #797979;
+	border-radius: 20px;
+	border: 2px solid #f1f2f3;
+}
+
+.contenedor__table::-webkit-scrollbar-track {
+	border-radius: 10px;
+}

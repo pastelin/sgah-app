@@ -1,0 +1,39 @@
+{
+	"name": "sgah-app",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"sass": "sass --watch src/scss:build/css",
+		"css": "gulp css"
+	},
+	"dependencies": {
+		"@emotion/react": "^11.10.6",
+		"@emotion/styled": "^11.10.6",
+		"@mui/icons-material": "^5.11.16",
+		"@mui/material": "^5.11.15",
+		"@reduxjs/toolkit": "^1.9.3",
+		"gulp-terser-js": "^5.2.2",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-redux": "^8.0.5",
+		"react-router-dom": "^6.10.0"
+	},
+	"devDependencies": {
+		"@types/react": "^18.0.27",
+		"@types/react-dom": "^18.0.10",
+		"@vitejs/plugin-react": "^3.1.0",
+		"gulp": "^4.0.2",
+		"gulp-plumber": "^1.2.1",
+		"gulp-sass": "^5.1.0",
+		"sass": "^1.62.1",
+		"autoprefixer": "^10.4.8",
+		"cssnano": "^5.1.13",
+		"gulp-postcss": "^9.0.1",
+		"gulp-sourcemaps": "^3.0.0",
+		"postcss": "^8.4.16",
+		"vite": "^4.1.0"
+	}
+}

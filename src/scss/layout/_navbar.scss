@@ -1,0 +1,114 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.sgah__nav {
+	background-color: v.$negro;
+	color: v.$blanco;
+	width: 100%;
+	min-width: 28rem;
+	font-size: 2.5rem;
+
+	.sgah__nav-icon {
+		text-align: right;
+		padding: 1rem;
+		display: flex;
+		justify-content: space-between;
+		cursor: pointer;
+
+		.logo-icon {
+			font-size: 2.4rem;
+			margin: 0;
+		}
+
+		@include m.tablet {
+			display: none;
+		}
+	}
+
+	@include m.tablet {
+		display: flex;
+		flex-direction: column;
+		width: 28rem;
+		height: 100vh;
+		display: block;
+	}
+
+	.sgah__nav--tablet {
+		display: none;
+
+		@include m.tablet {
+			display: block;
+		}
+	}
+
+	.logo {
+		font-size: 2.4rem;
+		margin: 0 0 3.8rem 0;
+		padding-top: 3.6rem;
+		text-align: center;
+	}
+
+	.usuario {
+		font-size: 2.2rem;
+		font-weight: 300;
+		text-align: center;
+	}
+
+	.nav__item {
+		height: 4.2rem;
+		cursor: pointer;
+		padding-left: 7rem;
+
+		a {
+			font-size: 1.4rem;
+			color: v.$blanco;
+		}
+	}
+
+	.btn-logout {
+		width: 99%;
+		height: 4rem;
+		border-radius: 0.5rem;
+		border: none;
+		color: v.$negroClaro;
+		transition: all 0.25s ease-in;
+		cursor: pointer;
+		margin-top: 5rem;
+		font-size: 1.6rem;
+
+		&:hover {
+			background-color: v.$rojo;
+			color: v.$blanco;
+		}
+	}
+
+	.icon__close {
+		margin-top: 5rem;
+		text-align: center;
+		display: none;
+
+		button {
+			font-size: 4rem;
+			color: v.$blanco;
+			background-color: transparent;
+			cursor: pointer;
+			border: none;
+
+			&:hover {
+				color: v.$rojo;
+			}
+		}
+	}
+}
+
+.sgah__nav--active {
+	display: block !important;
+}
+
+.sgah__nav-icon--inactive {
+	display: none !important;
+}
+
+.icon__close--active {
+	display: block !important;
+}

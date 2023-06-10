@@ -1,0 +1,72 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+html {
+	font-size: 62.5%;
+	box-sizing: border-box; 
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+body {
+	font-family: v.$fuente_principal;
+	font-size: 1.6rem;
+}
+
+p {
+	font-size: 1.6rem;
+	color: v.$negro;
+	line-height: 1.7;
+}
+
+a {
+	text-decoration: none !important;
+	font-size: 1.7rem;
+}
+
+h1,
+h2,
+h3 {
+	margin: 2rem 0 5rem 0;
+    font-weight: 500;
+    opacity: .8;
+}
+
+h1 {
+	font-size: 4rem;
+}
+
+h2 {
+	font-size: 3.6rem;
+}
+
+h3 {
+	font-size: 3rem;
+}
+
+img {
+	min-width: 100%;
+	display: block;
+	height: auto;
+	width: 100%;
+}
+
+.contenedor {
+    min-width: v.$minWidth;
+    @include m.tablet {
+        display: flex;
+        // gap: 2rem;
+    }
+}
+
+.display__none {
+    display: none !important;
+}
+
+.h-100vh {
+    height: 100vh;
+}

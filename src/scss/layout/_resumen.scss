@@ -1,0 +1,50 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.resumen {
+	width: 100%;
+}
+
+.contenedor__resumen {
+	display: flex;
+	justify-content: space-around;
+	min-width: v.$minWidth;
+	align-items: center;
+	margin-top: 5rem;
+
+	@include m.tablet {
+		margin-top: 15rem;
+	}
+
+	@include m.desktop {
+		width: 80%;
+	}
+
+	.contenido__resumen,
+	.monto__resumen {
+		p {
+			font-size: 1.6rem;
+			opacity: 0.5;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 5rem;
+            letter-spacing: 0.15rem;
+
+			@include m.tablet {
+				font-size: 2rem;
+			}
+		}
+	}
+
+	.contenido__resumen {
+		@include m.desktop {
+			text-align: right;
+		}
+	}
+
+	.monto__resumen {
+		@include m.desktop {
+			letter-spacing: 0.2rem;
+		}
+	}
+}
