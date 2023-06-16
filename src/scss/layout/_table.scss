@@ -15,9 +15,9 @@
 		border-collapse: collapse;
 
 		@include m.desktop {
-			max-width: 73rem;
+			max-width: 93rem;
 			margin: 3rem auto;
-			font-size: 1.5rem;
+			font-size: 1.4rem;
 		}
 
 		thead,
@@ -27,11 +27,14 @@
 				opacity: 0.9;
 				padding: 1.5rem 0.5rem;
 				text-align: center;
+				border-bottom: 2px solid v.$gris;
 			}
 
-			tr:nth-child(even) {
-				background-color: v.$azulClaro;
-				opacity: 0.7;
+			tr {
+				&:hover {
+					background-color: v.$azulClaro;
+					opacity: 0.7;
+				}
 			}
 		}
 	}
@@ -63,4 +66,12 @@
 
 .contenedor__table::-webkit-scrollbar-track {
 	border-radius: 10px;
+}
+
+.btnPrestamos {
+	font-size: 1.3rem;
+	padding: 0.5rem;
+	background-color: v.$verde;
+	border-radius: 0.5rem;
+	cursor: pointer;
 }

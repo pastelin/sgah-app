@@ -1,11 +1,33 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { startCategorias, startGastoMesActual, startMontos } from '../store/sgah/thunks';
 
 export const useGastos = () => {
 	// A hook to access the redux store's state.
 	// This hook takes a selector function as an argument.The selector is called with the store state.
-	const { filtro, categoriaGastos, gastos, tipoMovimiento, montos, cabecerasTable, properties } =
-		useSelector((state) => state.sgahGasto);
+	const {
+		filtro,
+		categoriaGastos,
+		gastos,
+		tipoMovimiento,
+		montos,
+		cabecerasTable,
+		properties,
+        uriGastoMesActual,
+        uriCategoria, 
+        uriMontos
+	} = useSelector((state) => state.sgahGasto);
+    
+    const dispatch = useDispatch();
+    
+    useMemo(
+        () => {
+            dispatch(startGastoMesActual(uriGastoMesActual)),
+                dispatch(startCategorias(uriCategoria)), dispatch(startMontos(uriMontos))
+        },[]
+	);
+    ;
+	
 
 	useEffect(() => {
 		// Referencia de elementos para el filtro de busqueda

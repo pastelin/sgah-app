@@ -1,5 +1,6 @@
 export const obtenerData = async (uri) => {
-	const resp = await fetch(uri);
+    const resp = await fetch(uri);
+    console.log(resp);
 	if (!resp.ok) return null;
 
 	return await resp.json();

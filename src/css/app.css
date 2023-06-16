@@ -657,9 +657,9 @@ img {
 }
 @media (min-width: 992px) {
   .contenedor__table table {
-    max-width: 73rem;
+    max-width: 93rem;
     margin: 3rem auto;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 }
 .contenedor__table table thead th,
@@ -669,9 +669,10 @@ img {
   opacity: 0.9;
   padding: 1.5rem 0.5rem;
   text-align: center;
+  border-bottom: 2px solid rgba(225, 225, 225, 0.8823529412);
 }
-.contenedor__table table thead tr:nth-child(even),
-.contenedor__table table tbody tr:nth-child(even) {
+.contenedor__table table thead tr:hover,
+.contenedor__table table tbody tr:hover {
   background-color: #c1f1fc;
   opacity: 0.7;
 }
@@ -702,6 +703,14 @@ img {
 
 .contenedor__table::-webkit-scrollbar-track {
   border-radius: 10px;
+}
+
+.btnPrestamos {
+  font-size: 1.3rem;
+  padding: 0.5rem;
+  background-color: #34bf49;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .detalle__movimientos {
