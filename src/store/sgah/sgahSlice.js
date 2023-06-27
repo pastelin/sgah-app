@@ -6,7 +6,6 @@ export const sgahSlice = createSlice({
 	initialState: {
 		hasBeenUpdated: false,
 		menuList: ['Ingresos', 'Resumen', 'Ahorro', 'Gastos', 'Inversion', 'Prestamos'],
-		menuSelected: 'Resumen',
 		resumen: {
 			montoAhorro: '$0.0',
 			montoGasto: '$0.0',
@@ -15,10 +14,6 @@ export const sgahSlice = createSlice({
 		},
 	},
 	reducers: {
-		updateMenuSelected: (state, action) => {
-			state.menuSelected = action.payload;
-		},
-
 		updateResumen: (state, action) => {
 			state.resumen.montoAhorro = formatCurrency(action.payload.ahorro);
 			state.resumen.montoGasto = formatCurrency(action.payload.gastos);
@@ -28,4 +23,4 @@ export const sgahSlice = createSlice({
 	},
 });
 
-export const { updateMenuSelected, updateResumen } = sgahSlice.actions;
+export const { updateResumen } = sgahSlice.actions;

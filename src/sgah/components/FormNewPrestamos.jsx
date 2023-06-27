@@ -1,35 +1,41 @@
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
-import { startAgregarPrestamo } from '../../store/sgah/thunks';
+import {
+	startAgregarPrestamo,
+	startDetalle,
+	onCloseFormNewPrestamo,
+} from '../../store';
 
 const formData = {
 	montoPrestado: '',
 	descripcion: '',
 };
 
-export const FormPrestamos = () => {
+export const FormNewPrestamos = () => {
+	// A hook to access the redux dispatch function.
+	const dispatch = useDispatch();
+
 	// A hook to access the redux store's state. This hook takes a selector function as an argument.
 	// The selector is called with the store state.
 	const { uriPrestamosActivos, uriSaldoUtilizado, uriAgregaPrestamo } = useSelector(
 		(state) => state.sgahPrestamo
 	);
-    
-    const { resumen } = useSelector((state) => state.sgah);
+	const { resumen } = useSelector((state) => state.sgah);
+	const { isFormNewPrestamoOpen } = useSelector((state) => state.ui);
 
-	// A hook to access the redux dispatch function.
-	const dispatch = useDispatch();
 
-	useEffect(() => {
-		const closeFormElement = document.querySelector('#closeForm');
-		const formularioPrestamoElement = document.querySelector('#formularioPrestamo');
-
-		closeFormElement.addEventListener('click', () => {
-			formularioPrestamoElement.classList.add('display__none');
-		});
-	}, []);
+	dispatch(startDetalle());
 
 	const { montoPrestado, descripcion, onInputChange, onResetForm } = useForm(formData);
+
+    const hideFormNewPrestamoClass = useMemo(() => {
+        return isFormNewPrestamoOpen ? '' : 'display__none';
+    }, [isFormNewPrestamoOpen]);
+
+    const handleCloseForm = () => {
+		dispatch(onCloseFormNewPrestamo());
+	};
 
 	const onSubmit = (event) => {
 		event.preventDefault();
@@ -43,22 +49,21 @@ export const FormPrestamos = () => {
 			)
 		);
 
-		const formularioPrestamoElement = document.querySelector('#formularioPrestamo');
-		formularioPrestamoElement.classList.add('display__none');
+		handleCloseForm();
 		onResetForm();
 	};
 
 	return (
-		<section id="formularioPrestamo" className="formulario display__none">
+		<section className={`formulario ${hideFormNewPrestamoClass}`}>
 			<div className="contenedor__formulario">
 				<div id="closeMenu" className="icon__close">
-					<button id="closeForm">
+					<button onClick={handleCloseForm}>
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>
 				</div>
 				<h3>¡Registrar Prestamo!</h3>
 				<p>
-					Monto máximo a tomar prestado: <span>{resumen.montoAhorro}</span>
+					Saldo máximo a tomar prestado: <span>{resumen.montoAhorro}</span>
 				</p>
 
 				<form onSubmit={onSubmit}>

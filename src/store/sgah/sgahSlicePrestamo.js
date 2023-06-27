@@ -5,15 +5,15 @@ export const sgahSlicePrestamos = createSlice({
 	name: 'sgahPrestamo',
 	initialState: {
 		filtro: ['Listar todo', 'Estatus'],
-		cabecerasTable: ['Fecha', 'Saldo usado', 'Descripción', 'Saldo pagado', 'Pagar'],
-		uriPrestamosActivos: 'http://localhost:8092/prestamo/v0/prestamo/detalleActivo',
-		uriActualizaPrestamo: 'http://localhost:8092/prestamo/v0/prestamo/operacionActualiza',
-		uriSaldoUtilizado: 'http://localhost:8092/prestamo/v0/prestamo/saldoUtilizado',
-		uriAgregaPrestamo: 'http://localhost:8092/prestamo/v0/prestamo/operacionAgregar',
-		properties: ['fechaCreacion', 'montoPrestado', 'descripcion', 'montoPagado', 'btnPrestamo'],
+		prestamo: {},
 		prestamos: [{}],
 		saldoUtilizado: '$0.0',
-        prestamo: {}
+		uriActualizaPrestamo: 'http://localhost:8092/prestamo/v0/prestamo/operacionActualiza',
+		uriAgregaPrestamo: 'http://localhost:8092/prestamo/v0/prestamo/operacionAgregar',
+		uriPrestamosActivos: 'http://localhost:8092/prestamo/v0/prestamo/detallePrestamosActivos',
+		uriSaldoUtilizado: 'http://localhost:8092/prestamo/v0/prestamo/saldoUtilizado',
+		uriObtenerPrestamo: 'http://localhost:8092/prestamo/v0/prestamo/detallePrestamo/',
+		uriAhorroSaldoDisponible: 'http://localhost:8092/ahorro/v0/ahorro/calculo',
 	},
 	reducers: {
 		updatePrestamos: (state, action) => {
@@ -27,11 +27,12 @@ export const sgahSlicePrestamos = createSlice({
 
 		updateSaldoUtilizado: (state, action) => {
 			state.saldoUtilizado = formatCurrency(action.payload);
-        },
-        
-        updatePrestamo: (state, action) => {
-            state.prestamo = action.payload;
-        }
+		},
+
+		updatePrestamo: (state, action) => {
+			state.prestamo = action.payload;
+			state.prestamo.newMontoPagado = '';
+		},
 	},
 });
 

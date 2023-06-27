@@ -2,9 +2,21 @@ import { useGastos } from '../../hooks';
 import { TableSgah, FormGastos } from '../components';
 
 export const SgahGastosPage = () => {
-	const { filtro, categoriaGastos, tipoMovimiento, gastos, montos, cabecerasTable, properties } =
-        useGastos();
-    
+	const {
+		filtro,
+		categoriaGastos,
+		tipoMovimiento,
+		gastos,
+		montos,
+		cabecerasTable,
+		properties,
+		handleOpenForm,
+		hideCategoriaClass,
+		hideTipoMovimientoClass,
+		hideFechaClass,
+		handleChangeFilter,
+	} = useGastos();
+
 	const { disponible, gastado } = montos;
 
 	return (
@@ -14,7 +26,7 @@ export const SgahGastosPage = () => {
 					<h1>Detalle Gastos</h1>
 
 					<div className="contenedor__filtro">
-						<select name="filtro" id="filtro">
+						<select onChange={handleChangeFilter} name="filtro" id="filtro">
 							<option value="">Elegir una opción</option>
 							{filtro.map((opcion) => (
 								<option key={opcion} value={opcion}>
@@ -23,7 +35,7 @@ export const SgahGastosPage = () => {
 							))}
 						</select>
 
-						<select id="categoria" className="display--none">
+						<select className={hideCategoriaClass}>
 							<option value="">Seleccionar tipo de gasto</option>
 							{categoriaGastos.map(({ cdGasto, nbGasto }) => (
 								<option
@@ -35,7 +47,7 @@ export const SgahGastosPage = () => {
 							))}
 						</select>
 
-						<select id="tipo" className="display--none">
+						<select className={hideTipoMovimientoClass}>
 							<option value="">Elegir una opción</option>
 							{tipoMovimiento.map((item) => (
 								<option key={item} value={item}>
@@ -44,8 +56,8 @@ export const SgahGastosPage = () => {
 							))}
 						</select>
 
-						<input type="date" id="fechaInicio" className="display--none" />
-						<input type="date" id="fechaFin" className="display--none" />
+						<input type="date" className={hideFechaClass} />
+						<input type="date" className={hideFechaClass} />
 					</div>
 
 					<div className="contenedor__montos">
@@ -59,7 +71,9 @@ export const SgahGastosPage = () => {
 					</div>
 
 					<div className="contenedor__boton">
-						<button id="btnAgregarGasto">Agregar Gasto</button>
+						<button onClick={handleOpenForm} id="btnAgregarGasto">
+							Agregar Gasto
+						</button>
 					</div>
 
 					<TableSgah

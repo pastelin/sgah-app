@@ -1,5 +1,7 @@
 export const actualizarPrestamo = async (formData, uri) => {
-	console.log('actualizarPrestamo');
+    console.log('actualizarPrestamo');
+    console.log(formData);
+    console.log(uri);
 	const resp = await fetch(uri, {
 		method: 'POST',
 		body: JSON.stringify(formData),

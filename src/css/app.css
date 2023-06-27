@@ -659,7 +659,7 @@ img {
   .contenedor__table table {
     max-width: 93rem;
     margin: 3rem auto;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 }
 .contenedor__table table thead th,
@@ -675,6 +675,10 @@ img {
 .contenedor__table table tbody tr:hover {
   background-color: #c1f1fc;
   opacity: 0.7;
+}
+.contenedor__table table thead th,
+.contenedor__table table tbody th {
+  font-size: 1.2rem;
 }
 
 /* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
@@ -705,7 +709,7 @@ img {
   border-radius: 10px;
 }
 
-.btnPrestamos {
+.btn-prestamos {
   font-size: 1.3rem;
   padding: 0.5rem;
   background-color: #34bf49;

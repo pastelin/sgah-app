@@ -2,11 +2,13 @@ import { obtenerDetalle, agregarGasto, obtenerData } from '../../backend';
 import { actualizarPrestamo } from '../../backend/providersPrestamos';
 import { updateResumen } from './sgahSlice';
 import { updateCategorias, updateGastos, updateMontos } from './sgahSliceGasto';
-import { updatePrestamos, updateSaldoUtilizado } from './sgahSlicePrestamo';
+import { updatePrestamo, updatePrestamos, updateSaldoUtilizado } from './sgahSlicePrestamo';
 
 export const startDetalle = () => {
 	console.log('detalle');
-	return async (dispatch, getState) => {
+    return async (dispatch, getState) => {
+        
+        const {data} = await sgahApi
 		const detalle = await obtenerDetalle();
 
 		dispatch(updateResumen(detalle));
@@ -77,6 +79,32 @@ export const startAgregarPrestamo = (
 ) => {
 	return async (dispatch) => {
 		await actualizarPrestamo(formData, uriAgregaPrestamo);
+
+		dispatch(startSaldoUtilizado(uriSaldoUtilizado));
+
+		dispatch(startDetallePrestamos(uriPrestamosActivos));
+
+		dispatch(startDetalle());
+	};
+};
+
+export const startObtenerPrestamo = (uriGetPrestamo, uriMontos) => {
+	return async (dispatch) => {
+		const data = await obtenerData(uriGetPrestamo);
+
+		dispatch(updatePrestamo(data));
+		dispatch(startMontos(uriMontos));
+	};
+};
+
+export const startUpdatePrestamo = (
+	formData,
+	uriPrestamosActivos,
+	uriSaldoUtilizado,
+	uriUpdatePrestamo
+) => {
+	return async (dispatch) => {
+		await actualizarPrestamo(formData, uriUpdatePrestamo);
 
 		dispatch(startSaldoUtilizado(uriSaldoUtilizado));
 

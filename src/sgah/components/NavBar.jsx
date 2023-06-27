@@ -1,25 +1,35 @@
-import { NavBarItem } from './NavBarItem';
 import { useNavBar } from '../../hooks/useNavBar';
 
 export const NavBar = () => {
-	const { menuList } = useNavBar();
+	const {
+		menuList,
+		hightClass,
+		hideIconClass,
+		activeMenuClass,
+		activeIconCloseMenuClass,
+		handleOpenNavbar,
+		handleCloseNavbar,
+		handleUpdateMenuSelected,
+	} = useNavBar();
 
 	return (
-		<nav id="navSgah" className="sgah__nav">
-			<div id="navIcon" className="sgah__nav-icon">
+		<nav className={`sgah__nav ${hightClass}`}>
+			<div onClick={handleOpenNavbar} className={`sgah__nav-icon ${hideIconClass}`}>
 				<h1 className="logo-icon">SGAH</h1>
 				<i className="fa-solid fa-bars"></i>
 			</div>
-			<div id="navMenu" className="sgah__nav--tablet">
+			<div className={`sgah__nav--tablet ${activeMenuClass}`}>
 				<h1 className="logo">SGAH</h1>
 				<h3 className="usuario">
 					<i className="fa-regular fa-user"></i>
 					&nbsp; Juan Pastelin
 				</h3>
 
-				<div id="menu">
+				<div onClick={handleUpdateMenuSelected}>
 					{menuList.map((item) => (
-						<NavBarItem key={item} menuItem={item} />
+						<div key={item} className="nav__item">
+							<a href="#">{item}</a>
+						</div>
 					))}
 				</div>
 
@@ -29,8 +39,8 @@ export const NavBar = () => {
 					<span>Salir</span>
 				</button>
 			</div>
-			<div id="closeMenu" className="icon__close">
-				<button>
+			<div className={`icon__close ${activeIconCloseMenuClass}`}>
+				<button onClick={handleCloseNavbar}>
 					<i className="fa-regular fa-circle-xmark"></i>
 				</button>
 			</div>

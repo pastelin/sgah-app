@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
 import { startAgregarGasto } from '../../store/sgah/thunks';
+import { onCloseFormGasto } from '../../store';
 
 const formData = {
 	monto: '',
@@ -11,26 +12,27 @@ const formData = {
 };
 
 export const FormGastos = () => {
+	// A hook to access the redux dispatch function.
+	const dispatch = useDispatch();
+
 	// A hook to access the redux store's state. This hook takes a selector function as an argument.
 	// The selector is called with the store state.
 	const { categoriaGastos, montos, uriGastoMesActual, uriMontos, uriAgregaGasto } = useSelector(
 		(state) => state.sgahGasto
 	);
 
-	// A hook to access the redux dispatch function.
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		const closeFormElement = document.querySelector('#closeForm');
-		const formularioGastoElement = document.querySelector('#formularioGasto');
-
-		closeFormElement.addEventListener('click', () => {
-			formularioGastoElement.classList.add('display__none');
-		});
-	}, []);
+	const { isFormGastoOpen } = useSelector((state) => state.ui);
 
 	const { monto, cdGastoRecurrente, descripcion, cdTipoMovimiento, onInputChange, onResetForm } =
 		useForm(formData);
+
+	const hideFormClass = useMemo(() => {
+		return isFormGastoOpen ? '' : 'display__none';
+	}, [isFormGastoOpen]);
+
+	const handleCloseForm = () => {
+		dispatch(onCloseFormGasto());
+	};
 
 	const onSubmit = (event) => {
 		event.preventDefault();
@@ -44,16 +46,15 @@ export const FormGastos = () => {
 			)
 		);
 
-		const formularioGastoElement = document.querySelector('#formularioGasto');
-		formularioGastoElement.classList.add('display__none');
+		handleCloseForm();
 		onResetForm();
 	};
 
 	return (
-		<section id="formularioGasto" className="formulario display__none">
+		<section className={`formulario ${hideFormClass}`}>
 			<div className="contenedor__formulario">
-				<div id="closeMenu" className="icon__close">
-					<button id="closeForm">
+				<div className="icon__close">
+					<button onClick={handleCloseForm} id="closeForm">
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>
 				</div>

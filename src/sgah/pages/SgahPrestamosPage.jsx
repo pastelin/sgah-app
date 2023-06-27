@@ -1,15 +1,11 @@
 import { usePrestamos } from '../../hooks/usePrestamos';
-import { FormPrestamos } from '../components/FormPrestamos';
-import { TableSgah } from '../components/TableSgah';
+import { FormNewPrestamos } from '../components/FormNewPrestamos';
+import { FormUpdatePrestamos } from '../components/FormUpdatePrestamo';
+import { TableSgahPrestamo } from '../components/TableSgahPrestamo';
 
 export const SgahPrestamosPage = () => {
-	const {
-		filtro,
-		cabecerasTable,
-		properties,
-		prestamos,
-		saldoUtilizado,
-	} = usePrestamos();
+
+    const { filtro, saldoUtilizado, handleOpenFormNewPrestamo } = usePrestamos();
     
 	return (
 		<>
@@ -26,7 +22,6 @@ export const SgahPrestamosPage = () => {
 								</option>
 							))}
 						</select>
-
 					</div>
 
 					<div className="contenedor__montos">
@@ -36,18 +31,16 @@ export const SgahPrestamosPage = () => {
 					</div>
 
 					<div className="contenedor__boton">
-						<button id="btnAgregarPrestamo">Agregar Prestamo</button>
+						<button onClick={handleOpenFormNewPrestamo}>Agregar Prestamo</button>
 					</div>
 
-					<TableSgah
-						objects={prestamos}
-						cabeceras={cabecerasTable}
-						properties={properties}
-					/>
+					<TableSgahPrestamo />
 				</div>
 			</aside>
 
-			<FormPrestamos />
+			<FormNewPrestamos />
+
+			<FormUpdatePrestamos />
 		</>
 	);
 };

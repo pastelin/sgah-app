@@ -4,7 +4,7 @@ import { SgahGastosPage,SgahResumenPage, SgahPrestamosPage } from './';
 
 export const SgahInicioPage = () => {
 	// A hook to access the redux store's state.
-    const { menuSelected } = useSelector((state) => state.sgah);
+    const { menuSelected } = useSelector((state) => state.ui);
     
     const showComponent = (menuSelected) => {
 		switch (menuSelected) {
