@@ -13,9 +13,7 @@ export const usePrestamoFormUpdate = () => {
 
 	const { montos } = useSelector((state) => state.sgahGasto);
 
-	const { prestamo, uriPrestamosActivos, uriSaldoUtilizado, uriActualizaPrestamo } = useSelector(
-		(state) => state.sgahPrestamo
-	);
+	const { prestamo } = useSelector((state) => state.sgahPrestamo);
 
 	const { isFormUpdatePrestamoOpen } = useSelector((state) => state.ui);
 
@@ -43,10 +41,7 @@ export const usePrestamoFormUpdate = () => {
 
 		dispatch(
 			startUpdatePrestamo(
-				newPrestamo({ folio, montoPrestado, descripcion, fechaCreacion, newMontoPagado }),
-				uriPrestamosActivos,
-				uriSaldoUtilizado,
-				uriActualizaPrestamo
+				newPrestamo({ folio, montoPrestado, descripcion, fechaCreacion, newMontoPagado })
 			)
 		);
 

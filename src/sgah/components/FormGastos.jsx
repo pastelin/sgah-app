@@ -17,7 +17,7 @@ export const FormGastos = () => {
 
 	// A hook to access the redux store's state. This hook takes a selector function as an argument.
 	// The selector is called with the store state.
-	const { categoriaGastos, montos, uriGastoMesActual, uriMontos, uriAgregaGasto } = useSelector(
+	const { categoriaGastos, montos } = useSelector(
 		(state) => state.sgahGasto
 	);
 
@@ -40,9 +40,6 @@ export const FormGastos = () => {
 		dispatch(
 			startAgregarGasto(
 				{ monto, cdGastoRecurrente, descripcion, cdTipoMovimiento },
-				uriGastoMesActual,
-				uriMontos,
-				uriAgregaGasto
 			)
 		);
 

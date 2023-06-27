@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 // Permite crear configuracion estandar para no repetir codigo
-export const pokemonApi = axios.create({
+export const sgahApi = axios.create({
 	baseURL: 'http://localhost:8092/',
 });

@@ -8,12 +8,6 @@ export const sgahSlicePrestamos = createSlice({
 		prestamo: {},
 		prestamos: [{}],
 		saldoUtilizado: '$0.0',
-		uriActualizaPrestamo: 'http://localhost:8092/prestamo/v0/prestamo/operacionActualiza',
-		uriAgregaPrestamo: 'http://localhost:8092/prestamo/v0/prestamo/operacionAgregar',
-		uriPrestamosActivos: 'http://localhost:8092/prestamo/v0/prestamo/detallePrestamosActivos',
-		uriSaldoUtilizado: 'http://localhost:8092/prestamo/v0/prestamo/saldoUtilizado',
-		uriObtenerPrestamo: 'http://localhost:8092/prestamo/v0/prestamo/detallePrestamo/',
-		uriAhorroSaldoDisponible: 'http://localhost:8092/ahorro/v0/ahorro/calculo',
 	},
 	reducers: {
 		updatePrestamos: (state, action) => {

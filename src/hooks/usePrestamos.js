@@ -8,9 +8,6 @@ export const usePrestamos = () => {
 	// This hook takes a selector function as an argument.The selector is called with the store state.
 	const {
 		filtro,
-		uriPrestamosActivos,
-		uriSaldoUtilizado,
-		uriObtenerPrestamo,
 		prestamos,
 		saldoUtilizado,
 	} = useSelector((state) => state.sgahPrestamo);
@@ -22,15 +19,14 @@ export const usePrestamos = () => {
 	};
 
 	useMemo(() => {
-		dispatch(startSaldoUtilizado(uriSaldoUtilizado));
-		dispatch(startDetallePrestamos(uriPrestamosActivos));
+		dispatch(startSaldoUtilizado());
+		dispatch(startDetallePrestamos());
 	}, []);
 
 	return {
 		filtro,
 		prestamos,
 		saldoUtilizado,
-		uriObtenerPrestamo,
 
 		//* Metodos
 		handleOpenFormNewPrestamo,

@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { usePrestamos } from '../../hooks/usePrestamos';
 import { onOpenFormUpdatePrestamo, startObtenerPrestamo } from '../../store';
 
@@ -6,12 +6,9 @@ export const TableSgahPrestamo = () => {
 	const { prestamos } = usePrestamos();
 	const dispatch = useDispatch();
 
-	const { uriObtenerPrestamo } = useSelector((state) => state.sgahPrestamo);
-	const { uriMontos } = useSelector((state) => state.sgahGasto);
-
 	const handleOpenFormUpdatePrestamo = (folio) => {
 		if (!!folio) {
-			dispatch(startObtenerPrestamo(uriObtenerPrestamo + folio, uriMontos));
+			dispatch(startObtenerPrestamo(folio));
 			dispatch(onOpenFormUpdatePrestamo());
 		}
 	};

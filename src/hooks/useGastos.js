@@ -14,17 +14,14 @@ export const useGastos = () => {
 		montos,
 		cabecerasTable,
 		properties,
-		uriGastoMesActual,
-		uriCategoria,
-		uriMontos,
 	} = useSelector((state) => state.sgahGasto);
 
 	const dispatch = useDispatch();
 
 	useMemo(() => {
-		dispatch(startGastoMesActual(uriGastoMesActual));
-		dispatch(startCategorias(uriCategoria));
-		dispatch(startMontos(uriMontos));
+		dispatch(startGastoMesActual());
+		dispatch(startCategorias());
+		dispatch(startMontos());
 	}, []);
 
     const { optionSelectedFilterGasto } = useSelector((state) => state.ui);

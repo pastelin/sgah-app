@@ -18,9 +18,6 @@ export const FormNewPrestamos = () => {
 
 	// A hook to access the redux store's state. This hook takes a selector function as an argument.
 	// The selector is called with the store state.
-	const { uriPrestamosActivos, uriSaldoUtilizado, uriAgregaPrestamo } = useSelector(
-		(state) => state.sgahPrestamo
-	);
 	const { resumen } = useSelector((state) => state.sgah);
 	const { isFormNewPrestamoOpen } = useSelector((state) => state.ui);
 
@@ -42,10 +39,7 @@ export const FormNewPrestamos = () => {
 
 		dispatch(
 			startAgregarPrestamo(
-				{ montoPrestado, descripcion },
-				uriPrestamosActivos,
-				uriSaldoUtilizado,
-				uriAgregaPrestamo
+				{ montoPrestado, descripcion }
 			)
 		);
 

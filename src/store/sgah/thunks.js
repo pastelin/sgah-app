@@ -1,114 +1,99 @@
-import { obtenerDetalle, agregarGasto, obtenerData } from '../../backend';
-import { actualizarPrestamo } from '../../backend/providersPrestamos';
 import { updateResumen } from './sgahSlice';
 import { updateCategorias, updateGastos, updateMontos } from './sgahSliceGasto';
 import { updatePrestamo, updatePrestamos, updateSaldoUtilizado } from './sgahSlicePrestamo';
+import { sgahApi } from '../../backend';
 
 export const startDetalle = () => {
 	console.log('detalle');
-    return async (dispatch, getState) => {
-        
-        const {data} = await sgahApi
-		const detalle = await obtenerDetalle();
+	return async (dispatch, getState) => {
+		const { data } = await sgahApi.get('resumen/v0/resumen/detalle');
 
-		dispatch(updateResumen(detalle));
+		dispatch(updateResumen(data));
 	};
 };
 
-export const startCategorias = (uri) => {
+export const startCategorias = () => {
 	console.log('categoria');
 	return async (dispatch, getState) => {
-		const data = await obtenerData(uri);
+		const { data } = await sgahApi.get('gasto/v0/gasto/categoria');
 
 		dispatch(updateCategorias(data));
 	};
 };
 
-export const startGastoMesActual = (uri) => {
+export const startGastoMesActual = () => {
 	console.log('startGastoMesActual');
 	return async (dispatch, getState) => {
-		const data = await obtenerData(uri);
+		const { data } = await sgahApi.get('gasto/v0/gasto/detalle');
 		dispatch(updateGastos(data));
 	};
 };
 
-export const startMontos = (uri) => {
+export const startMontos = () => {
 	console.log('startMontos');
 
 	return async (dispatch, getState) => {
-		const data = await obtenerData(uri);
+		const { data } = await sgahApi.get('gasto/v0/gasto/montos');
 		dispatch(updateMontos(data));
 	};
 };
 
-export const startAgregarGasto = (formData, uriGastoMesActual, uriMontos, uriAgregaGasto) => {
+export const startAgregarGasto = (formData) => {
 	return async (dispatch) => {
-		await agregarGasto(formData, uriAgregaGasto);
+		await sgahApi.post('gasto/v0/gasto/agrega', formData);
 
-		dispatch(startMontos(uriMontos));
+		dispatch(startMontos());
 
-		dispatch(startGastoMesActual(uriGastoMesActual));
+		dispatch(startGastoMesActual());
 
 		dispatch(startDetalle());
 	};
 };
 
-export const startSaldoUtilizado = (uri) => {
+export const startSaldoUtilizado = () => {
 	return async (dispatch) => {
-		const data = await obtenerData(uri);
+		const { data } = await sgahApi.get('prestamo/v0/prestamo/saldoUtilizado');
 
 		dispatch(updateSaldoUtilizado(data));
 	};
 };
 
-export const startDetallePrestamos = (uri) => {
-
-    return async (dispatch) => {
-        const data = await obtenerData(uri);
-
-        dispatch(updatePrestamos(data));
-
-    }
-}
-
-export const startAgregarPrestamo = (
-	formData,
-	uriPrestamosActivos,
-	uriSaldoUtilizado,
-	uriAgregaPrestamo
-) => {
+export const startDetallePrestamos = () => {
 	return async (dispatch) => {
-		await actualizarPrestamo(formData, uriAgregaPrestamo);
+		const { data } = await sgahApi.get('prestamo/v0/prestamo/detallePrestamosActivos');
 
-		dispatch(startSaldoUtilizado(uriSaldoUtilizado));
+		dispatch(updatePrestamos(data));
+	};
+};
 
-		dispatch(startDetallePrestamos(uriPrestamosActivos));
+export const startAgregarPrestamo = (formData) => {
+	return async (dispatch) => {
+		await sgahApi.post('prestamo/v0/prestamo/operacionAgregar', formData);
+
+		dispatch(startSaldoUtilizado());
+
+		dispatch(startDetallePrestamos());
 
 		dispatch(startDetalle());
 	};
 };
 
-export const startObtenerPrestamo = (uriGetPrestamo, uriMontos) => {
+export const startObtenerPrestamo = (folio) => {
 	return async (dispatch) => {
-		const data = await obtenerData(uriGetPrestamo);
+		const { data } = await sgahApi.get(`prestamo/v0/prestamo/detallePrestamo/${folio}`);
 
 		dispatch(updatePrestamo(data));
-		dispatch(startMontos(uriMontos));
+		dispatch(startMontos());
 	};
 };
 
-export const startUpdatePrestamo = (
-	formData,
-	uriPrestamosActivos,
-	uriSaldoUtilizado,
-	uriUpdatePrestamo
-) => {
-	return async (dispatch) => {
-		await actualizarPrestamo(formData, uriUpdatePrestamo);
+export const startUpdatePrestamo = (formData) => {
+    return async (dispatch) => {
+        await sgahApi.post('prestamo/v0/prestamo/operacionActualiza', formData);
 
-		dispatch(startSaldoUtilizado(uriSaldoUtilizado));
+		dispatch(startSaldoUtilizado());
 
-		dispatch(startDetallePrestamos(uriPrestamosActivos));
+		dispatch(startDetallePrestamos());
 
 		dispatch(startDetalle());
 	};

@@ -7,10 +7,6 @@ export const sgahSliceGasto = createSlice({
 		filtro: ['Listar todo', 'Categoria', 'Tipo Movimiento', 'Fecha', 'Mes actual'],
 		tipoMovimiento: ['Gasto', 'Ingreso'],
 		cabecerasTable: ['Fecha', 'Monto', 'Descripción', 'Categoría', 'Tipo'],
-		uriCategoria: 'http://localhost:8092/gasto/v0/gasto/categoria',
-		uriGastoMesActual: 'http://localhost:8092/gasto/v0/gasto/detalle',
-		uriMontos: 'http://localhost:8092/gasto/v0/gasto/montos',
-        uriAgregaGasto: 'http://localhost:8092/gasto/v0/gasto/agrega',
 		properties: [
 			'fechaCreacion',
 			'monto',
