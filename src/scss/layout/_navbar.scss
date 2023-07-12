@@ -68,11 +68,7 @@
 	.btn-logout {
 		width: 99%;
 		height: 4rem;
-		border-radius: 0.5rem;
-		border: none;
 		color: v.$negroClaro;
-		transition: all 0.25s ease-in;
-		cursor: pointer;
 		margin-top: 5rem;
 		font-size: 1.6rem;
 
@@ -99,16 +95,16 @@
 			}
 		}
 	}
-}
 
-.sgah__nav--active {
-	display: block !important;
-}
+	.sgah__nav--active {
+		display: block;
+	}
 
-.sgah__nav-icon--inactive {
-	display: none !important;
-}
+	.sgah__nav-icon--inactive {
+		display: none;
+	}
 
-.icon__close--active {
-	display: block !important;
+	.icon__close--active {
+		display: block;
+	}
 }

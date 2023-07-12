@@ -378,6 +378,33 @@ img {
   height: 100vh;
 }
 
+aside h2 {
+  font-size: 2.4rem;
+  text-align: center;
+  opacity: 0.7;
+  margin-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  aside h2 {
+    font-size: 3.6rem;
+  }
+}
+
+.button {
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease-in;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+hr {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+}
+
 .sgah__nav {
   background-color: #000000;
   color: #FFFFFF;
@@ -441,11 +468,7 @@ img {
 .sgah__nav .btn-logout {
   width: 99%;
   height: 4rem;
-  border-radius: 0.5rem;
-  border: none;
   color: #262626;
-  transition: all 0.25s ease-in;
-  cursor: pointer;
   margin-top: 5rem;
   font-size: 1.6rem;
 }
@@ -468,17 +491,14 @@ img {
 .sgah__nav .icon__close button:hover {
   color: #ff4c4c;
 }
-
-.sgah__nav--active {
-  display: block !important;
+.sgah__nav .sgah__nav--active {
+  display: block;
 }
-
-.sgah__nav-icon--inactive {
-  display: none !important;
+.sgah__nav .sgah__nav-icon--inactive {
+  display: none;
 }
-
-.icon__close--active {
-  display: block !important;
+.sgah__nav .icon__close--active {
+  display: block;
 }
 
 .resumen {
@@ -528,14 +548,21 @@ img {
   }
 }
 
-.formulario {
-  position: absolute;
+.formulario-overlay {
   background-color: rgba(225, 225, 225, 0.8823529412);
-  width: 100%;
-  height: 100%;
+  position: fixed;
   top: 0rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.formulario {
   min-width: 30rem;
   overflow: hidden;
+}
+.formulario *:not(input, select, textarea) {
+  text-align: center;
 }
 .formulario .icon__close {
   text-align: right;
@@ -551,6 +578,12 @@ img {
   color: #ff4c4c;
 }
 .formulario .contenedor__formulario {
+  max-width: 50rem;
+  min-width: 30rem;
+  padding: 2rem;
+  margin: auto;
+}
+.formulario .contenedor__formulario-overlay {
   width: 90%;
   max-width: 50rem;
   min-width: 30rem;
@@ -560,21 +593,24 @@ img {
   padding: 2rem;
   margin-top: 10rem;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
-  text-align: center;
 }
-.formulario .contenedor__formulario h3 {
+.formulario .contenedor__formulario h3,
+.formulario .contenedor__formulario-overlay h3 {
   font-size: 2.4rem;
   margin: 1rem auto 3rem;
 }
 @media (min-width: 768px) {
-  .formulario .contenedor__formulario h3 {
+  .formulario .contenedor__formulario h3,
+  .formulario .contenedor__formulario-overlay h3 {
     font-size: 3rem;
   }
 }
-.formulario .contenedor__formulario p {
+.formulario .contenedor__formulario p,
+.formulario .contenedor__formulario-overlay p {
   color: #ff4c4c;
 }
-.formulario .contenedor__formulario span {
+.formulario .contenedor__formulario span,
+.formulario .contenedor__formulario-overlay span {
   letter-spacing: 0.1rem;
 }
 .formulario form {
@@ -586,11 +622,8 @@ img {
 .formulario form .contenedor__btn button {
   width: 100%;
   padding: 0.7rem 1rem;
-  border-radius: 0.5rem;
   background-color: #0099e5;
   color: #FFFFFF;
-  border: none;
-  transition: all 0.3s ease-in;
 }
 .formulario form .contenedor__btn button:hover {
   opacity: 0.8;
@@ -602,6 +635,19 @@ img {
   align-items: center;
   gap: 2rem;
 }
+.formulario .form__group * {
+  font-size: 1.4rem;
+}
+@media (min-width: 768px) {
+  .formulario .form__group * {
+    font-size: 1.6rem;
+  }
+}
+.formulario .form__group *:not(label) {
+  border-radius: 0.5rem;
+  border: 2px solid #6a6969;
+  outline: none;
+}
 .formulario .form__group input,
 .formulario .form__group textarea {
   width: 70%;
@@ -611,32 +657,11 @@ img {
   width: 100%;
 }
 .formulario .form__group label {
-  font-size: 1.4rem;
   width: 25%;
-}
-@media (min-width: 768px) {
-  .formulario .form__group label {
-    font-size: 1.6rem;
-  }
 }
 .formulario .form__group input,
 .formulario .form__group select {
   height: 3.2rem;
-}
-.formulario .form__group input,
-.formulario .form__group select,
-.formulario .form__group textarea {
-  border-radius: 0.5rem;
-  border: 2px solid #6a6969;
-  font-size: 1.4rem;
-  outline: none;
-}
-@media (min-width: 768px) {
-  .formulario .form__group input,
-  .formulario .form__group select,
-  .formulario .form__group textarea {
-    font-size: 1.6rem;
-  }
 }
 .formulario .form__group textarea {
   height: 8rem;
@@ -717,19 +742,8 @@ img {
   cursor: pointer;
 }
 
-.detalle__movimientos {
+.contenedor__movimientos {
   width: 100%;
-}
-
-.contenedor__movimientos h1 {
-  font-size: 2.4rem;
-  text-align: center;
-  opacity: 0.7;
-}
-@media (min-width: 768px) {
-  .contenedor__movimientos h1 {
-    font-size: 3.6rem;
-  }
 }
 .contenedor__movimientos select,
 .contenedor__movimientos input {
@@ -737,6 +751,13 @@ img {
   padding: 0.7rem 2rem;
   border-radius: 0.5rem;
   border: 2px solid #6a6969;
+}
+@media (min-width: 768px) {
+  .contenedor__movimientos select,
+  .contenedor__movimientos input {
+    width: 80%;
+    max-width: 26rem;
+  }
 }
 .contenedor__movimientos .contenedor__filtro {
   display: flex;
@@ -747,41 +768,9 @@ img {
   flex-wrap: wrap;
 }
 @media (min-width: 768px) {
-  .contenedor__movimientos .contenedor__filtro select,
-  .contenedor__movimientos .contenedor__filtro input {
-    width: 80%;
-    max-width: 26rem;
-  }
-}
-@media (min-width: 768px) {
   .contenedor__movimientos .contenedor__filtro {
     flex-direction: row;
     justify-content: space-around;
-  }
-}
-.contenedor__movimientos .contenedor__montos {
-  text-align: right;
-}
-@media (min-width: 768px) {
-  .contenedor__movimientos .contenedor__montos {
-    display: flex;
-    justify-content: space-around;
-  }
-}
-.contenedor__movimientos .contenedor__montos h3 {
-  font-size: 1.6rem;
-  font-weight: 500;
-  margin: 3rem;
-  opacity: 0.8;
-}
-.contenedor__movimientos .contenedor__montos h3 span {
-  letter-spacing: 0.2rem;
-  color: #ff4c4c;
-}
-@media (min-width: 992px) {
-  .contenedor__movimientos .contenedor__montos h3 {
-    font-size: 2rem;
-    margin: 4rem 3rem 3rem;
   }
 }
 .contenedor__movimientos .contenedor__boton {
@@ -791,11 +780,8 @@ img {
 .contenedor__movimientos .contenedor__boton button {
   width: 90%;
   padding: 1rem;
-  border-radius: 0.5rem;
-  border: none;
   background-color: #0099e5;
   color: #FFFFFF;
-  transition: all 0.3s ease-in;
 }
 @media (min-width: 768px) {
   .contenedor__movimientos .contenedor__boton button {
@@ -806,6 +792,84 @@ img {
   opacity: 0.8;
 }
 
+.contenedor__montos {
+  text-align: right;
+}
+@media (min-width: 768px) {
+  .contenedor__montos {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+.contenedor__montos h3,
+.contenedor__montos p {
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin: 3rem;
+  opacity: 0.8;
+}
+.contenedor__montos h3 span,
+.contenedor__montos p span {
+  letter-spacing: 0.2rem;
+  color: #ff4c4c;
+}
+@media (min-width: 992px) {
+  .contenedor__montos h3,
+  .contenedor__montos p {
+    font-size: 2rem;
+    margin: 4rem 3rem 3rem;
+  }
+}
+
 .display--none {
   display: none;
+}
+
+.contenedor__ingresos {
+  margin: 1rem;
+}
+
+.group__ingresos {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.group__input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.group__input label {
+  font-size: 1.4rem;
+}
+@media (min-width: 768px) {
+  .group__input label {
+    font-size: 1.6rem;
+  }
+}
+.group__input input {
+  width: 20rem;
+  border-radius: 0.5rem;
+  border: 2px solid #6a6969;
+  font-size: 1.4rem;
+  outline: none;
+  padding: 0.3rem 0.2rem;
+}
+@media (min-width: 768px) {
+  .group__input input {
+    font-size: 1.6rem;
+  }
+}
+
+.btn-ingreso-actualiza {
+  font-size: 1.4rem;
+  height: 3.5rem;
+  background-color: #0099e5;
+  color: #FFFFFF;
+}
+.btn-ingreso-actualiza:hover {
+  opacity: 0.8;
 }

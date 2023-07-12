@@ -1,26 +1,19 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
-.detalle__movimientos {
-	width: 100%;
-}
-
 .contenedor__movimientos {
-	h1 {
-		font-size: 2.4rem;
-		text-align: center;
-		opacity: 0.7;
-		@include m.tablet {
-			font-size: 3.6rem;
-		}
-	}
-
+	width: 100%;
 	select,
 	input {
 		font-size: 1.6rem;
 		padding: 0.7rem 2rem;
 		border-radius: 0.5rem;
 		border: 2px solid #6a6969;
+
+		@include m.tablet {
+			width: 80%;
+			max-width: 26rem;
+		}
 	}
 
 	.contenedor__filtro {
@@ -31,42 +24,9 @@
 		margin: 1rem auto;
 		flex-wrap: wrap;
 
-		select,
-		input {
-			@include m.tablet {
-				width: 80%;
-				max-width: 26rem;
-			}
-		}
-
 		@include m.tablet {
 			flex-direction: row;
 			justify-content: space-around;
-		}
-	}
-
-	.contenedor__montos {
-		text-align: right;
-
-		@include m.tablet {
-			display: flex;
-			justify-content: space-around;
-		}
-
-		h3 {
-			font-size: 1.6rem;
-			font-weight: 500;
-			margin: 3rem;
-			opacity: 0.8;
-			span {
-				letter-spacing: 0.2rem;
-				color: v.$rojo;
-			}
-
-			@include m.desktop {
-				font-size: 2rem;
-				margin: 4rem 3rem 3rem;
-			}
 		}
 	}
 
@@ -77,11 +37,8 @@
 		button {
 			width: 90%;
 			padding: 1rem;
-			border-radius: 0.5rem;
-			border: none;
 			background-color: v.$azul;
 			color: v.$blanco;
-			transition: all 0.3s ease-in;
 
 			@include m.tablet {
 				width: 34rem;
@@ -92,8 +49,32 @@
 			}
 		}
 	}
+}
 
-	
+.contenedor__montos {
+	text-align: right;
+
+	@include m.tablet {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	h3,
+	p {
+		font-size: 1.6rem;
+		font-weight: 500;
+		margin: 3rem;
+		opacity: 0.8;
+		span {
+			letter-spacing: 0.2rem;
+			color: v.$rojo;
+		}
+
+		@include m.desktop {
+			font-size: 2rem;
+			margin: 4rem 3rem 3rem;
+		}
+	}
 }
 
 .display--none {

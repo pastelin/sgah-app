@@ -48,8 +48,8 @@ export const FormNewPrestamos = () => {
 	};
 
 	return (
-		<section className={`formulario ${hideFormNewPrestamoClass}`}>
-			<div className="contenedor__formulario">
+		<section className={`formulario formulario-overlay ${hideFormNewPrestamoClass}`}>
+			<div className="contenedor__formulario-overlay">
 				<div id="closeMenu" className="icon__close">
 					<button onClick={handleCloseForm}>
 						<i className="fa-regular fa-circle-xmark"></i>
@@ -85,7 +85,9 @@ export const FormNewPrestamos = () => {
 					</div>
 
 					<div className="contenedor__btn">
-						<button type="submit">Guardar Prestamo</button>
+						<button type="submit" className="button">
+							Guardar Prestamo
+						</button>
 					</div>
 				</form>
 			</div>

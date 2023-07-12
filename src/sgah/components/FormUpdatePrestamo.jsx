@@ -19,9 +19,9 @@ export const FormUpdatePrestamos = () => {
 	return (
 		<section
 			id="formularioUpdatePrestamo"
-			className={`formulario ${hideFormUpdatePrestamoClass}`}
+			className={`formulario formulario-overlay ${hideFormUpdatePrestamoClass}`}
 		>
-			<div className="contenedor__formulario">
+			<div className="contenedor__formulario-overlay">
 				<div id="closeMenu" className="icon__close">
 					<button onClick={handleCloseUpdateFormPrestamo}>
 						<i className="fa-regular fa-circle-xmark"></i>
@@ -59,7 +59,9 @@ export const FormUpdatePrestamos = () => {
 					</div>
 
 					<div className="contenedor__btn">
-						<button type="submit">Actualizar Prestamo</button>
+						<button type="submit" className="button">
+							Actualizar Prestamo
+						</button>
 					</div>
 				</form>
 			</div>

@@ -33,7 +33,7 @@ export const NavBar = () => {
 					))}
 				</div>
 
-				<button className="btn-logout">
+				<button className="button btn-logout">
 					<i className="fa-solid fa-right-from-bracket"></i>
 					&nbsp;
 					<span>Salir</span>

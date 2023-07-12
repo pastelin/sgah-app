@@ -48,8 +48,8 @@ export const FormGastos = () => {
 	};
 
 	return (
-		<section className={`formulario ${hideFormClass}`}>
-			<div className="contenedor__formulario">
+		<section className={`formulario formulario-overlay ${hideFormClass}`}>
+			<div className="contenedor__formulario-overlay">
 				<div className="icon__close">
 					<button onClick={handleCloseForm} id="closeForm">
 						<i className="fa-regular fa-circle-xmark"></i>
@@ -105,7 +105,9 @@ export const FormGastos = () => {
 					</div>
 
 					<div className="contenedor__btn">
-						<button type="submit">Guardar Gasto</button>
+						<button type="submit" className="button">
+							Guardar Gasto
+						</button>
 					</div>
 				</form>
 			</div>

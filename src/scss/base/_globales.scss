@@ -3,7 +3,7 @@
 
 html {
 	font-size: 62.5%;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 }
 
 *,
@@ -32,8 +32,8 @@ h1,
 h2,
 h3 {
 	margin: 2rem 0 5rem 0;
-    font-weight: 500;
-    opacity: .8;
+	font-weight: 500;
+	opacity: 0.8;
 }
 
 h1 {
@@ -56,17 +56,42 @@ img {
 }
 
 .contenedor {
-    min-width: v.$minWidth;
-    @include m.tablet {
-        display: flex;
-        // gap: 2rem;
-    }
+	min-width: v.$minWidth;
+	@include m.tablet {
+		display: flex;
+		// gap: 2rem;
+	}
 }
 
 .display__none {
-    display: none !important;
+	display: none !important;
 }
 
 .h-100vh {
-    height: 100vh;
+	height: 100vh;
+}
+
+aside h2 {
+	font-size: 2.4rem;
+	text-align: center;
+	opacity: 0.7;
+	margin-bottom: 4rem;
+	@include m.tablet {
+		font-size: 3.6rem;
+	}
+}
+
+.button {
+	border-radius: 0.5rem;
+	border: none;
+	cursor: pointer;
+    transition: all 0.25s ease-in;
+}
+
+.m-0 {
+    margin: 0;
+}
+
+hr {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
 }

@@ -45,7 +45,6 @@ export const useGastos = () => {
     
     const handleOpenForm = () => {
         dispatch(onOpenFormGasto());
-        console.log('open');
     }
 
     return {

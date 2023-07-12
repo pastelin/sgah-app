@@ -1,14 +1,22 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
-.formulario {
-	position: absolute;
+.formulario-overlay {
 	background-color: v.$gris;
-	width: 100%;
-	height: 100%;
+	position: fixed;
 	top: 0rem;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.formulario {
 	min-width: v.$minWidth;
 	overflow: hidden;
+
+	*:not(input, select, textarea) {
+		text-align: center;
+	}
 
 	.icon__close {
 		text-align: right;
@@ -27,6 +35,13 @@
 	}
 
 	.contenedor__formulario {
+		max-width: 50rem;
+		min-width: v.$minWidth;
+		padding: 2rem;
+		margin: auto;
+	}
+
+	.contenedor__formulario-overlay {
 		width: 90%;
 		max-width: 50rem;
 		min-width: v.$minWidth;
@@ -36,15 +51,17 @@
 		padding: 2rem;
 		margin-top: 10rem;
 		box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
-		text-align: center;
+	}
 
+	.contenedor__formulario,
+	.contenedor__formulario-overlay {
 		h3 {
 			font-size: 2.4rem;
 			margin: 1rem auto 3rem;
 
-            @include m.tablet {
-                font-size: 3rem;
-            }
+			@include m.tablet {
+				font-size: 3rem;
+			}
 		}
 
 		p {
@@ -65,11 +82,8 @@
 			button {
 				width: 100%;
 				padding: 0.7rem 1rem;
-				border-radius: 0.5rem;
 				background-color: v.$azul;
 				color: v.$blanco;
-				border: none;
-				transition: all 0.3s ease-in;
 
 				&:hover {
 					opacity: 0.8;
@@ -85,6 +99,20 @@
 		align-items: center;
 		gap: 2rem;
 
+		* {
+			font-size: 1.4rem;
+
+			@include m.tablet {
+				font-size: 1.6rem;
+			}
+		}
+
+		*:not(label) {
+			border-radius: 0.5rem;
+			border: 2px solid #6a6969;
+			outline: none;
+		}
+
 		input,
 		textarea {
 			width: 70%;
@@ -96,30 +124,12 @@
 		}
 
 		label {
-			font-size: 1.4rem;
 			width: 25%;
-
-            @include m.tablet {
-                font-size: 1.6rem;
-            }
 		}
 
 		input,
 		select {
 			height: 3.2rem;
-		}
-
-		input,
-		select,
-		textarea {
-			border-radius: 0.5rem;
-			border: 2px solid #6a6969;
-			font-size: 1.4rem;
-			outline: none;
-
-            @include m.tablet {
-                font-size: 1.6rem;
-            }
 		}
 
 		textarea {

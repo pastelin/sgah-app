@@ -1,0 +1,55 @@
+@use './base/mixins' as m;
+@use './base/variables' as v;
+
+.contenedor__ingresos {
+	margin: 1rem;
+}
+
+.group__ingresos {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.group__input {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+    
+	label {
+        font-size: 1.4rem;
+        
+		@include m.tablet {
+            font-size: 1.6rem;
+		}
+	}
+    
+	input {
+        width: 20rem;
+		border-radius: 0.5rem;
+		border: 2px solid #6a6969;
+		font-size: 1.4rem;
+		outline: none;
+        padding: .3rem .2rem;
+
+		@include m.tablet {
+			font-size: 1.6rem;
+		}
+	}
+
+   
+}
+
+.btn-ingreso-actualiza {
+    font-size: 1.4rem;
+    height: 3.5rem;
+    background-color: v.$azul;
+    color: v.$blanco;
+
+    &:hover {
+		opacity: 0.8;
+	}
+}

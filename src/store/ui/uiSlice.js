@@ -7,7 +7,10 @@ export const uiSlice = createSlice({
 		isFormGastoOpen: false,
 		isFormNewPrestamoOpen: false,
 		isFormUpdatePrestamoOpen: false,
-		menuSelected: 'Prestamos',
+		isSaldoIngresoDisabled: false,
+		isFormGastosSubmitted: false,
+		isFormAhorroSubmitted: false,
+		menuSelected: 'Ingresos',
 		optionSelectedFilterGasto: '',
 	},
 	reducers: {
@@ -42,6 +45,24 @@ export const uiSlice = createSlice({
 		onUpdateOptionSelectedFilterGasto: (state, { payload }) => {
 			state.optionSelectedFilterGasto = payload;
 		},
+		onDisabledSaldoIngreso: (state) => {
+			state.isSaldoIngresoDisabled = true;
+		},
+		onActiveSaldoIngreso: (state) => {
+			state.isSaldoIngresoDisabled = false;
+		},
+		onDisabledFormGastos: (state) => {
+			state.isFormGastosSubmitted = true;
+		},
+		onActiveFormGastos: (state) => {
+			state.isFormGastosSubmitted = false;
+		},
+		onDisabledFormAhorro: (state) => {
+			state.isFormGastosSubmitted = true;
+		},
+		onActiveFormAhorro: (state) => {
+			state.isFormGastosSubmitted = false;
+		},
 	},
 });
 
@@ -56,4 +77,10 @@ export const {
 	onCloseFormNewPrestamo,
 	onOpenFormUpdatePrestamo,
 	onCloseFormUpdatePrestamo,
+	onDisabledSaldoIngreso,
+	onActiveSaldoIngreso,
+	onDisabledFormGastos,
+	onActiveFormGastos,
+	onDisabledFormAhorro,
+	onActiveFormAhorro,
 } = uiSlice.actions;
