@@ -91,43 +91,43 @@ export const SgahIngresosPage = () => {
 	};
 
 	return (
-		<aside className="ingresos">
-			<div className="contenedor__ingresos">
-				<h2>Ingresos</h2>
+		<aside className="contenedor__ingresos">
+			<h2>Ingresos</h2>
 
-				<div className="group__ingresos">
-					<div className="group__input">
-						<label htmlFor="saldoIngreso">Saldo a distribuir:</label>
-						<input
-							type="number"
-							name="saldoIngreso"
-							id="saldoIngreso"
-							placeholder="0.0"
-							value={saldoIngreso}
-							onChange={onInputChangeIngreso}
-							required
-							disabled={isSaldoIngresoDisabled}
-						/>
-					</div>
-
-					<button
-						onClick={handleActualizarIngreso}
-						className="button btn-ingreso-actualiza"
+			<div className="group__ingresos">
+				<div className="group__input">
+					<label htmlFor="saldoIngreso">Saldo a distribuir:</label>
+					<input
+						type="number"
+						name="saldoIngreso"
+						id="saldoIngreso"
+						placeholder="0.0"
+						value={saldoIngreso}
+						onChange={onInputChangeIngreso}
+						required
 						disabled={isSaldoIngresoDisabled}
-					>
-						Actualizar
-					</button>
-				</div>
-				<div className="contenedor__montos">
-					<p>
-						Saldo disponible: <span>{formatCurrency(saldoIngreso - saldoUsado)}</span>
-					</p>
+					/>
 				</div>
 
-				<hr />
+				<button
+					onClick={handleActualizarIngreso}
+					className="button btn-ingreso-actualiza"
+					disabled={isSaldoIngresoDisabled}
+				>
+					Actualizar
+				</button>
+			</div>
+			<div className="contenedor__monto">
+				<p>
+					Saldo disponible: <span>{formatCurrency(saldoIngreso - saldoUsado)}</span>
+				</p>
+			</div>
 
+			<hr />
+
+			<section className="contenedor__formularios">
 				<section className="formulario">
-					<div className="contenedor__formulario">
+					<div className="contenedor__formulario-ingresos">
 						<h3>Gastos</h3>
 						<form onSubmit={onSubmitGastos}>
 							<div className="form__group">
@@ -168,10 +168,10 @@ export const SgahIngresosPage = () => {
 					</div>
 				</section>
 
-				<hr />
+				{/* <hr /> */}
 
 				<section className="formulario">
-					<div className="contenedor__formulario">
+					<div className="contenedor__formulario-ingresos">
 						<h3>Ahorro</h3>
 						<form onSubmit={onSubmitAhorro}>
 							<div className="form__group">
@@ -211,7 +211,7 @@ export const SgahIngresosPage = () => {
 						</form>
 					</div>
 				</section>
-			</div>
+			</section>
 		</aside>
 	);
 };

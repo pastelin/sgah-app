@@ -34,11 +34,17 @@
 		}
 	}
 
-	.contenedor__formulario {
+	.contenedor__formulario-ingresos {
 		max-width: 50rem;
 		min-width: v.$minWidth;
 		padding: 2rem;
 		margin: auto;
+
+        @include m.desktop {
+            width: 55rem;
+            max-width: 55rem;
+            
+        }
 	}
 
 	.contenedor__formulario-overlay {
@@ -53,7 +59,7 @@
 		box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
 	}
 
-	.contenedor__formulario,
+	.contenedor__formulario-ingresos,
 	.contenedor__formulario-overlay {
 		h3 {
 			font-size: 2.4rem;

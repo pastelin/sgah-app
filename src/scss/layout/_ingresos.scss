@@ -2,7 +2,7 @@
 @use './base/variables' as v;
 
 .contenedor__ingresos {
-	margin: 1rem;
+    width: 100%;
 }
 
 .group__ingresos {
@@ -10,14 +10,29 @@
     gap: 2rem;
     align-items: center;
     justify-content: center;
+    
+    @include m.tablet {
+        gap: 0;
+        justify-content: space-evenly;
+    }
+
+    @include m.desktop {
+        gap: 5rem;
+        justify-content: center;
+    }
 
 }
-
+ 
 .group__input {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 1rem;
+
+    @include m.tablet {
+        gap: 2rem;
+        flex-direction: row;
+    }
     
 	label {
         font-size: 1.4rem;
@@ -52,4 +67,22 @@
     &:hover {
 		opacity: 0.8;
 	}
+}
+
+.contenedor__formularios {
+    @include m.desktopXL {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .formulario {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.35);
+
+        @include m.desktopXL {
+            margin-top: 5rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+        }
+    }
 }

@@ -51,13 +51,9 @@
 	}
 }
 
-.contenedor__montos {
+.contenedor__montos,
+.contenedor__monto {
 	text-align: right;
-
-	@include m.tablet {
-		display: flex;
-		justify-content: space-around;
-	}
 
 	h3,
 	p {
@@ -74,6 +70,13 @@
 			font-size: 2rem;
 			margin: 4rem 3rem 3rem;
 		}
+	}
+}
+
+.contenedor__montos {
+	@include m.tablet {
+		display: flex;
+		justify-content: space-around;
 	}
 }
 
