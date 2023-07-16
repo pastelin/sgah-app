@@ -1,51 +1,51 @@
-import { updatePrestamo, updatePrestamos, updateSaldoUtilizado } from './sgahSlicePrestamo';
+import { onLoadPrestamos, onLoadSaldoUtilizado, onUpdatePrestamo } from './sgahSlicePrestamo';
 import { sgahApi } from '../../backend';
 
 
-export const startSaldoUtilizado = () => {
+export const startLoadingSaldoUtilizado = () => { 
 	return async (dispatch) => {
 		const { data } = await sgahApi.get('prestamo/v0/prestamo/saldoUtilizado');
 
-		dispatch(updateSaldoUtilizado(data));
+		dispatch(onLoadSaldoUtilizado(data));
 	};
 };
 
-export const startDetallePrestamos = () => {
+export const startLoadingPrestamos = () => {
 	return async (dispatch) => {
 		const { data } = await sgahApi.get('prestamo/v0/prestamo/detallePrestamosActivos');
 
-		dispatch(updatePrestamos(data));
+		dispatch(onLoadPrestamos(data));
 	};
 };
 
-export const startAgregarPrestamo = (formData) => {
+export const startSavingPrestamo = (formData) => {
 	return async (dispatch) => {
 		await sgahApi.post('prestamo/v0/prestamo/operacionAgregar', formData);
 
-		dispatch(startSaldoUtilizado());
+		dispatch(startLoadingSaldoUtilizado());
 
-		dispatch(startDetallePrestamos());
+		dispatch(startLoadingPrestamos());
 
 		// dispatch(startDetalle());
 	};
 };
 
-export const startObtenerPrestamo = (folio) => {
+export const startLoadingPrestamo = (folio) => {
 	return async (dispatch) => {
 		const { data } = await sgahApi.get(`prestamo/v0/prestamo/detallePrestamo/${folio}`);
 
-		dispatch(updatePrestamo(data));
+		dispatch(onUpdatePrestamo(data));
 		// dispatch(startMontos());
 	};
 };
 
-export const startUpdatePrestamo = (formData) => {
+export const startUpdatingPrestamo = (formData) => {
     return async (dispatch) => {
         await sgahApi.post('prestamo/v0/prestamo/operacionActualiza', formData);
 
-		dispatch(startSaldoUtilizado());
+		dispatch(startLoadingSaldoUtilizado());
 
-		dispatch(startDetallePrestamos());
+		dispatch(startLoadingPrestamos());
 
 		// dispatch(startDetalle());
 	};

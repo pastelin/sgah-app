@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
 import {
-	startAgregarPrestamo,
+	startSavingPrestamo,
 	onCloseFormNewPrestamo,
 } from '../../store';
 import { useSgahStore } from '../../hooks';
@@ -38,7 +38,7 @@ export const FormNewPrestamos = () => {
 		event.preventDefault();
 
 		dispatch(
-			startAgregarPrestamo(
+			startSavingPrestamo(
 				{ montoPrestado, descripcion }
 			)
 		);

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../useForm';
 import { useMemo } from 'react';
-import { startUpdatePrestamo } from '../../store/sgah/thunks';
+import { startUpdatingPrestamo } from '../../store/sgah/thunks';
 import { onCloseFormUpdatePrestamo } from '../../store';
 
 export const usePrestamoFormUpdate = () => {
@@ -38,7 +38,7 @@ export const usePrestamoFormUpdate = () => {
 		event.preventDefault();
 
 		dispatch(
-			startUpdatePrestamo(
+			startUpdatingPrestamo(
 				newPrestamo({ folio, montoPrestado, descripcion, fechaCreacion, newMontoPagado })
 			)
 		);

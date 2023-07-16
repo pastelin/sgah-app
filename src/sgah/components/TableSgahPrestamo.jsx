@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { usePrestamos } from '../../hooks/usePrestamos';
-import { onOpenFormUpdatePrestamo, startObtenerPrestamo } from '../../store';
+import { onOpenFormUpdatePrestamo, startLoadingPrestamo } from '../../store';
 
 export const TableSgahPrestamo = () => {
 	const { prestamos } = usePrestamos();
@@ -8,7 +8,7 @@ export const TableSgahPrestamo = () => {
 
 	const handleOpenFormUpdatePrestamo = (folio) => {
 		if (!!folio) {
-			dispatch(startObtenerPrestamo(folio));
+			dispatch(startLoadingPrestamo(folio));
 			dispatch(onOpenFormUpdatePrestamo());
 		}
 	};

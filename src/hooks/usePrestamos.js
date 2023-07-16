@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { startDetallePrestamos, startSaldoUtilizado } from '../store/sgah/thunks';
+import { startLoadingPrestamos, startLoadingSaldoUtilizado } from '../store/sgah/thunks';
 import { onOpenFormNewPrestamo } from '../store';
 
 export const usePrestamos = () => {
@@ -19,8 +19,8 @@ export const usePrestamos = () => {
 	};
 
 	useMemo(() => {
-		dispatch(startSaldoUtilizado());
-		dispatch(startDetallePrestamos());
+		dispatch(startLoadingSaldoUtilizado());
+		dispatch(startLoadingPrestamos());
 	}, []);
 
 	return {
