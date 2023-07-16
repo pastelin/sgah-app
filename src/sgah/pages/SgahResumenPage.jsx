@@ -1,13 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { startDetalle } from '../../store/sgah/thunks';
+import { useEffect } from 'react';
+import { useSgahStore } from '../../hooks';
 
 export const SgahResumenPage = () => {
-	const { resumen } = useSelector((state) => state.sgah);
-    const { montoAhorro, montoGasto, montoInversion, montoPrestamo } = resumen;
-    
-    const dispatch = useDispatch();
+	const { montoAhorro, montoGasto, montoInversion, montoPrestamo, startDetalleResumen } =
+		useSgahStore();
 
-    dispatch(startDetalle());
+	useEffect(() => {
+		startDetalleResumen();
+	}, []);
 
 	return (
 		<aside className="resumen">

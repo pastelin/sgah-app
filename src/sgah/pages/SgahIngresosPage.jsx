@@ -9,8 +9,8 @@ import {
 	onDisabledFormGastos,
 	onDisabledSaldoIngreso,
 	startAgregarAhorro,
-	startAgregarGasto,
 } from '../../store';
+import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
 
 const formDataGasto = {
 	monto: '',
@@ -28,6 +28,9 @@ export const SgahIngresosPage = () => {
 	const { isSaldoIngresoDisabled, isFormGastosSubmitted, isFormAhorroSubmitted } = useSelector(
 		(state) => state.ui
 	);
+
+	const { startSavingGasto } = useSgahGastoStore();
+
 	const dispatch = useDispatch();
 
 	const [saldoIngreso, setSaldoIngreso] = useState(0);
@@ -67,14 +70,13 @@ export const SgahIngresosPage = () => {
 		const updateSaldoUsado = parseFloat(saldoUsado) + parseFloat(montoGasto);
 		if (updateSaldoUsado > parseFloat(saldoIngreso)) return;
 
-		dispatch(
-			startAgregarGasto({
-				monto: montoGasto,
-				cdGastoRecurrente,
-				descripcion,
-				cdTipoMovimiento,
-			})
-		);
+		startSavingGasto({
+			monto: montoGasto,
+			cdGastoRecurrente,
+			descripcion,
+			cdTipoMovimiento,
+		});
+        
 		setSaldoUsado(updateSaldoUsado);
 		dispatch(onDisabledFormGastos());
 	};

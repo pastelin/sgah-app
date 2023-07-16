@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 
 export const useNavBar = () => {
 	// Obtiene valor del menu a mostrar en la vista definido en archivo sgahSlice y registrado en archivo store.js
-	const { menuList } = useSelector((state) => state.sgah);
 	const { isNavbarOpen } = useSelector((state) => state.ui);
 
 
@@ -46,7 +45,6 @@ export const useNavBar = () => {
 
     return {
 		//* Propiedades
-		menuList,
         isNavbarOpen,
         hightClass,
         hideIconClass,

@@ -1,10 +1,10 @@
 import { formatCurrency } from '../../hooks';
 import { usePrestamoFormUpdate } from '../../hooks/prestamos/usePrestamoFormUpdate';
+import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
 
 export const FormUpdatePrestamos = () => {
 	const {
 		onSubmit,
-		montos,
 		newMontoPagado,
 		montoPrestado,
 		montoPagado,
@@ -14,6 +14,7 @@ export const FormUpdatePrestamos = () => {
 		handleCloseUpdateFormPrestamo,
 	} = usePrestamoFormUpdate();
 
+    const { disponible } = useSgahGastoStore();
     
 
 	return (
@@ -32,7 +33,7 @@ export const FormUpdatePrestamos = () => {
 					Deuda Actual: <span>{formatCurrency(montoPrestado - montoPagado)}</span>
 				</p>
 				<p>
-					Saldo disponible: <span>{montos.disponible}</span>
+					Saldo disponible: <span>{disponible}</span>
 				</p>
 				<form onSubmit={onSubmit}>
 					<div className="form__group">

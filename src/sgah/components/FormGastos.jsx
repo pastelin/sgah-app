@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
-import { startAgregarGasto } from '../../store/sgah/thunks';
 import { onCloseFormGasto } from '../../store';
+import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
 
 const formData = {
 	monto: '',
@@ -15,11 +15,7 @@ export const FormGastos = () => {
 	// A hook to access the redux dispatch function.
 	const dispatch = useDispatch();
 
-	// A hook to access the redux store's state. This hook takes a selector function as an argument.
-	// The selector is called with the store state.
-	const { categoriaGastos, montos } = useSelector(
-		(state) => state.sgahGasto
-	);
+	const { categoriasGasto, disponible, startSavingGasto } = useSgahGastoStore();
 
 	const { isFormGastoOpen } = useSelector((state) => state.ui);
 
@@ -37,14 +33,7 @@ export const FormGastos = () => {
 	const onSubmit = (event) => {
 		event.preventDefault();
 
-		dispatch(
-			startAgregarGasto(
-				{ monto, cdGastoRecurrente, descripcion, cdTipoMovimiento },
-			)
-		);
-
-		handleCloseForm();
-		onResetForm();
+		startSavingGasto({ monto, cdGastoRecurrente, descripcion, cdTipoMovimiento }, onResetForm);
 	};
 
 	return (
@@ -57,7 +46,7 @@ export const FormGastos = () => {
 				</div>
 				<h3>¡Registrar Gasto!</h3>
 				<p>
-					Monto máximo a gastar: <span>{montos.disponible}</span>
+					Saldo máximo a gastar: <span>{disponible}</span>
 				</p>
 
 				<form onSubmit={onSubmit}>
@@ -82,7 +71,7 @@ export const FormGastos = () => {
 							required
 						>
 							<option value="">Seleccionar tipo de gasto</option>
-							{categoriaGastos.map(({ cdGasto, nbGasto }) => (
+							{categoriasGasto.map(({ cdGasto, nbGasto }) => (
 								<option
 									key={window.crypto.getRandomValues(new Uint32Array(1))[0]}
 									value={cdGasto}

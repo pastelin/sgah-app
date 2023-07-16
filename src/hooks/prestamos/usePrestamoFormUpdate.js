@@ -11,8 +11,6 @@ export const usePrestamoFormUpdate = () => {
 
 	const dispatch = useDispatch();
 
-	const { montos } = useSelector((state) => state.sgahGasto);
-
 	const { prestamo } = useSelector((state) => state.sgahPrestamo);
 
 	const { isFormUpdatePrestamoOpen } = useSelector((state) => state.ui);
@@ -52,7 +50,6 @@ export const usePrestamoFormUpdate = () => {
 
 	return {
 		onSubmit,
-		montos,
 		newMontoPagado,
 		montoPrestado,
 		montoPagado,

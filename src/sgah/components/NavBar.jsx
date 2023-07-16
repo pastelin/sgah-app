@@ -1,8 +1,8 @@
+import { useSgahStore } from '../../hooks';
 import { useNavBar } from '../../hooks/useNavBar';
 
 export const NavBar = () => {
 	const {
-		menuList,
 		hightClass,
 		hideIconClass,
 		activeMenuClass,
@@ -11,6 +11,8 @@ export const NavBar = () => {
 		handleCloseNavbar,
 		handleUpdateMenuSelected,
 	} = useNavBar();
+
+    const { menuList } = useSgahStore();
 
 	return (
 		<nav className={`sgah__nav ${hightClass}`}>

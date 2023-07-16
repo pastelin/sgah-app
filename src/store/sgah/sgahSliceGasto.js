@@ -6,40 +6,35 @@ export const sgahSliceGasto = createSlice({
 	initialState: {
 		filtro: ['Listar todo', 'Categoria', 'Tipo Movimiento', 'Fecha', 'Mes actual'],
 		tipoMovimiento: ['Gasto', 'Ingreso'],
-		cabecerasTable: ['Fecha', 'Monto', 'Descripción', 'Categoría', 'Tipo'],
-		properties: [
-			'fechaCreacion',
-			'monto',
-			'descripcion',
-			'nbGastoRecurrente',
-			'nbTipoMovimiento',
-		],
-		categoriaGastos: [{}],
+		categoriasGasto: [{}],
 		gastos: [{}],
-		montos: {
-			disponible: '$0.0',
-			gastado: '$0.0',
+		saldo: {
+			disponible: 0,
+			gastado: 0,
 		},
 	},
 	reducers: {
-		updateCategorias: (state, action) => {
-			state.categoriaGastos = action.payload;
+		onLoadCategoriasGasto: (state, action) => {
+			state.categoriasGasto = action.payload;
 		},
-
-		updateGastos: (state, action) => {
+		onLoadGastos: (state, action) => {
 			action.payload.forEach((data) => {
 				data.monto = formatCurrency(data.monto);
 			});
 
 			state.gastos = action.payload;
 		},
-
-		updateMontos: (state, action) => {
-			state.montos.disponible = formatCurrency(action.payload.montoDisponible);
-			state.montos.gastado = formatCurrency(action.payload.montoGastado);
+        onAddNewGasto: (state, { payload }) => {
+            payload.monto = formatCurrency(payload.monto);
+			state.gastos.push(payload);
+		},
+		onLoadSaldo: (state, { payload }) => {
+			console.log(payload);
+			state.saldo.disponible = payload.montoDisponible;
+			state.saldo.gastado = payload.montoGastado;
 		},
 	},
 });
 
-export const { updateCategorias, updateGastos, updateMontos, updateformSuccess } =
+export const { onLoadCategoriasGasto, onLoadGastos, onLoadSaldo, onAddNewGasto } =
 	sgahSliceGasto.actions;

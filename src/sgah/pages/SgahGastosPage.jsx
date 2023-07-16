@@ -1,15 +1,10 @@
+import { useEffect } from 'react';
 import { useGastos } from '../../hooks';
+import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
 import { TableSgah, FormGastos } from '../components';
 
 export const SgahGastosPage = () => {
 	const {
-		filtro,
-		categoriaGastos,
-		tipoMovimiento,
-		gastos,
-		montos,
-		cabecerasTable,
-		properties,
 		handleOpenForm,
 		hideCategoriaClass,
 		hideTipoMovimientoClass,
@@ -17,7 +12,22 @@ export const SgahGastosPage = () => {
 		handleChangeFilter,
 	} = useGastos();
 
-	const { disponible, gastado } = montos;
+	const {
+		filtro,
+		categoriasGasto,
+		tipoMovimiento,
+		disponible,
+		gastado,
+		startLoadingCategoriasGasto,
+		startLoadingGastos,
+		startLoadingSaldoGasto,
+	} = useSgahGastoStore();
+
+	useEffect(() => {
+		startLoadingCategoriasGasto();
+		startLoadingGastos();
+		startLoadingSaldoGasto();
+	}, []);
 
 	return (
 		<>
@@ -36,7 +46,7 @@ export const SgahGastosPage = () => {
 
 					<select className={hideCategoriaClass}>
 						<option value="">Seleccionar tipo de gasto</option>
-						{categoriaGastos.map(({ cdGasto, nbGasto }) => (
+						{categoriasGasto.map(({ cdGasto, nbGasto }) => (
 							<option
 								key={window.crypto.getRandomValues(new Uint32Array(1))[0]}
 								value={cdGasto}
@@ -75,7 +85,7 @@ export const SgahGastosPage = () => {
 					</button>
 				</div>
 
-				<TableSgah objects={gastos} cabeceras={cabecerasTable} properties={properties} />
+				<TableSgah/>
 			</aside>
 
 			<FormGastos />

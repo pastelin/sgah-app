@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
 import {
 	startAgregarPrestamo,
-	startDetalle,
 	onCloseFormNewPrestamo,
 } from '../../store';
+import { useSgahStore } from '../../hooks';
 
 const formData = {
 	montoPrestado: '',
@@ -18,11 +18,11 @@ export const FormNewPrestamos = () => {
 
 	// A hook to access the redux store's state. This hook takes a selector function as an argument.
 	// The selector is called with the store state.
-	const { resumen } = useSelector((state) => state.sgah);
+	const { montoAhorro } = useSgahStore();
 	const { isFormNewPrestamoOpen } = useSelector((state) => state.ui);
 
 
-	dispatch(startDetalle());
+	// dispatch(startDetalle());
 
 	const { montoPrestado, descripcion, onInputChange, onResetForm } = useForm(formData);
 
@@ -57,7 +57,7 @@ export const FormNewPrestamos = () => {
 				</div>
 				<h3>¡Registrar Prestamo!</h3>
 				<p>
-					Saldo máximo a tomar prestado: <span>{resumen.montoAhorro}</span>
+					Saldo máximo a tomar prestado: <span>{montoAhorro}</span>
 				</p>
 
 				<form onSubmit={onSubmit}>
