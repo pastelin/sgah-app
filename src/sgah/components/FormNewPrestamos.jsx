@@ -1,11 +1,8 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
-import {
-	startSavingPrestamo,
-	onCloseFormNewPrestamo,
-} from '../../store';
-import { useSgahStore } from '../../hooks';
+import { onCloseFormNewPrestamo } from '../../store';
+import { useSgahPrestamoStore } from '../../hooks';
 
 const formData = {
 	montoPrestado: '',
@@ -18,33 +15,29 @@ export const FormNewPrestamos = () => {
 
 	// A hook to access the redux store's state. This hook takes a selector function as an argument.
 	// The selector is called with the store state.
-	const { montoAhorro } = useSgahStore();
+	const { startSavingPrestamo, saldoDisponibleAhorro, startLoadingSaldoDisponibleAhorro } =
+		useSgahPrestamoStore();
+
+	useEffect(() => {
+		startLoadingSaldoDisponibleAhorro();
+	}, []);
+
 	const { isFormNewPrestamoOpen } = useSelector((state) => state.ui);
-
-
-	// dispatch(startDetalle());
 
 	const { montoPrestado, descripcion, onInputChange, onResetForm } = useForm(formData);
 
-    const hideFormNewPrestamoClass = useMemo(() => {
-        return isFormNewPrestamoOpen ? '' : 'display__none';
-    }, [isFormNewPrestamoOpen]);
+	const hideFormNewPrestamoClass = useMemo(() => {
+		return isFormNewPrestamoOpen ? '' : 'display__none';
+	}, [isFormNewPrestamoOpen]);
 
-    const handleCloseForm = () => {
+	const handleCloseForm = () => {
 		dispatch(onCloseFormNewPrestamo());
 	};
 
 	const onSubmit = (event) => {
 		event.preventDefault();
 
-		dispatch(
-			startSavingPrestamo(
-				{ montoPrestado, descripcion }
-			)
-		);
-
-		handleCloseForm();
-		onResetForm();
+		startSavingPrestamo({ montoPrestado, descripcion }, onResetForm);
 	};
 
 	return (
@@ -57,7 +50,7 @@ export const FormNewPrestamos = () => {
 				</div>
 				<h3>¡Registrar Prestamo!</h3>
 				<p>
-					Saldo máximo a tomar prestado: <span>{montoAhorro}</span>
+					Saldo máximo a tomar prestado: <span>{saldoDisponibleAhorro}</span>
 				</p>
 
 				<form onSubmit={onSubmit}>

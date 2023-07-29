@@ -4,11 +4,11 @@ import {
 	onLoadCategoriasGasto,
 	onLoadSaldo,
 	onAddNewGasto,
-	onCloseFormGasto,
+	onAddSaldoDisponible,
+	onSubtractSaldoDisponible,
 } from '../../store';
 import { sgahApi } from '../../backend';
-import { addNumbers, formatCurrency } from '../useUtilities';
-import Swal from 'sweetalert2';
+import { addNumbers } from '../useUtilities';
 
 export const useSgahGastoStore = () => {
 	const { filtro, categoriasGasto, gastos, tipoMovimiento, saldo } = useSelector(
@@ -37,34 +37,49 @@ export const useSgahGastoStore = () => {
 		dispatch(onLoadSaldo(data));
 	};
 
-	const startSavingGasto = async (formData, onResetForm) => {
+	const startSavingGasto = async (formData) => {
 		console.log('startSavingGasto');
 
-		const saldoDisponible = saldo.disponible - formData.monto;
-		const saldoGastado = addNumbers(formData.monto, saldo.gastado);
-
-		// TODO: Implementar capa de validaciones
 		// TODO: Estudiar UX Writing para mejorar mensajes
 
-		if (saldoDisponible < 0) {
-			Swal.fire('El monto ingresado no debe ser mayor al saldo disponible', '', 'error');
-			return;
+		try {
+			const { status, data } = await sgahApi.post('gasto/v0/gasto/agrega', formData);
+			console.log({ status, data });
+
+			if (formData.cdTipoMovimiento === 2) {
+				const saldoDisponible = saldo.disponible - formData.monto;
+				const saldoGastado = addNumbers(formData.monto, saldo.gastado);
+
+				dispatch(
+					onLoadSaldo({
+						montoDisponible: saldoDisponible,
+						montoGastado: saldoGastado,
+					})
+				);
+				dispatch(onAddNewGasto(data.gasto));
+			}
+
+			return {
+				code: status,
+				message: data.mensaje,
+			};
+		} catch (error) {
+			console.log(error);
+			return {
+				code: error.code,
+				message: error?.response?.data?.mensaje,
+			};
 		}
+	};
 
-		const { data } = await sgahApi.post('gasto/v0/gasto/agrega', formData);
+	const startAddingSaldoDisponible = (saldo) => {
+		console.log('startAddingSaldoDisponible');
+		dispatch(onAddSaldoDisponible(saldo));
+	};
 
-		dispatch(
-			onLoadSaldo({
-				montoDisponible: saldoDisponible,
-				montoGastado: saldoGastado,
-			})
-		);
-
-		dispatch(onAddNewGasto(data.gasto));
-		dispatch(onCloseFormGasto());
-		onResetForm();
-
-		Swal.fire('Se guardó el gasto correctamente', '', 'success');
+	const startSubtractingSaldoDisponible = (saldo) => {
+		console.log('startSubtractingSaldoDisponible');
+		dispatch(onSubtractSaldoDisponible(saldo));
 	};
 
 	return {
@@ -73,13 +88,15 @@ export const useSgahGastoStore = () => {
 		categoriasGasto,
 		gastos,
 		tipoMovimiento,
-		disponible: formatCurrency(saldo.disponible),
-		gastado: formatCurrency(saldo.gastado),
+		saldoDisponible: saldo.disponible,
+		saldoGastado: saldo.gastado,
 
 		// * Metodos
 		startLoadingCategoriasGasto,
 		startLoadingGastos,
 		startLoadingSaldoGasto,
 		startSavingGasto,
+		startAddingSaldoDisponible,
+		startSubtractingSaldoDisponible,
 	};
 };

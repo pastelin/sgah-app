@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 
-export const useForm = (initialForm = {}) => {
+export const useForm = (initialForm = null) => {
 	const [formState, setFormState] = useState(initialForm);
 
+	// Hook que se ejecuta cada que el estado de initialForm cambia
 	useEffect(() => {
+		console.log(initialForm);
 		setFormState(initialForm);
 	}, [initialForm]);
 
 	const onInputChange = ({ target }) => {
-        const { name, value } = target;
+		const { name, value } = target;
 
 		setFormState({
 			...formState,

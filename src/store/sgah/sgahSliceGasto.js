@@ -29,12 +29,24 @@ export const sgahSliceGasto = createSlice({
 			state.gastos.push(payload);
 		},
 		onLoadSaldo: (state, { payload }) => {
-			console.log(payload);
 			state.saldo.disponible = payload.montoDisponible;
 			state.saldo.gastado = payload.montoGastado;
-		},
+        },
+        onAddSaldoDisponible: (state, { payload }) => {
+            state.saldo.disponible += parseInt(payload);
+        },
+        onSubtractSaldoDisponible: (state, { payload }) => {
+            state.saldo.disponible -= parseInt(payload);
+        },
+        
 	},
 });
 
-export const { onLoadCategoriasGasto, onLoadGastos, onLoadSaldo, onAddNewGasto } =
-	sgahSliceGasto.actions;
+export const {
+	onLoadCategoriasGasto,
+	onLoadGastos,
+	onLoadSaldo,
+	onAddNewGasto,
+	onAddSaldoDisponible,
+	onSubtractSaldoDisponible,
+} = sgahSliceGasto.actions;

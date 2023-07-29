@@ -1,10 +1,19 @@
-import { usePrestamos } from '../../hooks/usePrestamos';
+import { useMemo } from 'react';
 import { FormNewPrestamos } from '../components/FormNewPrestamos';
 import { FormUpdatePrestamos } from '../components/FormUpdatePrestamo';
 import { TableSgahPrestamo } from '../components/TableSgahPrestamo';
+import { usePrestamos } from '../../hooks/usePrestamos';
+import { useSgahPrestamoStore } from '../../hooks';
 
 export const SgahPrestamosPage = () => {
-	const { filtro, saldoUtilizado, handleOpenFormNewPrestamo } = usePrestamos();
+	const { handleOpenFormNewPrestamo } = usePrestamos();
+	const { filtro, saldoUtilizado, startLoadingSaldoUtilizado, startLoadingPrestamos } =
+		useSgahPrestamoStore();
+
+	useMemo(() => {
+		startLoadingSaldoUtilizado();
+		startLoadingPrestamos();
+	}, []);
 
 	return (
 		<>
@@ -29,7 +38,9 @@ export const SgahPrestamosPage = () => {
 				</div>
 
 				<div className="contenedor__boton">
-					<button onClick={handleOpenFormNewPrestamo} className="button">Agregar Prestamo</button>
+					<button onClick={handleOpenFormNewPrestamo} className="button">
+						Agregar Prestamo
+					</button>
 				</div>
 
 				<TableSgahPrestamo />

@@ -11,6 +11,7 @@ import {
 	startAgregarAhorro,
 } from '../../store';
 import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
+import { useMessages } from '../../hooks/useMessages';
 
 const formDataGasto = {
 	monto: '',
@@ -64,19 +65,21 @@ export const SgahIngresosPage = () => {
 		dispatch(onDisabledSaldoIngreso());
 	};
 
-	const onSubmitGastos = (event) => {
+	const onSubmitGastos = async (event) => {
 		event.preventDefault();
 
 		const updateSaldoUsado = parseFloat(saldoUsado) + parseFloat(montoGasto);
 		if (updateSaldoUsado > parseFloat(saldoIngreso)) return;
 
-		startSavingGasto({
+		const {code, message} = await startSavingGasto({
 			monto: montoGasto,
 			cdGastoRecurrente,
 			descripcion,
 			cdTipoMovimiento,
 		});
         
+        useMessages(code, message);
+
 		setSaldoUsado(updateSaldoUsado);
 		dispatch(onDisabledFormGastos());
 	};

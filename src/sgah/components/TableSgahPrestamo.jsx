@@ -1,15 +1,11 @@
-import { useDispatch } from 'react-redux';
-import { usePrestamos } from '../../hooks/usePrestamos';
-import { onOpenFormUpdatePrestamo, startLoadingPrestamo } from '../../store';
+import { formatCurrency, useSgahPrestamoStore } from '../../hooks';
 
 export const TableSgahPrestamo = () => {
-	const { prestamos } = usePrestamos();
-	const dispatch = useDispatch();
+    const { prestamos, startLoadingPrestamo } = useSgahPrestamoStore();
 
 	const handleOpenFormUpdatePrestamo = (folio) => {
 		if (!!folio) {
-			dispatch(startLoadingPrestamo(folio));
-			dispatch(onOpenFormUpdatePrestamo());
+            startLoadingPrestamo(folio);
 		}
 	};
 
@@ -31,9 +27,9 @@ export const TableSgahPrestamo = () => {
 						{prestamos.map((prestamo) => (
 							<tr key={window.crypto.getRandomValues(new Uint32Array(1))[0]}>
 								<td>{prestamo.fechaCreacion}</td>
-								<td>{prestamo.montoPrestado}</td>
+								<td>{formatCurrency(prestamo.montoPrestado)}</td>
 								<td>{prestamo.descripcion}</td>
-								<td>{prestamo.montoPagado}</td>
+								<td>{formatCurrency(prestamo.montoPagado)}</td>
 								<td>
 									<a
 										onClick={() => handleOpenFormUpdatePrestamo(prestamo.folio)}

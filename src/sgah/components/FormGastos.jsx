@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
 import { onCloseFormGasto } from '../../store';
 import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
+import { formatCurrency } from '../../hooks';
+import Swal from 'sweetalert2';
+import { useMessages } from '../../hooks/useMessages';
 
 const formData = {
 	monto: '',
@@ -15,7 +18,7 @@ export const FormGastos = () => {
 	// A hook to access the redux dispatch function.
 	const dispatch = useDispatch();
 
-	const { categoriasGasto, disponible, startSavingGasto } = useSgahGastoStore();
+	const { categoriasGasto, saldoDisponible, startSavingGasto } = useSgahGastoStore();
 
 	const { isFormGastoOpen } = useSelector((state) => state.ui);
 
@@ -30,10 +33,29 @@ export const FormGastos = () => {
 		dispatch(onCloseFormGasto());
 	};
 
-	const onSubmit = (event) => {
+	const onSubmit = async (event) => {
 		event.preventDefault();
 
-		startSavingGasto({ monto, cdGastoRecurrente, descripcion, cdTipoMovimiento }, onResetForm);
+		if (saldoDisponible - monto < 0) {
+			Swal.fire('El monto ingresado no debe superar el saldo disponible', '', 'error');
+			return;
+		}
+
+		const { code, message } = await startSavingGasto({
+			monto,
+			cdGastoRecurrente,
+			descripcion,
+			cdTipoMovimiento,
+		});
+
+		console.log({ code, message });
+
+		useMessages(code, message);
+
+		if (code === 200) {
+			onResetForm();
+			handleCloseForm();
+		}
 	};
 
 	return (
@@ -46,7 +68,7 @@ export const FormGastos = () => {
 				</div>
 				<h3>¡Registrar Gasto!</h3>
 				<p>
-					Saldo máximo a gastar: <span>{disponible}</span>
+					Saldo máximo a gastar: <span>{formatCurrency(saldoDisponible)}</span>
 				</p>
 
 				<form onSubmit={onSubmit}>
@@ -68,7 +90,7 @@ export const FormGastos = () => {
 							id="cdGastoRecurrente"
 							value={cdGastoRecurrente}
 							onChange={onInputChange}
-							required
+							// required
 						>
 							<option value="">Seleccionar tipo de gasto</option>
 							{categoriasGasto.map(({ cdGasto, nbGasto }) => (

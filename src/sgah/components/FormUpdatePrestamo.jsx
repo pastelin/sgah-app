@@ -1,21 +1,46 @@
-import { formatCurrency } from '../../hooks';
+import { useEffect } from 'react';
+import { formatCurrency, useForm, useSgahPrestamoStore } from '../../hooks';
 import { usePrestamoFormUpdate } from '../../hooks/prestamos/usePrestamoFormUpdate';
-import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
 
 export const FormUpdatePrestamos = () => {
+	useEffect(() => {
+		if (!saldoDisponibleGasto) {
+			startLoadingSaldoGasto();
+		}
+	}, []);
+
+	const { hideFormUpdatePrestamoClass, handleCloseUpdateFormPrestamo } = usePrestamoFormUpdate();
+
+	const { prestamo, startUpdatingPrestamo, saldoDisponibleGasto, startLoadingSaldoGasto } =
+		useSgahPrestamoStore();
+
 	const {
-		onSubmit,
+		folio,
 		newMontoPagado,
 		montoPrestado,
+		fechaCreacion,
 		montoPagado,
 		descripcion,
 		onInputChange,
-		hideFormUpdatePrestamoClass,
-		handleCloseUpdateFormPrestamo,
-	} = usePrestamoFormUpdate();
+		onResetForm,
+	} = useForm(prestamo);
 
-    const { disponible } = useSgahGastoStore();
-    
+	const onSubmit = (event) => {
+		event.preventDefault();
+
+		startUpdatingPrestamo({
+			folio,
+			montoPrestado,
+			descripcion,
+			fechaCreacion,
+			montoPagado,
+			newMontoPagado,
+		});
+
+		handleCloseUpdateFormPrestamo();
+
+		onResetForm();
+	};
 
 	return (
 		<section
@@ -33,7 +58,7 @@ export const FormUpdatePrestamos = () => {
 					Deuda Actual: <span>{formatCurrency(montoPrestado - montoPagado)}</span>
 				</p>
 				<p>
-					Saldo disponible: <span>{disponible}</span>
+					Saldo disponible: <span>{formatCurrency(saldoDisponibleGasto)}</span>
 				</p>
 				<form onSubmit={onSubmit}>
 					<div className="form__group">

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useGastos } from '../../hooks';
+import { formatCurrency, useGastos } from '../../hooks';
 import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
 import { TableSgah, FormGastos } from '../components';
 
@@ -16,8 +16,8 @@ export const SgahGastosPage = () => {
 		filtro,
 		categoriasGasto,
 		tipoMovimiento,
-		disponible,
-		gastado,
+		saldoDisponible,
+		saldoGastado,
 		startLoadingCategoriasGasto,
 		startLoadingGastos,
 		startLoadingSaldoGasto,
@@ -71,11 +71,11 @@ export const SgahGastosPage = () => {
 
 				<div className="contenedor__montos">
 					<h3>
-						Disponible: <span>{disponible}</span>
+						Disponible: <span>{formatCurrency(saldoDisponible)}</span>
 					</h3>
 
 					<h3>
-						Gastado: <span>{gastado}</span>
+						Gastado: <span>{formatCurrency(saldoGastado)}</span>
 					</h3>
 				</div>
 
@@ -85,7 +85,7 @@ export const SgahGastosPage = () => {
 					</button>
 				</div>
 
-				<TableSgah/>
+				<TableSgah />
 			</aside>
 
 			<FormGastos />
