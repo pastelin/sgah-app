@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
 	onAddNewPrestamo,
 	onAddSaldoDisponibleAhorro,
+	onDeletePrestamo,
 	onLoadPrestamo,
 	onLoadPrestamos,
 	onLoadSaldoDisponibleAhorro,
@@ -98,12 +99,18 @@ export const useSgahPrestamoStore = () => {
 				montoPagado,
 			});
 
+			console.log(data);
+
 			// Actualiza saldos para (Gastos, Ahorro y Prestamo)
 			startSubtractingSaldoDisponibleGasto(montoPagado);
 			dispatch(onSubtractSaldoUtilizado(montoPagado));
-            dispatch(onAddSaldoDisponibleAhorro(montoPagado));
-            
-			dispatch(onUpdatePrestamo(data.prestamo));
+			dispatch(onAddSaldoDisponibleAhorro(montoPagado));
+
+			if (data.prestamo.cdEstatus == 2) {
+				dispatch(onDeletePrestamo(data.prestamo.folio));
+			} else {
+				dispatch(onUpdatePrestamo(data.prestamo));
+			}
 
 			return {
 				code: status,

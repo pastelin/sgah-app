@@ -50,6 +50,9 @@ export const sgahSlicePrestamos = createSlice({
 
 				return data;
 			});
+        }, 
+        onDeletePrestamo: (state, { payload }) => {
+            state.prestamos = state.prestamos.filter((prestamo) => prestamo.folio !== payload);
         }
 	},
 });
@@ -64,4 +67,5 @@ export const {
 	onSubtractSaldoUtilizado,
 	onAddSaldoDisponibleAhorro,
 	onUpdatePrestamo,
+	onDeletePrestamo,
 } = sgahSlicePrestamos.actions;
