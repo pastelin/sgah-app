@@ -16,9 +16,9 @@ export const TableSgahPrestamo = () => {
 					<thead>
 						<tr>
 							<th>Fecha</th>
-							<th>Saldo usado</th>
+							<th>Saldo utilizado</th>
 							<th>Descripción</th>
-							<th>Saldo pagado</th>
+							<th>Deuda Actual</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -29,7 +29,9 @@ export const TableSgahPrestamo = () => {
 								<td>{prestamo.fechaCreacion}</td>
 								<td>{formatCurrency(prestamo.montoPrestado)}</td>
 								<td>{prestamo.descripcion}</td>
-								<td>{formatCurrency(prestamo.montoPagado)}</td>
+								<td>
+									{formatCurrency(prestamo.montoPrestado - prestamo.montoPagado)}
+								</td>
 								<td>
 									<a
 										onClick={() => handleOpenFormUpdatePrestamo(prestamo.folio)}

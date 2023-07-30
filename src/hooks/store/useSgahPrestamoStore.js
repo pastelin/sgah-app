@@ -99,8 +99,6 @@ export const useSgahPrestamoStore = () => {
 				montoPagado,
 			});
 
-			console.log(data);
-
 			// Actualiza saldos para (Gastos, Ahorro y Prestamo)
 			startSubtractingSaldoDisponibleGasto(montoPagado);
 			dispatch(onSubtractSaldoUtilizado(montoPagado));

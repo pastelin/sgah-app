@@ -33,7 +33,7 @@ export const SgahPrestamosPage = () => {
 
 				<div className="contenedor__montos">
 					<h3>
-						Saldo utilizado: <span>{saldoUtilizado}</span>
+						Deuda Actual: <span>{saldoUtilizado}</span>
 					</h3>
 				</div>
 
