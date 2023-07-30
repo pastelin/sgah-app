@@ -676,6 +676,7 @@ hr {
 .contenedor__table {
   overflow: auto;
   height: 37rem;
+  position: relative;
 }
 .contenedor__table table {
   width: 95%;
@@ -693,11 +694,16 @@ hr {
     font-size: 1.3rem;
   }
 }
+.contenedor__table table thead {
+  position: sticky;
+  top: 0;
+  background-color: #FFFFFF;
+  border-radius: 0.5rem;
+}
 .contenedor__table table thead th,
 .contenedor__table table thead td,
 .contenedor__table table tbody th,
 .contenedor__table table tbody td {
-  opacity: 0.9;
   padding: 1.5rem 0.5rem;
   text-align: center;
   border-bottom: 2px solid rgba(225, 225, 225, 0.8823529412);
@@ -705,7 +711,6 @@ hr {
 .contenedor__table table thead tr:hover,
 .contenedor__table table tbody tr:hover {
   background-color: #c1f1fc;
-  opacity: 0.7;
 }
 .contenedor__table table thead th,
 .contenedor__table table tbody th {

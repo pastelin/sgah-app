@@ -4,6 +4,7 @@
 .contenedor__table {
 	overflow: auto;
 	height: 37rem;
+    position: relative;
 
 	table {
 		width: 95%;
@@ -20,11 +21,18 @@
 			font-size: 1.3rem;
 		}
 
+        thead {
+            position: sticky;
+            top: 0;
+            background-color: v.$blanco;
+            border-radius: .5rem;
+            // color: v.$blanco;
+        }
+
 		thead,
 		tbody {
 			th,
 			td {
-				opacity: 0.9;
 				padding: 1.5rem 0.5rem;
 				text-align: center;
 				border-bottom: 2px solid v.$gris;
@@ -33,7 +41,6 @@
 			tr {
 				&:hover {
 					background-color: v.$azulClaro;
-					opacity: 0.7;
 				}
 			}
 
