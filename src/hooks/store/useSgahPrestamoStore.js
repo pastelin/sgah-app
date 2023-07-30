@@ -46,20 +46,28 @@ export const useSgahPrestamoStore = () => {
 		dispatch(onLoadPrestamos(data));
 	};
 
-	const startSavingPrestamo = async (formData, onResetForm) => {
+	const startSavingPrestamo = async (formData) => {
 		console.log('startSavingPrestamo');
 
-		const { data } = await sgahApi.post('prestamo/v0/prestamo/new', formData);
+		try {
+			const { status, data } = await sgahApi.post('prestamo/v0/prestamo/new', formData);
 
-		dispatch(onUpdateSaldosForNewPrestamo(formData.montoPrestado));
-		startAddingSaldoDisponibleGasto(formData.montoPrestado);
+			dispatch(onUpdateSaldosForNewPrestamo(formData.montoPrestado));
+			startAddingSaldoDisponibleGasto(formData.montoPrestado);
 
-		dispatch(onAddNewPrestamo(data.prestamo));
+			dispatch(onAddNewPrestamo(data.prestamo));
 
-		return {
-			code: 200,
-			message: 'EL prestamo se ha guardado con exito',
-		};
+			return {
+				code: status,
+				message: data.mensaje,
+			};
+		} catch (error) {
+			console.log(error);
+			return {
+				code: error.code,
+				message: error?.response?.data?.mensaje,
+			};
+		}
 	};
 
 	const startLoadingPrestamo = async (folio) => {
@@ -81,24 +89,34 @@ export const useSgahPrestamoStore = () => {
 	}) => {
 		console.log('startUpdatingPrestamo');
 
-		const { data } = await sgahApi.post('prestamo/v0/prestamo/operacionActualiza', {
-			folio,
-			montoPrestado,
-			descripcion,
-			fechaCreacion,
-			montoPagado,
-		});
+		try {
+			const { status, data } = await sgahApi.post('prestamo/v0/prestamo/operacionActualiza', {
+				folio,
+				montoPrestado,
+				descripcion,
+				fechaCreacion,
+				montoPagado,
+			});
 
-		// Actualiza saldos para (Gastos, Ahorro y Prestamo)
-		startSubtractingSaldoDisponibleGasto(montoPagado);
-		dispatch(onSubtractSaldoUtilizado(montoPagado));
-		dispatch(onAddSaldoDisponibleAhorro(montoPagado));
-		dispatch(onUpdatePrestamo(data.prestamo));
+			// Actualiza saldos para (Gastos, Ahorro y Prestamo)
+			startSubtractingSaldoDisponibleGasto(montoPagado);
+			dispatch(onSubtractSaldoUtilizado(montoPagado));
+            dispatch(onAddSaldoDisponibleAhorro(montoPagado));
+            
+			dispatch(onUpdatePrestamo(data.prestamo));
 
-		return {
-			code: 200,
-			message: 'EL prestamo se ha actualizado con exito',
-		};
+			return {
+				code: status,
+				message: data.mensaje,
+			};
+		} catch (error) {
+			console.log(error);
+			return {
+				code: error.code,
+				message: error?.response?.data?.mensaje,
+			};
+		}
+
 		// TODO: si regresa un estatus 2 eliminar registro caso contrario actualizarlo
 	};
 
@@ -114,7 +132,7 @@ export const useSgahPrestamoStore = () => {
 		prestamos,
 		saldoUtilizado: formatCurrency(saldoUtilizado),
 		prestamo,
-		saldoDisponibleAhorro: saldoDisponibleAhorro,
+		saldoDisponibleAhorro,
 		saldoDisponibleGasto,
 
 		// * Metodos
