@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
 	onAddNewPrestamo,
 	onAddSaldoDisponibleAhorro,
-	onCloseFormNewPrestamo,
 	onLoadPrestamo,
 	onLoadPrestamos,
 	onLoadSaldoDisponibleAhorro,
@@ -14,7 +13,6 @@ import {
 } from '../../store';
 import { sgahApi } from '../../backend';
 import { formatCurrency, useSgahGastoStore } from '../../hooks';
-import Swal from 'sweetalert2';
 
 export const useSgahPrestamoStore = () => {
 	// A hook to access the redux store's state.
@@ -51,11 +49,6 @@ export const useSgahPrestamoStore = () => {
 	const startSavingPrestamo = async (formData, onResetForm) => {
 		console.log('startSavingPrestamo');
 
-		if (formData.montoPrestado > saldoDisponibleAhorro) {
-			Swal.fire('Validar monto ingresado', '', 'error');
-			return;
-		}
-
 		const { data } = await sgahApi.post('prestamo/v0/prestamo/new', formData);
 
 		dispatch(onUpdateSaldosForNewPrestamo(formData.montoPrestado));
@@ -63,11 +56,10 @@ export const useSgahPrestamoStore = () => {
 
 		dispatch(onAddNewPrestamo(data.prestamo));
 
-		dispatch(onCloseFormNewPrestamo());
-
-		onResetForm();
-
-		Swal.fire('Su prestamo fue registrado correctamente', '', 'success');
+		return {
+			code: 200,
+			message: 'EL prestamo se ha guardado con exito',
+		};
 	};
 
 	const startLoadingPrestamo = async (folio) => {
@@ -86,38 +78,28 @@ export const useSgahPrestamoStore = () => {
 		descripcion,
 		fechaCreacion,
 		montoPagado,
-		newMontoPagado,
 	}) => {
 		console.log('startUpdatingPrestamo');
-
-		const montoLiquidar = montoPrestado - montoPagado;
-		if (newMontoPagado > montoLiquidar) {
-			Swal.fire('El monto no debe ser mayor a la deuda actual', '', 'error');
-			return;
-		}
-
-		if (newMontoPagado > saldoDisponibleGasto) {
-			Swal.fire('El monto no debe ser mayor al saldo disponible', '', 'error');
-			return;
-		}
 
 		const { data } = await sgahApi.post('prestamo/v0/prestamo/operacionActualiza', {
 			folio,
 			montoPrestado,
 			descripcion,
 			fechaCreacion,
-			montoPagado: newMontoPagado,
+			montoPagado,
 		});
 
 		// Actualiza saldos para (Gastos, Ahorro y Prestamo)
-		startSubtractingSaldoDisponibleGasto(newMontoPagado);
-		dispatch(onSubtractSaldoUtilizado(newMontoPagado));
-		dispatch(onAddSaldoDisponibleAhorro(newMontoPagado));
+		startSubtractingSaldoDisponibleGasto(montoPagado);
+		dispatch(onSubtractSaldoUtilizado(montoPagado));
+		dispatch(onAddSaldoDisponibleAhorro(montoPagado));
 		dispatch(onUpdatePrestamo(data.prestamo));
 
-        Swal.fire('El prestamo de actualizó correctamente', '', 'success');
-        
-        // TODO: si regresa un estatus 2 eliminar registro caso contrario actualizarlo
+		return {
+			code: 200,
+			message: 'EL prestamo se ha actualizado con exito',
+		};
+		// TODO: si regresa un estatus 2 eliminar registro caso contrario actualizarlo
 	};
 
 	const startLoadingSaldoDisponibleAhorro = async () => {
@@ -132,7 +114,7 @@ export const useSgahPrestamoStore = () => {
 		prestamos,
 		saldoUtilizado: formatCurrency(saldoUtilizado),
 		prestamo,
-		saldoDisponibleAhorro: formatCurrency(saldoDisponibleAhorro),
+		saldoDisponibleAhorro: saldoDisponibleAhorro,
 		saldoDisponibleGasto,
 
 		// * Metodos

@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { formatCurrency, useForm, useSgahPrestamoStore } from '../../hooks';
 import { usePrestamoFormUpdate } from '../../hooks/prestamos/usePrestamoFormUpdate';
+import Swal from 'sweetalert2';
+import { useMessages } from '../../hooks/useMessages';
 
 export const FormUpdatePrestamos = () => {
 	useEffect(() => {
@@ -25,21 +27,34 @@ export const FormUpdatePrestamos = () => {
 		onResetForm,
 	} = useForm(prestamo);
 
-	const onSubmit = (event) => {
+	const onSubmit = async (event) => {
 		event.preventDefault();
 
-		startUpdatingPrestamo({
+		const montoLiquidar = montoPrestado - montoPagado;
+		if (newMontoPagado > montoLiquidar) {
+			Swal.fire('El monto no debe ser mayor a la deuda actual', '', 'error');
+			return;
+		}
+
+		if (newMontoPagado > saldoDisponibleGasto) {
+			Swal.fire('El monto no debe ser mayor al saldo disponible', '', 'error');
+			return;
+		}
+
+		const { code, message } = await startUpdatingPrestamo({
 			folio,
 			montoPrestado,
 			descripcion,
 			fechaCreacion,
-			montoPagado,
-			newMontoPagado,
+			montoPagado: newMontoPagado,
 		});
 
-		handleCloseUpdateFormPrestamo();
+		useMessages(code, message);
 
-		onResetForm();
+		if (code === 200) {
+			handleCloseUpdateFormPrestamo();
+			onResetForm();
+		}
 	};
 
 	return (

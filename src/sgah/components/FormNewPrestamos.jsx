@@ -2,7 +2,9 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
 import { onCloseFormNewPrestamo } from '../../store';
-import { useSgahPrestamoStore } from '../../hooks';
+import { formatCurrency, useSgahPrestamoStore } from '../../hooks';
+import Swal from 'sweetalert2';
+import { useMessages } from '../../hooks/useMessages';
 
 const formData = {
 	montoPrestado: '',
@@ -34,10 +36,22 @@ export const FormNewPrestamos = () => {
 		dispatch(onCloseFormNewPrestamo());
 	};
 
-	const onSubmit = (event) => {
+	const onSubmit = async (event) => {
 		event.preventDefault();
 
-		startSavingPrestamo({ montoPrestado, descripcion }, onResetForm);
+		if (montoPrestado > saldoDisponibleAhorro) {
+			Swal.fire('Validar monto ingresado', '', 'error');
+			return;
+		}
+
+		const { code, message } = await startSavingPrestamo({ montoPrestado, descripcion });
+
+		useMessages(code, message);
+
+		if (code === 200) {
+			handleCloseForm();
+			onResetForm();
+		}
 	};
 
 	return (
@@ -50,7 +64,8 @@ export const FormNewPrestamos = () => {
 				</div>
 				<h3>¡Registrar Prestamo!</h3>
 				<p>
-					Saldo máximo a tomar prestado: <span>{saldoDisponibleAhorro}</span>
+					Saldo máximo a tomar prestado:{' '}
+					<span>{formatCurrency(saldoDisponibleAhorro)}</span>
 				</p>
 
 				<form onSubmit={onSubmit}>
