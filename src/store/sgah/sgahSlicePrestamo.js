@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { formatCurrency } from '../../hooks';
 
 export const sgahSlicePrestamos = createSlice({
 	name: 'sgahPrestamo',
@@ -8,7 +7,6 @@ export const sgahSlicePrestamos = createSlice({
 		prestamo: {},
 		prestamos: [{}],
 		saldoUtilizado: 0,
-		saldoDisponibleAhorro: 0,
 	},
 	reducers: {
 		onLoadPrestamos: (state, action) => {
@@ -26,34 +24,27 @@ export const sgahSlicePrestamos = createSlice({
 			state.prestamo = action.payload;
 			state.prestamo.newMontoPagado = '';
 		},
-		onLoadSaldoDisponibleAhorro: (state, { payload }) => {
-			state.saldoDisponibleAhorro = payload;
-		},
 		onAddNewPrestamo: (state, { payload }) => {
 			state.prestamos.push(payload);
 		},
 		onUpdateSaldosForNewPrestamo: (state, { payload }) => {
 			state.saldoUtilizado += parseInt(payload);
-			state.saldoDisponibleAhorro -= parseInt(payload);
 		},
 		onSubtractSaldoUtilizado: (state, { payload }) => {
 			state.saldoUtilizado -= parseInt(payload);
 		},
-		onAddSaldoDisponibleAhorro: (state, { payload }) => {
-			state.saldoDisponibleAhorro += parseInt(payload);
-		},
-        onUpdatePrestamo: (state, { payload }) => {
-            state.prestamos = state.prestamos.map((data) => {
+		onUpdatePrestamo: (state, { payload }) => {
+			state.prestamos = state.prestamos.map((data) => {
 				if (data.folio === payload.folio) {
 					return payload;
 				}
 
 				return data;
 			});
-        }, 
-        onDeletePrestamo: (state, { payload }) => {
-            state.prestamos = state.prestamos.filter((prestamo) => prestamo.folio !== payload);
-        }
+		},
+		onDeletePrestamo: (state, { payload }) => {
+			state.prestamos = state.prestamos.filter((prestamo) => prestamo.folio !== payload);
+		},
 	},
 });
 
@@ -63,9 +54,7 @@ export const {
 	onLoadPrestamo,
 	onUpdateSaldosForNewPrestamo,
 	onAddNewPrestamo,
-	onLoadSaldoDisponibleAhorro,
 	onSubtractSaldoUtilizado,
-	onAddSaldoDisponibleAhorro,
 	onUpdatePrestamo,
 	onDeletePrestamo,
 } = sgahSlicePrestamos.actions;

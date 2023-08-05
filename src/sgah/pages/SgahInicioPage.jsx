@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { NavBar } from '../components';
 import { SgahGastosPage, SgahResumenPage, SgahPrestamosPage, SgahIngresosPage } from './';
+import { SgahAhorrosPage } from './SgahAhorrosPage';
 
 export const SgahInicioPage = () => {
 	// A hook to access the redux store's state.
@@ -16,6 +17,8 @@ export const SgahInicioPage = () => {
                 return <SgahPrestamosPage />
             case 'Ingresos':
                 return <SgahIngresosPage />
+            case 'Ahorro': 
+                return <SgahAhorrosPage />
 			default:
 				return <SgahResumenPage />;
 		}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { formatCurrency, useForm } from '../../hooks';
+import { formatCurrency, useForm, useSgahAhorroStore, useSgahGastoStore } from '../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	onActiveFormAhorro,
@@ -8,9 +8,7 @@ import {
 	onDisabledFormAhorro,
 	onDisabledFormGastos,
 	onDisabledSaldoIngreso,
-	startAgregarAhorro,
 } from '../../store';
-import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
 import { useMessages } from '../../hooks/useMessages';
 
 const formDataGasto = {
@@ -31,6 +29,7 @@ export const SgahIngresosPage = () => {
 	);
 
 	const { startSavingGasto } = useSgahGastoStore();
+	const { startSavingAhorro } = useSgahAhorroStore();
 
 	const dispatch = useDispatch();
 
@@ -71,14 +70,14 @@ export const SgahIngresosPage = () => {
 		const updateSaldoUsado = parseFloat(saldoUsado) + parseFloat(montoGasto);
 		if (updateSaldoUsado > parseFloat(saldoIngreso)) return;
 
-		const {code, message} = await startSavingGasto({
+		const { code, message } = await startSavingGasto({
 			monto: montoGasto,
 			cdGastoRecurrente,
 			descripcion,
 			cdTipoMovimiento,
 		});
-        
-        useMessages(code, message);
+
+		useMessages(code, message);
 
 		setSaldoUsado(updateSaldoUsado);
 		dispatch(onDisabledFormGastos());
@@ -90,7 +89,7 @@ export const SgahIngresosPage = () => {
 		const updateSaldoUsado = parseFloat(saldoUsado) + parseFloat(montoAhorro);
 		if (updateSaldoUsado > parseFloat(saldoIngreso)) return;
 
-		dispatch(startAgregarAhorro({ monto: montoAhorro, descripcion: descripcionAhorro }));
+		startSavingAhorro({ monto: montoAhorro, descripcion: descripcionAhorro });
 		setSaldoUsado(updateSaldoUsado);
 		dispatch(onDisabledFormAhorro());
 	};

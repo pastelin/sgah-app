@@ -1,11 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	onAddNewPrestamo,
-	onAddSaldoDisponibleAhorro,
 	onDeletePrestamo,
 	onLoadPrestamo,
 	onLoadPrestamos,
-	onLoadSaldoDisponibleAhorro,
 	onLoadSaldoUtilizado,
 	onOpenFormUpdatePrestamo,
 	onSubtractSaldoUtilizado,
@@ -13,7 +11,7 @@ import {
 	onUpdateSaldosForNewPrestamo,
 } from '../../store';
 import { sgahApi } from '../../backend';
-import { formatCurrency, useSgahGastoStore } from '../../hooks';
+import { formatCurrency, useSgahAhorroStore, useSgahGastoStore } from '../../hooks';
 
 export const useSgahPrestamoStore = () => {
 	// A hook to access the redux store's state.
@@ -27,7 +25,9 @@ export const useSgahPrestamoStore = () => {
 		startLoadingSaldoGasto,
 		startAddingSaldoDisponible: startAddingSaldoDisponibleGasto,
 		startSubtractingSaldoDisponible: startSubtractingSaldoDisponibleGasto,
-	} = useSgahGastoStore();
+    } = useSgahGastoStore();
+    
+    const { startSubtractingSaldoDisponibleA, startAddingSaldoDisponibleA } = useSgahAhorroStore();
 
 	const dispatch = useDispatch();
 
@@ -53,7 +53,8 @@ export const useSgahPrestamoStore = () => {
 		try {
 			const { status, data } = await sgahApi.post('prestamo/v0/prestamo/new', formData);
 
-			dispatch(onUpdateSaldosForNewPrestamo(formData.montoPrestado));
+            dispatch(onUpdateSaldosForNewPrestamo(formData.montoPrestado));
+            startSubtractingSaldoDisponibleA(formData.montoPrestado);
 			startAddingSaldoDisponibleGasto(formData.montoPrestado);
 
 			dispatch(onAddNewPrestamo(data.prestamo));
@@ -102,7 +103,7 @@ export const useSgahPrestamoStore = () => {
 			// Actualiza saldos para (Gastos, Ahorro y Prestamo)
 			startSubtractingSaldoDisponibleGasto(montoPagado);
 			dispatch(onSubtractSaldoUtilizado(montoPagado));
-			dispatch(onAddSaldoDisponibleAhorro(montoPagado));
+            startAddingSaldoDisponibleA(montoPagado);
 
 			if (data.prestamo.cdEstatus == 2) {
 				dispatch(onDeletePrestamo(data.prestamo.folio));
@@ -122,13 +123,6 @@ export const useSgahPrestamoStore = () => {
 			};
 		}
 
-		// TODO: si regresa un estatus 2 eliminar registro caso contrario actualizarlo
-	};
-
-	const startLoadingSaldoDisponibleAhorro = async () => {
-		console.log('startLoadingSaldoDisponibleAhorro');
-		const { data } = await sgahApi.get('ahorro/v0/ahorro/saldo');
-		dispatch(onLoadSaldoDisponibleAhorro(data));
 	};
 
 	return {
@@ -146,7 +140,6 @@ export const useSgahPrestamoStore = () => {
 		startSavingPrestamo,
 		startLoadingPrestamo,
 		startUpdatingPrestamo,
-		startLoadingSaldoDisponibleAhorro,
 		startLoadingSaldoGasto,
 	};
 };

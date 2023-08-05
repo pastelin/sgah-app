@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
 import { onCloseFormNewPrestamo } from '../../store';
-import { formatCurrency, useSgahPrestamoStore } from '../../hooks';
+import { formatCurrency, useSgahAhorroStore, useSgahPrestamoStore } from '../../hooks';
 import Swal from 'sweetalert2';
 import { useMessages } from '../../hooks/useMessages';
 
@@ -17,11 +17,13 @@ export const FormNewPrestamos = () => {
 
 	// A hook to access the redux store's state. This hook takes a selector function as an argument.
 	// The selector is called with the store state.
-	const { startSavingPrestamo, saldoDisponibleAhorro, startLoadingSaldoDisponibleAhorro } =
-		useSgahPrestamoStore();
+	const { startSavingPrestamo } =
+        useSgahPrestamoStore();
+    
+    const { startLoadingSaldoDisponibleA, saldoDisponible } = useSgahAhorroStore();
 
 	useEffect(() => {
-		startLoadingSaldoDisponibleAhorro();
+		startLoadingSaldoDisponibleA();
 	}, []);
 
 	const { isFormNewPrestamoOpen } = useSelector((state) => state.ui);
@@ -39,7 +41,7 @@ export const FormNewPrestamos = () => {
 	const onSubmit = async (event) => {
 		event.preventDefault();
 
-		if (montoPrestado > saldoDisponibleAhorro) {
+		if (montoPrestado > saldoDisponible) {
 			Swal.fire('Validar monto ingresado', '', 'error');
 			return;
 		}
@@ -64,8 +66,7 @@ export const FormNewPrestamos = () => {
 				</div>
 				<h3>¡Registrar Prestamo!</h3>
 				<p>
-					Saldo máximo a tomar prestado:{' '}
-					<span>{formatCurrency(saldoDisponibleAhorro)}</span>
+					Saldo máximo a tomar prestado: <span>{formatCurrency(saldoDisponible)}</span>
 				</p>
 
 				<form onSubmit={onSubmit}>
