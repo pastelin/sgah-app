@@ -24,21 +24,20 @@ export const sgahSliceGasto = createSlice({
 
 			state.gastos = action.payload;
 		},
-        onAddNewGasto: (state, { payload }) => {
-            payload.monto = formatCurrency(payload.monto);
+		onAddNewGasto: (state, { payload }) => {
+			payload.monto = formatCurrency(payload.monto);
 			state.gastos.push(payload);
 		},
 		onLoadSaldo: (state, { payload }) => {
 			state.saldo.disponible = payload.montoDisponible;
 			state.saldo.gastado = payload.montoGastado;
-        },
-        onAddSaldoDisponible: (state, { payload }) => {
-            state.saldo.disponible += parseInt(payload);
-        },
-        onSubtractSaldoDisponible: (state, { payload }) => {
-            state.saldo.disponible -= parseInt(payload);
-        },
-        
+		},
+		onAddSaldoDisponible: (state, { payload }) => {
+			state.saldo.disponible += parseInt(payload);
+		},
+		onSubtractSaldoDisponible: (state, { payload }) => {
+			state.saldo.disponible -= parseInt(payload);
+		},
 	},
 });
 

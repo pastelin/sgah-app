@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
-import { formatCurrency, useForm, useSgahAhorroStore, useSgahGastoStore } from '../../hooks';
+import {
+	formatCurrency,
+	useForm,
+	useGastoUi,
+	useSgahAhorroStore,
+	useSgahGastoStore,
+} from '../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	onActiveFormAhorro,
-	onActiveFormGastos,
 	onActiveSaldoIngreso,
 	onDisabledFormAhorro,
-	onDisabledFormGastos,
 	onDisabledSaldoIngreso,
 } from '../../store';
 import { useMessages } from '../../hooks/useMessages';
@@ -24,9 +28,9 @@ const formDataAhorro = {
 };
 
 export const SgahIngresosPage = () => {
-	const { isSaldoIngresoDisabled, isFormGastosSubmitted, isFormAhorroSubmitted } = useSelector(
-		(state) => state.ui
-	);
+	const { isSaldoIngresoDisabled, isFormAhorroSubmitted } = useSelector((state) => state.ui);
+
+	const { isAbleEditGasto, handleDisableEditGasto, handleAbleEditGasto } = useGastoUi();
 
 	const { startSavingGasto } = useSgahGastoStore();
 	const { startSavingAhorro } = useSgahAhorroStore();
@@ -38,7 +42,7 @@ export const SgahIngresosPage = () => {
 
 	useEffect(() => {
 		dispatch(onActiveSaldoIngreso());
-		dispatch(onActiveFormGastos());
+		handleAbleEditGasto();
 		dispatch(onActiveFormAhorro());
 	}, []);
 
@@ -79,8 +83,10 @@ export const SgahIngresosPage = () => {
 
 		useMessages(code, message);
 
-		setSaldoUsado(updateSaldoUsado);
-		dispatch(onDisabledFormGastos());
+		if (code === 200 || code === 201) {
+			setSaldoUsado(updateSaldoUsado);
+			handleDisableEditGasto();
+		}
 	};
 
 	const onSubmitAhorro = (event) => {
@@ -143,7 +149,7 @@ export const SgahIngresosPage = () => {
 									value={montoGasto}
 									onChange={onInputChange}
 									required
-									disabled={isFormGastosSubmitted}
+									disabled={!isAbleEditGasto}
 								/>
 							</div>
 
@@ -155,7 +161,7 @@ export const SgahIngresosPage = () => {
 									value={descripcion}
 									onChange={onInputChange}
 									required
-									disabled={isFormGastosSubmitted}
+									disabled={!isAbleEditGasto}
 								></textarea>
 							</div>
 
@@ -163,7 +169,7 @@ export const SgahIngresosPage = () => {
 								<button
 									className="button"
 									type="submit"
-									disabled={isFormGastosSubmitted}
+									disabled={!isAbleEditGasto}
 								>
 									Guardar Gasto
 								</button>

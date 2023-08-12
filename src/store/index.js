@@ -1,3 +1,3 @@
 export * from './store';
-export * from './ui/uiSlice';
+export * from './ui';
 export * from './sgah'

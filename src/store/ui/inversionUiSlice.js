@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const inversionUiSlice = createSlice({
-	name: 'inversionUi',
+	name: 'inversionUi', 
 	initialState: {
 		isNewFormInversionOpen: false,
 		isUpdateFormInversionOpen: false,

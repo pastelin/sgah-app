@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
-import { formatCurrency, useGastos } from '../../hooks';
-import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
-import { TableSgahGasto, FormGasto} from '../components';
+import { formatCurrency, useSgahGastoStore, useGastoUi } from '../../hooks';
+import { TableSgahGasto, FormGasto } from '../components';
 
 export const SgahGastosPage = () => {
 	const {
-		handleOpenForm,
-		hideCategoriaClass,
-		hideTipoMovimientoClass,
-		hideFechaClass,
-		handleChangeFilter,
-	} = useGastos();
+		handleOpenFormGasto,
+		classNameCategoriaDisplay,
+		classNameTipoDisplay,
+		classNameFechaDisplay,
+		handleUpdatingSelectedFilterGasto,
+	} = useGastoUi();
 
 	const {
 		filtro,
@@ -35,7 +34,7 @@ export const SgahGastosPage = () => {
 				<h2>Detalle Gastos</h2>
 
 				<div className="contenedor__filtro">
-					<select onChange={handleChangeFilter} name="filtro" id="filtro">
+					<select onChange={handleUpdatingSelectedFilterGasto} name="filtro" id="filtro">
 						<option value="">Elegir una opción</option>
 						{filtro.map((opcion) => (
 							<option key={opcion} value={opcion}>
@@ -44,7 +43,7 @@ export const SgahGastosPage = () => {
 						))}
 					</select>
 
-					<select className={hideCategoriaClass}>
+					<select className={classNameCategoriaDisplay}>
 						<option value="">Seleccionar tipo de gasto</option>
 						{categoriasGasto.map(({ cdGasto, nbGasto }) => (
 							<option
@@ -56,7 +55,7 @@ export const SgahGastosPage = () => {
 						))}
 					</select>
 
-					<select className={hideTipoMovimientoClass}>
+					<select className={classNameTipoDisplay}>
 						<option value="">Elegir una opción</option>
 						{tipoMovimiento.map((item) => (
 							<option key={item} value={item}>
@@ -65,8 +64,8 @@ export const SgahGastosPage = () => {
 						))}
 					</select>
 
-					<input type="date" className={hideFechaClass} />
-					<input type="date" className={hideFechaClass} />
+					<input type="date" className={classNameFechaDisplay} />
+					<input type="date" className={classNameFechaDisplay} />
 				</div>
 
 				<div className="contenedor__montos">
@@ -80,7 +79,11 @@ export const SgahGastosPage = () => {
 				</div>
 
 				<div className="contenedor__boton">
-					<button onClick={handleOpenForm} id="btnAgregarGasto" className="btn button">
+					<button
+						onClick={handleOpenFormGasto}
+						id="btnAgregarGasto"
+						className="btn button"
+					>
 						Agregar Gasto
 					</button>
 				</div>

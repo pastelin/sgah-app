@@ -1,11 +1,11 @@
-import { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from '../../../hooks/useForm';
-import { onCloseFormGasto } from '../../../store';
-import { useSgahGastoStore } from '../../../hooks/store/useSgahGastoStore';
-import { formatCurrency } from '../../../hooks';
 import Swal from 'sweetalert2';
-import { useMessages } from '../../../hooks/useMessages';
+import {
+	useForm,
+	useSgahGastoStore,
+	formatCurrency,
+	useMessages,
+	useGastoUi,
+} from '../../../hooks';
 
 const formData = {
 	monto: '',
@@ -15,23 +15,12 @@ const formData = {
 };
 
 export const FormGasto = () => {
-	// A hook to access the redux dispatch function.
-	const dispatch = useDispatch();
-
 	const { categoriasGasto, saldoDisponible, startSavingGasto } = useSgahGastoStore();
 
-	const { isFormGastoOpen } = useSelector((state) => state.ui);
+	const { classNameDisplay, handleCloseFormGasto } = useGastoUi();
 
 	const { monto, cdGastoRecurrente, descripcion, cdTipoMovimiento, onInputChange, onResetForm } =
 		useForm(formData);
-
-	const hideFormClass = useMemo(() => {
-		return isFormGastoOpen ? '' : 'display__none';
-	}, [isFormGastoOpen]);
-
-	const handleCloseForm = () => {
-		dispatch(onCloseFormGasto());
-	};
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
@@ -48,21 +37,19 @@ export const FormGasto = () => {
 			cdTipoMovimiento,
 		});
 
-		console.log({ code, message });
-
 		useMessages(code, message);
 
 		if (code === 200) {
 			onResetForm();
-			handleCloseForm();
+			handleCloseFormGasto();
 		}
 	};
 
 	return (
-		<section className={`formulario formulario-overlay ${hideFormClass}`}>
+		<section className={`formulario formulario-overlay ${classNameDisplay}`}>
 			<div className="contenedor__formulario-overlay">
 				<div className="icon__close">
-					<button onClick={handleCloseForm} id="closeForm">
+					<button onClick={handleCloseFormGasto} id="closeForm">
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>
 				</div>
