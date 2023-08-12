@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { formatCurrency, useGastos } from '../../hooks';
 import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
-import { TableSgah, FormGastos } from '../components';
+import { TableSgahGasto, FormGasto} from '../components';
 
 export const SgahGastosPage = () => {
 	const {
@@ -85,10 +85,10 @@ export const SgahGastosPage = () => {
 					</button>
 				</div>
 
-				<TableSgah />
+				<TableSgahGasto />
 			</aside>
 
-			<FormGastos />
+			<FormGasto />
 		</>
 	);
 };

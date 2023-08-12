@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { formatCurrency, useSgahInversionStore } from '../../hooks';
-import { FormNewInversion, TableSgahInversion } from '../components';
+import { FormNewInversion, TableSgahInversion, FormUpdateInversion } from '../components';
 import { useInversionUi } from '../../hooks/ui/useInversionUi';
-import { FormUpdateInversion } from '../components/forms/FormUpdateInversion';
 
 export const SgahInversionPage = () => {
 	const { saldoInvertido, startLoadingSaldoInvertido, startLoadingInversiones } =

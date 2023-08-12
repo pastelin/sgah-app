@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useForm } from '../../hooks/useForm';
-import { formatCurrency, useSgahInversionStore } from '../../hooks';
+import { useForm } from '../../../hooks/useForm';
+import { formatCurrency, useSgahInversionStore } from '../../../hooks';
 import Swal from 'sweetalert2';
-import { useMessages } from '../../hooks/useMessages';
-import { useInversionUi } from '../../hooks/ui/useInversionUi';
+import { useMessages } from '../../../hooks/useMessages';
+import { useInversionUi } from '../../../hooks/ui/useInversionUi';
 
 const formData = {
 	monto: '',

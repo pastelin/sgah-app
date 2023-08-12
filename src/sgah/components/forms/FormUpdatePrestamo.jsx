@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { formatCurrency, useForm, useSgahPrestamoStore } from '../../hooks';
-import { usePrestamoFormUpdate } from '../../hooks/prestamos/usePrestamoFormUpdate';
+import { formatCurrency, useForm, useSgahPrestamoStore } from '../../../hooks';
+import { usePrestamoFormUpdate } from '../../../hooks/prestamos/usePrestamoFormUpdate';
 import Swal from 'sweetalert2';
-import { useMessages } from '../../hooks/useMessages';
+import { useMessages } from '../../../hooks/useMessages';
 
-export const FormUpdatePrestamos = () => {
+export const FormUpdatePrestamo = () => {
 	useEffect(() => {
 		if (!saldoDisponibleGasto) {
 			startLoadingSaldoGasto();

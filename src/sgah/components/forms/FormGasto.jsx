@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from '../../hooks/useForm';
-import { onCloseFormGasto } from '../../store';
-import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
-import { formatCurrency } from '../../hooks';
+import { useForm } from '../../../hooks/useForm';
+import { onCloseFormGasto } from '../../../store';
+import { useSgahGastoStore } from '../../../hooks/store/useSgahGastoStore';
+import { formatCurrency } from '../../../hooks';
 import Swal from 'sweetalert2';
-import { useMessages } from '../../hooks/useMessages';
+import { useMessages } from '../../../hooks/useMessages';
 
 const formData = {
 	monto: '',
@@ -14,7 +14,7 @@ const formData = {
 	cdTipoMovimiento: 2,
 };
 
-export const FormGastos = () => {
+export const FormGasto = () => {
 	// A hook to access the redux dispatch function.
 	const dispatch = useDispatch();
 

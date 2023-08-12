@@ -1,4 +1,4 @@
-import { formatCurrency, useSgahPrestamoStore } from '../../hooks';
+import { useSgahPrestamoStore, formatCurrency } from '../../../hooks';
 
 export const TableSgahPrestamo = () => {
 	const { prestamos, startLoadingPrestamo } = useSgahPrestamoStore();

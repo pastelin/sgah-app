@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { formatCurrency, useSgahAhorroStore } from '../../hooks';
-import { TableSgahAhorro } from '../components/TableSgahAhorro';
+import { TableSgahAhorro } from '../components';
 
 export const SgahAhorrosPage = () => {
 	const { startLoadingAhorros, startLoadingSaldoDisponibleA, saldoDisponibleA } =

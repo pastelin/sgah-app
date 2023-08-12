@@ -1,9 +1,6 @@
 import { useMemo } from 'react';
-import { FormNewPrestamos } from '../components/FormNewPrestamos';
-import { FormUpdatePrestamos } from '../components/FormUpdatePrestamo';
-import { TableSgahPrestamo } from '../components/TableSgahPrestamo';
-import { usePrestamos } from '../../hooks/usePrestamos';
-import { useSgahPrestamoStore } from '../../hooks';
+import { useSgahPrestamoStore, usePrestamos } from '../../hooks';
+import { FormNewPrestamo, FormUpdatePrestamo, TableSgahPrestamo } from '../components';
 
 export const SgahPrestamosPage = () => {
 	const { handleOpenFormNewPrestamo } = usePrestamos();
@@ -46,9 +43,9 @@ export const SgahPrestamosPage = () => {
 				<TableSgahPrestamo />
 			</aside>
 
-			<FormNewPrestamos />
+			<FormNewPrestamo />
 
-			<FormUpdatePrestamos />
+			<FormUpdatePrestamo />
 		</>
 	);
 };

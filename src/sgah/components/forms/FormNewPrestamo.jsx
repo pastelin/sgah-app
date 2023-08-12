@@ -1,17 +1,17 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from '../../hooks/useForm';
-import { onCloseFormNewPrestamo } from '../../store';
-import { formatCurrency, useSgahAhorroStore, useSgahPrestamoStore } from '../../hooks';
+import { useForm } from '../../../hooks/useForm';
+import { onCloseFormNewPrestamo } from '../../../store';
+import { formatCurrency, useSgahAhorroStore, useSgahPrestamoStore } from '../../../hooks';
 import Swal from 'sweetalert2';
-import { useMessages } from '../../hooks/useMessages';
+import { useMessages } from '../../../hooks/useMessages';
 
 const formData = {
 	montoPrestado: '',
 	descripcion: '',
 };
 
-export const FormNewPrestamos = () => {
+export const FormNewPrestamo = () => {
 	// A hook to access the redux dispatch function.
 	const dispatch = useDispatch();
 

@@ -1,6 +1,6 @@
-import { useSgahGastoStore } from '../../hooks/store/useSgahGastoStore';
+import { useSgahGastoStore } from '../../../hooks';
 
-export const TableSgah = () => {
+export const TableSgahGasto = () => {
 	const { gastos } = useSgahGastoStore();
 
 	return (

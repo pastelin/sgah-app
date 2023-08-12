@@ -1,4 +1,4 @@
-import { formatCurrency, useSgahAhorroStore } from '../../hooks';
+import { formatCurrency, useSgahAhorroStore } from '../../../hooks';
 
 export const TableSgahAhorro = () => {
 	const { ahorros } = useSgahAhorroStore();

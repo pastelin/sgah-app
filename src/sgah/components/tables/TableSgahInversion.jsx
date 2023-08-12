@@ -1,5 +1,4 @@
-import { formatCurrency, useSgahInversionStore } from '../../hooks';
-import { useInversionUi } from '../../hooks/ui/useInversionUi';
+import { formatCurrency, useSgahInversionStore, useInversionUi } from '../../../hooks';
 
 export const TableSgahInversion = () => {
 	const { inversiones, startLoadingInversion } = useSgahInversionStore();
