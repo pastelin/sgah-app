@@ -116,7 +116,7 @@ export const FormGastos = () => {
 					</div>
 
 					<div className="contenedor__btn">
-						<button type="submit" className="button">
+						<button type="submit" className="btn button">
 							Guardar Gasto
 						</button>
 					</div>

@@ -39,9 +39,11 @@
 			padding: 1rem;
 			background-color: v.$azul;
 			color: v.$blanco;
-
+            font-size: 1.4rem;
+            
 			@include m.tablet {
-				width: 34rem;
+                width: 34rem;
+                font-size: 1.6rem;
 			}
 
 			&:hover {

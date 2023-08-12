@@ -17,10 +17,9 @@ export const FormNewPrestamos = () => {
 
 	// A hook to access the redux store's state. This hook takes a selector function as an argument.
 	// The selector is called with the store state.
-	const { startSavingPrestamo } =
-        useSgahPrestamoStore();
-    
-    const { startLoadingSaldoDisponibleA, saldoDisponible } = useSgahAhorroStore();
+	const { startSavingPrestamo } = useSgahPrestamoStore();
+
+	const { startLoadingSaldoDisponibleA, saldoDisponibleA } = useSgahAhorroStore();
 
 	useEffect(() => {
 		startLoadingSaldoDisponibleA();
@@ -41,7 +40,7 @@ export const FormNewPrestamos = () => {
 	const onSubmit = async (event) => {
 		event.preventDefault();
 
-		if (montoPrestado > saldoDisponible) {
+		if (montoPrestado > saldoDisponibleA) {
 			Swal.fire('Validar monto ingresado', '', 'error');
 			return;
 		}
@@ -66,7 +65,7 @@ export const FormNewPrestamos = () => {
 				</div>
 				<h3>¡Registrar Prestamo!</h3>
 				<p>
-					Saldo máximo a tomar prestado: <span>{formatCurrency(saldoDisponible)}</span>
+					Saldo máximo a tomar prestado: <span>{formatCurrency(saldoDisponibleA)}</span>
 				</p>
 
 				<form onSubmit={onSubmit}>
@@ -94,7 +93,7 @@ export const FormNewPrestamos = () => {
 					</div>
 
 					<div className="contenedor__btn">
-						<button type="submit" className="button">
+						<button type="submit" className="btn button">
 							Guardar Prestamo
 						</button>
 					</div>

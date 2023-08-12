@@ -339,7 +339,7 @@ h2,
 h3 {
   margin: 2rem 0 5rem 0;
   font-weight: 500;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 h1 {
@@ -381,7 +381,6 @@ img {
 aside h2 {
   font-size: 2.4rem;
   text-align: center;
-  opacity: 0.7;
   margin-bottom: 4rem;
 }
 @media (min-width: 768px) {
@@ -390,8 +389,9 @@ aside h2 {
   }
 }
 
-.button {
+.btn {
   border-radius: 0.5rem;
+  font-size: 1.3rem;
   border: none;
   cursor: pointer;
   transition: all 0.25s ease-in;
@@ -399,6 +399,10 @@ aside h2 {
 
 .m-0 {
   margin: 0;
+}
+
+.mt-4 {
+  margin-top: 4rem;
 }
 
 hr {
@@ -630,6 +634,12 @@ hr {
   padding: 0.7rem 1rem;
   background-color: #0099e5;
   color: #FFFFFF;
+  font-size: 1.4rem;
+}
+@media (min-width: 768px) {
+  .formulario form .contenedor__btn button {
+    font-size: 1.6rem;
+  }
 }
 .formulario form .contenedor__btn button:hover {
   opacity: 0.8;
@@ -746,11 +756,21 @@ hr {
 }
 
 .btn-prestamos {
-  font-size: 1.3rem;
   padding: 0.5rem;
-  background-color: #34bf49;
-  border-radius: 0.5rem;
-  cursor: pointer;
+  background-color: #c1f1fc;
+}
+.btn-prestamos:hover {
+  background-color: #000000;
+  color: white;
+}
+
+.btn-inversion {
+  padding: 0.5rem;
+  background-color: #c1f1fc;
+}
+.btn-inversion:hover {
+  background-color: #000000;
+  color: white;
 }
 
 .contenedor__movimientos {
@@ -793,10 +813,12 @@ hr {
   padding: 1rem;
   background-color: #0099e5;
   color: #FFFFFF;
+  font-size: 1.4rem;
 }
 @media (min-width: 768px) {
   .contenedor__movimientos .contenedor__boton button {
     width: 34rem;
+    font-size: 1.6rem;
   }
 }
 .contenedor__movimientos .contenedor__boton button:hover {

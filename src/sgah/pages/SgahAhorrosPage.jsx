@@ -3,7 +3,7 @@ import { formatCurrency, useSgahAhorroStore } from '../../hooks';
 import { TableSgahAhorro } from '../components/TableSgahAhorro';
 
 export const SgahAhorrosPage = () => {
-	const { startLoadingAhorros, startLoadingSaldoDisponibleA, saldoDisponible } =
+	const { startLoadingAhorros, startLoadingSaldoDisponibleA, saldoDisponibleA } =
 		useSgahAhorroStore();
 
 	useEffect(() => {
@@ -18,7 +18,7 @@ export const SgahAhorrosPage = () => {
 
 				<div className="contenedor__montos">
 					<h3>
-						Saldo Disponible: <span>{formatCurrency(saldoDisponible)}</span>
+						Saldo Disponible: <span>{formatCurrency(saldoDisponibleA)}</span>
 					</h3>
 				</div>
 

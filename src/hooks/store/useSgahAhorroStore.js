@@ -4,7 +4,7 @@ import { onAddSaldoDisponibleA, onLoadAhorros, onLoadSaldoDisponibleA, onSubtrac
 
 export const useSgahAhorroStore = () => {
 	const dispatch = useDispatch();
-	const { saldoDisponible, ahorros } = useSelector((state) => state.sgahAhorro);
+	const { saldoDisponibleA, ahorros } = useSelector((state) => state.sgahAhorro);
 
 	const startSavingAhorro = async (formData) => {
 		console.log('startSavingAhorro');
@@ -35,7 +35,7 @@ export const useSgahAhorroStore = () => {
 
 	return {
 		// * Propiedades
-		saldoDisponible,
+		saldoDisponibleA,
 		ahorros,
 
 		// * Metodos

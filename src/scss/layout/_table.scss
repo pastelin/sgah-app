@@ -80,9 +80,19 @@
 }
 
 .btn-prestamos {
-	font-size: 1.3rem;
 	padding: 0.5rem;
-	background-color: v.$verde;
-	border-radius: 0.5rem;
-	cursor: pointer;
+	background-color: v.$azulClaro;
+    &:hover {
+        background-color: v.$negro;
+        color: white;
+    }
+}
+
+.btn-inversion {
+	padding: 0.5rem;
+	background-color: v.$azulClaro;
+    &:hover {
+        background-color: v.$negro;
+        color: white;
+    }
 }

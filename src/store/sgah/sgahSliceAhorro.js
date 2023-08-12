@@ -4,20 +4,20 @@ export const sgahSliceAhorro = createSlice({
 	name: 'sgahAhorro',
 	initialState: {
 		ahorros: [{}],
-		saldoDisponible: 0,
+		saldoDisponibleA: 0,
 	},
 	reducers: {
 		onLoadAhorros: (state, action) => {
 			state.ahorros = action.payload;
 		},
 		onLoadSaldoDisponibleA: (state, action) => {
-			state.saldoDisponible = action.payload;
+			state.saldoDisponibleA = action.payload;
 		},
 		onAddSaldoDisponibleA: (state, { payload }) => {
-			state.saldoDisponible += parseInt(payload);
+			state.saldoDisponibleA += parseInt(payload);
 		},
 		onSubtractSaldoDisponibleA: (state, { payload }) => {
-			state.saldoDisponible -= parseInt(payload);
+			state.saldoDisponibleA -= parseInt(payload);
 		},
 	},
 });

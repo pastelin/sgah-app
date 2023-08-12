@@ -10,7 +10,7 @@ export const uiSlice = createSlice({
 		isSaldoIngresoDisabled: false,
 		isFormGastosSubmitted: false,
 		isFormAhorroSubmitted: false,
-		menuSelected: 'Ahorro',
+		menuSelected: 'Inversion',
 		optionSelectedFilterGasto: '',
 	},
 	reducers: {

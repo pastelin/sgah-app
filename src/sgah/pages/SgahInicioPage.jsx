@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { NavBar } from '../components';
-import { SgahGastosPage, SgahResumenPage, SgahPrestamosPage, SgahIngresosPage } from './';
+import { SgahGastosPage, SgahResumenPage, SgahPrestamosPage, SgahIngresosPage, SgahInversionPage } from './';
 import { SgahAhorrosPage } from './SgahAhorrosPage';
 
 export const SgahInicioPage = () => {
@@ -19,6 +19,8 @@ export const SgahInicioPage = () => {
                 return <SgahIngresosPage />
             case 'Ahorro': 
                 return <SgahAhorrosPage />
+            case 'Inversion':
+                return <SgahInversionPage />
 			default:
 				return <SgahResumenPage />;
 		}

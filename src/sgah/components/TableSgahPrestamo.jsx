@@ -32,7 +32,7 @@ export const TableSgahPrestamo = () => {
 							<td>
 								<a
 									onClick={() => handleOpenFormUpdatePrestamo(prestamo.folio)}
-									className="btn-prestamos"
+									className="btn btn-prestamos"
 								>
 									Pagar
 								</a>

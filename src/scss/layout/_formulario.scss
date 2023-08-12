@@ -90,6 +90,11 @@
 				padding: 0.7rem 1rem;
 				background-color: v.$azul;
 				color: v.$blanco;
+                font-size: 1.4rem;
+                
+                @include m.tablet {
+                    font-size: 1.6rem;
+                }
 
 				&:hover {
 					opacity: 0.8;

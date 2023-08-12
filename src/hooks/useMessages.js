@@ -4,6 +4,7 @@ export const useMessages = (code, message) => {
 
     switch (code) {
         case 200:
+        case 201:
             Swal.fire(message, '', 'success');
             break;
         case 'ERR_BAD_REQUEST':

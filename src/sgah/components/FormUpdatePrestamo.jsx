@@ -100,7 +100,7 @@ export const FormUpdatePrestamos = () => {
 					</div>
 
 					<div className="contenedor__btn">
-						<button type="submit" className="button">
+						<button type="submit" className="btn button">
 							Actualizar Prestamo
 						</button>
 					</div>

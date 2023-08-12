@@ -38,7 +38,7 @@ export const SgahPrestamosPage = () => {
 				</div>
 
 				<div className="contenedor__boton">
-					<button onClick={handleOpenFormNewPrestamo} className="button">
+					<button onClick={handleOpenFormNewPrestamo} className="btn button">
 						Agregar Prestamo
 					</button>
 				</div>

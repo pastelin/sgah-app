@@ -80,7 +80,7 @@ export const SgahGastosPage = () => {
 				</div>
 
 				<div className="contenedor__boton">
-					<button onClick={handleOpenForm} id="btnAgregarGasto" className="button">
+					<button onClick={handleOpenForm} id="btnAgregarGasto" className="btn button">
 						Agregar Gasto
 					</button>
 				</div>
