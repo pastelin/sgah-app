@@ -9,13 +9,11 @@ import {
 import Swal from 'sweetalert2';
 
 export const FormUpdatePrestamo = () => {
-	const { prestamo, startUpdatingPrestamo, saldoDisponibleGasto, startLoadingSaldoGasto } =
+	const { prestamo, startUpdatingPrestamo, saldoDisponibleG, startLoadingSaldoGasto } =
 		useSgahPrestamoStore();
 
 	useEffect(() => {
-		if (!saldoDisponibleGasto) {
-			startLoadingSaldoGasto();
-		}
+		startLoadingSaldoGasto();
 	}, []);
 
 	const { classNameUpdateFormPrestamoDisplay, handleCloseUpdateFormPrestamo } = usePrestamoUi();
@@ -40,7 +38,7 @@ export const FormUpdatePrestamo = () => {
 			return;
 		}
 
-		if (newMontoPagado > saldoDisponibleGasto) {
+		if (newMontoPagado > saldoDisponibleG) {
 			Swal.fire('El monto no debe ser mayor al saldo disponible', '', 'error');
 			return;
 		}
@@ -77,7 +75,7 @@ export const FormUpdatePrestamo = () => {
 					Deuda Actual: <span>{formatCurrency(montoPrestado - montoPagado)}</span>
 				</p>
 				<p>
-					Saldo disponible: <span>{formatCurrency(saldoDisponibleGasto)}</span>
+					Saldo disponible: <span>{formatCurrency(saldoDisponibleG)}</span>
 				</p>
 				<form onSubmit={onSubmit}>
 					<div className="form__group">

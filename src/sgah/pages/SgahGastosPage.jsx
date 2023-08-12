@@ -15,7 +15,7 @@ export const SgahGastosPage = () => {
 		filtro,
 		categoriasGasto,
 		tipoMovimiento,
-		saldoDisponible,
+		saldoDisponibleG,
 		saldoGastado,
 		startLoadingCategoriasGasto,
 		startLoadingGastos,
@@ -70,7 +70,7 @@ export const SgahGastosPage = () => {
 
 				<div className="contenedor__montos">
 					<h3>
-						Disponible: <span>{formatCurrency(saldoDisponible)}</span>
+						Disponible: <span>{formatCurrency(saldoDisponibleG)}</span>
 					</h3>
 
 					<h3>

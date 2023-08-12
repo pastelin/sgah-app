@@ -15,7 +15,7 @@ const formData = {
 };
 
 export const FormGasto = () => {
-	const { categoriasGasto, saldoDisponible, startSavingGasto } = useSgahGastoStore();
+	const { categoriasGasto, saldoDisponibleG, startSavingGasto } = useSgahGastoStore();
 
 	const { classNameDisplay, handleCloseFormGasto } = useGastoUi();
 
@@ -25,7 +25,7 @@ export const FormGasto = () => {
 	const onSubmit = async (event) => {
 		event.preventDefault();
 
-		if (saldoDisponible - monto < 0) {
+		if (saldoDisponibleG - monto < 0) {
 			Swal.fire('El monto ingresado no debe superar el saldo disponible', '', 'error');
 			return;
 		}
@@ -55,7 +55,7 @@ export const FormGasto = () => {
 				</div>
 				<h3>¡Registrar Gasto!</h3>
 				<p>
-					Saldo máximo a gastar: <span>{formatCurrency(saldoDisponible)}</span>
+					Saldo máximo a gastar: <span>{formatCurrency(saldoDisponibleG)}</span>
 				</p>
 
 				<form onSubmit={onSubmit}>

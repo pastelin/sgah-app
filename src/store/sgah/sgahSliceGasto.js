@@ -8,7 +8,7 @@ export const sgahSliceGasto = createSlice({
 		tipoMovimiento: ['Gasto', 'Ingreso'],
 		categoriasGasto: [{}],
 		gastos: [{}],
-		saldo: {
+		saldoGasto: {
 			disponible: 0,
 			gastado: 0,
 		},
@@ -28,15 +28,15 @@ export const sgahSliceGasto = createSlice({
 			payload.monto = formatCurrency(payload.monto);
 			state.gastos.push(payload);
 		},
-		onLoadSaldo: (state, { payload }) => {
-			state.saldo.disponible = payload.montoDisponible;
-			state.saldo.gastado = payload.montoGastado;
+		onLoadSaldoGasto: (state, { payload }) => {
+			state.saldoGasto.disponible = payload.montoDisponible;
+			state.saldoGasto.gastado = payload.montoGastado;
 		},
-		onAddSaldoDisponible: (state, { payload }) => {
-			state.saldo.disponible += parseInt(payload);
+		onAddSaldoDisponibleG: (state, { payload }) => {
+			state.saldoGasto.disponible += parseInt(payload);
 		},
-		onSubtractSaldoDisponible: (state, { payload }) => {
-			state.saldo.disponible -= parseInt(payload);
+		onSubtractSaldoDisponibleG: (state, { payload }) => {
+			state.saldoGasto.disponible -= parseInt(payload);
 		},
 	},
 });
@@ -44,8 +44,8 @@ export const sgahSliceGasto = createSlice({
 export const {
 	onLoadCategoriasGasto,
 	onLoadGastos,
-	onLoadSaldo,
+	onLoadSaldoGasto,
 	onAddNewGasto,
-	onAddSaldoDisponible,
-	onSubtractSaldoDisponible,
+	onAddSaldoDisponibleG,
+	onSubtractSaldoDisponibleG,
 } = sgahSliceGasto.actions;

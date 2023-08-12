@@ -2,16 +2,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
 	onLoadGastos,
 	onLoadCategoriasGasto,
-	onLoadSaldo,
+	onLoadSaldoGasto,
 	onAddNewGasto,
-	onAddSaldoDisponible,
-	onSubtractSaldoDisponible,
+	onAddSaldoDisponibleG,
+	onSubtractSaldoDisponibleG,
 } from '../../store';
 import { sgahApi } from '../../backend';
 import { addNumbers } from '../useUtilities';
 
 export const useSgahGastoStore = () => {
-	const { filtro, categoriasGasto, gastos, tipoMovimiento, saldo } = useSelector(
+	const { filtro, categoriasGasto, gastos, tipoMovimiento, saldoGasto } = useSelector(
 		(state) => state.sgahGasto
 	);
 
@@ -34,7 +34,7 @@ export const useSgahGastoStore = () => {
 		console.log('startLoadingSaldoGasto');
 
 		const { data } = await sgahApi.get('gasto/v0/gasto/montos');
-		dispatch(onLoadSaldo(data));
+		dispatch(onLoadSaldoGasto(data));
 	};
 
 	const startSavingGasto = async (formData) => {
@@ -47,11 +47,11 @@ export const useSgahGastoStore = () => {
 			console.log({ status, data });
 
 			if (formData.cdTipoMovimiento === 2) {
-				const saldoDisponible = saldo.disponible - formData.monto;
-				const saldoGastado = addNumbers(formData.monto, saldo.gastado);
+				const saldoDisponible = saldoGasto.disponible - formData.monto;
+				const saldoGastado = addNumbers(formData.monto, saldoGasto.gastado);
 
 				dispatch(
-					onLoadSaldo({
+					onLoadSaldoGasto({
 						montoDisponible: saldoDisponible,
 						montoGastado: saldoGastado,
 					})
@@ -72,14 +72,14 @@ export const useSgahGastoStore = () => {
 		}
 	};
 
-	const startAddingSaldoDisponible = (saldo) => {
-		console.log('startAddingSaldoDisponible');
-		dispatch(onAddSaldoDisponible(saldo));
+	const startAddingSaldoDisponibleG = (saldo) => {
+		console.log('startAddingSaldoDisponibleG');
+		dispatch(onAddSaldoDisponibleG(saldo));
 	};
 
-	const startSubtractingSaldoDisponible = (saldo) => {
-		console.log('startSubtractingSaldoDisponible');
-		dispatch(onSubtractSaldoDisponible(saldo));
+	const startSubtractingSaldoDisponibleG = (saldo) => {
+		console.log('startSubtractingSaldoDisponibleG');
+		dispatch(onSubtractSaldoDisponibleG(saldo));
 	};
 
 	return {
@@ -88,15 +88,15 @@ export const useSgahGastoStore = () => {
 		categoriasGasto,
 		gastos,
 		tipoMovimiento,
-		saldoDisponible: saldo.disponible,
-		saldoGastado: saldo.gastado,
+		saldoDisponibleG: saldoGasto.disponible,
+		saldoGastado: saldoGasto.gastado,
 
 		// * Metodos
 		startLoadingCategoriasGasto,
 		startLoadingGastos,
 		startLoadingSaldoGasto,
 		startSavingGasto,
-		startAddingSaldoDisponible,
-		startSubtractingSaldoDisponible,
+		startAddingSaldoDisponibleG,
+		startSubtractingSaldoDisponibleG,
 	};
 };
