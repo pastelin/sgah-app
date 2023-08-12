@@ -1,33 +1,32 @@
-import { useSgahStore } from '../../hooks';
-import { useNavBar } from '../../hooks/useNavBar';
+import { useSgahStore, useSgahUi } from '../../hooks';
 
 export const NavBar = () => {
 	const {
-		hightClass,
-		hideIconClass,
-		activeMenuClass,
-		activeIconCloseMenuClass,
+		classNameHightNavbar,
+		classNameHideIconNavbar,
+		classNameActiveMenuNavbar,
+		classNameActiveIconCloseMenuNavbar,
 		handleOpenNavbar,
 		handleCloseNavbar,
-		handleUpdateMenuSelected,
-	} = useNavBar();
+		handleUpdatingMenuSelected,
+	} = useSgahUi();
 
     const { menuList } = useSgahStore();
 
 	return (
-		<nav className={`sgah__nav ${hightClass}`}>
-			<div onClick={handleOpenNavbar} className={`sgah__nav-icon ${hideIconClass}`}>
+		<nav className={`sgah__nav ${classNameHightNavbar}`}>
+			<div onClick={handleOpenNavbar} className={`sgah__nav-icon ${classNameHideIconNavbar}`}>
 				<h1 className="logo-icon">SGAH</h1>
 				<i className="fa-solid fa-bars"></i>
 			</div>
-			<div className={`sgah__nav--tablet ${activeMenuClass}`}>
+			<div className={`sgah__nav--tablet ${classNameActiveMenuNavbar}`}>
 				<h1 className="logo">SGAH</h1>
 				<h3 className="usuario">
 					<i className="fa-regular fa-user"></i>
 					&nbsp; Juan Pastelin
 				</h3>
 
-				<div onClick={handleUpdateMenuSelected}>
+				<div onClick={handleUpdatingMenuSelected}>
 					{menuList.map((item) => (
 						<div key={item} className="nav__item">
 							<a href="#">{item}</a>
@@ -41,7 +40,7 @@ export const NavBar = () => {
 					<span>Salir</span>
 				</button>
 			</div>
-			<div className={`icon__close ${activeIconCloseMenuClass}`}>
+			<div className={`icon__close ${classNameActiveIconCloseMenuNavbar}`}>
 				<button onClick={handleCloseNavbar}>
 					<i className="fa-regular fa-circle-xmark"></i>
 				</button>

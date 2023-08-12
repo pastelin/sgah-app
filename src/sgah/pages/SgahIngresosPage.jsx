@@ -1,18 +1,12 @@
 import { useEffect, useState } from 'react';
 import {
 	formatCurrency,
+	useAhorroUi,
 	useForm,
 	useGastoUi,
 	useSgahAhorroStore,
 	useSgahGastoStore,
 } from '../../hooks';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-	onActiveFormAhorro,
-	onActiveSaldoIngreso,
-	onDisabledFormAhorro,
-	onDisabledSaldoIngreso,
-} from '../../store';
 import { useMessages } from '../../hooks/useMessages';
 
 const formDataGasto = {
@@ -28,22 +22,27 @@ const formDataAhorro = {
 };
 
 export const SgahIngresosPage = () => {
-	const { isSaldoIngresoDisabled, isFormAhorroSubmitted } = useSelector((state) => state.ui);
+	const {
+		isAbleEditAhorro,
+		isAbleEditSaldoIngreso,
+		handleDisableEditAhorro,
+		handleAbleEditAhorro,
+		handleDisableEditSaldoIngreso,
+		handleAbleEditSaldoIngreso,
+	} = useAhorroUi();
 
 	const { isAbleEditGasto, handleDisableEditGasto, handleAbleEditGasto } = useGastoUi();
 
 	const { startSavingGasto } = useSgahGastoStore();
 	const { startSavingAhorro } = useSgahAhorroStore();
 
-	const dispatch = useDispatch();
-
 	const [saldoIngreso, setSaldoIngreso] = useState(0);
 	const [saldoUsado, setSaldoUsado] = useState(0);
 
 	useEffect(() => {
-		dispatch(onActiveSaldoIngreso());
+		handleAbleEditSaldoIngreso();
 		handleAbleEditGasto();
-		dispatch(onActiveFormAhorro());
+		handleAbleEditAhorro();
 	}, []);
 
 	const {
@@ -62,10 +61,6 @@ export const SgahIngresosPage = () => {
 
 	const onInputChangeIngreso = ({ target }) => {
 		setSaldoIngreso(formatCurrency(target.value));
-	};
-
-	const handleActualizarIngreso = () => {
-		dispatch(onDisabledSaldoIngreso());
 	};
 
 	const onSubmitGastos = async (event) => {
@@ -97,7 +92,7 @@ export const SgahIngresosPage = () => {
 
 		startSavingAhorro({ monto: montoAhorro, descripcion: descripcionAhorro });
 		setSaldoUsado(updateSaldoUsado);
-		dispatch(onDisabledFormAhorro());
+		handleDisableEditAhorro();
 	};
 
 	return (
@@ -115,14 +110,14 @@ export const SgahIngresosPage = () => {
 						value={saldoIngreso}
 						onChange={onInputChangeIngreso}
 						required
-						disabled={isSaldoIngresoDisabled}
+						disabled={!isAbleEditSaldoIngreso}
 					/>
 				</div>
 
 				<button
-					onClick={handleActualizarIngreso}
+					onClick={handleDisableEditSaldoIngreso}
 					className="button btn-ingreso-actualiza"
-					disabled={isSaldoIngresoDisabled}
+					disabled={!isAbleEditSaldoIngreso}
 				>
 					Actualizar
 				</button>
@@ -193,7 +188,7 @@ export const SgahIngresosPage = () => {
 									value={montoAhorro}
 									onChange={onInputChangeAhorro}
 									required
-									disabled={isFormAhorroSubmitted}
+									disabled={!isAbleEditAhorro}
 								/>
 							</div>
 
@@ -205,7 +200,7 @@ export const SgahIngresosPage = () => {
 									value={descripcionAhorro}
 									onChange={onInputChangeAhorro}
 									required
-									disabled={isFormAhorroSubmitted}
+									disabled={!isAbleEditAhorro}
 								></textarea>
 							</div>
 
@@ -213,7 +208,7 @@ export const SgahIngresosPage = () => {
 								<button
 									className="button"
 									type="submit"
-									disabled={isFormAhorroSubmitted}
+									disabled={!isAbleEditAhorro}
 								>
 									Guardar Ahorro
 								</button>

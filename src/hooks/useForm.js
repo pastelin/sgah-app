@@ -5,7 +5,6 @@ export const useForm = (initialForm = null) => {
 
 	// Hook que se ejecuta cada que el estado de initialForm cambia
 	useEffect(() => {
-		console.log(initialForm);
 		setFormState(initialForm);
 	}, [initialForm]);
 
