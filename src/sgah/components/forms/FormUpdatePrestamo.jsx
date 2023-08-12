@@ -1,20 +1,24 @@
 import { useEffect } from 'react';
-import { formatCurrency, useForm, useSgahPrestamoStore } from '../../../hooks';
-import { usePrestamoFormUpdate } from '../../../hooks/prestamos/usePrestamoFormUpdate';
+import {
+	formatCurrency,
+	useForm,
+	usePrestamoUi,
+	useSgahPrestamoStore,
+	useMessages,
+} from '../../../hooks';
 import Swal from 'sweetalert2';
-import { useMessages } from '../../../hooks/useMessages';
 
 export const FormUpdatePrestamo = () => {
+	const { prestamo, startUpdatingPrestamo, saldoDisponibleGasto, startLoadingSaldoGasto } =
+		useSgahPrestamoStore();
+
 	useEffect(() => {
 		if (!saldoDisponibleGasto) {
 			startLoadingSaldoGasto();
 		}
 	}, []);
 
-	const { hideFormUpdatePrestamoClass, handleCloseUpdateFormPrestamo } = usePrestamoFormUpdate();
-
-	const { prestamo, startUpdatingPrestamo, saldoDisponibleGasto, startLoadingSaldoGasto } =
-		useSgahPrestamoStore();
+	const { classNameUpdateFormPrestamoDisplay, handleCloseUpdateFormPrestamo } = usePrestamoUi();
 
 	const {
 		folio,
@@ -60,7 +64,7 @@ export const FormUpdatePrestamo = () => {
 	return (
 		<section
 			id="formularioUpdatePrestamo"
-			className={`formulario formulario-overlay ${hideFormUpdatePrestamoClass}`}
+			className={`formulario formulario-overlay ${classNameUpdateFormPrestamoDisplay}`}
 		>
 			<div className="contenedor__formulario-overlay">
 				<div id="closeMenu" className="icon__close">

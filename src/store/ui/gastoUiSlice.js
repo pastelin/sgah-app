@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const gastoUiSlice = createSlice({
-	name: 'gastoUi',
+	name: 'gastoUi', 
 	initialState: {
 		isShowFormGasto: false,
 		isAbleEditGasto: true,

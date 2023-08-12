@@ -4,6 +4,7 @@ import { uiSlice } from './ui/uiSlice';
 import { sgahSliceInversion } from './sgah/sgahSliceInversion';
 import { inversionUiSlice } from './ui/inversionUiSlice';
 import { gastoUiSlice } from './ui/gastoUiSlice';
+import { prestamoUiSlice } from './ui/prestamoUiSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
 		sgahInversion: sgahSliceInversion.reducer,
 		inversionUi: inversionUiSlice.reducer,
 		gastoUi: gastoUiSlice.reducer,
+		prestamoUi: prestamoUiSlice.reducer,
 		ui: uiSlice.reducer,
 	},
 });

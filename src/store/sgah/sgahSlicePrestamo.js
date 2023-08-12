@@ -6,7 +6,7 @@ export const sgahSlicePrestamos = createSlice({
 		filtro: ['Listar todo', 'Estatus'],
 		prestamo: {},
 		prestamos: [{}],
-		saldoUtilizado: 0,
+		saldoUtilizadoP: 0,
 	},
 	reducers: {
 		onLoadPrestamos: (state, action) => {
@@ -17,8 +17,8 @@ export const sgahSlicePrestamos = createSlice({
 
 			state.prestamos = action.payload;
 		},
-		onLoadSaldoUtilizado: (state, action) => {
-			state.saldoUtilizado = action.payload;
+		onLoadSaldoUtilizadoP: (state, action) => {
+			state.saldoUtilizadoP = action.payload;
 		},
 		onLoadPrestamo: (state, action) => {
 			state.prestamo = action.payload;
@@ -27,11 +27,11 @@ export const sgahSlicePrestamos = createSlice({
 		onAddNewPrestamo: (state, { payload }) => {
 			state.prestamos.push(payload);
 		},
-		onUpdateSaldosForNewPrestamo: (state, { payload }) => {
-			state.saldoUtilizado += parseInt(payload);
+		onAddSaldoUtilizadoP: (state, { payload }) => {
+			state.saldoUtilizadoP += parseInt(payload);
 		},
-		onSubtractSaldoUtilizado: (state, { payload }) => {
-			state.saldoUtilizado -= parseInt(payload);
+		onSubtractSaldoUtilizadoP: (state, { payload }) => {
+			state.saldoUtilizadoP -= parseInt(payload);
 		},
 		onUpdatePrestamo: (state, { payload }) => {
 			state.prestamos = state.prestamos.map((data) => {
@@ -50,11 +50,11 @@ export const sgahSlicePrestamos = createSlice({
 
 export const {
 	onLoadPrestamos,
-	onLoadSaldoUtilizado,
+	onLoadSaldoUtilizadoP,
 	onLoadPrestamo,
-	onUpdateSaldosForNewPrestamo,
+	onAddSaldoUtilizadoP,
 	onAddNewPrestamo,
-	onSubtractSaldoUtilizado,
+	onSubtractSaldoUtilizadoP,
 	onUpdatePrestamo,
 	onDeletePrestamo,
 } = sgahSlicePrestamos.actions;

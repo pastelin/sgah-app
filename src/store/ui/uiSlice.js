@@ -4,10 +4,7 @@ export const uiSlice = createSlice({
 	name: 'ui',
 	initialState: {
 		isNavbarOpen: false,
-		isFormNewPrestamoOpen: false,
-		isFormUpdatePrestamoOpen: false,
 		isSaldoIngresoDisabled: false,
-		isFormGastosSubmitted: false,
 		isFormAhorroSubmitted: false,
 		menuSelected: 'Inversion',
 	},
@@ -18,18 +15,6 @@ export const uiSlice = createSlice({
 
 		onCloseNavbar: (state) => {
 			state.isNavbarOpen = false;
-		},
-		onOpenFormNewPrestamo: (state) => {
-			state.isFormNewPrestamoOpen = true;
-		},
-		onCloseFormNewPrestamo: (state) => {
-			state.isFormNewPrestamoOpen = false;
-		},
-		onOpenFormUpdatePrestamo: (state) => {
-			state.isFormUpdatePrestamoOpen = true;
-		},
-		onCloseFormUpdatePrestamo: (state) => {
-			state.isFormUpdatePrestamoOpen = false;
 		},
 		onUpdateMenuSelected: (state, action) => {
 			state.menuSelected = action.payload;
@@ -53,10 +38,6 @@ export const {
 	onOpenNavbar,
 	onCloseNavbar,
 	onUpdateMenuSelected,
-	onOpenFormNewPrestamo,
-	onCloseFormNewPrestamo,
-	onOpenFormUpdatePrestamo,
-	onCloseFormUpdatePrestamo,
 	onDisabledSaldoIngreso,
 	onActiveSaldoIngreso,
 	onDisabledFormAhorro,

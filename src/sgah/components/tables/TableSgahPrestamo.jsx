@@ -1,11 +1,14 @@
-import { useSgahPrestamoStore, formatCurrency } from '../../../hooks';
+import { useSgahPrestamoStore, formatCurrency, usePrestamoUi } from '../../../hooks';
 
 export const TableSgahPrestamo = () => {
 	const { prestamos, startLoadingPrestamo } = useSgahPrestamoStore();
 
+	const { handleOpenUpdateFormPrestamo } = usePrestamoUi();
+
 	const handleOpenFormUpdatePrestamo = (folio) => {
 		if (!!folio) {
 			startLoadingPrestamo(folio);
+			handleOpenUpdateFormPrestamo();
 		}
 	};
 
