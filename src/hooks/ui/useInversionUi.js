@@ -1,48 +1,49 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { onToggleNewFormInversion, onToggleUpdateFormInversion } from '../../store/ui/inversionUiSlice';
+import {
+	onToggleShowNewFormInversion,
+	onToggleShowUpdateFormInversion,
+} from '../../store/ui/inversionUiSlice';
 import { useMemo } from 'react';
 
 export const useInversionUi = () => {
-	const { isNewFormInversionOpen, isUpdateFormInversionOpen } = useSelector(
+	const { isShowNewFormInversion, isShowUpdateFormInversion } = useSelector(
 		(state) => state.inversionUi
 	);
 
 	const dispatch = useDispatch();
 
-	const hideFormNewInversionClass = useMemo(() => {
-		return isNewFormInversionOpen ? '' : 'display__none';
-    }, [isNewFormInversionOpen]);
+	const classNameNewFormInversionDisplay= useMemo(() => {
+		return isShowNewFormInversion ? '' : 'display__none';
+	}, [isShowNewFormInversion]);
     
-    const hideFormUpdateInversionClass = useMemo(() => {
-		return isUpdateFormInversionOpen ? '' : 'display__none';
-	}, [isUpdateFormInversionOpen]);
+    const classNameUpdateFormInversionDisplay = useMemo(() => {
+		return isShowUpdateFormInversion ? '' : 'display__none';
+	}, [isShowUpdateFormInversion]);
 
-	const handleOpenNewForm = () => {
-		dispatch(onToggleNewFormInversion(true));
+	const handleOpenNewFormInversion = () => {
+		dispatch(onToggleShowNewFormInversion(true));
 	};
 
-	const handleCloseNewForm = () => {
-		dispatch(onToggleNewFormInversion(false));
+	const handleCloseNewFormInversion = () => {
+		dispatch(onToggleShowNewFormInversion(false));
 	};
 	
-    const handleOpenUpdateForm = () => {
-		dispatch(onToggleUpdateFormInversion(true));
+    const handleOpenUpdateFormInversion = () => {
+		dispatch(onToggleShowUpdateFormInversion(true));
 	};
 
-	const handleCloseUpdateForm = () => {
-		dispatch(onToggleUpdateFormInversion(false));
+	const handleCloseUpdateFormInversion = () => {
+		dispatch(onToggleShowUpdateFormInversion(false));
 	};
 
 	return {
 		// * Propiedades
-        isNewFormInversionOpen,
-        isUpdateFormInversionOpen,
 		// * Metodos
-        hideFormNewInversionClass,
-        hideFormUpdateInversionClass,
-		handleCloseNewForm,
-		handleOpenNewForm,
-		handleOpenUpdateForm,
-		handleCloseUpdateForm,
+		classNameNewFormInversionDisplay,
+		classNameUpdateFormInversionDisplay,
+		handleCloseNewFormInversion,
+		handleOpenNewFormInversion,
+		handleOpenUpdateFormInversion,
+		handleCloseUpdateFormInversion,
 	};
 };

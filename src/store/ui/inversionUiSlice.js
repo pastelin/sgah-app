@@ -1,22 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const inversionUiSlice = createSlice({
-	name: 'inversionUi', 
+	name: 'inversionUi',
 	initialState: {
-		isNewFormInversionOpen: false,
-		isUpdateFormInversionOpen: false,
+		isShowNewFormInversion: false,
+		isShowUpdateFormInversion: false,
 	},
 	reducers: {
-        onToggleNewFormInversion: (state, { payload }) => {
-            state.isNewFormInversionOpen = payload;
-        },
-        onToggleUpdateFormInversion: (state, { payload }) => {
-            state.isUpdateFormInversionOpen = payload;
-        },
+		onToggleShowNewFormInversion: (state, { payload }) => {
+			state.isShowNewFormInversion = payload;
+		},
+		onToggleShowUpdateFormInversion: (state, { payload }) => {
+			state.isShowUpdateFormInversion = payload;
+		},
 	},
 });
 
-export const {
-    onToggleNewFormInversion,
-    onToggleUpdateFormInversion
-} = inversionUiSlice.actions;
+export const { onToggleShowNewFormInversion, onToggleShowUpdateFormInversion } =
+	inversionUiSlice.actions;

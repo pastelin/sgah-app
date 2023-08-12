@@ -1,19 +1,22 @@
-import { useEffect } from 'react';
-import { useForm } from '../../../hooks/useForm';
-import { formatCurrency, useSgahInversionStore } from '../../../hooks';
+import {
+	formatCurrency,
+	useSgahInversionStore,
+	useForm,
+	useMessages,
+	useInversionUi,
+} from '../../../hooks';
 import Swal from 'sweetalert2';
-import { useMessages } from '../../../hooks/useMessages';
-import { useInversionUi } from '../../../hooks/ui/useInversionUi';
 
 const formDada = {
 	monto: 0,
 };
 
 export const FormUpdateInversion = () => {
-	const { handleCloseUpdateForm, hideFormUpdateInversionClass } = useInversionUi();
+	const { handleCloseUpdateFormInversion, classNameUpdateFormInversionDisplay } =
+		useInversionUi();
 	const { inversion, startUpdatingInversion } = useSgahInversionStore();
 
-	const { monto, cdAppInversion, onInputChange, onResetForm } = useForm(formDada);
+	const { monto, onInputChange, onResetForm } = useForm(formDada);
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
@@ -31,16 +34,16 @@ export const FormUpdateInversion = () => {
 		useMessages(code, message);
 
 		if (code === 200 || code === 201) {
-			handleCloseUpdateForm();
+			handleCloseUpdateFormInversion();
 			onResetForm();
 		}
 	};
 
 	return (
-		<section className={`formulario formulario-overlay ${hideFormUpdateInversionClass}`}>
+		<section className={`formulario formulario-overlay ${classNameUpdateFormInversionDisplay}`}>
 			<div className="contenedor__formulario-overlay">
 				<div id="closeMenu" className="icon__close">
-					<button onClick={handleCloseUpdateForm}>
+					<button onClick={handleCloseUpdateFormInversion}>
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>
 				</div>

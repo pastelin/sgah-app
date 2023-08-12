@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useForm } from '../../../hooks/useForm';
-import { formatCurrency, useSgahInversionStore } from '../../../hooks';
 import Swal from 'sweetalert2';
-import { useMessages } from '../../../hooks/useMessages';
-import { useInversionUi } from '../../../hooks/ui/useInversionUi';
+import {
+	useMessages,
+	useForm,
+	useInversionUi,
+	formatCurrency,
+	useSgahInversionStore,
+} from '../../../hooks';
 
 const formData = {
 	monto: '',
@@ -13,8 +15,8 @@ const formData = {
 };
 
 export const FormNewInversion = () => {
-    const { handleCloseNewForm, hideFormNewInversionClass } = useInversionUi();
-    
+	const { handleCloseNewFormInversion, classNameNewFormInversionDisplay } = useInversionUi();
+
 	const {
 		saldoDisponibleA,
 		startLoadingSaldoDisponibleA,
@@ -42,21 +44,25 @@ export const FormNewInversion = () => {
 			return;
 		}
 
-		const { code, message } = await startSavingInversion({ monto, descripcion, cdAppInversion });
+		const { code, message } = await startSavingInversion({
+			monto,
+			descripcion,
+			cdAppInversion,
+		});
 
 		useMessages(code, message);
 
 		if (code === 200 || code === 201) {
-			handleCloseNewForm();
+			handleCloseNewFormInversion();
 			onResetForm();
 		}
 	};
 
 	return (
-		<section className={`formulario formulario-overlay ${hideFormNewInversionClass}`}>
+		<section className={`formulario formulario-overlay ${classNameNewFormInversionDisplay}`}>
 			<div className="contenedor__formulario-overlay">
 				<div id="closeMenu" className="icon__close">
-					<button onClick={handleCloseNewForm}>
+					<button onClick={handleCloseNewFormInversion}>
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>
 				</div>

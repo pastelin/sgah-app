@@ -2,12 +2,12 @@ import { formatCurrency, useSgahInversionStore, useInversionUi } from '../../../
 
 export const TableSgahInversion = () => {
 	const { inversiones, startLoadingInversion } = useSgahInversionStore();
-	const { handleOpenUpdateForm } = useInversionUi();
+	const { handleOpenUpdateFormInversion } = useInversionUi();
 
 	const handleOpenForm = (folio) => {
 		if (!!folio) {
 			startLoadingInversion(folio);
-			handleOpenUpdateForm();
+			handleOpenUpdateFormInversion();
 		}
 	};
 

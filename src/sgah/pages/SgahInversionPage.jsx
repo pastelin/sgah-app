@@ -7,7 +7,7 @@ export const SgahInversionPage = () => {
 	const { saldoInvertido, startLoadingSaldoInvertido, startLoadingInversiones } =
         useSgahInversionStore();
     
-    const { handleOpenNewForm } = useInversionUi();
+    const { handleOpenNewFormInversion } = useInversionUi();
 
 	useEffect(() => {
 		startLoadingSaldoInvertido();
@@ -15,7 +15,7 @@ export const SgahInversionPage = () => {
 	}, []);
 
     const handleOpenFormNewInversion = () => {
-        handleOpenNewForm(true);
+        handleOpenNewFormInversion(true);
     };
 
 	return (
