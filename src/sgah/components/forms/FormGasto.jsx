@@ -77,7 +77,7 @@ export const FormGasto = () => {
 							id="cdGastoRecurrente"
 							value={cdGastoRecurrente}
 							onChange={onInputChange}
-							// required
+							required
 						>
 							<option value="">Seleccionar tipo de gasto</option>
 							{categoriasGasto.map(({ cdGasto, nbGasto }) => (

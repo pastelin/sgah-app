@@ -1,8 +1,10 @@
-import React from 'react'
-import { AppRouter } from './router/AppRouter'
+import React from 'react';
+import { Navigation } from './routes/Navigation';
 
 export const GestorAhorroApp = () => {
-  return (
-          <AppRouter />
-  )
-}
+	return (
+		<>
+			<Navigation />;
+		</>
+	);
+};

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { onToggleShowNabvar, onUpdateMenuSelected } from '../../store';
+import { onToggleShowNabvar } from '../../store';
 import { useMemo } from 'react';
 
 export const useSgahUi = () => {
@@ -15,11 +15,6 @@ export const useSgahUi = () => {
 		dispatch(onToggleShowNabvar(false));
 	};
 
-	const handleUpdatingMenuSelected = ({ target }) => {
-		dispatch(onUpdateMenuSelected(target.textContent));
-		handleCloseNavbar();
-	};
-
 	// useMemo will only recompute the memorized value when one of the deps has changed.
 	// SI isShowNavbar es true indica que se ha dado clic al menu hamburguesa y se colocaran los estilos definidos abajo
 	// Si isShowNavbar es false no coloca ningun estilo
@@ -27,28 +22,27 @@ export const useSgahUi = () => {
 		return isShowNavbar ? 'h-100vh' : '';
 	}, [isShowNavbar]);
 
-	const classNameHideIconNavbar = useMemo(() => {
-		return isShowNavbar ? 'sgah__nav-icon--inactive' : '';
+	const classNameHideMobileNavbar = useMemo(() => {
+		return isShowNavbar ? 'inactive' : '';
 	}, [isShowNavbar]);
 
 	const classNameActiveMenuNavbar = useMemo(() => {
-		return isShowNavbar ? 'sgah__nav--active' : '';
+		return isShowNavbar ? 'active' : '';
 	}, [isShowNavbar]);
 
 	const classNameActiveIconCloseMenuNavbar = useMemo(() => {
-		return isShowNavbar ? 'icon__close--active' : '';
+		return isShowNavbar ? 'active' : '';
 	}, [isShowNavbar]);
 
 	return {
 		//* Propiedades
 		classNameHightNavbar,
-		classNameHideIconNavbar,
+		classNameHideMobileNavbar,
 		classNameActiveMenuNavbar,
 		classNameActiveIconCloseMenuNavbar,
 
 		//* Metodos
 		handleOpenNavbar,
 		handleCloseNavbar,
-		handleUpdatingMenuSelected,
 	};
 };

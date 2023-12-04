@@ -4,7 +4,7 @@ import { updateResumen } from '../../store';
 
 export const useSgahStore = () => {
 	const dispatch = useDispatch();
-    const { resumen, menuList } = useSelector((state) => state.sgah);
+    const { resumen } = useSelector((state) => state.sgah);
     
 	const startDetalleResumen = async () => {
 		console.log('startDetalleResumen');
@@ -16,7 +16,6 @@ export const useSgahStore = () => {
 	return {
 		// * Propiedades
         ...resumen,
-        menuList,
 
 		// * Metodos
 		startDetalleResumen,

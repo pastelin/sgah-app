@@ -363,6 +363,8 @@ img {
 
 .contenedor {
   min-width: 30rem;
+  overflow-y: hidden;
+  height: 100vh;
 }
 @media (min-width: 768px) {
   .contenedor {
@@ -416,22 +418,6 @@ hr {
   min-width: 28rem;
   font-size: 2.5rem;
 }
-.sgah__nav .sgah__nav-icon {
-  text-align: right;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-}
-.sgah__nav .sgah__nav-icon .logo-icon {
-  font-size: 2.4rem;
-  margin: 0;
-}
-@media (min-width: 768px) {
-  .sgah__nav .sgah__nav-icon {
-    display: none;
-  }
-}
 @media (min-width: 768px) {
   .sgah__nav {
     display: flex;
@@ -441,33 +427,40 @@ hr {
     display: block;
   }
 }
-.sgah__nav .sgah__nav--tablet {
+.sgah__nav .nav--mobile {
+  text-align: right;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.sgah__nav .nav--mobile .logo {
+  font-size: 2.4rem;
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .sgah__nav .nav--mobile {
+    display: none;
+  }
+}
+.sgah__nav .nav__display--tablet {
   display: none;
 }
 @media (min-width: 768px) {
-  .sgah__nav .sgah__nav--tablet {
+  .sgah__nav .nav__display--tablet {
     display: block;
   }
 }
-.sgah__nav .logo {
+.sgah__nav .nav__display--tablet .logo {
   font-size: 2.4rem;
   margin: 0 0 3.8rem 0;
   padding-top: 3.6rem;
   text-align: center;
 }
-.sgah__nav .usuario {
+.sgah__nav .nav__display--tablet .usuario {
   font-size: 2.2rem;
   font-weight: 300;
   text-align: center;
-}
-.sgah__nav .nav__item {
-  height: 4.2rem;
-  cursor: pointer;
-  padding-left: 7rem;
-}
-.sgah__nav .nav__item a {
-  font-size: 1.4rem;
-  color: #FFFFFF;
 }
 .sgah__nav .btn-logout {
   width: 99%;
@@ -475,34 +468,60 @@ hr {
   color: #262626;
   margin-top: 5rem;
   font-size: 1.6rem;
+  border-radius: 1.5rem;
+  border: none;
 }
 .sgah__nav .btn-logout:hover {
   background-color: #ff4c4c;
   color: #FFFFFF;
 }
-.sgah__nav .icon__close {
+.sgah__nav .nav__close--mobile {
   margin-top: 5rem;
   text-align: center;
   display: none;
 }
-.sgah__nav .icon__close button {
+.sgah__nav .nav__close--mobile button {
   font-size: 4rem;
   color: #FFFFFF;
   background-color: transparent;
   cursor: pointer;
   border: none;
 }
-.sgah__nav .icon__close button:hover {
+.sgah__nav .nav__close--mobile button:hover {
   color: #ff4c4c;
 }
-.sgah__nav .sgah__nav--active {
+.sgah__nav ul {
+  list-style: none;
+  padding: 0;
+}
+.sgah__nav ul li {
+  height: 4.2rem;
+  cursor: pointer;
+}
+.sgah__nav ul .nav-link {
+  display: flex;
+  justify-content: space-around;
+}
+.sgah__nav ul a {
+  font-size: 1.4rem;
+  color: #FFFFFF;
+  padding: 0.6rem;
+  border-radius: 1rem;
+  transition: background-color 0.3s ease-in-out;
+}
+.sgah__nav ul a:hover {
+  background-color: rgba(225, 225, 225, 0.8823529412);
+  color: #262626;
+}
+.sgah__nav .link--active {
+  background-color: #FFFFFF;
+  color: #262626;
+}
+.sgah__nav .active {
   display: block;
 }
-.sgah__nav .sgah__nav-icon--inactive {
+.sgah__nav .inactive {
   display: none;
-}
-.sgah__nav .icon__close--active {
-  display: block;
 }
 
 .resumen {

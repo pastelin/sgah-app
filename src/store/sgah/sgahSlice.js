@@ -5,7 +5,6 @@ export const sgahSlice = createSlice({
 	name: 'sgah',
 	initialState: {
 		hasBeenUpdated: false,
-		menuList: ['Ingresos', 'Resumen', 'Ahorro', 'Gastos', 'Inversion', 'Prestamos'],
 		resumen: {
 			montoAhorro: '$0.0',
 			montoGasto: '$0.0',
