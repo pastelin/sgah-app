@@ -2,26 +2,25 @@
 @use 'base/mixins' as m;
 
 .sgah__nav {
-	background-color: v.$negro;
-	color: v.$blanco;
-	width: 100%;
-	min-width: 28rem;
 	font-size: 2.5rem;
+	min-width: 28rem;
+	width: 100%;
+	box-shadow: 0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.15);
 
 	@include m.tablet {
+		display: block;
 		display: flex;
 		flex-direction: column;
-		width: 28rem;
 		height: 100vh;
-		display: block;
+		width: 28rem;
 	}
 
 	.nav--mobile {
-		text-align: right;
-		padding: 1rem;
+		cursor: pointer;
 		display: flex;
 		justify-content: space-between;
-		cursor: pointer;
+		padding: 1rem;
+		text-align: right;
 
 		.logo {
 			font-size: 2.4rem;
@@ -54,32 +53,16 @@
 		}
 	}
 
-	.btn-logout {
-		width: 99%;
-		height: 4rem;
-		color: v.$negroClaro;
-		margin-top: 5rem;
-		font-size: 1.6rem;
-		border-radius: 1.5rem;
-		border: none;
-
-		&:hover {
-			background-color: v.$rojo;
-			color: v.$blanco;
-		}
-	}
-
 	.nav__close--mobile {
+		display: none;
 		margin-top: 5rem;
 		text-align: center;
-		display: none;
 
 		button {
-			font-size: 4rem;
-			color: v.$blanco;
 			background-color: transparent;
-			cursor: pointer;
 			border: none;
+			cursor: pointer;
+			font-size: 4rem;
 
 			&:hover {
 				color: v.$rojo;
@@ -92,32 +75,44 @@
 		padding: 0;
 
 		li {
-			height: 4.2rem;
 			cursor: pointer;
 		}
 
 		.nav-link {
 			display: flex;
 			justify-content: space-around;
+			align-items: center;
 		}
 
 		a {
+			position: relative;
+			margin-bottom: 2rem;
+			display: inline-block;
 			font-size: 1.4rem;
-			color: v.$blanco;
+			color: #6c727f;
+			height: 4rem;
+			font-weight: 500;
 			padding: 0.6rem;
-			border-radius: 1rem;
 			transition: background-color 0.3s ease-in-out;
+			overflow: hidden;
 
 			&:hover {
-				background-color: v.$gris;
 				color: v.$negroClaro;
 			}
 		}
-	}
 
-	.link--active {
-		background-color: v.$blanco;
-		color: v.$negroClaro;
+		.link--active {
+			color: v.$negroClaro;
+		}
+
+		.link--active::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			height: 0.3rem;
+			background-color: #d00;
+		}
 	}
 
 	.active {

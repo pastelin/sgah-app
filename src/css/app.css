@@ -411,28 +411,76 @@ hr {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
 }
 
-.sgah__nav {
-  background-color: #000000;
+.btn {
+  position: relative;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.15);
+}
+
+.btn-logout {
+  border-radius: 1rem;
+  border: none;
+  color: #262626;
+  font-size: 1.6rem;
+  height: 4rem;
+  margin-top: 5rem;
+  width: 98%;
+  font-weight: 500;
+  margin-left: 0.2rem;
   color: #FFFFFF;
+}
+
+.anim-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0.3rem;
+  background-color: #a00;
+  transition: width 0.5s ease, left 0.5s ease, right 0.5s ease;
+}
+
+.anim-link:hover::after {
   width: 100%;
-  min-width: 28rem;
+}
+
+.anim-bg-gradient {
+  background-image: linear-gradient(to right, #d00, violet, violet, #a00);
+  background-size: 300% 100%;
+  transition: background-position 0.5s ease-in-out;
+}
+
+.anim-bg-gradient:hover {
+  background-position: 100% 0;
+}
+
+.sgah__nav {
   font-size: 2.5rem;
+  min-width: 28rem;
+  width: 100%;
+  box-shadow: 0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.15);
 }
 @media (min-width: 768px) {
   .sgah__nav {
+    display: block;
     display: flex;
     flex-direction: column;
-    width: 28rem;
     height: 100vh;
-    display: block;
+    width: 28rem;
   }
 }
 .sgah__nav .nav--mobile {
-  text-align: right;
-  padding: 1rem;
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
-  cursor: pointer;
+  padding: 1rem;
+  text-align: right;
 }
 .sgah__nav .nav--mobile .logo {
   font-size: 2.4rem;
@@ -462,30 +510,16 @@ hr {
   font-weight: 300;
   text-align: center;
 }
-.sgah__nav .btn-logout {
-  width: 99%;
-  height: 4rem;
-  color: #262626;
-  margin-top: 5rem;
-  font-size: 1.6rem;
-  border-radius: 1.5rem;
-  border: none;
-}
-.sgah__nav .btn-logout:hover {
-  background-color: #ff4c4c;
-  color: #FFFFFF;
-}
 .sgah__nav .nav__close--mobile {
+  display: none;
   margin-top: 5rem;
   text-align: center;
-  display: none;
 }
 .sgah__nav .nav__close--mobile button {
-  font-size: 4rem;
-  color: #FFFFFF;
   background-color: transparent;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
+  font-size: 4rem;
 }
 .sgah__nav .nav__close--mobile button:hover {
   color: #ff4c4c;
@@ -495,27 +529,38 @@ hr {
   padding: 0;
 }
 .sgah__nav ul li {
-  height: 4.2rem;
   cursor: pointer;
 }
 .sgah__nav ul .nav-link {
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 .sgah__nav ul a {
+  position: relative;
+  margin-bottom: 2rem;
+  display: inline-block;
   font-size: 1.4rem;
-  color: #FFFFFF;
+  color: #6c727f;
+  height: 4rem;
+  font-weight: 500;
   padding: 0.6rem;
-  border-radius: 1rem;
   transition: background-color 0.3s ease-in-out;
+  overflow: hidden;
 }
 .sgah__nav ul a:hover {
-  background-color: rgba(225, 225, 225, 0.8823529412);
   color: #262626;
 }
-.sgah__nav .link--active {
-  background-color: #FFFFFF;
+.sgah__nav ul .link--active {
   color: #262626;
+}
+.sgah__nav ul .link--active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0.3rem;
+  background-color: #d00;
 }
 .sgah__nav .active {
   display: block;

@@ -41,7 +41,7 @@ export const Navigation = () => {
 						<li>
 							<NavLink
 								className={({ isActive }) =>
-									`nav-link ${isActive ? 'link--active' : ''}`
+									`nav-link anim-link ${isActive ? 'link--active' : ''}`
 								}
 								to="/detalle"
 								onClick={handleCloseNavbar}
@@ -53,7 +53,7 @@ export const Navigation = () => {
 						<li>
 							<NavLink
 								className={({ isActive }) =>
-									`nav-link ${isActive ? 'link--active' : ''}`
+									`nav-link anim-link ${isActive ? 'link--active' : ''}`
 								}
 								to="/ingresos"
 								onClick={handleCloseNavbar}
@@ -65,7 +65,7 @@ export const Navigation = () => {
 						<li>
 							<NavLink
 								className={({ isActive }) =>
-									`nav-link ${isActive ? 'link--active' : ''}`
+									`nav-link anim-link ${isActive ? 'link--active' : ''}`
 								}
 								to="/ahorro"
 								onClick={handleCloseNavbar}
@@ -77,7 +77,7 @@ export const Navigation = () => {
 						<li>
 							<NavLink
 								className={({ isActive }) =>
-									`nav-link ${isActive ? 'link--active' : ''}`
+									`nav-link anim-link ${isActive ? 'link--active' : ''}`
 								}
 								to="/gastos"
 								onClick={handleCloseNavbar}
@@ -89,7 +89,7 @@ export const Navigation = () => {
 						<li>
 							<NavLink
 								className={({ isActive }) =>
-									`nav-link ${isActive ? 'link--active' : ''}`
+									`nav-link anim-link ${isActive ? 'link--active' : ''}`
 								}
 								to="/prestamos"
 								onClick={handleCloseNavbar}
@@ -101,7 +101,7 @@ export const Navigation = () => {
 						<li>
 							<NavLink
 								className={({ isActive }) =>
-									`nav-link ${isActive ? 'link--active' : ''}`
+									`nav-link anim-link ${isActive ? 'link--active' : ''}`
 								}
 								to="/inversion"
 								onClick={handleCloseNavbar}
@@ -112,7 +112,7 @@ export const Navigation = () => {
 						</li>
 					</ul>
 
-					<button className="button btn-logout">
+					<button className="btn btn-logout anim-bg-gradient">
 						<i className="fa-solid fa-right-from-bracket"></i>
 						&nbsp;
 						<span>Salir</span>
