@@ -28,7 +28,7 @@
 			margin-top: 0;
 			margin-bottom: 5rem;
             letter-spacing: 0.15rem;
-
+            font-size: calc(20px + (24 - 20) * ((100vw - 380px) / (1400 - 380)));
 		}
 	}
 
@@ -38,9 +38,4 @@
 		}
 	}
 
-	.monto__resumen {
-		@include m.desktop {
-			letter-spacing: 0.2rem;
-		}
-	}
 }

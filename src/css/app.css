@@ -595,15 +595,11 @@ hr {
   margin-top: 0;
   margin-bottom: 5rem;
   letter-spacing: 0.15rem;
+  font-size: calc(20px + 4 * (100vw - 380px) / 1020);
 }
 @media (min-width: 992px) {
   .contenedor__resumen .contenido__resumen {
     text-align: right;
-  }
-}
-@media (min-width: 992px) {
-  .contenedor__resumen .monto__resumen {
-    letter-spacing: 0.2rem;
   }
 }
 
