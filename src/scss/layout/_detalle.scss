@@ -5,7 +5,6 @@
 	width: 100%;
 	select,
 	input {
-		font-size: 1.6rem;
 		padding: 0.7rem 2rem;
 		border-radius: 0.5rem;
 		border: 2px solid #6a6969;
@@ -39,11 +38,9 @@
 			padding: 1rem;
 			background-color: v.$azul;
 			color: v.$blanco;
-            font-size: 1.4rem;
             
 			@include m.tablet {
                 width: 34rem;
-                font-size: 1.6rem;
 			}
 
 			&:hover {
@@ -59,7 +56,6 @@
 
 	h3,
 	p {
-		font-size: 1.6rem;
 		font-weight: 500;
 		margin: 3rem;
 		opacity: 0.8;
@@ -69,7 +65,6 @@
 		}
 
 		@include m.desktop {
-			font-size: 2rem;
 			margin: 4rem 3rem 3rem;
 		}
 	}

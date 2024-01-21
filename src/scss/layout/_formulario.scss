@@ -22,7 +22,6 @@
 		text-align: right;
 
 		button {
-			font-size: 3rem;
 			color: #6a6969;
 			background-color: transparent;
 			cursor: pointer;
@@ -62,12 +61,7 @@
 	.contenedor__formulario-ingresos,
 	.contenedor__formulario-overlay {
 		h3 {
-			font-size: 2.4rem;
 			margin: 1rem auto 3rem;
-
-			@include m.tablet {
-				font-size: 3rem;
-			}
 		}
 
 		p {
@@ -90,11 +84,6 @@
 				padding: 0.7rem 1rem;
 				background-color: v.$azul;
 				color: v.$blanco;
-                font-size: 1.4rem;
-                
-                @include m.tablet {
-                    font-size: 1.6rem;
-                }
 
 				&:hover {
 					opacity: 0.8;
@@ -109,14 +98,6 @@
 		justify-content: center;
 		align-items: center;
 		gap: 2rem;
-
-		* {
-			font-size: 1.4rem;
-
-			@include m.tablet {
-				font-size: 1.6rem;
-			}
-		}
 
 		*:not(label) {
 			border-radius: 0.5rem;

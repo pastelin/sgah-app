@@ -23,16 +23,12 @@
 	.contenido__resumen,
 	.monto__resumen {
 		p {
-			font-size: 1.6rem;
 			opacity: 0.5;
 			font-weight: 700;
 			margin-top: 0;
 			margin-bottom: 5rem;
             letter-spacing: 0.15rem;
 
-			@include m.tablet {
-				font-size: 2rem;
-			}
 		}
 	}
 

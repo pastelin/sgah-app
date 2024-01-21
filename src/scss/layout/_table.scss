@@ -9,7 +9,6 @@
 	table {
 		width: 95%;
 		min-width: 53rem;
-		font-size: 1.2rem;
 		margin: 1rem 1rem;
 		box-shadow: 0.1rem 0.13rem 0.4rem #333;
 		border-radius: 0.5rem;
@@ -18,7 +17,6 @@
 		@include m.desktop {
 			max-width: 93rem;
 			margin: 3rem auto;
-			font-size: 1.3rem;
 		}
 
         thead {
@@ -44,9 +42,6 @@
 				}
 			}
 
-            th {
-                font-size: 1.2rem;
-            }
 		}
 	}
 }

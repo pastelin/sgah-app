@@ -2,7 +2,7 @@
 @use 'base/mixins' as m;
 
 html {
-	font-size: 62.5%;
+    font-size: calc(16px + (18 - 16) * ((100vw - 380px) / (1400 - 380)));
 	box-sizing: border-box;
 }
 
@@ -14,38 +14,23 @@ html {
 
 body {
 	font-family: v.$fuente_principal;
-	font-size: 1.6rem;
 }
 
 p {
-	font-size: 1.6rem;
 	color: v.$negro;
 	line-height: 1.7;
 }
 
 a {
 	text-decoration: none !important;
-	font-size: 1.7rem;
 }
 
 h1,
 h2,
 h3 {
-	margin: 2rem 0 5rem 0;
+	margin: 1rem 0 2.5rem 0;
 	font-weight: 500;
 	opacity: 0.7;
-}
-
-h1 {
-	font-size: 4rem;
-}
-
-h2 {
-	font-size: 3.6rem;
-}
-
-h3 {
-	font-size: 3rem;
 }
 
 img {
@@ -74,17 +59,12 @@ img {
 }
 
 aside h2 {
-	font-size: 2.4rem;
 	text-align: center;
-	margin-bottom: 4rem;
-	@include m.tablet {
-		font-size: 3.6rem;
-	}
+	margin-bottom: 2rem;
 }
 
 .btn {
 	border-radius: 0.5rem;
-	font-size: 1.3rem;
 	border: none;
 	cursor: pointer;
 	transition: all 0.25s ease-in;
@@ -95,7 +75,7 @@ aside h2 {
 }
 
 .mt-4 {
-	margin-top: 4rem;
+	margin-top: 2rem;
 }
 
 hr {

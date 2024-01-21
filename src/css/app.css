@@ -308,7 +308,7 @@ template {
 }
 
 html {
-  font-size: 62.5%;
+  font-size: calc(16px + 2 * (100vw - 380px) / 1020);
   box-sizing: border-box;
 }
 
@@ -320,38 +320,23 @@ html {
 
 body {
   font-family: "Montserrat", sans-serif;
-  font-size: 1.6rem;
 }
 
 p {
-  font-size: 1.6rem;
   color: #000000;
   line-height: 1.7;
 }
 
 a {
   text-decoration: none !important;
-  font-size: 1.7rem;
 }
 
 h1,
 h2,
 h3 {
-  margin: 2rem 0 5rem 0;
+  margin: 1rem 0 2.5rem 0;
   font-weight: 500;
   opacity: 0.7;
-}
-
-h1 {
-  font-size: 4rem;
-}
-
-h2 {
-  font-size: 3.6rem;
-}
-
-h3 {
-  font-size: 3rem;
 }
 
 img {
@@ -381,19 +366,12 @@ img {
 }
 
 aside h2 {
-  font-size: 2.4rem;
   text-align: center;
-  margin-bottom: 4rem;
-}
-@media (min-width: 768px) {
-  aside h2 {
-    font-size: 3.6rem;
-  }
+  margin-bottom: 2rem;
 }
 
 .btn {
   border-radius: 0.5rem;
-  font-size: 1.3rem;
   border: none;
   cursor: pointer;
   transition: all 0.25s ease-in;
@@ -404,7 +382,7 @@ aside h2 {
 }
 
 .mt-4 {
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 
 hr {
@@ -416,7 +394,6 @@ hr {
   border: none;
   border-radius: 0.25rem;
   padding: 0.2rem;
-  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   overflow: hidden;
@@ -427,9 +404,8 @@ hr {
   border-radius: 1rem;
   border: none;
   color: #262626;
-  font-size: 1.6rem;
-  height: 4rem;
-  margin-top: 5rem;
+  height: 2.5rem;
+  margin-top: 2.5rem;
   width: 98%;
   font-weight: 500;
   margin-left: 0.2rem;
@@ -460,101 +436,123 @@ hr {
   background-position: 100% 0;
 }
 
-.sgah__nav {
-  font-size: 2.5rem;
-  min-width: 28rem;
+.navbar {
+  min-width: 17.5rem;
   width: 100%;
   box-shadow: 0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.15);
 }
 @media (min-width: 768px) {
-  .sgah__nav {
+  .navbar {
     display: block;
     display: flex;
     flex-direction: column;
     height: 100vh;
-    width: 28rem;
+    width: 25vw;
   }
 }
-.sgah__nav .nav--mobile {
+.navbar .nav--mobile {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   padding: 1rem;
   text-align: right;
 }
-.sgah__nav .nav--mobile .logo {
-  font-size: 2.4rem;
+.navbar .nav--mobile .logo {
   margin: 0;
 }
 @media (min-width: 768px) {
-  .sgah__nav .nav--mobile {
+  .navbar .nav--mobile {
     display: none;
   }
 }
-.sgah__nav .nav__display--tablet {
+.navbar .nav--mobile .nav-burguer--mobile {
+  position: fixed;
+  right: 1rem;
+  top: 3rem;
+  width: 3rem;
+  height: 0.63rem;
+  background-color: rgb(170, 0, 0);
+  border-radius: 0.3rem;
+  transform: rotate(0deg) translate(0, -1.2rem);
+  transition: transform 5s ease, background-color 500ms ease;
+  transform-origin: top left;
+}
+.navbar .nav--mobile .nav-burguer--mobile::before,
+.navbar .nav--mobile .nav-burguer--mobile::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 0.63rem;
+  background-color: rgb(170, 0, 0);
+  border-radius: 0.3rem;
+  transition: transform 0.5s ease;
+}
+.navbar .nav--mobile .nav-burguer--mobile::before {
+  transform: rotate(0deg) translate(0, -0.9rem);
+}
+.navbar .nav--mobile .nav-burguer--mobile::after {
+  transform: rotate(0deg) translate(0, 0.3rem);
+}
+.navbar .nav__display--tablet {
   display: none;
 }
 @media (min-width: 768px) {
-  .sgah__nav .nav__display--tablet {
+  .navbar .nav__display--tablet {
     display: block;
   }
 }
-.sgah__nav .nav__display--tablet .logo {
-  font-size: 2.4rem;
-  margin: 0 0 3.8rem 0;
-  padding-top: 3.6rem;
+.navbar .nav__display--tablet .logo {
+  margin: 0 0 2rem 0;
+  padding-top: 2rem;
   text-align: center;
 }
-.sgah__nav .nav__display--tablet .usuario {
-  font-size: 2.2rem;
+.navbar .nav__display--tablet .usuario {
   font-weight: 300;
   text-align: center;
 }
-.sgah__nav .nav__close--mobile {
+.navbar .nav__close--mobile {
   display: none;
   margin-top: 5rem;
   text-align: center;
 }
-.sgah__nav .nav__close--mobile button {
+.navbar .nav__close--mobile button {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 4rem;
 }
-.sgah__nav .nav__close--mobile button:hover {
+.navbar .nav__close--mobile button:hover {
   color: #ff4c4c;
 }
-.sgah__nav ul {
+.navbar ul {
   list-style: none;
   padding: 0;
 }
-.sgah__nav ul li {
+.navbar ul li {
   cursor: pointer;
 }
-.sgah__nav ul .nav-link {
+.navbar ul .nav-link {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-.sgah__nav ul a {
+.navbar ul a {
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   display: inline-block;
-  font-size: 1.4rem;
   color: #6c727f;
-  height: 4rem;
+  height: 3.5rem;
   font-weight: 500;
-  padding: 0.6rem;
+  padding: 0.5rem;
   transition: background-color 0.3s ease-in-out;
   overflow: hidden;
 }
-.sgah__nav ul a:hover {
+.navbar ul a:hover {
   color: #262626;
 }
-.sgah__nav ul .link--active {
+.navbar ul .link--active {
   color: #262626;
 }
-.sgah__nav ul .link--active::after {
+.navbar ul .link--active::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -562,10 +560,10 @@ hr {
   height: 0.3rem;
   background-color: #d00;
 }
-.sgah__nav .active {
+.navbar .active {
   display: block;
 }
-.sgah__nav .inactive {
+.navbar .inactive {
   display: none;
 }
 
@@ -592,18 +590,11 @@ hr {
 }
 .contenedor__resumen .contenido__resumen p,
 .contenedor__resumen .monto__resumen p {
-  font-size: 1.6rem;
   opacity: 0.5;
   font-weight: 700;
   margin-top: 0;
   margin-bottom: 5rem;
   letter-spacing: 0.15rem;
-}
-@media (min-width: 768px) {
-  .contenedor__resumen .contenido__resumen p,
-  .contenedor__resumen .monto__resumen p {
-    font-size: 2rem;
-  }
 }
 @media (min-width: 992px) {
   .contenedor__resumen .contenido__resumen {
@@ -636,7 +627,6 @@ hr {
   text-align: right;
 }
 .formulario .icon__close button {
-  font-size: 3rem;
   color: #6a6969;
   background-color: transparent;
   cursor: pointer;
@@ -670,14 +660,7 @@ hr {
 }
 .formulario .contenedor__formulario-ingresos h3,
 .formulario .contenedor__formulario-overlay h3 {
-  font-size: 2.4rem;
   margin: 1rem auto 3rem;
-}
-@media (min-width: 768px) {
-  .formulario .contenedor__formulario-ingresos h3,
-  .formulario .contenedor__formulario-overlay h3 {
-    font-size: 3rem;
-  }
 }
 .formulario .contenedor__formulario-ingresos p,
 .formulario .contenedor__formulario-overlay p {
@@ -698,12 +681,6 @@ hr {
   padding: 0.7rem 1rem;
   background-color: #0099e5;
   color: #FFFFFF;
-  font-size: 1.4rem;
-}
-@media (min-width: 768px) {
-  .formulario form .contenedor__btn button {
-    font-size: 1.6rem;
-  }
 }
 .formulario form .contenedor__btn button:hover {
   opacity: 0.8;
@@ -714,14 +691,6 @@ hr {
   justify-content: center;
   align-items: center;
   gap: 2rem;
-}
-.formulario .form__group * {
-  font-size: 1.4rem;
-}
-@media (min-width: 768px) {
-  .formulario .form__group * {
-    font-size: 1.6rem;
-  }
 }
 .formulario .form__group *:not(label) {
   border-radius: 0.5rem;
@@ -755,7 +724,6 @@ hr {
 .contenedor__table table {
   width: 95%;
   min-width: 53rem;
-  font-size: 1.2rem;
   margin: 1rem 1rem;
   box-shadow: 0.1rem 0.13rem 0.4rem #333;
   border-radius: 0.5rem;
@@ -765,7 +733,6 @@ hr {
   .contenedor__table table {
     max-width: 93rem;
     margin: 3rem auto;
-    font-size: 1.3rem;
   }
 }
 .contenedor__table table thead {
@@ -785,10 +752,6 @@ hr {
 .contenedor__table table thead tr:hover,
 .contenedor__table table tbody tr:hover {
   background-color: #c1f1fc;
-}
-.contenedor__table table thead th,
-.contenedor__table table tbody th {
-  font-size: 1.2rem;
 }
 
 /* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
@@ -842,7 +805,6 @@ hr {
 }
 .contenedor__movimientos select,
 .contenedor__movimientos input {
-  font-size: 1.6rem;
   padding: 0.7rem 2rem;
   border-radius: 0.5rem;
   border: 2px solid #6a6969;
@@ -877,12 +839,10 @@ hr {
   padding: 1rem;
   background-color: #0099e5;
   color: #FFFFFF;
-  font-size: 1.4rem;
 }
 @media (min-width: 768px) {
   .contenedor__movimientos .contenedor__boton button {
     width: 34rem;
-    font-size: 1.6rem;
   }
 }
 .contenedor__movimientos .contenedor__boton button:hover {
@@ -897,7 +857,6 @@ hr {
 .contenedor__montos p,
 .contenedor__monto h3,
 .contenedor__monto p {
-  font-size: 1.6rem;
   font-weight: 500;
   margin: 3rem;
   opacity: 0.8;
@@ -914,7 +873,6 @@ hr {
   .contenedor__montos p,
   .contenedor__monto h3,
   .contenedor__monto p {
-    font-size: 2rem;
     margin: 4rem 3rem 3rem;
   }
 }
@@ -965,30 +923,15 @@ hr {
     flex-direction: row;
   }
 }
-.group__input label {
-  font-size: 1.4rem;
-}
-@media (min-width: 768px) {
-  .group__input label {
-    font-size: 1.6rem;
-  }
-}
 .group__input input {
   width: 20rem;
   border-radius: 0.5rem;
   border: 2px solid #6a6969;
-  font-size: 1.4rem;
   outline: none;
   padding: 0.3rem 0.2rem;
 }
-@media (min-width: 768px) {
-  .group__input input {
-    font-size: 1.6rem;
-  }
-}
 
 .btn-ingreso-actualiza {
-  font-size: 1.4rem;
   height: 3.5rem;
   background-color: #0099e5;
   color: #FFFFFF;

@@ -21,21 +21,22 @@ export const Navigation = () => {
 
 	return (
 		<BrowserRouter>
-			<nav className={`sgah__nav ${classNameHightNavbar}`}>
+			<nav className={`navbar ${classNameHightNavbar}`}>
 				<div
 					onClick={handleOpenNavbar}
 					className={`nav--mobile ${classNameHideMobileNavbar}`}
 				>
 					<h1 className="logo">SGAH</h1>
-					<i className="fa-solid fa-bars"></i>
+                    {/* <i className="fa-solid fa-bars"></i> */}
+                    <label className="nav-burguer--mobile"></label>
 				</div>
 
 				<div className={`nav__display--tablet ${classNameActiveMenuNavbar}`}>
 					<h1 className="logo">SGAH</h1>
-					<h3 className="usuario">
+					<h2 className="usuario">
 						<i className="fa-regular fa-user"></i>
 						&nbsp; Juan Pastelin
-					</h3>
+					</h2>
 
 					<ul>
 						<li>

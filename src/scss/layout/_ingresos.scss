@@ -34,32 +34,19 @@
         flex-direction: row;
     }
     
-	label {
-        font-size: 1.4rem;
-        
-		@include m.tablet {
-            font-size: 1.6rem;
-		}
-	}
-    
 	input {
         width: 20rem;
 		border-radius: 0.5rem;
 		border: 2px solid #6a6969;
-		font-size: 1.4rem;
 		outline: none;
         padding: .3rem .2rem;
 
-		@include m.tablet {
-			font-size: 1.6rem;
-		}
 	}
 
    
 }
 
 .btn-ingreso-actualiza {
-    font-size: 1.4rem;
     height: 3.5rem;
     background-color: v.$azul;
     color: v.$blanco;
