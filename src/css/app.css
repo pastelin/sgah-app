@@ -308,7 +308,7 @@ template {
 }
 
 html {
-  font-size: calc(16px + 2 * (100vw - 380px) / 1020);
+  font-size: calc(14px + 2 * (100vw - 380px) / 1020);
   box-sizing: border-box;
 }
 
@@ -347,7 +347,7 @@ img {
 }
 
 .contenedor {
-  min-width: 30rem;
+  min-width: 300px;
   overflow-y: hidden;
   height: 100vh;
 }
@@ -368,13 +368,6 @@ img {
 aside h2 {
   text-align: center;
   margin-bottom: 2rem;
-}
-
-.btn {
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.25s ease-in;
 }
 
 .m-0 {
@@ -402,8 +395,6 @@ hr {
 
 .btn-logout {
   border-radius: 1rem;
-  border: none;
-  color: #262626;
   height: 2.5rem;
   margin-top: 2.5rem;
   width: 98%;
@@ -437,90 +428,86 @@ hr {
 }
 
 .navbar {
-  min-width: 17.5rem;
-  width: 100%;
-  box-shadow: 0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.15);
+  min-width: 280px;
+  box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.15);
 }
 @media (min-width: 768px) {
   .navbar {
-    display: block;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 25vw;
+    width: 26vw;
   }
 }
-.navbar .nav--mobile {
+.navbar .menu-mobile {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   padding: 1rem;
   text-align: right;
 }
-.navbar .nav--mobile .logo {
+.navbar .menu-mobile .logo {
   margin: 0;
 }
 @media (min-width: 768px) {
-  .navbar .nav--mobile {
+  .navbar .menu-mobile {
     display: none;
   }
 }
-.navbar .nav--mobile .nav-burguer--mobile {
+.navbar .menu-mobile .icon-burguer {
   position: fixed;
   right: 1rem;
   top: 3rem;
-  width: 3rem;
-  height: 0.63rem;
+  width: 2.7rem;
+  height: 0.5rem;
   background-color: rgb(170, 0, 0);
   border-radius: 0.3rem;
   transform: rotate(0deg) translate(0, -1.2rem);
   transition: transform 5s ease, background-color 500ms ease;
   transform-origin: top left;
 }
-.navbar .nav--mobile .nav-burguer--mobile::before,
-.navbar .nav--mobile .nav-burguer--mobile::after {
+.navbar .menu-mobile .icon-burguer::before,
+.navbar .menu-mobile .icon-burguer::after {
   content: "";
   display: block;
   width: 100%;
-  height: 0.63rem;
+  height: 0.5rem;
   background-color: rgb(170, 0, 0);
   border-radius: 0.3rem;
   transition: transform 0.5s ease;
 }
-.navbar .nav--mobile .nav-burguer--mobile::before {
+.navbar .menu-mobile .icon-burguer::before {
   transform: rotate(0deg) translate(0, -0.9rem);
 }
-.navbar .nav--mobile .nav-burguer--mobile::after {
+.navbar .menu-mobile .icon-burguer::after {
   transform: rotate(0deg) translate(0, 0.3rem);
 }
-.navbar .nav__display--tablet {
+.navbar .menu {
   display: none;
 }
 @media (min-width: 768px) {
-  .navbar .nav__display--tablet {
+  .navbar .menu {
     display: block;
   }
 }
-.navbar .nav__display--tablet .logo {
+.navbar .menu .logo {
   margin: 0 0 2rem 0;
   padding-top: 2rem;
   text-align: center;
 }
-.navbar .nav__display--tablet .usuario {
+.navbar .menu .usuario {
   font-weight: 300;
   text-align: center;
 }
-.navbar .nav__close--mobile {
+.navbar .menu-mobile-icon-close {
   display: none;
-  margin-top: 5rem;
+  margin-top: 50px;
   text-align: center;
 }
-.navbar .nav__close--mobile button {
+.navbar .menu-mobile-icon-close button {
   background-color: transparent;
   border: none;
   cursor: pointer;
+  font-size: 3rem;
 }
-.navbar .nav__close--mobile button:hover {
+.navbar .menu-mobile-icon-close button:hover {
   color: #ff4c4c;
 }
 .navbar ul {
@@ -574,7 +561,7 @@ hr {
 .contenedor__resumen {
   display: flex;
   justify-content: space-around;
-  min-width: 30rem;
+  min-width: 300px;
   align-items: center;
   margin-top: 5rem;
 }
@@ -613,7 +600,7 @@ hr {
 }
 
 .formulario {
-  min-width: 30rem;
+  min-width: 300px;
   overflow: hidden;
 }
 .formulario *:not(input, select, textarea) {
@@ -633,7 +620,7 @@ hr {
 }
 .formulario .contenedor__formulario-ingresos {
   max-width: 50rem;
-  min-width: 30rem;
+  min-width: 300px;
   padding: 2rem;
   margin: auto;
 }
@@ -646,7 +633,7 @@ hr {
 .formulario .contenedor__formulario-overlay {
   width: 90%;
   max-width: 50rem;
-  min-width: 30rem;
+  min-width: 300px;
   margin: auto;
   background-color: #FFFFFF;
   border-radius: 0.5rem;
@@ -714,16 +701,17 @@ hr {
 
 .contenedor__table {
   overflow: auto;
-  height: 37rem;
+  height: 50vh;
   position: relative;
 }
 .contenedor__table table {
-  width: 95%;
-  min-width: 53rem;
+  width: 90%;
+  min-width: 550px;
   margin: 1rem 1rem;
-  box-shadow: 0.1rem 0.13rem 0.4rem #333;
+  box-shadow: 0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.25);
   border-radius: 0.5rem;
   border-collapse: collapse;
+  font-size: calc(12px + 2 * (100vw - 380px) / 1020);
 }
 @media (min-width: 992px) {
   .contenedor__table table {

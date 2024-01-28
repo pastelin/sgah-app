@@ -23,15 +23,14 @@ export const Navigation = () => {
 		<BrowserRouter>
 			<nav className={`navbar ${classNameHightNavbar}`}>
 				<div
+					className={`menu-mobile ${classNameHideMobileNavbar}`}
 					onClick={handleOpenNavbar}
-					className={`nav--mobile ${classNameHideMobileNavbar}`}
 				>
 					<h1 className="logo">SGAH</h1>
-                    {/* <i className="fa-solid fa-bars"></i> */}
-                    <label className="nav-burguer--mobile"></label>
+					<label className="icon-burguer"></label>
 				</div>
 
-				<div className={`nav__display--tablet ${classNameActiveMenuNavbar}`}>
+				<div className={`menu ${classNameActiveMenuNavbar}`}>
 					<h1 className="logo">SGAH</h1>
 					<h2 className="usuario">
 						<i className="fa-regular fa-user"></i>
@@ -119,7 +118,8 @@ export const Navigation = () => {
 						<span>Salir</span>
 					</button>
 				</div>
-				<div className={`nav__close--mobile ${classNameActiveIconCloseMenuNavbar}`}>
+
+				<div className={`menu-mobile-icon-close ${classNameActiveIconCloseMenuNavbar}`}>
 					<button onClick={handleCloseNavbar}>
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>

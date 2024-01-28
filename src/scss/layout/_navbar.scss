@@ -2,19 +2,14 @@
 @use 'base/mixins' as m;
 
 .navbar {
-	min-width: 17.5rem;
-	width: 100%;
-	box-shadow: 0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.15);
+	min-width: 280px;
+	box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.15);
 
 	@include m.tablet {
-		display: block;
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-		width: 25vw;
+		width: 26vw;
 	}
 
-	.nav--mobile {
+	.menu-mobile {
 		cursor: pointer;
 		display: flex;
 		justify-content: space-between;
@@ -29,12 +24,12 @@
 			display: none;
 		}
 
-		.nav-burguer--mobile {
+		.icon-burguer {
 			position: fixed;
 			right: 1rem;
 			top: 3rem;
-			width: 3rem;
-			height: 0.63rem;
+			width: 2.7rem;
+			height: 0.5rem;
 			background-color: rgb(170, 0, 0);
 			border-radius: 0.3rem;
 			transform: rotate(0deg) translate(0, -1.2rem);
@@ -42,27 +37,27 @@
 			transform-origin: top left;
 		}
 
-		.nav-burguer--mobile::before,
-		.nav-burguer--mobile::after {
+		.icon-burguer::before,
+		.icon-burguer::after {
 			content: '';
 			display: block;
 			width: 100%;
-			height: 0.63rem;
+			height: 0.5rem;
 			background-color: rgb(170, 0, 0);
 			border-radius: 0.3rem;
 			transition: transform 0.5s ease;
 		}
 
-		.nav-burguer--mobile::before {
+		.icon-burguer::before {
 			transform: rotate(0deg) translate(0, -0.9rem);
 		}
 
-		.nav-burguer--mobile::after {
+		.icon-burguer::after {
 			transform: rotate(0deg) translate(0, 0.3rem);
 		}
 	}
 
-	.nav__display--tablet {
+	.menu {
 		display: none;
 
 		@include m.tablet {
@@ -81,15 +76,16 @@
 		}
 	}
 
-	.nav__close--mobile {
+	.menu-mobile-icon-close {
 		display: none;
-		margin-top: 5rem;
+		margin-top: 50px;
 		text-align: center;
 
 		button {
 			background-color: transparent;
 			border: none;
 			cursor: pointer;
+			font-size: 3rem;
 
 			&:hover {
 				color: v.$rojo;

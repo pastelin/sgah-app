@@ -3,16 +3,17 @@
 
 .contenedor__table {
 	overflow: auto;
-	height: 37rem;
+	height: 50vh;
     position: relative;
 
 	table {
-		width: 95%;
-		min-width: 53rem;
+		width: 90%;
+		min-width: 550px;
 		margin: 1rem 1rem;
-		box-shadow: 0.1rem 0.13rem 0.4rem #333;
+		box-shadow: 0.25rem 0.25rem 0.5rem .25rem rgba(0, 0, 0, .25);
 		border-radius: 0.5rem;
 		border-collapse: collapse;
+        font-size: calc(12px + (14 - 12) * ((100vw - 380px) / (1400 - 380)));
 
 		@include m.desktop {
 			max-width: 93rem;
@@ -24,7 +25,6 @@
             top: 0;
             background-color: v.$blanco;
             border-radius: .5rem;
-            // color: v.$blanco;
         }
 
 		thead,

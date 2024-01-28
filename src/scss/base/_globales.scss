@@ -2,7 +2,7 @@
 @use 'base/mixins' as m;
 
 html {
-    font-size: calc(16px + (18 - 16) * ((100vw - 380px) / (1400 - 380)));
+	font-size: calc(14px + (16 - 14) * ((100vw - 380px) / (1400 - 380)));
 	box-sizing: border-box;
 }
 
@@ -46,7 +46,6 @@ img {
 	height: 100vh;
 	@include m.tablet {
 		display: flex;
-		// gap: 2rem;
 	}
 }
 
@@ -63,13 +62,6 @@ aside h2 {
 	margin-bottom: 2rem;
 }
 
-.btn {
-	border-radius: 0.5rem;
-	border: none;
-	cursor: pointer;
-	transition: all 0.25s ease-in;
-}
-
 .m-0 {
 	margin: 0;
 }
@@ -81,4 +73,3 @@ aside h2 {
 hr {
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
 }
-
