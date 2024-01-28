@@ -335,8 +335,11 @@ h1,
 h2,
 h3 {
   margin: 1rem 0 2.5rem 0;
-  font-weight: 500;
-  opacity: 0.7;
+  opacity: 0.4;
+}
+
+h2 {
+  font-size: calc(25px + 9 * (100vw - 380px) / 1020);
 }
 
 img {
@@ -347,7 +350,7 @@ img {
 }
 
 .contenedor {
-  min-width: 300px;
+  min-width: 350px;
   overflow-y: hidden;
   height: 100vh;
 }
@@ -554,40 +557,46 @@ hr {
   display: none;
 }
 
-.resumen {
+.detalle {
   width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.detalle h2 {
+  margin-bottom: 4rem;
 }
 
-.contenedor__resumen {
+.contenedor-detalle {
   display: flex;
   justify-content: space-around;
-  min-width: 300px;
+  min-width: 350px;
+  width: 80vw;
   align-items: center;
-  margin-top: 5rem;
 }
 @media (min-width: 768px) {
-  .contenedor__resumen {
-    margin-top: 15rem;
+  .contenedor-detalle {
+    min-width: 450px;
+    width: 50vw;
   }
 }
-@media (min-width: 992px) {
-  .contenedor__resumen {
-    width: 80%;
-  }
-}
-.contenedor__resumen .contenido__resumen p,
-.contenedor__resumen .monto__resumen p {
-  opacity: 0.5;
+.contenedor-detalle .detalle-label p,
+.contenedor-detalle .montos p {
   font-weight: 700;
+  opacity: 0.4;
   margin-top: 0;
   margin-bottom: 5rem;
   letter-spacing: 0.15rem;
-  font-size: calc(20px + 4 * (100vw - 380px) / 1020);
+  font-size: calc(15px + 9 * (100vw - 380px) / 1100);
 }
-@media (min-width: 992px) {
-  .contenedor__resumen .contenido__resumen {
-    text-align: right;
-  }
+.contenedor-detalle .detalle-label p:last-of-type,
+.contenedor-detalle .montos p:last-of-type {
+  margin-bottom: 0;
+}
+.contenedor-detalle .detalle-label {
+  text-align: right;
 }
 
 .formulario-overlay {
@@ -600,7 +609,7 @@ hr {
 }
 
 .formulario {
-  min-width: 300px;
+  min-width: 350px;
   overflow: hidden;
 }
 .formulario *:not(input, select, textarea) {
@@ -620,7 +629,7 @@ hr {
 }
 .formulario .contenedor__formulario-ingresos {
   max-width: 50rem;
-  min-width: 300px;
+  min-width: 350px;
   padding: 2rem;
   margin: auto;
 }
@@ -633,7 +642,7 @@ hr {
 .formulario .contenedor__formulario-overlay {
   width: 90%;
   max-width: 50rem;
-  min-width: 300px;
+  min-width: 350px;
   margin: auto;
   background-color: #FFFFFF;
   border-radius: 0.5rem;

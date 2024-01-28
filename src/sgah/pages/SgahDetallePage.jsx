@@ -10,15 +10,16 @@ export const SgahResumenPage = () => {
 	}, []);
 
 	return (
-		<aside className="resumen">
-			<div className="contenedor__resumen">
-				<div className="contenido__resumen">
+        <aside className="detalle">
+            <h2>Detalle de Montos</h2>
+			<div className="contenedor-detalle">
+				<div className="detalle-label">
 					<p>Ahorro Total: </p>
 					<p>Monto para gastos: </p>
 					<p>Monto prestado: </p>
 					<p>Inversión total:</p>
 				</div>
-				<div className="monto__resumen">
+				<div className="montos">
 					<p>{montoAhorro}</p>
 					<p>{montoGasto}</p>
 					<p>{montoPrestamo}</p>

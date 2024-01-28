@@ -29,8 +29,11 @@ h1,
 h2,
 h3 {
 	margin: 1rem 0 2.5rem 0;
-	font-weight: 500;
-	opacity: 0.7;
+	opacity: 0.4;
+}
+
+h2 {
+    font-size: calc(25px + (34 - 25) * ((100vw - 380px) / (1400 - 380)));
 }
 
 img {
