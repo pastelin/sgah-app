@@ -11,12 +11,7 @@
 }
 
 .formulario {
-	min-width: v.$minWidth;
 	overflow: hidden;
-
-	*:not(input, select, textarea) {
-		text-align: center;
-	}
 
 	.icon__close {
 		text-align: right;
@@ -33,19 +28,6 @@
 		}
 	}
 
-	.contenedor__formulario-ingresos {
-		max-width: 50rem;
-		min-width: v.$minWidth;
-		padding: 2rem;
-		margin: auto;
-
-        @include m.desktop {
-            width: 55rem;
-            max-width: 55rem;
-            
-        }
-	}
-
 	.contenedor__formulario-overlay {
 		width: 90%;
 		max-width: 50rem;
@@ -58,7 +40,6 @@
 		box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
 	}
 
-	.contenedor__formulario-ingresos,
 	.contenedor__formulario-overlay {
 		h3 {
 			margin: 1rem auto 3rem;
@@ -73,59 +54,44 @@
 		}
 	}
 
-	form {
-		margin-top: 3rem;
+}
 
-		.contenedor__btn {
-			margin-top: 2rem;
+.form__group {
+	margin-top: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	flex-direction: column;
 
-			button {
-				width: 100%;
-				padding: 0.7rem 1rem;
-				background-color: v.$azul;
-				color: v.$blanco;
-
-				&:hover {
-					opacity: 0.8;
-				}
-			}
-		}
+	> *:not(label) {
+		border-radius: 0.5rem;
+		border: 3px solid rgba(0, 0, 0, 0.35);
+		outline: none;
 	}
 
-	.form__group {
-		margin-top: 2rem;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 2rem;
+    > *:not(label):focus {
+		border: thick solid rgba(0, 0, 0, 0.35);
+	}
 
-		*:not(label) {
-			border-radius: 0.5rem;
-			border: 2px solid #6a6969;
-			outline: none;
-		}
+	&:first-of-type {
+		margin-top: 0;
+	}
 
-		input,
-		textarea {
-			width: 70%;
-			min-width: 70%;
-		}
+	input,
+	textarea,
+	select {
+		width: 40vw;
+		min-width: 250px;
+		max-width: 450px;
+	}
 
-		select {
-			width: 100%;
-		}
+	input,
+	select {
+		height: 2.5rem;
+	}
 
-		label {
-			width: 25%;
-		}
-
-		input,
-		select {
-			height: 3.2rem;
-		}
-
-		textarea {
-			height: 8rem;
-		}
+	textarea {
+		height: 6rem;
 	}
 }

@@ -50,32 +50,7 @@
 	}
 }
 
-.contenedor__montos,
-.contenedor__monto {
-	text-align: right;
 
-	h3,
-	p {
-		font-weight: 500;
-		margin: 3rem;
-		opacity: 0.8;
-		span {
-			letter-spacing: 0.2rem;
-			color: v.$rojo;
-		}
-
-		@include m.desktop {
-			margin: 4rem 3rem 3rem;
-		}
-	}
-}
-
-.contenedor__montos {
-	@include m.tablet {
-		display: flex;
-		justify-content: space-around;
-	}
-}
 
 .display--none {
 	display: none;

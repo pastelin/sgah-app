@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
 	formatCurrency,
 	useAhorroUi,
@@ -38,6 +38,16 @@ export const SgahIngresosPage = () => {
 
 	const [saldoIngreso, setSaldoIngreso] = useState(0);
 	const [saldoUsado, setSaldoUsado] = useState(0);
+	const [isHoverFlipCard, setIsHoverFlipCard] = useState(false);
+
+	const onToggleFlipCard = () => {
+		setIsHoverFlipCard(!isHoverFlipCard);
+	};
+
+	const styleFlipCardHover = useMemo(() => {
+		console.log(isHoverFlipCard);
+		return isHoverFlipCard ? 'flip-card-hover' : '';
+	}, [isHoverFlipCard]);
 
 	useEffect(() => {
 		handleAbleEditSaldoIngreso();
@@ -93,20 +103,19 @@ export const SgahIngresosPage = () => {
 		startSavingAhorro({ monto: montoAhorro, descripcion: descripcionAhorro });
 		setSaldoUsado(updateSaldoUsado);
 		handleDisableEditAhorro();
-	};
-
+    };
+    
 	return (
-		<aside className="contenedor__ingresos">
+		<aside className="ingresos">
 			<h2>Ingresos</h2>
 
-			<div className="group__ingresos">
-				<div className="group__input">
-					<label htmlFor="saldoIngreso">Saldo a distribuir:</label>
+			<div className="flex-responsive justify-center align-end">
+				<div className="form__group">
+					<label htmlFor="saldoIngreso">Saldo a inicial</label>
 					<input
 						type="number"
 						name="saldoIngreso"
 						id="saldoIngreso"
-						placeholder="0.0"
 						value={saldoIngreso}
 						onChange={onInputChangeIngreso}
 						required
@@ -116,105 +125,108 @@ export const SgahIngresosPage = () => {
 
 				<button
 					onClick={handleDisableEditSaldoIngreso}
-					className="button btn-ingreso-actualiza"
+					className="btn btn-submit"
 					disabled={!isAbleEditSaldoIngreso}
 				>
 					Actualizar
 				</button>
 			</div>
-			<div className="contenedor__monto">
+
+			<div className="contenedor-saldo">
 				<p>
 					Saldo disponible: <span>{formatCurrency(saldoIngreso - saldoUsado)}</span>
 				</p>
 			</div>
 
-			<hr />
-
-			<section className="contenedor__formularios">
-				<section className="formulario">
-					<div className="contenedor__formulario-ingresos">
-						<h3>Gastos</h3>
-						<form onSubmit={onSubmitGastos}>
-							<div className="form__group">
-								<label htmlFor="monto">Monto:</label>
-								<input
-									type="number"
-									name="monto"
-									id="monto"
-									value={montoGasto}
-									onChange={onInputChange}
-									required
-									disabled={!isAbleEditGasto}
-								/>
-							</div>
-
-							<div className="form__group">
-								<label htmlFor="descripcion">Descripción:</label>
-								<textarea
-									name="descripcion"
-									id="descripcion"
-									value={descripcion}
-									onChange={onInputChange}
-									required
-									disabled={!isAbleEditGasto}
-								></textarea>
-							</div>
-
-							<div className="contenedor__btn">
-								<button
-									className="button"
-									type="submit"
-									disabled={!isAbleEditGasto}
-								>
-									Guardar Gasto
-								</button>
-							</div>
-						</form>
+			<section className={`contenedor-forms-ingresos flip-card ${styleFlipCardHover}`}>
+				<section className="contenedor-form flip-face flip-front">
+					<div className="position-end">
+						<button className="btn btn-toggle" onClick={onToggleFlipCard}>
+							Ahorro
+						</button>
 					</div>
+					<h3>Gastos</h3>
+					<form className="formulario" onSubmit={onSubmitGastos}>
+						<div className="form__group">
+							<label htmlFor="monto">Monto:</label>
+							<input
+								type="number"
+								name="monto"
+								id="monto"
+								value={montoGasto}
+								onChange={onInputChange}
+								required
+								disabled={!isAbleEditGasto}
+							/>
+						</div>
+
+						<div className="form__group">
+							<label htmlFor="descripcion">Descripción:</label>
+							<textarea
+								name="descripcion"
+								id="descripcion"
+								value={descripcion}
+								onChange={onInputChange}
+								required
+								disabled={!isAbleEditGasto}
+							></textarea>
+						</div>
+
+						<div className="text-center mt-2">
+							<button
+								className="btn btn-submit"
+								type="submit"
+								disabled={!isAbleEditGasto}
+							>
+								Guardar Gasto
+							</button>
+						</div>
+					</form>
 				</section>
 
-				{/* <hr /> */}
-
-				<section className="formulario">
-					<div className="contenedor__formulario-ingresos">
-						<h3>Ahorro</h3>
-						<form onSubmit={onSubmitAhorro}>
-							<div className="form__group">
-								<label htmlFor="monto">Monto:</label>
-								<input
-									type="number"
-									name="monto"
-									id="monto"
-									value={montoAhorro}
-									onChange={onInputChangeAhorro}
-									required
-									disabled={!isAbleEditAhorro}
-								/>
-							</div>
-
-							<div className="form__group">
-								<label htmlFor="descripcion">Descripción:</label>
-								<textarea
-									name="descripcion"
-									id="descripcion"
-									value={descripcionAhorro}
-									onChange={onInputChangeAhorro}
-									required
-									disabled={!isAbleEditAhorro}
-								></textarea>
-							</div>
-
-							<div className="contenedor__btn">
-								<button
-									className="button"
-									type="submit"
-									disabled={!isAbleEditAhorro}
-								>
-									Guardar Ahorro
-								</button>
-							</div>
-						</form>
+				<section className="contenedor-form flip-face flip-back">
+					<div className="position-end">
+						<button className="btn btn-toggle" onClick={onToggleFlipCard}>
+							Gasto
+						</button>
 					</div>
+					<h3>Ahorro</h3>
+					<form className="formulario" onSubmit={onSubmitAhorro}>
+						<div className="form__group">
+							<label htmlFor="monto">Monto:</label>
+							<input
+								type="number"
+								name="monto"
+								id="monto"
+								value={montoAhorro}
+								onChange={onInputChangeAhorro}
+								required
+								disabled={!isAbleEditAhorro}
+							/>
+						</div>
+
+						<div className="form__group">
+							<label htmlFor="descripcion">Descripción:</label>
+							<textarea
+								name="descripcion"
+								id="descripcion"
+								value={descripcionAhorro}
+								onChange={onInputChangeAhorro}
+								required
+								disabled={!isAbleEditAhorro}
+							></textarea>
+						</div>
+
+						<div className="text-center mt-2">
+							<button
+								className="btn btn-submit"
+								type="submit"
+								disabled={!isAbleEditAhorro}
+							>
+								Guardar Ahorro
+							</button>
+						</div>
+					</form>
 				</section>
 			</section>
 		</aside>

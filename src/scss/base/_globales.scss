@@ -33,7 +33,7 @@ h3 {
 }
 
 h2 {
-    font-size: calc(25px + (34 - 25) * ((100vw - 380px) / (1400 - 380)));
+	font-size: calc(25px + (32 - 25) * ((100vw - 380px) / (1400 - 380)));
 }
 
 img {
@@ -69,10 +69,74 @@ aside h2 {
 	margin: 0;
 }
 
-.mt-4 {
+.mt-2 {
 	margin-top: 2rem;
 }
 
 hr {
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+}
+
+.position-end {
+	display: flex;
+	justify-content: end;
+}
+
+.flex-responsive {
+	display: flex;
+	flex-flow: row wrap;
+    gap: 1rem;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-end {
+    align-items: end;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.contenedor-saldo {
+    text-align: right;
+    > p {
+        font-weight: 500;
+        opacity: .8;
+        margin: 2rem;
+
+        > span {
+            letter-spacing: .2rem;
+            color: v.$rojo;
+        }
+    }
+}
+
+.contenedor__montos,
+.contenedor__monto {
+	text-align: right;
+
+	h3,
+	p {
+		font-weight: 500;
+		margin: 3rem;
+		opacity: 0.8;
+		span {
+			letter-spacing: 0.2rem;
+			color: v.$rojo;
+		}
+
+		@include m.desktop {
+			margin: 4rem 3rem 3rem;
+		}
+	}
+}
+
+.contenedor__montos {
+	@include m.tablet {
+		display: flex;
+		justify-content: space-around;
+	}
 }

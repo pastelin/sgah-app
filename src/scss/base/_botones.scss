@@ -1,26 +1,47 @@
 @use 'base/variables' as v;
 
+// Estilos por defecto
 .btn {
 	position: relative;
 	border: none;
-	border-radius: 0.25rem;
-	padding: 0.2rem;
-	font-weight: bold;
+	border-radius: 0.5rem;
 	cursor: pointer;
 	overflow: hidden;
-	box-shadow: 0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.15);
+	font-weight: 500;
+	color: v.$blanco;
 }
 
+// Estilos simples
 .btn-logout {
 	border-radius: 1rem;
 	height: 2.5rem;
 	margin-top: 2.5rem;
 	width: 98%;
-    font-weight: 500;
-    margin-left: .2rem;
-    color: v.$blanco;
+	margin-left: 0.2rem;
 }
 
+.btn-submit {
+	background-color: v.$azul;
+	padding: 0.5rem;
+    &:hover {
+        opacity: .7;
+    }
+}
+
+.btn-toggle {
+	padding: 0.3rem;
+	font-size: 10px;
+	background-color: rgba(170, 0, 0, 0.5);
+	border: 2px solid transparent;
+	letter-spacing: 0.1rem;
+
+	&:hover {
+		opacity: 0.7;
+		border: 2px solid rgba(170, 0, 0);
+	}
+}
+
+// Estilos con animacion
 .anim-link::after {
 	content: '';
 	position: absolute;
@@ -35,12 +56,12 @@
 	width: 100%;
 }
 
+// Estilos con gradientes
 .anim-bg-gradient {
 	background-image: linear-gradient(to right, #d00, violet, violet, #a00);
 	background-size: 300% 100%;
 	transition: background-position 0.5s ease-in-out;
-}
-
-.anim-bg-gradient:hover {
-	background-position: 100% 0;
+	&:hover {
+		background-position: 100% 0;
+	}
 }
