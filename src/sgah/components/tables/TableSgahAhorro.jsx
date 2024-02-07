@@ -4,7 +4,7 @@ export const TableSgahAhorro = () => {
 	const { ahorros } = useSgahAhorroStore();
 
 	return (
-		<div className="contenedor__table">
+		<div className="contenedor-table">
 			<table>
 				<thead>
 					<tr>

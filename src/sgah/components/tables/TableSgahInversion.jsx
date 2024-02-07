@@ -12,7 +12,7 @@ export const TableSgahInversion = () => {
 	};
 
 	return (
-		<div className="contenedor__table">
+		<div className="contenedor-table">
 			<table>
 				<thead>
 					<tr>
@@ -32,7 +32,7 @@ export const TableSgahInversion = () => {
 							<td>{inversion.nbAppInversion}</td>
 							<td>{formatCurrency(inversion.monto)}</td>
 							<td>
-								<button className="btn btn-inversion" onClick={() => handleOpenForm(inversion.folio) }>
+								<button className="btn btn-update" onClick={() => handleOpenForm(inversion.folio) }>
 									Retirar
 								</button>
 							</td>

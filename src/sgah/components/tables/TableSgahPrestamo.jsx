@@ -13,7 +13,7 @@ export const TableSgahPrestamo = () => {
 	};
 
 	return (
-		<div className="contenedor__table">
+		<div className="contenedor-table">
 			<table>
 				<thead>
 					<tr>
@@ -21,7 +21,7 @@ export const TableSgahPrestamo = () => {
 						<th>Saldo utilizado</th>
 						<th>Descripción</th>
 						<th>Deuda Actual</th>
-						<th></th>
+						<th>Editar</th>
 					</tr>
 				</thead>
 
@@ -33,14 +33,13 @@ export const TableSgahPrestamo = () => {
 							<td>{prestamo.descripcion}</td>
 							<td>{formatCurrency(prestamo.montoPrestado - prestamo.montoPagado)}</td>
 							<td>
-								<a
+								<button
+									className="btn btn-update"
 									onClick={() => handleOpenFormUpdatePrestamo(prestamo.folio)}
-									className="btn btn-prestamos"
 								>
 									Pagar
-								</a>
+								</button>
 							</td>
-							<td></td>
 						</tr>
 					))}
 				</tbody>

@@ -458,7 +458,6 @@ hr {
 }
 
 .btn {
-  position: relative;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -480,6 +479,14 @@ hr {
   padding: 0.5rem;
 }
 .btn-submit:hover {
+  opacity: 0.7;
+}
+
+.btn-update {
+  background-color: rgba(196, 105, 56, 0.777);
+  padding: 0.3rem;
+}
+.btn-update:hover {
   opacity: 0.7;
 }
 
@@ -516,7 +523,7 @@ hr {
 }
 
 .anim-bg-gradient {
-  background-image: linear-gradient(to right, #d00, violet, violet, #a00);
+  background-image: linear-gradient(to right, rgb(221, 0, 0), violet, violet, #a00);
   background-size: 300% 100%;
   transition: background-position 0.5s ease-in-out;
 }
@@ -751,89 +758,64 @@ hr {
   min-height: 6rem;
 }
 
-.contenedor__table {
+.contenedor-table {
   overflow: auto;
   height: 50vh;
-  position: relative;
+  padding: 0.2rem;
+  margin-top: 2rem;
 }
-.contenedor__table table {
+.contenedor-table > table {
   width: 90%;
-  min-width: 550px;
-  margin: 1rem 1rem;
-  box-shadow: 0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.25);
-  border-radius: 0.5rem;
+  min-width: 400px;
   border-collapse: collapse;
-  font-size: calc(12px + 2 * (100vw - 380px) / 1020);
+  margin-inline: auto;
+  font-size: calc(10px + 4 * (100vw - 380px) / 1020);
+  box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem rgba(0, 0, 0, 0.25);
+  font-weight: 500;
+  opacity: 0.9;
 }
-@media (min-width: 992px) {
-  .contenedor__table table {
-    max-width: 93rem;
-    margin: 3rem auto;
-  }
-}
-.contenedor__table table thead {
+.contenedor-table > table > thead {
   position: sticky;
   top: 0;
   background-color: rgb(255, 255, 255);
-  border-radius: 0.5rem;
 }
-.contenedor__table table thead th,
-.contenedor__table table thead td,
-.contenedor__table table tbody th,
-.contenedor__table table tbody td {
+.contenedor-table > table > thead th,
+.contenedor-table > table > thead td,
+.contenedor-table > table > tbody th,
+.contenedor-table > table > tbody td {
   padding: 1.5rem 0.5rem;
   text-align: center;
   border-bottom: 2px solid rgba(225, 225, 225, 0.8823529412);
 }
-.contenedor__table table thead tr:hover,
-.contenedor__table table tbody tr:hover {
-  background-color: #c1f1fc;
+.contenedor-table > table > tbody > tr:hover {
+  color: #f59595;
 }
 
 /* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
-.contenedor__table::-webkit-scrollbar {
+.contenedor-table::-webkit-scrollbar {
   -webkit-appearance: none;
 }
 
-.contenedor__table::-webkit-scrollbar:vertical {
+.contenedor-table::-webkit-scrollbar:vertical {
   width: 10px;
 }
 
-.contenedor__table::-webkit-scrollbar-button:increment,
-.contenedor__table::-webkit-scrollbar-button {
+.contenedor-table::-webkit-scrollbar-button:increment,
+.contenedor-table::-webkit-scrollbar-button {
   display: none;
 }
 
-.contenedor__table::-webkit-scrollbar:horizontal {
+.contenedor-table::-webkit-scrollbar:horizontal {
   height: 10px;
 }
 
-.contenedor__table::-webkit-scrollbar-thumb {
-  background-color: #797979;
+.contenedor-table::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 20px;
-  border: 2px solid #f1f2f3;
 }
 
-.contenedor__table::-webkit-scrollbar-track {
+.contenedor-table::-webkit-scrollbar-track {
   border-radius: 10px;
-}
-
-.btn-prestamos {
-  padding: 0.5rem;
-  background-color: #c1f1fc;
-}
-.btn-prestamos:hover {
-  background-color: #000000;
-  color: white;
-}
-
-.btn-inversion {
-  padding: 0.5rem;
-  background-color: #c1f1fc;
-}
-.btn-inversion:hover {
-  background-color: #000000;
-  color: white;
 }
 
 .contenedor-forms-ingresos {
