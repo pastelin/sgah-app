@@ -77,21 +77,10 @@
 		}
 	}
 
-	.menu-mobile-icon-close {
+	.contenedor-icon-close {
 		display: none;
 		margin-top: 50px;
 		text-align: center;
-
-		button {
-			background-color: transparent;
-			border: none;
-			cursor: pointer;
-			font-size: 3rem;
-
-			&:hover {
-				color: v.$rojo;
-			}
-		}
 	}
 
 	ul {

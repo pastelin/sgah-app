@@ -15,10 +15,10 @@ export const SgahPrestamosPage = () => {
 
 	return (
 		<>
-			<aside className="contenedor__movimientos">
+			<aside className="contenedor-aside">
 				<h2>Detalle Prestamos</h2>
 
-				<div className="contenedor__filtro">
+				{/* <div className="contenedor__filtro">
 					<select name="filtro" id="filtro">
 						<option value="">Elegir una opción</option>
 						{filtro.map((opcion) => (
@@ -27,16 +27,16 @@ export const SgahPrestamosPage = () => {
 							</option>
 						))}
 					</select>
-				</div>
+				</div> */}
 
-				<div className="contenedor__montos">
-					<h3>
+				<div className="contenedor-saldo text-center">
+					<p>
 						Deuda Actual: <span>{saldoUtilizadoP}</span>
-					</h3>
+					</p>
 				</div>
 
-				<div className="contenedor__boton">
-					<button onClick={handleOpenNewFormPrestamo} className="btn button">
+				<div className="text-center mt-2">
+					<button className="btn btn-submit btn-xl" onClick={handleOpenNewFormPrestamo}>
 						Agregar Prestamo
 					</button>
 				</div>

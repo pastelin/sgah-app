@@ -28,7 +28,7 @@ a {
 h1,
 h2,
 h3 {
-	margin: 1rem 0 2.5rem 0;
+	margin: 1rem 0 2rem 0;
 	opacity: 0.4;
 }
 
@@ -65,6 +65,18 @@ aside h2 {
 	margin-bottom: 2rem;
 }
 
+.fz-3 {
+    font-size: 3rem;
+}
+
+.fz-2 {
+    font-size: 2rem;
+}
+
+.p-1 {
+    padding: 1rem;
+}
+
 .m-0 {
 	margin: 0;
 }
@@ -73,70 +85,69 @@ aside h2 {
 	margin-top: 2rem;
 }
 
+.my-2 {
+    margin-block: 2rem;
+}
+
 hr {
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
 }
 
-.position-end {
+.flex-responsive-row {
 	display: flex;
+	flex-flow: row wrap;
+	gap: 1rem;
+}
+
+.flex-responsive-column {
+	display: flex;
+	flex-flow: column wrap;
+	gap: 1rem;
+}
+
+.justify-end {
 	justify-content: end;
 }
 
-.flex-responsive {
-	display: flex;
-	flex-flow: row wrap;
-    gap: 1rem;
+.justify-center {
+	justify-content: center;
 }
 
-.justify-center {
-    justify-content: center;
+.justify-sa {
+	justify-content: space-around;
 }
 
 .align-end {
-    align-items: end;
+	align-items: end;
 }
 
 .text-center {
-    text-align: center;
+	text-align: center;
+}
+
+.text-end {
+	text-align: end;
+}
+
+.center-x-y {
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedor-aside {
+	width: 100%;
+    margin-top: 1.5rem;
 }
 
 .contenedor-saldo {
-    text-align: right;
-    > p {
-        font-weight: 500;
-        opacity: .8;
-        margin: 2rem;
-
-        > span {
-            letter-spacing: .2rem;
-            color: v.$rojo;
-        }
-    }
-}
-
-.contenedor__montos,
-.contenedor__monto {
-	text-align: right;
-
-	h3,
-	p {
+	> p {
 		font-weight: 500;
-		margin: 3rem;
 		opacity: 0.8;
-		span {
+		margin: 1rem;
+
+		> span {
 			letter-spacing: 0.2rem;
 			color: v.$rojo;
 		}
-
-		@include m.desktop {
-			margin: 4rem 3rem 3rem;
-		}
-	}
-}
-
-.contenedor__montos {
-	@include m.tablet {
-		display: flex;
-		justify-content: space-around;
 	}
 }

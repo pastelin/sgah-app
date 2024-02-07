@@ -119,8 +119,8 @@ export const Navigation = () => {
 					</button>
 				</div>
 
-				<div className={`menu-mobile-icon-close ${classNameActiveIconCloseMenuNavbar}`}>
-					<button onClick={handleCloseNavbar}>
+				<div className={`contenedor-icon-close ${classNameActiveIconCloseMenuNavbar}`}>
+					<button className="icon-close fz-3" onClick={handleCloseNavbar}>
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>
 				</div>

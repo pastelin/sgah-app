@@ -1,59 +1,27 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
-.formulario-overlay {
-	background-color: v.$gris;
+.overlay {
+	background-color: rgba(0, 0, 0, 0.7);
 	position: fixed;
-	top: 0rem;
-	bottom: 0;
-	left: 0;
-	right: 0;
-}
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	height: 100vh;
 
-.formulario {
-	overflow: hidden;
-
-	.icon__close {
-		text-align: right;
-
-		button {
-			color: #6a6969;
-			background-color: transparent;
-			cursor: pointer;
-			border: none;
-
-			&:hover {
-				color: v.$rojo;
-			}
-		}
-	}
-
-	.contenedor__formulario-overlay {
-		width: 90%;
-		max-width: 50rem;
-		min-width: v.$minWidth;
-		margin: auto;
+	.contenedor-form {
 		background-color: v.$blanco;
-		border-radius: 0.5rem;
-		padding: 2rem;
-		margin-top: 10rem;
-		box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
-	}
+		width: 55vw;
+		min-width: v.$minWidth;
+		box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+		border-radius: 1rem;
 
-	.contenedor__formulario-overlay {
-		h3 {
-			margin: 1rem auto 3rem;
-		}
-
-		p {
-			color: v.$rojo;
-		}
-
-		span {
-			letter-spacing: 0.1rem;
+		> h3 {
+			text-align: center;
+			margin-top: -1.5rem;
 		}
 	}
-
 }
 
 .form__group {
@@ -70,7 +38,7 @@
 		outline: none;
 	}
 
-    > *:not(label):focus {
+	> *:not(label):focus {
 		border: thick solid rgba(0, 0, 0, 0.35);
 	}
 
@@ -92,6 +60,7 @@
 	}
 
 	textarea {
-		height: 6rem;
+		max-height: 6rem;
+		min-height: 6rem;
 	}
 }

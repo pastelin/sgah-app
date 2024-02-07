@@ -106,10 +106,10 @@ export const SgahIngresosPage = () => {
     };
     
 	return (
-		<aside className="ingresos">
+		<aside className="contenedor-aside">
 			<h2>Ingresos</h2>
 
-			<div className="flex-responsive justify-center align-end">
+			<div className="flex-responsive-row justify-center align-end">
 				<div className="form__group">
 					<label htmlFor="saldoIngreso">Saldo a inicial</label>
 					<input
@@ -132,7 +132,7 @@ export const SgahIngresosPage = () => {
 				</button>
 			</div>
 
-			<div className="contenedor-saldo">
+			<div className="contenedor-saldo text-end mt-2">
 				<p>
 					Saldo disponible: <span>{formatCurrency(saldoIngreso - saldoUsado)}</span>
 				</p>
@@ -140,13 +140,13 @@ export const SgahIngresosPage = () => {
 
 			<section className={`contenedor-forms-ingresos flip-card ${styleFlipCardHover}`}>
 				<section className="contenedor-form flip-face flip-front">
-					<div className="position-end">
+					<div className="text-end">
 						<button className="btn btn-toggle" onClick={onToggleFlipCard}>
 							Ahorro
 						</button>
 					</div>
 					<h3>Gastos</h3>
-					<form className="formulario" onSubmit={onSubmitGastos}>
+					<form onSubmit={onSubmitGastos}>
 						<div className="form__group">
 							<label htmlFor="monto">Monto:</label>
 							<input
@@ -185,13 +185,13 @@ export const SgahIngresosPage = () => {
 				</section>
 
 				<section className="contenedor-form flip-face flip-back">
-					<div className="position-end">
+					<div className="text-end">
 						<button className="btn btn-toggle" onClick={onToggleFlipCard}>
 							Gasto
 						</button>
 					</div>
 					<h3>Ahorro</h3>
-					<form className="formulario" onSubmit={onSubmitAhorro}>
+					<form onSubmit={onSubmitAhorro}>
 						<div className="form__group">
 							<label htmlFor="monto">Monto:</label>
 							<input

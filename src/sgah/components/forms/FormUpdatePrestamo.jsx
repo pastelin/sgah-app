@@ -61,23 +61,26 @@ export const FormUpdatePrestamo = () => {
 
 	return (
 		<section
+			className={`overlay flex-responsive-row center-x-y ${classNameUpdateFormPrestamoDisplay}`}
 			id="formularioUpdatePrestamo"
-			className={`formulario formulario-overlay ${classNameUpdateFormPrestamoDisplay}`}
 		>
-			<div className="contenedor__formulario-overlay">
-				<div id="closeMenu" className="icon__close">
-					<button onClick={handleCloseUpdateFormPrestamo}>
+			<div className="contenedor-form">
+				<div className="text-end p-1" id="closeMenu">
+					<button className="icon-close fz-2" onClick={handleCloseUpdateFormPrestamo}>
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>
 				</div>
 				<h3>¡Actualizar Prestamo!</h3>
-				<p>
-					Deuda Actual: <span>{formatCurrency(montoPrestado - montoPagado)}</span>
-				</p>
-				<p>
-					Saldo disponible: <span>{formatCurrency(saldoDisponibleG)}</span>
-				</p>
-				<form onSubmit={onSubmit}>
+
+				<div className="contenedor-saldo text-center">
+					<p>
+						Deuda Actual: <span>{formatCurrency(montoPrestado - montoPagado)}</span>
+					</p>
+					<p>
+						Saldo disponible: <span>{formatCurrency(saldoDisponibleG)}</span>
+					</p>
+				</div>
+				<form className="mt-2" onSubmit={onSubmit}>
 					<div className="form__group">
 						<label htmlFor="newMontoPagado">Monto:</label>
 						<input
@@ -101,8 +104,8 @@ export const FormUpdatePrestamo = () => {
 						></textarea>
 					</div>
 
-					<div className="contenedor__btn">
-						<button type="submit" className="btn button">
+					<div className="text-center my-2">
+						<button className="btn btn-submit" type="submit">
 							Actualizar Prestamo
 						</button>
 					</div>

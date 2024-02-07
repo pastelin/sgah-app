@@ -1,11 +1,6 @@
 @use './base/mixins' as m;
 @use './base/variables' as v;
 
-.ingresos {
-	width: 100%;
-    margin-top: 1.5rem;
-}
-
 .contenedor-forms-ingresos {
 	margin-top: 2rem;
 	width: 45vw;
@@ -18,9 +13,7 @@
 
 		h3 {
 			text-align: center;
-            margin-top: 0;
+			margin-top: 0;
 		}
 	}
 }
-
-

@@ -23,9 +23,15 @@
 .btn-submit {
 	background-color: v.$azul;
 	padding: 0.5rem;
-    &:hover {
-        opacity: .7;
-    }
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
+.btn-xl {
+	width: 30vw;
+	min-width: 150px;
+	height: 2.5rem;
 }
 
 .btn-toggle {
@@ -63,5 +69,15 @@
 	transition: background-position 0.5s ease-in-out;
 	&:hover {
 		background-position: 100% 0;
+	}
+}
+
+.icon-close {
+	cursor: pointer;
+	border: none;
+	background-color: transparent;
+
+	&:hover {
+		color: v.$rojo;
 	}
 }

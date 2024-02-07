@@ -48,17 +48,23 @@ export const FormNewPrestamo = () => {
 	};
 
 	return (
-		<section className={`formulario formulario-overlay ${classNameNewFormPrestamoDisplay}`}>
-			<div className="contenedor__formulario-overlay">
-				<div id="closeMenu" className="icon__close">
-					<button onClick={handleCloseNewFormPrestamo}>
+		<section
+			className={`overlay flex-responsive-row center-x-y ${classNameNewFormPrestamoDisplay}`}
+		>
+			<div className="contenedor-form">
+				<div className="text-end p-1" id="closeMenu">
+					<button className="icon-close fz-2" onClick={handleCloseNewFormPrestamo}>
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>
 				</div>
 				<h3>¡Registrar Prestamo!</h3>
-				<p>
-					Saldo máximo a tomar prestado: <span>{formatCurrency(saldoDisponibleA)}</span>
-				</p>
+
+				<div className="contenedor-saldo text-center">
+					<p>
+						Saldo máximo a tomar prestado:{' '}
+						<span>{formatCurrency(saldoDisponibleA)}</span>
+					</p>
+				</div>
 
 				<form onSubmit={onSubmit}>
 					<div className="form__group">
@@ -84,8 +90,8 @@ export const FormNewPrestamo = () => {
 						></textarea>
 					</div>
 
-					<div className="contenedor__btn">
-						<button type="submit" className="btn button">
+					<div className="text-center my-2">
+						<button className="btn btn-submit" type="submit">
 							Guardar Prestamo
 						</button>
 					</div>

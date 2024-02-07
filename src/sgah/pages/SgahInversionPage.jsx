@@ -20,17 +20,17 @@ export const SgahInversionPage = () => {
 
 	return (
 		<>
-			<aside className="contenedor__movimientos">
+			<aside className="contenedor-aside">
 				<h2>Detalle Inversión</h2>
 
-				<div className="contenedor__montos">
-					<h3>
+				<div className="contenedor-saldo text-center">
+					<p>
 						Saldo Invertido: <span>{formatCurrency(saldoInvertido)}</span>
-					</h3>
+					</p>
 				</div>
 
-				<div className="contenedor__boton">
-					<button onClick={handleOpenFormNewInversion} className="btn button">
+				<div className="text-center mt-2">
+					<button className="btn btn-submit btn-xl" onClick={handleOpenFormNewInversion}>
 						Agregar Inversión
 					</button>
 				</div>
@@ -38,8 +38,8 @@ export const SgahInversionPage = () => {
 				<TableSgahInversion />
 			</aside>
 
-            <FormNewInversion />
-            <FormUpdateInversion />
+			<FormNewInversion />
+			<FormUpdateInversion />
 		</>
 	);
 };

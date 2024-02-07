@@ -40,19 +40,23 @@ export const FormUpdateInversion = () => {
 	};
 
 	return (
-		<section className={`formulario formulario-overlay ${classNameUpdateFormInversionDisplay}`}>
-			<div className="contenedor__formulario-overlay">
-				<div id="closeMenu" className="icon__close">
-					<button onClick={handleCloseUpdateFormInversion}>
+		<section
+			className={`overlay flex-responsive-row center-x-y ${classNameUpdateFormInversionDisplay}`}
+		>
+			<div className="contenedor-form">
+				<div className="text-end p-1" id="closeMenu">
+					<button className="icon-close fz-2" onClick={handleCloseUpdateFormInversion}>
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>
 				</div>
 				<h3>Retirar Inversión!</h3>
-				<p>
-					Saldo máximo a retirar: <span>{formatCurrency(inversion.monto)}</span>
-				</p>
+				<div className="contenedor-saldo text-center">
+					<p>
+						Saldo máximo a retirar: <span>{formatCurrency(inversion.monto)}</span>
+					</p>
+				</div>
 
-				<form onSubmit={onSubmit}>
+				<form className="mt-2" onSubmit={onSubmit}>
 					<div className="form__group">
 						<label htmlFor="monto">Monto:</label>
 						<input
@@ -65,8 +69,8 @@ export const FormUpdateInversion = () => {
 						/>
 					</div>
 
-					<div className="contenedor__btn">
-						<button type="submit" className="btn button">
+					<div className="text-center my-2">
+						<button className="btn btn-submit" type="submit">
 							Actualizar Inversión
 						</button>
 					</div>

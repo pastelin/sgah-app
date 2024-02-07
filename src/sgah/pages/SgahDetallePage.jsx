@@ -10,8 +10,8 @@ export const SgahResumenPage = () => {
 	}, []);
 
 	return (
-        <aside className="detalle">
-            <h2>Detalle de Montos</h2>
+		<aside className="detalle flex-responsive-column center-x-y">
+			<h2>Detalle de Montos</h2>
 			<div className="contenedor-detalle">
 				<div className="detalle-label">
 					<p>Ahorro Total: </p>

@@ -3,13 +3,13 @@
 
 .detalle {
 	width: 100%;
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+    margin-top: 2rem;
 	h2 {
         margin-bottom: 4rem;
+	}
+
+    @include m.tablet {
+        margin-top: 0;
 	}
 }
 

@@ -59,19 +59,24 @@ export const FormNewInversion = () => {
 	};
 
 	return (
-		<section className={`formulario formulario-overlay ${classNameNewFormInversionDisplay}`}>
-			<div className="contenedor__formulario-overlay">
-				<div id="closeMenu" className="icon__close">
-					<button onClick={handleCloseNewFormInversion}>
+		<section
+			className={`overlay flex-responsive-row center-x-y ${classNameNewFormInversionDisplay}`}
+		>
+			<div className="contenedor-form">
+				<div className="text-end p-1" id="closeMenu">
+					<button className="icon-close fz-2" onClick={handleCloseNewFormInversion}>
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>
 				</div>
 				<h3>¡Registrar Inversión!</h3>
-				<p>
-					Saldo máximo a invertir: <span>{formatCurrency(saldoDisponibleA)}</span>
-				</p>
 
-				<form onSubmit={onSubmit}>
+				<div className="contenedor-saldo flex-responsive-row justify-center">
+					<p>
+						Saldo máximo a invertir: <span>{formatCurrency(saldoDisponibleA)}</span>
+					</p>
+				</div>
+
+				<form className="mt-2" onSubmit={onSubmit}>
 					<div className="form__group">
 						<label htmlFor="monto">Monto:</label>
 						<input
@@ -113,8 +118,8 @@ export const FormNewInversion = () => {
 						></textarea>
 					</div>
 
-					<div className="contenedor__btn">
-						<button type="submit" className="btn button">
+					<div className="text-center my-2">
+						<button className="btn btn-submit" type="submit">
 							Guardar Inversión
 						</button>
 					</div>

@@ -13,13 +13,13 @@ export const SgahAhorrosPage = () => {
 
 	return (
 		<>
-			<aside className="contenedor__movimientos">
+			<aside className="contenedor-aside">
 				<h2>Detalle Ahorros</h2>
 
-				<div className="contenedor__montos">
-					<h3>
+				<div className="contenedor-saldo text-center">
+					<p>
 						Saldo Disponible: <span>{formatCurrency(saldoDisponibleA)}</span>
-					</h3>
+					</p>
 				</div>
 
 				<TableSgahAhorro />

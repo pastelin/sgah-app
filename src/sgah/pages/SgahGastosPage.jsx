@@ -30,10 +30,10 @@ export const SgahGastosPage = () => {
 
 	return (
 		<>
-			<aside className="contenedor__movimientos">
+			<aside className="contenedor-aside">
 				<h2>Detalle Gastos</h2>
 
-				<div className="contenedor__filtro">
+				{/* <div className="contenedor__filtro">
 					<select onChange={handleUpdatingSelectedFilterGasto} name="filtro" id="filtro">
 						<option value="">Elegir una opción</option>
 						{filtro.map((opcion) => (
@@ -66,23 +66,23 @@ export const SgahGastosPage = () => {
 
 					<input type="date" className={classNameFechaDisplay} />
 					<input type="date" className={classNameFechaDisplay} />
+				</div> */}
+
+				<div className="contenedor-saldo flex-responsive-row justify-sa">
+					<p>
+						Saldo Disponible: <span>{formatCurrency(saldoDisponibleG)}</span>
+					</p>
+
+					<p>
+						Saldo Gastado: <span>{formatCurrency(saldoGastado)}</span>
+					</p>
 				</div>
 
-				<div className="contenedor__montos">
-					<h3>
-						Disponible: <span>{formatCurrency(saldoDisponibleG)}</span>
-					</h3>
-
-					<h3>
-						Gastado: <span>{formatCurrency(saldoGastado)}</span>
-					</h3>
-				</div>
-
-				<div className="contenedor__boton">
+				<div className="text-center mt-2">
 					<button
+						className="btn btn-submit btn-xl "
 						onClick={handleOpenFormGasto}
 						id="btnAgregarGasto"
-						className="btn button"
 					>
 						Agregar Gasto
 					</button>

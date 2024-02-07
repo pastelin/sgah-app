@@ -46,19 +46,27 @@ export const FormGasto = () => {
 	};
 
 	return (
-		<section className={`formulario formulario-overlay ${classNameDisplay}`}>
-			<div className="contenedor__formulario-overlay">
-				<div className="icon__close">
-					<button onClick={handleCloseFormGasto} id="closeForm">
+		<section className={`overlay flex-responsive-row center-x-y ${classNameDisplay}`}>
+			<div className="contenedor-form">
+				<div className="text-end p-1">
+					<button
+						className="icon-close fz-2"
+						onClick={handleCloseFormGasto}
+						id="closeForm"
+					>
 						<i className="fa-regular fa-circle-xmark"></i>
 					</button>
 				</div>
-				<h3>¡Registrar Gasto!</h3>
-				<p>
-					Saldo máximo a gastar: <span>{formatCurrency(saldoDisponibleG)}</span>
-				</p>
 
-				<form onSubmit={onSubmit}>
+				<h3>¡Registrar Gasto!</h3>
+
+				<div className="contenedor-saldo flex-responsive-row justify-center">
+					<p>
+						Saldo máximo a gastar: <span>{formatCurrency(saldoDisponibleG)}</span>
+					</p>
+				</div>
+
+				<form className="mt-2" onSubmit={onSubmit}>
 					<div className="form__group">
 						<label htmlFor="monto">Monto:</label>
 						<input
@@ -102,8 +110,8 @@ export const FormGasto = () => {
 						></textarea>
 					</div>
 
-					<div className="contenedor__btn">
-						<button type="submit" className="btn button">
+					<div className="text-center my-2">
+						<button className="btn btn-submit" type="submit">
 							Guardar Gasto
 						</button>
 					</div>
