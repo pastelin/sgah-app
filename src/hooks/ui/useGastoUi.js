@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import {
-	onToggleAbleEditGasto,
+	onToggleHasPermissionEditG,
 	onToggleShowFormGasto,
 	onUpdateSelectedFilterGasto,
 } from '../../store/ui/gastoUiSlice';
 
 export const useGastoUi = () => {
-	const { isShowFormGasto, isAbleEditGasto, selectedFilterGasto } = useSelector(
+	const { isShowFormGasto, hasPermissionEdit, selectedFilterGasto } = useSelector(
 		(state) => state.gastoUi
 	);
 
@@ -41,27 +41,22 @@ export const useGastoUi = () => {
 		dispatch(onToggleShowFormGasto(false));
 	};
 
-	const handleAbleEditGasto = () => {
-		dispatch(onToggleAbleEditGasto(true));
-	};
-
-	const handleDisableEditGasto = () => {
-		dispatch(onToggleAbleEditGasto(false));
-	};
+    const handleHasPermissionEdit = (flag) => {
+        dispatch(onToggleHasPermissionEditG(flag));
+    };
 
 	return {
 		// * Propiedades
 		isShowFormGasto,
-		isAbleEditGasto,
+		hasPermissionEdit,
 		// * Metodos
 		classNameDisplay,
 		handleOpenFormGasto,
 		handleCloseFormGasto,
-		handleAbleEditGasto,
-		handleDisableEditGasto,
 		classNameCategoriaDisplay,
 		classNameTipoDisplay,
 		classNameFechaDisplay,
 		handleUpdatingSelectedFilterGasto,
+		handleHasPermissionEdit,
 	};
 };

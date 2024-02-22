@@ -1,6 +1,14 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
+.gasto {
+	color: rgb(245, 149, 149, 0.8);
+}
+
+.ingreso {
+	color: rgba(52, 179, 243, 0.8);
+}
+
 .contenedor-table {
 	overflow: auto;
 	height: 50vh;
@@ -35,7 +43,8 @@
 
 		> tbody {
 			> tr:hover {
-				color: #f59595;
+				background-color: rgb(245, 149, 149, 0.5);
+				color: white; 
 			}
 		}
 	}

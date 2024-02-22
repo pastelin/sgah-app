@@ -444,7 +444,6 @@ hr {
 
 .contenedor-aside {
   width: 100%;
-  margin-top: 1.5rem;
 }
 
 .contenedor-saldo > p {
@@ -758,6 +757,14 @@ hr {
   min-height: 6rem;
 }
 
+.gasto {
+  color: rgba(245, 149, 149, 0.8);
+}
+
+.ingreso {
+  color: rgba(52, 179, 243, 0.8);
+}
+
 .contenedor-table {
   overflow: auto;
   height: 50vh;
@@ -788,7 +795,8 @@ hr {
   border-bottom: 2px solid rgba(225, 225, 225, 0.8823529412);
 }
 .contenedor-table > table > tbody > tr:hover {
-  color: #f59595;
+  background-color: rgba(245, 149, 149, 0.5);
+  color: white;
 }
 
 /* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
@@ -840,6 +848,11 @@ hr {
   transition: transform 1s ease-in-out;
   transform-style: preserve-3d;
   transform-origin: center right;
+}
+@media (min-width: 768px) {
+  .flip-card {
+    height: 490px;
+  }
 }
 
 .flip-card-hover {

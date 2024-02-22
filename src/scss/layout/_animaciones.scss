@@ -1,11 +1,17 @@
+@use 'base/mixins' as m;
+
 .flip-card {
 	height: 430px;
-
 	position: relative;
 	cursor: pointer;
 	transition: transform 1s ease-in-out;
 	transform-style: preserve-3d;
     transform-origin: center right;
+
+    @include m.tablet { 
+        height: 490px;
+    }
+
 }
 
 .flip-card-hover {

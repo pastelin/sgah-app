@@ -88,14 +88,19 @@ export const FormGasto = () => {
 							required
 						>
 							<option value="">Seleccionar tipo de gasto</option>
-							{categoriasGasto.map(({ cdGasto, nbGasto }) => (
-								<option
-									key={window.crypto.getRandomValues(new Uint32Array(1))[0]}
-									value={cdGasto}
-								>
-									{nbGasto}
-								</option>
-							))}
+							{categoriasGasto.map(
+								({ cdGasto, nbGasto, cdEstatus }) =>
+									cdEstatus !== 2 && (
+										<option
+											key={
+												window.crypto.getRandomValues(new Uint32Array(1))[0]
+											}
+											value={cdGasto}
+										>
+											{nbGasto}
+										</option>
+									)
+							)}
 						</select>
 					</div>
 

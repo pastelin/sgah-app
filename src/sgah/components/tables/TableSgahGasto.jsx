@@ -18,7 +18,12 @@ export const TableSgahGasto = () => {
 
 				<tbody>
 					{gastos.map((gasto) => (
-						<tr key={window.crypto.getRandomValues(new Uint32Array(1))[0]}>
+						<tr
+							className={`${
+								gasto.nbTipoMovimiento === 'Gasto' ? 'gasto' : 'ingreso'
+							}`}
+							key={window.crypto.getRandomValues(new Uint32Array(1))[0]}
+						>
 							<td>{gasto.fechaCreacion}</td>
 							<td>{gasto.monto}</td>
 							<td>{gasto.descripcion}</td>

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { onToggleAbleEditAhorro, onToggleAbleEditSaldoIngreso } from '../../store/ui/ahorroUiSlice';
+import { onToggleAbleEditAhorro } from '../../store/ui/ahorroUiSlice';
 
 export const useAhorroUi = () => {
-	const { isAbleEditSaldoIngreso, isAbleEditAhorro } = useSelector((state) => state.ahorroUi);
+	const {isAbleEditAhorro } = useSelector((state) => state.ahorroUi);
 
 	const dispatch = useDispatch();
 
@@ -14,22 +14,11 @@ export const useAhorroUi = () => {
 		dispatch(onToggleAbleEditAhorro(false));
 	};
 
-	const handleAbleEditSaldoIngreso = () => {
-		dispatch(onToggleAbleEditSaldoIngreso(true));
-	};
-
-	const handleDisableEditSaldoIngreso = () => {
-		dispatch(onToggleAbleEditSaldoIngreso(false));
-	};
-
 	return {
 		// * Propiedades
-		isAbleEditSaldoIngreso,
 		isAbleEditAhorro,
 		// * Metodos
 		handleAbleEditAhorro,
 		handleDisableEditAhorro,
-		handleAbleEditSaldoIngreso,
-		handleDisableEditSaldoIngreso,
 	};
 };
