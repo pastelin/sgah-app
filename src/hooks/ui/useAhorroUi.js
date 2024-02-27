@@ -1,24 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { onToggleAbleEditAhorro } from '../../store/ui/ahorroUiSlice';
+import { onToggleHasPermissionEditA } from '../../store/ui/ahorroUiSlice';
 
 export const useAhorroUi = () => {
-	const {isAbleEditAhorro } = useSelector((state) => state.ahorroUi);
+    const { hasPermissionEdit } = useSelector((state) => state.ahorroUi);
 
-	const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-	const handleAbleEditAhorro = () => {
-		dispatch(onToggleAbleEditAhorro(true));
-	};
+    const handleHasPermissionEdit = (flag) => {
+        dispatch(onToggleHasPermissionEditA(flag));
+    };
 
-	const handleDisableEditAhorro = () => {
-		dispatch(onToggleAbleEditAhorro(false));
-	};
-
-	return {
-		// * Propiedades
-		isAbleEditAhorro,
-		// * Metodos
-		handleAbleEditAhorro,
-		handleDisableEditAhorro,
-	};
+    return {
+        // * Propiedades
+        hasPermissionEdit,
+        // * Metodos
+        handleHasPermissionEdit,
+    };
 };

@@ -3,7 +3,7 @@ import {
 	useForm,
 	useSgahGastoStore,
 	formatCurrency,
-	useMessages,
+	usePrintMessage,
 	useGastoUi,
 } from '../../../hooks';
 
@@ -37,7 +37,7 @@ export const FormGasto = () => {
 			cdTipoMovimiento,
 		});
 
-		useMessages(code, message);
+		usePrintMessage(code, message);
 
 		if (code === 200) {
 			onResetForm();

@@ -2,7 +2,7 @@ import {
 	formatCurrency,
 	useSgahInversionStore,
 	useForm,
-	useMessages,
+	usePrintMessage,
 	useInversionUi,
 } from '../../../hooks';
 import Swal from 'sweetalert2';
@@ -31,7 +31,7 @@ export const FormUpdateInversion = () => {
 			monto: monto,
 		});
 
-		useMessages(code, message);
+		usePrintMessage(code, message);
 
 		if (code === 200 || code === 201) {
 			handleCloseUpdateFormInversion();

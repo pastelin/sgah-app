@@ -5,7 +5,7 @@ import {
 	usePrestamoUi,
 	useSgahAhorroStore,
 	useSgahPrestamoStore,
-	useMessages,
+	usePrintMessage,
 } from '../../../hooks';
 import Swal from 'sweetalert2';
 
@@ -39,7 +39,7 @@ export const FormNewPrestamo = () => {
 
 		const { code, message } = await startSavingPrestamo({ montoPrestado, descripcion });
 
-		useMessages(code, message);
+		usePrintMessage(code, message);
 
 		if (code === 200) {
 			handleCloseNewFormPrestamo();

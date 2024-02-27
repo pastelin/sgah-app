@@ -4,7 +4,7 @@ import {
 	useForm,
 	usePrestamoUi,
 	useSgahPrestamoStore,
-	useMessages,
+	usePrintMessage,
 } from '../../../hooks';
 import Swal from 'sweetalert2';
 
@@ -51,7 +51,7 @@ export const FormUpdatePrestamo = () => {
 			montoPagado: newMontoPagado,
 		});
 
-		useMessages(code, message);
+		usePrintMessage(code, message);
 
 		if (code === 200) {
 			handleCloseUpdateFormPrestamo();

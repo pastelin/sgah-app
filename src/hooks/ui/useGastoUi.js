@@ -41,9 +41,9 @@ export const useGastoUi = () => {
 		dispatch(onToggleShowFormGasto(false));
 	};
 
-    const handleHasPermissionEdit = (flag) => {
-        dispatch(onToggleHasPermissionEditG(flag));
-    };
+	const handleHasPermissionEdit = (flag) => {
+		dispatch(onToggleHasPermissionEditG(flag));
+	};
 
 	return {
 		// * Propiedades
