@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { sgahSliceGasto, sgahSlicePrestamos, sgahSlice, sgahSliceAhorro, sgahSliceIngreso } from './sgah';
+import { sgahSliceGasto, sgahSlicePrestamos, sgahSliceDetalle, sgahSliceAhorro, sgahSliceIngreso } from './sgah';
 import { sgahSliceInversion } from './sgah/sgahSliceInversion';
 import { ahorroUiSlice, prestamoUiSlice, gastoUiSlice, inversionUiSlice, uiSlice } from './ui';
 
 export const store = configureStore({
 	reducer: {
-		sgah: sgahSlice.reducer,
+		sgahDetalle: sgahSliceDetalle.reducer,
 		sgahGasto: sgahSliceGasto.reducer,
 		sgahPrestamo: sgahSlicePrestamos.reducer,
 		sgahAhorro: sgahSliceAhorro.reducer,

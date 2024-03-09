@@ -1,4 +1,4 @@
-export * from './useSgahStore';
+export * from './useSgahDetalleStore';
 export * from './useSgahGastoStore';
 export * from './useSgahPrestamoStore';
 export * from './useSgahAhorroStore';

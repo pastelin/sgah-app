@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { formatCurrency } from '../../hooks';
 
-export const sgahSlice = createSlice({
-	name: 'sgah',
+export const sgahSliceDetalle = createSlice({
+	name: 'sgahDetalle',
 	initialState: {
-		hasBeenUpdated: false,
 		resumen: {
 			montoAhorro: '$0.0',
 			montoGasto: '$0.0',
@@ -22,4 +21,4 @@ export const sgahSlice = createSlice({
 	},
 });
 
-export const { updateResumen } = sgahSlice.actions;
+export const { updateResumen } = sgahSliceDetalle.actions;

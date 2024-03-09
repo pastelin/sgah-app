@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { useSgahStore } from '../../hooks';
+import { useSgahDetalleStore } from '../../hooks';
 
 export const SgahResumenPage = () => {
 	const { montoAhorro, montoGasto, montoInversion, montoPrestamo, startDetalleResumen } =
-		useSgahStore();
+	useSgahDetalleStore();
 
 	useEffect(() => {
 		startDetalleResumen();
