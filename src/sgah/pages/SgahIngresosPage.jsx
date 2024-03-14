@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { formatCurrency } from '../../hooks';
 import { useIngresoPage } from '../../hooks/pages/useIngresoPage';
 import { ToggleCardButton } from '../components';
@@ -13,7 +14,14 @@ export const SgahIngresosPage = () => {
         ingresos,
         saldoUtilizado,
         styleFlipCardHover,
+        handleResetInitialState,
     } = useIngresoPage();
+
+    useEffect(() => {
+        if (availablePercentage === 0) {
+            handleResetInitialState();
+        }
+    }, [availablePercentage]);
 
     return (
         <aside className="contenedor-aside">

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useSgahIngresoStore } from '../store';
 
 export const useIngresoPage = () => {
@@ -20,19 +20,12 @@ export const useIngresoPage = () => {
         setIsHoverFlipCard(!isHoverFlipCard);
     };
 
-    useEffect(() => {
-        if (availablePercentage === 0) {
-            handleResetInitialState();
-        }
-    }, [availablePercentage]);
-
     const onInputChangeIngresos = ({ target: { value } }) => {
         let parseValue = !value ? '' : parseInt(value);
         startUpdatingIngresos(parseValue);
     };
-    
+
     const styleFlipCardHover = useMemo(() => {
-        console.log(isHoverFlipCard);
         return isHoverFlipCard ? 'flip-card-hover' : '';
     }, [isHoverFlipCard]);
 
@@ -43,6 +36,7 @@ export const useIngresoPage = () => {
         hasPermissionEdit,
         availablePercentage,
         onInputChangeIngresos,
+        handleResetInitialState,
         onToggleFlipCard,
         ingresos,
         saldoUtilizado,

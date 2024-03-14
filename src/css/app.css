@@ -796,7 +796,7 @@ hr {
 }
 .contenedor-table > table > tbody > tr:hover {
   background-color: rgba(245, 149, 149, 0.5);
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 /* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
