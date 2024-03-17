@@ -22,8 +22,8 @@ export const useSgahPrestamoStore = () => {
 	const {
 		saldoDisponibleG,
 		startLoadingSaldoGasto,
-		startAddingSaldoDisponibleG,
-		startSubtractingSaldoDisponibleG,
+		startIncrementSaldoDisponibleG,
+		startSubtractSaldoDisponibleG,
 	} = useSgahGastoStore();
 
 	const { startSubtractingSaldoDisponibleA, startAddingSaldoDisponibleA } = useSgahAhorroStore();
@@ -54,7 +54,7 @@ export const useSgahPrestamoStore = () => {
 
 			dispatch(onAddSaldoUtilizadoP(formData.montoPrestado));
 			startSubtractingSaldoDisponibleA(formData.montoPrestado);
-			startAddingSaldoDisponibleG(formData.montoPrestado);
+			startIncrementSaldoDisponibleG(formData.montoPrestado);
 
 			dispatch(onAddNewPrestamo(data.prestamo));
 
@@ -98,7 +98,7 @@ export const useSgahPrestamoStore = () => {
 			});
 
 			// Actualiza saldos para (Gastos, Ahorro y Prestamo)
-			startSubtractingSaldoDisponibleG(montoPagado);
+			startSubtractSaldoDisponibleG(montoPagado);
 			dispatch(onSubtractSaldoUtilizadoP(montoPagado));
 			startAddingSaldoDisponibleA(montoPagado);
 

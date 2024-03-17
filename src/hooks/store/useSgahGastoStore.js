@@ -1,102 +1,98 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	onLoadGastos,
-	onLoadCategoriasGasto,
-	onLoadSaldoGasto,
-	onAddNewGasto,
-	onAddSaldoDisponibleG,
-	onSubtractSaldoDisponibleG,
+    onLoadGastos,
+    onLoadSaldoDisponibleG,
+    onLoadSaldoUtilizadoG,
+    onAddNewGasto,
+    onIncrementSaldoDisponibleG,
+    onSubtractSaldoDisponibleG,
+    onLoadCategoriasGasto,
+    onIncrementSaldoUtilizadoG,
 } from '../../store';
 import { sgahApi } from '../../backend';
-import { addNumbers } from '../useUtilities';
 
 export const useSgahGastoStore = () => {
-	const { filtro, categoriasGasto, gastos, tipoMovimiento, saldoGasto } = useSelector(
-		(state) => state.sgahGasto
-	);
+    const dispatch = useDispatch();
 
-	const dispatch = useDispatch();
+    const { categoriasGasto, gastos, saldoDisponible, saldoUtilizado } =
+        useSelector((state) => state.sgahGasto);
 
-	const startLoadingCategoriasGasto = async () => {
-		console.log('categoria');
-		const { data } = await sgahApi.get('gasto/v0/gasto/categoria');
+    const startLoadingCategoriasGasto = async () => {
+        console.log('categoria');
+        const { data } = await sgahApi.get('gasto/v0/gasto/categoria');
 
-		dispatch(onLoadCategoriasGasto(data));
-	};
+        dispatch(onLoadCategoriasGasto(data));
+    };
 
-	const startLoadingGastos = async () => {
-		console.log('startLoadingGastos');
-		const { data } = await sgahApi.get('gasto/v0/gasto/detalle');
-		dispatch(onLoadGastos(data));
-	};
+    const startLoadingGastos = async () => {
+        console.log('startLoadingGastos');
+        const { data } = await sgahApi.get('gasto/v0/gasto/detalle');
+        dispatch(onLoadGastos(data));
+    };
 
-	const startLoadingSaldoGasto = async () => {
-		console.log('startLoadingSaldoGasto');
+    const startLoadingSaldoGasto = async () => {
+        console.log('startLoadingSaldoGasto');
 
-		const { data } = await sgahApi.get('gasto/v0/gasto/montos');
-		dispatch(onLoadSaldoGasto(data));
-	};
+        const { data } = await sgahApi.get('gasto/v0/gasto/montos');
+        dispatch(onLoadSaldoDisponibleG(data.montoDisponible));
+        dispatch(onLoadSaldoUtilizadoG(data.montoGastado));
+    };
 
-	const startSavingGasto = async (formData) => {
-		console.log('startSavingGasto');
+    const startSavingGasto = async (formData) => {
+        console.log('startSavingGasto');
 
-		// TODO: Estudiar UX Writing para mejorar mensajes
+        try {
+            const { status, data } = await sgahApi.post(
+                'gasto/v0/gasto/agrega',
+                formData
+            );
 
-		try {
-			const { status, data } = await sgahApi.post('gasto/v0/gasto/agrega', formData);
-			console.log({ status, data });
+            if (formData.cdTipoMovimiento === 2) {
+                startSubtractSaldoDisponibleG(formData.monto);
+                startIncrementSaldoUtilizadoG(formData.monto);
+                dispatch(onAddNewGasto(data.gasto));
+            }
 
-			if (formData.cdTipoMovimiento === 2) {
-				const saldoDisponible = saldoGasto.disponible - formData.monto;
-				const saldoGastado = addNumbers(formData.monto, saldoGasto.gastado);
+            return {
+                code: status,
+                message: data.mensaje,
+            };
+        } catch (error) {
+            return {
+                code: error.code,
+                message: error?.response?.data?.mensaje,
+            };
+        }
+    };
 
-				dispatch(
-					onLoadSaldoGasto({
-						montoDisponible: saldoDisponible,
-						montoGastado: saldoGastado,
-					})
-				);
-				dispatch(onAddNewGasto(data.gasto));
-			}
+    const startIncrementSaldoDisponibleG = (saldo) => {
+        console.log('startIncrementSaldoDisponibleG');
+        dispatch(onIncrementSaldoDisponibleG(saldo));
+    };
 
-			return {
-				code: status,
-				message: data.mensaje,
-			};
-		} catch (error) {
-			console.log(error);
-			return {
-				code: error.code,
-				message: error?.response?.data?.mensaje,
-			};
-		}
-	};
+    const startSubtractSaldoDisponibleG = (saldo) => {
+        console.log('startSubtractSaldoDisponibleG');
+        dispatch(onSubtractSaldoDisponibleG(saldo));
+    };
 
-	const startAddingSaldoDisponibleG = (saldo) => {
-		console.log('startAddingSaldoDisponibleG');
-		dispatch(onAddSaldoDisponibleG(saldo));
-	};
+    const startIncrementSaldoUtilizadoG = (saldo) => {
+        console.log('startIncrementSaldoUtilizadoG');
+        dispatch(onIncrementSaldoUtilizadoG(saldo));
+    };
 
-	const startSubtractingSaldoDisponibleG = (saldo) => {
-		console.log('startSubtractingSaldoDisponibleG');
-		dispatch(onSubtractSaldoDisponibleG(saldo));
-	};
+    return {
+        // * Propiedades
+        categoriasGasto,
+        gastos,
+        saldoDisponibleG: saldoDisponible,
+        saldoUtilizadoG: saldoUtilizado,
 
-	return {
-		// * Propiedades
-		filtro,
-		categoriasGasto,
-		gastos,
-		tipoMovimiento,
-		saldoDisponibleG: saldoGasto.disponible,
-		saldoGastado: saldoGasto.gastado,
-
-		// * Metodos
-		startLoadingCategoriasGasto,
-		startLoadingGastos,
-		startLoadingSaldoGasto,
-		startSavingGasto,
-		startAddingSaldoDisponibleG,
-		startSubtractingSaldoDisponibleG,
-	};
+        // * Metodos
+        startLoadingCategoriasGasto,
+        startLoadingGastos,
+        startLoadingSaldoGasto,
+        startSavingGasto,
+        startIncrementSaldoDisponibleG,
+        startSubtractSaldoDisponibleG,
+    };
 };

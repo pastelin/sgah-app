@@ -3,7 +3,7 @@ import { formatCurrency } from '../../hooks';
 import { useIngresoPage } from '../../hooks/pages/useIngresoPage';
 import { ToggleCardButton } from '../components';
 import { AhorroForm } from '../components/forms/AhorroForm';
-import { GastoForm } from '../components/forms/GastoForm';
+import { IngresoGForm } from '../components/forms/';
 
 export const SgahIngresosPage = () => {
     const {
@@ -62,7 +62,7 @@ export const SgahIngresosPage = () => {
 
                         <h3>Gastos</h3>
 
-                        <GastoForm />
+                        <IngresoGForm />
                     </section>
 
                     <section className="contenedor-form flip-face flip-back">
