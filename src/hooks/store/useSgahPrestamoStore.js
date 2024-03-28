@@ -1,141 +1,126 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	onAddNewPrestamo,
-	onDeletePrestamo,
-	onLoadPrestamo,
-	onLoadPrestamos,
-	onLoadSaldoUtilizadoP,
-	onSubtractSaldoUtilizadoP,
-	onUpdatePrestamo,
-	onAddSaldoUtilizadoP,
+    onAddNewPrestamo,
+    onDeletePrestamo,
+    onLoadPrestamo,
+    onLoadPrestamos,
+    onLoadSaldoUtilizadoP,
+    onSubtractSaldoUtilizadoP,
+    onUpdatePrestamo,
+    onIncrementSaldoUtilizadoP,
 } from '../../store';
-import { sgahApi } from '../../backend';
-import { formatCurrency, useSgahAhorroStore, useSgahGastoStore } from '../../hooks';
+import { useSgahAhorroStore, useSgahGastoStore } from '../../hooks';
+import {
+    findAll,
+    findPrestamoByFolio,
+    getSaldoUtilizado,
+    save,
+    updatePrestamo,
+} from '../../services/usePrestamoService';
 
 export const useSgahPrestamoStore = () => {
-	// A hook to access the redux store's state.
-	// This hook takes a selector function as an argument.The selector is called with the store state.
-	const { filtro, prestamos, saldoUtilizadoP, prestamo, saldoDisponibleAhorro } = useSelector(
-		(state) => state.sgahPrestamo
-	);
+    const dispatch = useDispatch();
 
-	const {
-		saldoDisponibleG,
-		startLoadingSaldoGasto,
-		startIncrementSaldoDisponibleG,
-		startSubtractSaldoDisponibleG,
-	} = useSgahGastoStore();
+    // A hook to access the redux store's state.
+    // This hook takes a selector function as an argument.The selector is called with the store state.
+    const { prestamos, saldoUtilizadoP, prestamo } = useSelector(
+        (state) => state.sgahPrestamo
+    );
 
-	const { startSubtractingSaldoDisponibleA, startAddingSaldoDisponibleA } = useSgahAhorroStore();
+    const {
+        saldoDisponibleG,
+        startLoadingSaldoGasto,
+        startIncrementSaldoDisponibleG,
+        startSubtractSaldoDisponibleG,
+    } = useSgahGastoStore();
 
-	const dispatch = useDispatch();
+    const { startSubtractSaldoDisponibleA, startIncrementSaldoDisponibleA } =
+        useSgahAhorroStore();
 
-	const startLoadingSaldoUtilizadoP = async () => {
-		console.log('startLoadingSaldoUtilizadoP');
+    const startLoadingSaldoUtilizadoP = async () => {
+        console.log('startLoadingSaldoUtilizadoP');
+        const { data } = await getSaldoUtilizado();
+        dispatch(onLoadSaldoUtilizadoP(data));
+    };
 
-		const { data } = await sgahApi.get('prestamo/v0/prestamo/saldoUtilizado');
+    const startLoadingPrestamos = async () => {
+        console.log('startLoadingPrestamos');
+        const { data } = await findAll();
+        dispatch(onLoadPrestamos(data));
+    };
 
-		dispatch(onLoadSaldoUtilizadoP(data));
-	};
+    const startSavingPrestamo = async (formData) => {
+        console.log('startSavingPrestamo');
 
-	const startLoadingPrestamos = async () => {
-		console.log('startLoadingPrestamos');
+        try {
+            const { status, data } = await save(formData);
 
-		const { data } = await sgahApi.get('prestamo/v0/prestamo/detallePrestamosActivos');
+            dispatch(onIncrementSaldoUtilizadoP(formData.montoPrestado));
+            startSubtractSaldoDisponibleA(formData.montoPrestado);
+            startIncrementSaldoDisponibleG(formData.montoPrestado);
 
-		dispatch(onLoadPrestamos(data));
-	};
+            dispatch(onAddNewPrestamo(data.prestamo));
 
-	const startSavingPrestamo = async (formData) => {
-		console.log('startSavingPrestamo');
+            return {
+                code: status,
+                message: data.mensaje,
+            };
+        } catch (error) {
+            return {
+                code: error.code,
+                message: error?.response?.data?.mensaje,
+            };
+        }
+    };
 
-		try {
-			const { status, data } = await sgahApi.post('prestamo/v0/prestamo/new', formData);
+    const startLoadingPrestamo = async (folio) => {
+        console.log('startLoadingPrestamo');
+        const { data } = await findPrestamoByFolio(folio);
+        dispatch(onLoadPrestamo(data));
+    };
 
-			dispatch(onAddSaldoUtilizadoP(formData.montoPrestado));
-			startSubtractingSaldoDisponibleA(formData.montoPrestado);
-			startIncrementSaldoDisponibleG(formData.montoPrestado);
+    const startUpdatingPrestamo = async (formData) => {
+        console.log('startUpdatingPrestamo');
 
-			dispatch(onAddNewPrestamo(data.prestamo));
+        try {
+            const { status, data } = await updatePrestamo(formData);
 
-			return {
-				code: status,
-				message: data.mensaje,
-			};
-		} catch (error) {
-			console.log(error);
-			return {
-				code: error.code,
-				message: error?.response?.data?.mensaje,
-			};
-		}
-	};
+            // Actualiza saldos para (Gastos, Ahorro y Prestamo)
+            startSubtractSaldoDisponibleG(formData.montoPagado);
+            dispatch(onSubtractSaldoUtilizadoP(formData.montoPagado));
+            startIncrementSaldoDisponibleA(formData.montoPagado);
 
-	const startLoadingPrestamo = async (folio) => {
-		console.log('startLoadingPrestamo');
+            if (data.prestamo.cdEstatus == 2) {
+                dispatch(onDeletePrestamo(data.prestamo.folio));
+            } else {
+                dispatch(onUpdatePrestamo(data.prestamo));
+            }
 
-		const { data } = await sgahApi.get(`prestamo/v0/prestamo/detallePrestamo/${folio}`);
+            return {
+                code: status,
+                message: data.mensaje,
+            };
+        } catch (error) {
+            return {
+                code: error.code,
+                message: error?.response?.data?.mensaje,
+            };
+        }
+    };
 
-		dispatch(onLoadPrestamo(data));
-	};
+    return {
+        // * Propiedades
+        prestamos,
+        saldoUtilizadoP,
+        prestamo,
+        saldoDisponibleG,
 
-	const startUpdatingPrestamo = async ({
-		folio,
-		montoPrestado,
-		descripcion,
-		fechaCreacion,
-		montoPagado,
-	}) => {
-		console.log('startUpdatingPrestamo');
-
-		try {
-			const { status, data } = await sgahApi.post('prestamo/v0/prestamo/operacionActualiza', {
-				folio,
-				montoPrestado,
-				descripcion,
-				fechaCreacion,
-				montoPagado,
-			});
-
-			// Actualiza saldos para (Gastos, Ahorro y Prestamo)
-			startSubtractSaldoDisponibleG(montoPagado);
-			dispatch(onSubtractSaldoUtilizadoP(montoPagado));
-			startAddingSaldoDisponibleA(montoPagado);
-
-			if (data.prestamo.cdEstatus == 2) {
-				dispatch(onDeletePrestamo(data.prestamo.folio));
-			} else {
-				dispatch(onUpdatePrestamo(data.prestamo));
-			}
-
-			return {
-				code: status,
-				message: data.mensaje,
-			};
-		} catch (error) {
-			console.log(error);
-			return {
-				code: error.code,
-				message: error?.response?.data?.mensaje,
-			};
-		}
-	};
-
-	return {
-		// * Propiedades
-		filtro,
-		prestamos,
-		saldoUtilizadoP: formatCurrency(saldoUtilizadoP),
-		prestamo,
-		saldoDisponibleAhorro,
-		saldoDisponibleG,
-
-		// * Metodos
-		startLoadingSaldoUtilizadoP,
-		startLoadingPrestamos,
-		startSavingPrestamo,
-		startLoadingPrestamo,
-		startUpdatingPrestamo,
-		startLoadingSaldoGasto,
-	};
+        // * Metodos
+        startLoadingSaldoUtilizadoP,
+        startLoadingPrestamos,
+        startSavingPrestamo,
+        startLoadingPrestamo,
+        startUpdatingPrestamo,
+        startLoadingSaldoGasto,
+    };
 };

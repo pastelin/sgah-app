@@ -1,141 +1,150 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { sgahApi } from '../../backend';
 import {
-	onAddInversion,
-	onAddSaldoInvertido,
-	onLoadGruposFinancieros,
-	onLoadInversion,
-	onLoadInversiones,
-	onLoadSaldoInvertido,
-	onSubstractSaldoInvertido,
-	onUpdateAddMontoInversion,
-	onUpdateMontoInversion,
+    onAddInversion,
+    onIncrementSaldoInvertido,
+    onLoadGruposFinancieros,
+    onLoadInversion,
+    onLoadInversiones,
+    onLoadSaldoInvertido,
+    onSubstractSaldoInvertido,
+    onUpdateAddMontoInversion,
+    onUpdateMontoInversion,
 } from '../../store/sgah/sgahSliceInversion';
 import { useSgahAhorroStore } from './useSgahAhorroStore';
 import { formatCurrency } from '../useUtilities';
+import {
+    findAllI,
+    findInversionByFolio,
+    getGruposFinancieros,
+    getSaldoInvertidoI,
+    saveInversion,
+    updateInversion,
+} from '../../services';
 
 export const useSgahInversionStore = () => {
-	const { saldoInvertido, inversiones, inversion, gruposFinancieros } = useSelector(
-		(state) => state.sgahInversion
-	);
-	const {
-		startLoadingSaldoDisponibleA,
-		startAddingSaldoDisponibleA,
-		startSubtractingSaldoDisponibleA,
-		saldoDisponibleA,
-	} = useSgahAhorroStore();
+    const dispatch = useDispatch();
 
-	const dispatch = useDispatch();
+    const { saldoInvertido, inversiones, inversion, gruposFinancieros } =
+        useSelector((state) => state.sgahInversion);
 
-	const startLoadingSaldoInvertido = async () => {
-		console.log('startLoadingSaldoInvertido');
-		const { data } = await sgahApi.get('inversion/v0/inversion/saldoInvertido');
+    const {
+        startLoadingSaldoDisponibleA,
+        startIncrementSaldoDisponibleA,
+        startSubtractSaldoDisponibleA,
+        saldoDisponibleA,
+    } = useSgahAhorroStore();
 
-		dispatch(onLoadSaldoInvertido(data));
-	};
+    const startLoadingSaldoInvertido = async () => {
+        console.log('startLoadingSaldoInvertido');
+        const { data } = await getSaldoInvertidoI();
+        dispatch(onLoadSaldoInvertido(data));
+    };
 
-	const startLoadingInversiones = async () => {
-		console.log('startLoadingInversiones');
-		const { data } = await sgahApi.get('inversion/v0/inversion/detalle');
+    const startLoadingInversiones = async () => {
+        console.log('startLoadingInversiones');
+        const { data } = await findAllI();
+        dispatch(onLoadInversiones(data));
+    };
 
-		dispatch(onLoadInversiones(data));
-	};
+    const startLoadingGruposFinancieros = async () => {
+        console.log('startLoadingGruposFinancieros');
+        const { data } = await getGruposFinancieros();
+        dispatch(onLoadGruposFinancieros(data));
+    };
 
-	const startLoadingGruposFinancieros = async () => {
-		console.log('startLoadingGruposFinancieros');
-		const { data } = await sgahApi.get('inversion/v0/inversion/consultaApp');
+    const startSavingInversion = async (formData) => {
+        console.log('startSavingInversion');
 
-		dispatch(onLoadGruposFinancieros(data));
-	};
+        try {
+            const { status, data } = await saveInversion(formData);
 
-	const startSavingInversion = async (formData) => {
-		console.log('startSavingInversion');
+            startIncrementSaldoInvertido(data.inversion.monto);
+            startSubtractSaldoDisponibleA(data.inversion.monto);
 
-		try {
-			const { status, data } = await sgahApi.post(
-				'inversion/v0/inversion/operacionAgregar',
-				formData
-			);
+            let isInversionExist = false;
 
-			dispatch(onAddSaldoInvertido(data.inversion.monto));
-			startSubtractingSaldoDisponibleA(data.inversion.monto);
+            for (let inversion of inversiones) {
+                if (
+                    inversion.nbAppInversion === data.inversion.nbAppInversion
+                ) {
+                    isInversionExist = true;
+                }
+            }
 
-			let isInversionExist = false;
+            if (isInversionExist) {
+                dispatch(onUpdateAddMontoInversion(data.inversion));
+            } else {
+                dispatch(onAddInversion(data.inversion));
+            }
 
-			for (let inversion of inversiones) {
-				if (inversion.nbAppInversion === data.inversion.nbAppInversion) {
-					isInversionExist = true;
-				}
-			}
+            return {
+                code: status,
+                message: data.mensaje,
+            };
+        } catch (error) {
+            console.log(error);
+            return {
+                code: error.code,
+                message: error?.responese?.data?.mensaje,
+            };
+        }
+    };
 
-			if (isInversionExist) {
-				dispatch(onUpdateAddMontoInversion(data.inversion));
-			} else {
-				dispatch(onAddInversion(data.inversion));
-			}
+    const startUpdatingInversion = async (formData) => {
+        console.log('startUpdatingInversion');
 
-			return {
-				code: status,
-				message: data.mensaje,
-			};
-		} catch (error) {
-			console.log(error);
-			return {
-				code: error.code,
-				message: error?.responese?.data?.mensaje,
-			};
-		}
-	};
+        try {
+            const { status, data } = await updateInversion(formData);
 
-	const startUpdatingInversion = async (formData) => {
-		console.log('startUpdatingInversion');
+            startSubtractSaldoInvertido(formData.monto);
+            startIncrementSaldoDisponibleA(formatCurrency(formData.monto));
 
-		try {
-			const { status, data } = await sgahApi.post(
-				'inversion/v0/inversion/operacionRetiro',
-				formData
-			);
+            dispatch(onUpdateMontoInversion(data.inversion));
 
-			dispatch(onSubstractSaldoInvertido(formatCurrency(formData.monto)));
-			startAddingSaldoDisponibleA(formatCurrency(formData.monto));
+            return {
+                code: status,
+                message: data.mensaje,
+            };
+        } catch (error) {
+            console.log(error);
+            return {
+                code: error.code,
+                message: error?.response?.data?.mensaje,
+            };
+        }
+    };
 
-			dispatch(onUpdateMontoInversion(data.inversion));
+    const startLoadingInversion = async (folio) => {
+        console.log('startLoadingInversion');
+        const { data } = await findInversionByFolio(folio);
+        dispatch(onLoadInversion(data));
+    };
 
-			return {
-				code: status,
-				message: data.mensaje,
-			};
-		} catch (error) {
-			console.log(error);
-			return {
-				code: error.code,
-				message: error?.response?.data?.mensaje,
-			};
-		}
-	};
+    const startIncrementSaldoInvertido = (montoInvertido) => {
+        console.log('startIncrementSaldoInvertido');
+        dispatch(onIncrementSaldoInvertido(montoInvertido));
+    };
 
-	const startLoadingInversion = async (folio) => {
-		console.log('startLoadingInversion');
+    const startSubtractSaldoInvertido = (montoRetirado) => {
+        console.log('startSubtractSaldoInvertido');
+        dispatch(onSubstractSaldoInvertido(formatCurrency(montoRetirado)));
+    };
 
-		const { data } = await sgahApi.get(`inversion/v0/inversion/detalleInversion/${folio}`);
-		dispatch(onLoadInversion(data));
-	};
+    return {
+        // * Propiedades
+        saldoDisponibleA,
+        saldoInvertido,
+        inversiones,
+        gruposFinancieros,
+        inversion,
 
-	return {
-		// * Propiedades
-		saldoDisponibleA,
-		saldoInvertido,
-		inversiones,
-		gruposFinancieros,
-		inversion,
-
-		// * Metodos
-		startLoadingSaldoInvertido,
-		startLoadingInversiones,
-		startLoadingSaldoDisponibleA,
-		startLoadingGruposFinancieros,
-		startSavingInversion,
-		startLoadingInversion,
-		startUpdatingInversion,
-	};
+        // * Metodos
+        startLoadingSaldoInvertido,
+        startLoadingInversiones,
+        startLoadingSaldoDisponibleA,
+        startLoadingGruposFinancieros,
+        startSavingInversion,
+        startLoadingInversion,
+        startUpdatingInversion,
+    };
 };

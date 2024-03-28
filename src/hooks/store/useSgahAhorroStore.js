@@ -47,13 +47,13 @@ export const useSgahAhorroStore = () => {
         dispatch(onLoadSaldoDisponibleA(data));
     };
 
-    const startAddingSaldoDisponibleA = (saldo) => {
-        console.log('startAddingSaldoDisponibleA');
+    const startIncrementSaldoDisponibleA = (saldo) => {
+        console.log('startIncrementSaldoDisponibleA');
         dispatch(onAddSaldoDisponibleA(saldo));
     };
 
-    const startSubtractingSaldoDisponibleA = (saldo) => {
-        console.log('startSubtractingSaldoDisponibleA');
+    const startSubtractSaldoDisponibleA = (saldo) => {
+        console.log('startSubtractSaldoDisponibleA');
         dispatch(onSubtractSaldoDisponibleA(saldo));
     };
 
@@ -66,7 +66,7 @@ export const useSgahAhorroStore = () => {
         startSavingAhorro,
         startLoadingAhorros,
         startLoadingSaldoDisponibleA,
-        startSubtractingSaldoDisponibleA,
-        startAddingSaldoDisponibleA,
+        startSubtractSaldoDisponibleA,
+        startIncrementSaldoDisponibleA,
     };
 };

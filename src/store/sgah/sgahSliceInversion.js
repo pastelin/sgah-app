@@ -12,12 +12,10 @@ export const sgahSliceInversion = createSlice({
 		onLoadSaldoInvertido: (state, { payload }) => {
 			state.saldoInvertido = payload;
 		},
-        onAddSaldoInvertido: (state, { payload }) => {
-            console.log(payload);
+        onIncrementSaldoInvertido: (state, { payload }) => {
             state.saldoInvertido += payload;
 		},
         onSubstractSaldoInvertido: (state, { payload }) => {
-            console.log(payload);
             state.saldoInvertido -= payload;
 		},
 		onLoadInversiones: (state, { payload }) => {
@@ -52,7 +50,7 @@ export const sgahSliceInversion = createSlice({
 export const {
 	onLoadInversiones,
 	onLoadSaldoInvertido,
-    onAddSaldoInvertido,
+    onIncrementSaldoInvertido,
     onSubstractSaldoInvertido,
 	onLoadGruposFinancieros,
     onUpdateAddMontoInversion,

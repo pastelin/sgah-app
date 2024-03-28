@@ -1,45 +1,53 @@
 import { useEffect } from 'react';
-import { formatCurrency, useSgahInversionStore } from '../../hooks';
-import { FormNewInversion, TableSgahInversion, FormUpdateInversion } from '../components';
+import { useSgahInversionStore } from '../../hooks';
+import {
+    FormNewInversion,
+    TableSgahInversion,
+    FormUpdateInversion,
+    DetailSaldoParagraph,
+} from '../components';
 import { useInversionUi } from '../../hooks/ui/useInversionUi';
 
 export const SgahInversionPage = () => {
-	const { saldoInvertido, startLoadingSaldoInvertido, startLoadingInversiones } =
-        useSgahInversionStore();
-    
-    const { handleOpenNewFormInversion } = useInversionUi();
+    const {
+        saldoInvertido,
+        startLoadingSaldoInvertido,
+        startLoadingInversiones,
+    } = useSgahInversionStore();
 
-	useEffect(() => {
-		startLoadingSaldoInvertido();
-		startLoadingInversiones();
-	}, []);
+    const { handleShowNewFormInversion } = useInversionUi();
 
-    const handleOpenFormNewInversion = () => {
-        handleOpenNewFormInversion(true);
-    };
+    useEffect(() => {
+        startLoadingSaldoInvertido();
+        startLoadingInversiones();
+    }, []);
 
-	return (
-		<>
-			<aside className="contenedor-aside">
-				<h2>Detalle Inversión</h2>
+    return (
+        <>
+            <aside className="contenedor-aside">
+                <h2>Detalle Inversión</h2>
 
-				<div className="contenedor-saldo text-center">
-					<p>
-						Saldo Invertido: <span>{formatCurrency(saldoInvertido)}</span>
-					</p>
-				</div>
+                <div className="contenedor-saldo text-center">
+                    <DetailSaldoParagraph
+                        label="Saldo Invertido"
+                        saldo={saldoInvertido}
+                    />
+                </div>
 
-				<div className="text-center mt-2">
-					<button className="btn btn-submit btn-xl" onClick={handleOpenFormNewInversion}>
-						Agregar Inversión
-					</button>
-				</div>
+                <div className="text-center mt-2">
+                    <button
+                        className="btn btn-submit btn-xl"
+                        onClick={() => handleShowNewFormInversion(true)}
+                    >
+                        Agregar Inversión
+                    </button>
+                </div>
 
-				<TableSgahInversion />
-			</aside>
+                <TableSgahInversion />
+            </aside>
 
-			<FormNewInversion />
-			<FormUpdateInversion />
-		</>
-	);
+            <FormNewInversion />
+            <FormUpdateInversion />
+        </>
+    );
 };

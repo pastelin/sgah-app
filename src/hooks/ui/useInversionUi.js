@@ -1,49 +1,39 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	onToggleShowNewFormInversion,
-	onToggleShowUpdateFormInversion,
+    onToggleShowNewFormInversion,
+    onToggleShowUpdateFormInversion,
 } from '../../store/ui/inversionUiSlice';
 import { useMemo } from 'react';
 
 export const useInversionUi = () => {
-	const { isShowNewFormInversion, isShowUpdateFormInversion } = useSelector(
-		(state) => state.inversionUi
-	);
+    const { isShowNewFormInversion, isShowUpdateFormInversion } = useSelector(
+        (state) => state.inversionUi
+    );
 
-	const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-	const classNameNewFormInversionDisplay= useMemo(() => {
-		return isShowNewFormInversion ? '' : 'display__none';
-	}, [isShowNewFormInversion]);
-    
-    const classNameUpdateFormInversionDisplay = useMemo(() => {
-		return isShowUpdateFormInversion ? '' : 'display__none';
-	}, [isShowUpdateFormInversion]);
+    const styleDisplayNewFormInversion = useMemo(() => {
+        return isShowNewFormInversion ? '' : 'display__none';
+    }, [isShowNewFormInversion]);
 
-	const handleOpenNewFormInversion = () => {
-		dispatch(onToggleShowNewFormInversion(true));
-	};
+    const styleDisplayUpdateFormInversion = useMemo(() => {
+        return isShowUpdateFormInversion ? '' : 'display__none';
+    }, [isShowUpdateFormInversion]);
 
-	const handleCloseNewFormInversion = () => {
-		dispatch(onToggleShowNewFormInversion(false));
-	};
-	
-    const handleOpenUpdateFormInversion = () => {
-		dispatch(onToggleShowUpdateFormInversion(true));
-	};
+    const handleShowNewFormInversion = (flag) => {
+        dispatch(onToggleShowNewFormInversion(flag));
+    };
 
-	const handleCloseUpdateFormInversion = () => {
-		dispatch(onToggleShowUpdateFormInversion(false));
-	};
+    const handleShowUpdateFormInversion = (flag) => {
+        dispatch(onToggleShowUpdateFormInversion(flag));
+    };
 
-	return {
-		// * Propiedades
-		// * Metodos
-		classNameNewFormInversionDisplay,
-		classNameUpdateFormInversionDisplay,
-		handleCloseNewFormInversion,
-		handleOpenNewFormInversion,
-		handleOpenUpdateFormInversion,
-		handleCloseUpdateFormInversion,
-	};
+    return {
+        // * Propiedades
+        // * Metodos
+        styleDisplayNewFormInversion,
+        styleDisplayUpdateFormInversion,
+        handleShowNewFormInversion,
+        handleShowUpdateFormInversion,
+    };
 };

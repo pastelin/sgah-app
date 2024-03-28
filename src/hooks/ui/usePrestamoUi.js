@@ -1,49 +1,39 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import {
-	onToggleShowNewFormPrestamo,
-	onToggleShowUpdateFormPrestamo,
+    onToggleShowNewFormPrestamo,
+    onToggleShowUpdateFormPrestamo,
 } from '../../store/ui/prestamoUiSlice';
 
 export const usePrestamoUi = () => {
-	const { isShowNewFormPrestamo, isShowUpdateFormPrestamo } = useSelector(
-		(state) => state.prestamoUi
-	);
+    const dispatch = useDispatch();
 
-	const dispatch = useDispatch();
+    const { isShowNewFormPrestamo, isShowUpdateFormPrestamo } = useSelector(
+        (state) => state.prestamoUi
+    );
 
-	const classNameNewFormPrestamoDisplay = useMemo(() => {
-		return isShowNewFormPrestamo ? '' : 'display__none';
-	}, [isShowNewFormPrestamo]);
+    const styleDisplayNoneAdd = useMemo(() => {
+        return isShowNewFormPrestamo ? '' : 'display__none';
+    }, [isShowNewFormPrestamo]);
 
-	const classNameUpdateFormPrestamoDisplay = useMemo(() => {
-		return isShowUpdateFormPrestamo ? '' : 'display__none';
-	}, [isShowUpdateFormPrestamo]);
+    const styleDisplayNoneUpdate = useMemo(() => {
+        return isShowUpdateFormPrestamo ? '' : 'display__none';
+    }, [isShowUpdateFormPrestamo]);
 
-	const handleOpenNewFormPrestamo = () => {
-		dispatch(onToggleShowNewFormPrestamo(true));
-	};
+    const handleShowNewFormPrestamo = (flag) => {
+        dispatch(onToggleShowNewFormPrestamo(flag));
+    };
 
-	const handleCloseNewFormPrestamo = () => {
-		dispatch(onToggleShowNewFormPrestamo(false));
-	};
+    const handleShowUpdateFormPrestamo = (flag) => {
+        dispatch(onToggleShowUpdateFormPrestamo(flag));
+    };
 
-	const handleOpenUpdateFormPrestamo = () => {
-		dispatch(onToggleShowUpdateFormPrestamo(true));
-	};
-
-	const handleCloseUpdateFormPrestamo = () => {
-		dispatch(onToggleShowUpdateFormPrestamo(false));
-	};
-
-	return {
-		// * Propiedades
-		// * Metodos
-		handleOpenNewFormPrestamo,
-		handleCloseNewFormPrestamo,
-		handleOpenUpdateFormPrestamo,
-		handleCloseUpdateFormPrestamo,
-		classNameNewFormPrestamoDisplay,
-		classNameUpdateFormPrestamoDisplay,
-	};
+    return {
+        // * Propiedades
+        // * Metodos
+        handleShowNewFormPrestamo,
+        handleShowUpdateFormPrestamo,
+        styleDisplayNoneAdd,
+        styleDisplayNoneUpdate,
+    };
 };
