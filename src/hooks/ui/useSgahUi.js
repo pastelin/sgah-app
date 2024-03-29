@@ -26,7 +26,7 @@ export const useSgahUi = () => {
         return isShowNavbar ? 'display--block' : '';
     }, [isShowNavbar]);
 
-    const classNameActiveIconCloseMenuNavbar = useMemo(() => {
+    const styleShowIconCloseMenuNavbar = useMemo(() => {
         return isShowNavbar ? 'display--block' : '';
     }, [isShowNavbar]);
 
@@ -35,7 +35,7 @@ export const useSgahUi = () => {
         styleHightNavbar,
         styleHideMobileNavbar,
         styleShowMenuNavbar,
-        classNameActiveIconCloseMenuNavbar,
+        styleShowIconCloseMenuNavbar,
 
         //* Metodos
         handleShowNavbar,

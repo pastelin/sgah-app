@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useIngresoPage } from '../pages/useIngresoPage';
 import { useSgahGastoStore } from '../store';
 import { useGastoUi } from '../ui';
-import { useForm } from '../useForm';
-import { usePrintMessage } from '../usePrintMessage';
+import { useForm } from './useForm';
+import { usePrintMessage } from '../messages/usePrintMessage';
 import Swal from 'sweetalert2';
 
 const formDataGasto = {

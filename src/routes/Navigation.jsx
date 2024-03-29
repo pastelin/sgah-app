@@ -20,7 +20,7 @@ export const Navigation = () => {
         styleHightNavbar,
         styleHideMobileNavbar,
         styleShowMenuNavbar,
-        classNameActiveIconCloseMenuNavbar,
+        styleShowIconCloseMenuNavbar,
         handleShowNavbar,
     } = useSgahUi();
 
@@ -137,7 +137,7 @@ export const Navigation = () => {
                 </div>
 
                 <div
-                    className={`contenedor-icon-close ${classNameActiveIconCloseMenuNavbar}`}
+                    className={`contenedor-icon-close ${styleShowIconCloseMenuNavbar}`}
                 >
                     <button
                         className="icon-close fz-3"
