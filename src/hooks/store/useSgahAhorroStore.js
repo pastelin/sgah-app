@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { sgahApi } from '../../backend';
 import {
     onAddSaldoDisponibleA,
     onLoadAhorros,
     onLoadSaldoDisponibleA,
     onSubtractSaldoDisponibleA,
 } from '../../store';
+import { findAhorros, getSaldoDisponibleA, saveAhorro } from '../../services';
 
 export const useSgahAhorroStore = () => {
     const dispatch = useDispatch();
@@ -17,10 +17,7 @@ export const useSgahAhorroStore = () => {
         console.log('startSavingAhorro');
 
         try {
-            const { status, data } = await sgahApi.post(
-                'ahorro/v0/ahorro/agrega',
-                formData
-            );
+            const { status, data } = await saveAhorro(formData);
 
             return {
                 code: status,
@@ -37,13 +34,13 @@ export const useSgahAhorroStore = () => {
 
     const startLoadingAhorros = async () => {
         console.log('startLoadingAhorros');
-        const { data } = await sgahApi.get('ahorro/v0/ahorro/detalle');
+        const { data } = await findAhorros();
         dispatch(onLoadAhorros(data));
     };
 
     const startLoadingSaldoDisponibleA = async () => {
         console.log('startLoadingSaldoDisponibleA');
-        const { data } = await sgahApi.get('ahorro/v0/ahorro/saldo');
+        const { data } = await getSaldoDisponibleA();
         dispatch(onLoadSaldoDisponibleA(data));
     };
 

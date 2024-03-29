@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { sgahApi } from '../../backend';
 import { updateResumen } from '../../store';
+import { getResumenSaldos } from '../../services';
 
 export const useSgahDetalleStore = () => {
     const dispatch = useDispatch();
@@ -8,7 +8,7 @@ export const useSgahDetalleStore = () => {
 
     const startDetalleResumen = async () => {
         console.log('startDetalleResumen');
-        const { data } = await sgahApi.get('resumen/v0/resumen/detalle');
+        const { data } = await getResumenSaldos();
 
         dispatch(updateResumen(data));
     };

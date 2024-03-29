@@ -9,7 +9,12 @@ import {
     onLoadCategoriasGasto,
     onIncrementSaldoUtilizadoG,
 } from '../../store';
-import { sgahApi } from '../../backend';
+import {
+    findCategoriasGasto,
+    findGastos,
+    getSaldosG,
+    saveGasto,
+} from '../../services';
 
 export const useSgahGastoStore = () => {
     const dispatch = useDispatch();
@@ -19,21 +24,20 @@ export const useSgahGastoStore = () => {
 
     const startLoadingCategoriasGasto = async () => {
         console.log('categoria');
-        const { data } = await sgahApi.get('gasto/v0/gasto/categoria');
-
+        const { data } = await findCategoriasGasto();
         dispatch(onLoadCategoriasGasto(data));
     };
 
     const startLoadingGastos = async () => {
         console.log('startLoadingGastos');
-        const { data } = await sgahApi.get('gasto/v0/gasto/detalle');
+        const { data } = await findGastos();
         dispatch(onLoadGastos(data));
     };
 
     const startLoadingSaldoGasto = async () => {
         console.log('startLoadingSaldoGasto');
 
-        const { data } = await sgahApi.get('gasto/v0/gasto/montos');
+        const { data } = await getSaldosG();
         dispatch(onLoadSaldoDisponibleG(data.montoDisponible));
         dispatch(onLoadSaldoUtilizadoG(data.montoGastado));
     };
@@ -42,10 +46,7 @@ export const useSgahGastoStore = () => {
         console.log('startSavingGasto');
 
         try {
-            const { status, data } = await sgahApi.post(
-                'gasto/v0/gasto/agrega',
-                formData
-            );
+            const { status, data } = await saveGasto(formData);
 
             if (formData.cdTipoMovimiento === 2) {
                 startSubtractSaldoDisponibleG(formData.monto);
