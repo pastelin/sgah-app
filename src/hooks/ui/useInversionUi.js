@@ -13,11 +13,11 @@ export const useInversionUi = () => {
     const dispatch = useDispatch();
 
     const styleDisplayNewFormInversion = useMemo(() => {
-        return isShowNewFormInversion ? '' : 'display__none';
+        return isShowNewFormInversion ? '' : 'display--none';
     }, [isShowNewFormInversion]);
 
     const styleDisplayUpdateFormInversion = useMemo(() => {
-        return isShowUpdateFormInversion ? '' : 'display__none';
+        return isShowUpdateFormInversion ? '' : 'display--none';
     }, [isShowUpdateFormInversion]);
 
     const handleShowNewFormInversion = (flag) => {

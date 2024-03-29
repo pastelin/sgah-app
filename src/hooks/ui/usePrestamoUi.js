@@ -13,11 +13,11 @@ export const usePrestamoUi = () => {
     );
 
     const styleDisplayNoneAdd = useMemo(() => {
-        return isShowNewFormPrestamo ? '' : 'display__none';
+        return isShowNewFormPrestamo ? '' : 'display--none';
     }, [isShowNewFormPrestamo]);
 
     const styleDisplayNoneUpdate = useMemo(() => {
-        return isShowUpdateFormPrestamo ? '' : 'display__none';
+        return isShowUpdateFormPrestamo ? '' : 'display--none';
     }, [isShowUpdateFormPrestamo]);
 
     const handleShowNewFormPrestamo = (flag) => {

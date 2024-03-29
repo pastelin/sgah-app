@@ -7,42 +7,37 @@ export const useSgahUi = () => {
 
     const dispatch = useDispatch();
 
-    const handleOpenNavbar = () => {
-        dispatch(onToggleShowNabvar(true));
-    };
-
-    const handleCloseNavbar = () => {
-        dispatch(onToggleShowNabvar(false));
+    const handleShowNavbar = (flag) => {
+        dispatch(onToggleShowNabvar(flag));
     };
 
     // useMemo will only recompute the memorized value when one of the deps has changed.
     // SI isShowNavbar es true indica que se ha dado clic al menu hamburguesa y se colocaran los estilos definidos abajo
     // Si isShowNavbar es false no coloca ningun estilo
-    const classNameHightNavbar = useMemo(() => {
+    const styleHightNavbar = useMemo(() => {
         return isShowNavbar ? 'h-100vh' : '';
     }, [isShowNavbar]);
 
-    const classNameHideMobileNavbar = useMemo(() => {
-        return isShowNavbar ? 'inactive' : '';
+    const styleHideMobileNavbar = useMemo(() => {
+        return isShowNavbar ? 'display--none' : '';
     }, [isShowNavbar]);
 
-    const classNameActiveMenuNavbar = useMemo(() => {
-        return isShowNavbar ? 'active' : '';
+    const styleShowMenuNavbar = useMemo(() => {
+        return isShowNavbar ? 'display--block' : '';
     }, [isShowNavbar]);
 
     const classNameActiveIconCloseMenuNavbar = useMemo(() => {
-        return isShowNavbar ? 'active' : '';
+        return isShowNavbar ? 'display--block' : '';
     }, [isShowNavbar]);
 
     return {
         //* Propiedades
-        classNameHightNavbar,
-        classNameHideMobileNavbar,
-        classNameActiveMenuNavbar,
+        styleHightNavbar,
+        styleHideMobileNavbar,
+        styleShowMenuNavbar,
         classNameActiveIconCloseMenuNavbar,
 
         //* Metodos
-        handleOpenNavbar,
-        handleCloseNavbar,
+        handleShowNavbar,
     };
 };

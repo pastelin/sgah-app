@@ -13,7 +13,7 @@ export const useGastoUi = () => {
     );
 
     const styleDisplayNone = useMemo(() => {
-        return isShowFormGasto ? '' : 'display__none';
+        return isShowFormGasto ? '' : 'display--none';
     }, [isShowFormGasto]);
 
     const handleShowFormGasto = (flag) => {

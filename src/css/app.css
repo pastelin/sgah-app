@@ -360,8 +360,12 @@ img {
   }
 }
 
-.display__none {
+.display--none {
   display: none !important;
+}
+
+.display--block {
+  display: block !important;
 }
 
 .h-100vh {
@@ -650,12 +654,6 @@ hr {
   width: 100%;
   height: 0.3rem;
   background-color: #d00;
-}
-.navbar .active {
-  display: block;
-}
-.navbar .inactive {
-  display: none;
 }
 
 .detalle {

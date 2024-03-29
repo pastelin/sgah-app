@@ -52,8 +52,12 @@ img {
 	}
 }
 
-.display__none {
-	display: none !important;
+.display--none {
+	display: none !important; 
+}
+
+.display--block {
+	display: block !important; 
 }
 
 .h-100vh {
