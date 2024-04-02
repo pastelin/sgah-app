@@ -7,8 +7,8 @@ export const useSgahUi = () => {
 
     const dispatch = useDispatch();
 
-    const handleShowNavbar = (flag) => {
-        dispatch(onToggleShowNabvar(flag));
+    const handleShowNavbar = () => {
+        dispatch(onToggleShowNabvar(!isShowNavbar));
     };
 
     // useMemo will only recompute the memorized value when one of the deps has changed.
@@ -18,24 +18,14 @@ export const useSgahUi = () => {
         return isShowNavbar ? 'h-100vh' : '';
     }, [isShowNavbar]);
 
-    const styleHideMobileNavbar = useMemo(() => {
-        return isShowNavbar ? 'display--none' : '';
-    }, [isShowNavbar]);
-
     const styleShowMenuNavbar = useMemo(() => {
-        return isShowNavbar ? 'display--block' : '';
-    }, [isShowNavbar]);
-
-    const styleShowIconCloseMenuNavbar = useMemo(() => {
         return isShowNavbar ? 'display--block' : '';
     }, [isShowNavbar]);
 
     return {
         //* Propiedades
         styleHightNavbar,
-        styleHideMobileNavbar,
         styleShowMenuNavbar,
-        styleShowIconCloseMenuNavbar,
 
         //* Metodos
         handleShowNavbar,

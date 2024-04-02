@@ -14,33 +14,48 @@ import {
     SgahResumenPage,
 } from '../sgah/pages';
 import { SgahAhorrosPage } from '../sgah/pages/SgahAhorrosPage';
+import { useState } from 'react';
 
 export const Navigation = () => {
-    const {
-        styleHightNavbar,
-        styleHideMobileNavbar,
-        styleShowMenuNavbar,
-        styleShowIconCloseMenuNavbar,
-        handleShowNavbar,
-    } = useSgahUi();
+    const [isOpenIcon, setIsOpenIcon] = useState(false);
+
+    const { styleHightNavbar, styleShowMenuNavbar, handleShowNavbar } =
+        useSgahUi();
+
+    const handleOpenIcon = () => {
+        setIsOpenIcon(!isOpenIcon);
+        handleShowNavbar();
+    };
 
     return (
         <BrowserRouter>
             <nav className={`navbar ${styleHightNavbar}`}>
-                <div
-                    className={`menu-mobile ${styleHideMobileNavbar}`}
-                    onClick={() => handleShowNavbar(true)}
-                >
+                <div className={`menu-mobile`}>
                     <h1 className="logo">SGAH</h1>
-                    <label className="icon-burguer"></label>
+                    <div
+                        className={`icon nav-icon-1 ${
+                            isOpenIcon ? 'open' : ''
+                        }`}
+                        onClick={handleOpenIcon}
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
 
                 <div className={`menu ${styleShowMenuNavbar}`}>
-                    <h1 className="logo">SGAH</h1>
-                    <h2 className="usuario">
+                    {/* <h1 className="logo">SGAH</h1> */}
+                    <h3 className="usuario">
                         <i className="fa-regular fa-user"></i>
                         &nbsp; Juan Pastelin
-                    </h2>
+                    </h3>
 
                     <ul>
                         <li>
@@ -51,7 +66,7 @@ export const Navigation = () => {
                                     }`
                                 }
                                 to="/detalle"
-                                onClick={() => handleShowNavbar(false)}
+                                onClick={handleOpenIcon}
                             >
                                 Detalle
                                 <i className="fa-solid fa-angles-right"></i>
@@ -65,7 +80,7 @@ export const Navigation = () => {
                                     }`
                                 }
                                 to="/ingresos"
-                                onClick={() => handleShowNavbar(false)}
+                                onClick={handleOpenIcon}
                             >
                                 Ingresos
                                 <i className="fa-solid fa-angles-right"></i>
@@ -79,7 +94,7 @@ export const Navigation = () => {
                                     }`
                                 }
                                 to="/ahorro"
-                                onClick={() => handleShowNavbar(false)}
+                                onClick={handleOpenIcon}
                             >
                                 Ahorro
                                 <i className="fa-solid fa-angles-right"></i>
@@ -93,7 +108,7 @@ export const Navigation = () => {
                                     }`
                                 }
                                 to="/gastos"
-                                onClick={() => handleShowNavbar(false)}
+                                onClick={handleOpenIcon}
                             >
                                 Gastos
                                 <i className="fa-solid fa-angles-right"></i>
@@ -107,7 +122,7 @@ export const Navigation = () => {
                                     }`
                                 }
                                 to="/prestamos"
-                                onClick={() => handleShowNavbar(false)}
+                                onClick={handleOpenIcon}
                             >
                                 Prestamos
                                 <i className="fa-solid fa-angles-right"></i>
@@ -121,7 +136,7 @@ export const Navigation = () => {
                                     }`
                                 }
                                 to="/inversion"
-                                onClick={() => handleShowNavbar(false)}
+                                onClick={handleOpenIcon}
                             >
                                 Inversión
                                 <i className="fa-solid fa-angles-right"></i>
@@ -133,17 +148,6 @@ export const Navigation = () => {
                         <i className="fa-solid fa-right-from-bracket"></i>
                         &nbsp;
                         <span>Salir</span>
-                    </button>
-                </div>
-
-                <div
-                    className={`contenedor-icon-close ${styleShowIconCloseMenuNavbar}`}
-                >
-                    <button
-                        className="icon-close fz-3"
-                        onClick={() => handleShowNavbar(false)}
-                    >
-                        <i className="fa-regular fa-circle-xmark"></i>
                     </button>
                 </div>
             </nav>
