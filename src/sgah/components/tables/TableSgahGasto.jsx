@@ -2,7 +2,7 @@ import { formatCurrency, useSgahGastoStore } from '../../../hooks';
 
 export const TableSgahGasto = () => {
     const { gastos } = useSgahGastoStore();
-
+    console.log(gastos.length);
     return (
         <div className="contenedor-table">
             <table>

@@ -34,14 +34,14 @@ export const useSgahAhorroStore = () => {
 
     const startLoadingAhorros = async () => {
         console.log('startLoadingAhorros');
-        const { data } = await findAhorros();
-        dispatch(onLoadAhorros(data));
+        const { data: {ahorros} } = await findAhorros();
+        dispatch(onLoadAhorros(ahorros));
     };
 
     const startLoadingSaldoDisponibleA = async () => {
         console.log('startLoadingSaldoDisponibleA');
-        const { data } = await getSaldoDisponibleA();
-        dispatch(onLoadSaldoDisponibleA(data));
+        const { data: {saldoDisponible} } = await getSaldoDisponibleA();
+        dispatch(onLoadSaldoDisponibleA(saldoDisponible));
     };
 
     const startIncrementSaldoDisponibleA = (saldo) => {

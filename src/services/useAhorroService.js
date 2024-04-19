@@ -1,13 +1,13 @@
 import { sgahApi } from '../backend';
 
 export const getSaldoDisponibleA = async () => {
-    return await sgahApi.get('ahorro/v0/ahorro/saldo');
+    return await sgahApi.get('sgah/v0/ahorro/saldo');
 };
 
 export const findAhorros = async () => {
-    return await sgahApi.get('ahorro/v0/ahorro/detalle');
+    return await sgahApi.get('sgah/v0/ahorro/');
 };
 
 export const saveAhorro = async (formData) => {
-    return await sgahApi.post('ahorro/v0/ahorro/agrega', formData);
+    return await sgahApi.post('sgah/v0/ahorro/', formData);
 };
