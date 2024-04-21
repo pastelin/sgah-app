@@ -1,17 +1,17 @@
 import { sgahApi } from '../backend';
 
 export const getSaldosG = async () => {
-    return await sgahApi.get('gasto/v0/gasto/montos');
+    return await sgahApi.get('sgah/v0/gasto/montos');
 };
 
 export const findGastos = async () => {
-    return await sgahApi.get('gasto/v0/gasto/detalle');
+    return await sgahApi.get('sgah/v0/gasto/');
 };
 
 export const findCategoriasGasto = async () => {
-    return await sgahApi.get('gasto/v0/gasto/categoria');
+    return await sgahApi.get('sgah/v0/gasto/categoria');
 };
 
 export const saveGasto = async (formData) => {
-    return await sgahApi.post('gasto/v0/gasto/agrega', formData);
+    return await sgahApi.post('sgah/v0/gasto/', formData);
 };

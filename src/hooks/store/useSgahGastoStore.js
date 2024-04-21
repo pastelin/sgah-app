@@ -24,14 +24,18 @@ export const useSgahGastoStore = () => {
 
     const startLoadingCategoriasGasto = async () => {
         console.log('categoria');
-        const { data } = await findCategoriasGasto();
-        dispatch(onLoadCategoriasGasto(data));
+        const {
+            data: { gastosRecurrentes },
+        } = await findCategoriasGasto();
+        dispatch(onLoadCategoriasGasto(gastosRecurrentes));
     };
 
     const startLoadingGastos = async () => {
         console.log('startLoadingGastos');
-        const { data } = await findGastos();
-        dispatch(onLoadGastos(data));
+        const {
+            data: { gastos },
+        } = await findGastos();
+        dispatch(onLoadGastos(gastos));
     };
 
     const startLoadingSaldoGasto = async () => {
