@@ -21,7 +21,7 @@ export const FormNewInversion = () => {
     const {
         saldoDisponibleA,
         startLoadingSaldoDisponibleA,
-        startLoadingGruposFinancieros,
+        startLoadingProductosFinancieros,
         gruposFinancieros,
         startSavingInversion,
     } = useSgahInversionStore();
@@ -32,7 +32,7 @@ export const FormNewInversion = () => {
     }, []);
 
     useEffect(() => {
-        startLoadingGruposFinancieros();
+        startLoadingProductosFinancieros();
     }, []);
 
     const { monto, descripcion, cdAppInversion, onInputChange, onResetForm } =

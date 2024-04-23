@@ -1,33 +1,33 @@
 import { sgahApi } from '../backend';
 
 export const getSaldoInvertidoI = async () => {
-    return await sgahApi.get('inversion/v0/inversion/saldoInvertido');
+    return await sgahApi.get('sgah/v0/inversion/saldo');
 };
 
 export const findAllI = async () => {
-    return await sgahApi.get('inversion/v0/inversion/detalle');
+    return await sgahApi.get('sgah/v0/inversion/');
 };
 
 export const getGruposFinancieros = async () => {
-    return await sgahApi.get('inversion/v0/inversion/consultaApp');
+    return await sgahApi.get('sgah/v0/inversion/productosFinancieros');
 };
 
 export const saveInversion = async (formData) => {
     return await sgahApi.post(
-        'inversion/v0/inversion/operacionAgregar',
+        'sgah/v0/inversion/incremento',
         formData
     );
 };
 
 export const updateInversion = async (formData) => {
     return await sgahApi.post(
-        'inversion/v0/inversion/operacionRetiro',
+        'sgah/v0/inversion/retiro',
         formData
     );
 };
 
 export const findInversionByFolio = async (folio) => {
     return await sgahApi.get(
-        `inversion/v0/inversion/detalleInversion/${folio}`
+        `sgah/v0/inversion/${folio}`
     );
 };

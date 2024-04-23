@@ -36,20 +36,21 @@ export const useSgahInversionStore = () => {
 
     const startLoadingSaldoInvertido = async () => {
         console.log('startLoadingSaldoInvertido');
-        const { data } = await getSaldoInvertidoI();
-        dispatch(onLoadSaldoInvertido(data));
+        const { data: {saldoInvertido} } = await getSaldoInvertidoI();
+        dispatch(onLoadSaldoInvertido(saldoInvertido));
     };
 
     const startLoadingInversiones = async () => {
         console.log('startLoadingInversiones');
-        const { data } = await findAllI();
-        dispatch(onLoadInversiones(data));
+        const { data: {inversiones} } = await findAllI();
+        dispatch(onLoadInversiones(inversiones));
     };
 
-    const startLoadingGruposFinancieros = async () => {
-        console.log('startLoadingGruposFinancieros');
-        const { data } = await getGruposFinancieros();
-        dispatch(onLoadGruposFinancieros(data));
+    // TODO: Refactorizar método para no requerir que el back regrese la clase inversion
+    const startLoadingProductosFinancieros = async () => {
+        console.log('startLoadingProductosFinancieros');
+        const { data: {productosFinancieros} } = await getGruposFinancieros();
+        dispatch(onLoadGruposFinancieros(productosFinancieros));
     };
 
     const startSavingInversion = async (formData) => {
@@ -90,6 +91,7 @@ export const useSgahInversionStore = () => {
         }
     };
 
+    // TODO: Refactorizar método para no requerir que el back regrese la clase inversion
     const startUpdatingInversion = async (formData) => {
         console.log('startUpdatingInversion');
 
@@ -116,8 +118,8 @@ export const useSgahInversionStore = () => {
 
     const startLoadingInversion = async (folio) => {
         console.log('startLoadingInversion');
-        const { data } = await findInversionByFolio(folio);
-        dispatch(onLoadInversion(data));
+        const { data: {inversion} } = await findInversionByFolio(folio);
+        dispatch(onLoadInversion(inversion));
     };
 
     const startIncrementSaldoInvertido = (montoInvertido) => {
@@ -142,7 +144,7 @@ export const useSgahInversionStore = () => {
         startLoadingSaldoInvertido,
         startLoadingInversiones,
         startLoadingSaldoDisponibleA,
-        startLoadingGruposFinancieros,
+        startLoadingProductosFinancieros,
         startSavingInversion,
         startLoadingInversion,
         startUpdatingInversion,
