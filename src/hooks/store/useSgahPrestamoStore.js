@@ -14,12 +14,12 @@ import {
     findAll,
     findPrestamoByFolio,
     getSaldoUtilizado,
-    save,
+    savePrestamo,
     updatePrestamo,
 } from '../../services/usePrestamoService';
 
 export const useSgahPrestamoStore = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
 
     // A hook to access the redux store's state.
     // This hook takes a selector function as an argument.The selector is called with the store state.
@@ -39,21 +39,22 @@ export const useSgahPrestamoStore = () => {
 
     const startLoadingSaldoUtilizadoP = async () => {
         console.log('startLoadingSaldoUtilizadoP');
-        const { data } = await getSaldoUtilizado();
-        dispatch(onLoadSaldoUtilizadoP(data));
+        const { data: {saldoUtilizado} } = await getSaldoUtilizado();
+        dispatch(onLoadSaldoUtilizadoP(saldoUtilizado));
     };
 
     const startLoadingPrestamos = async () => {
         console.log('startLoadingPrestamos');
-        const { data } = await findAll();
-        dispatch(onLoadPrestamos(data));
+        const { data: {prestamos} } = await findAll();
+        dispatch(onLoadPrestamos(prestamos));
     };
 
+    // TODO: Refactorizar la data que se recibe del backend
     const startSavingPrestamo = async (formData) => {
         console.log('startSavingPrestamo');
 
         try {
-            const { status, data } = await save(formData);
+            const { status, data } = await savePrestamo(formData);
 
             dispatch(onIncrementSaldoUtilizadoP(formData.montoPrestado));
             startSubtractSaldoDisponibleA(formData.montoPrestado);
@@ -75,8 +76,8 @@ export const useSgahPrestamoStore = () => {
 
     const startLoadingPrestamo = async (folio) => {
         console.log('startLoadingPrestamo');
-        const { data } = await findPrestamoByFolio(folio);
-        dispatch(onLoadPrestamo(data));
+        const { data: {prestamo} } = await findPrestamoByFolio(folio);
+        dispatch(onLoadPrestamo(prestamo));
     };
 
     const startUpdatingPrestamo = async (formData) => {

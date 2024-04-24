@@ -1,23 +1,23 @@
 import { sgahApi } from '../backend';
 
 export const getSaldoUtilizado = async () => {
-    return await sgahApi.get('prestamo/v0/prestamo/saldoUtilizado');
+    return await sgahApi.get('sgah/v0/prestamo/saldoUtilizado');
 };
 
 export const findAll = async () => {
-    return await sgahApi.get('prestamo/v0/prestamo/detallePrestamosActivos');
+    return await sgahApi.get('sgah/v0/prestamo/');
 };
 
-export const save = async (formData) => {
-    return await sgahApi.post('prestamo/v0/prestamo/new', formData);
+export const savePrestamo = async (formData) => {
+    return await sgahApi.post('sgah/v0/prestamo/', formData);
 };
 
 export const findPrestamoByFolio = async (folio) => {
-    return await sgahApi.get(`prestamo/v0/prestamo/detallePrestamo/${folio}`);
+    return await sgahApi.get(`sgah/v0/prestamo/${folio}`);
 };
 
 export const updatePrestamo = async (formData) => {
-    return await sgahApi.post('prestamo/v0/prestamo/operacionActualiza', {
+    return await sgahApi.put('sgah/v0/prestamo/', {
         ...formData,
     });
 };
