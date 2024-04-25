@@ -14,7 +14,7 @@ export const sgahSliceDetalle = createSlice({
 	reducers: {
 		updateResumen: (state, action) => {
 			state.resumen.montoAhorro = formatCurrency(action.payload.ahorro);
-			state.resumen.montoGasto = formatCurrency(action.payload.gastos);
+			state.resumen.montoGasto = formatCurrency(action.payload.gasto);
 			state.resumen.montoInversion = formatCurrency(action.payload.inversion);
 			state.resumen.montoPrestamo = formatCurrency(action.payload.prestamo);
 		},

@@ -1,5 +1,5 @@
 import { sgahApi } from '../backend';
 
 export const getResumenSaldos = async () => {
-    return await sgahApi.get('resumen/v0/resumen/detalle');
+    return await sgahApi.get('sgah/v0/resumen/');
 };
