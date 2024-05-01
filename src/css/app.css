@@ -838,11 +838,11 @@ hr {
   min-height: 6rem;
 }
 
-.gasto {
+.color-gasto {
   color: rgba(245, 149, 149, 0.8);
 }
 
-.ingreso {
+.color-ingreso {
   color: rgba(52, 179, 243, 0.8);
 }
 

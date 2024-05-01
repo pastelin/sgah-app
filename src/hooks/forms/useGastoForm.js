@@ -8,20 +8,13 @@ import Swal from 'sweetalert2';
 
 const formDataGasto = {
     porcentaje: '',
-    cdGastoRecurrente: '',
+    cdGasto: '',
     descripcion: '',
-    cdTipoMovimiento: 1,
 };
 
 export const useGastoForm = () => {
-    const {
-        porcentaje,
-        cdGastoRecurrente,
-        descripcion,
-        cdTipoMovimiento,
-        onInputChange,
-        onResetForm,
-    } = useForm(formDataGasto);
+    const { porcentaje, cdGasto, descripcion, onInputChange, onResetForm } =
+        useForm(formDataGasto);
 
     const {
         hasPermissionEdit: hasPermissionEditG,
@@ -37,12 +30,15 @@ export const useGastoForm = () => {
         handleHasPermissionEdit,
     } = useIngresoPage();
 
-    const { startSavingGasto, categoriasGasto, startLoadingCategoriasGasto } =
-        useSgahGastoStore();
+    const {
+        startSavingGasto,
+        gastosRecurrentes,
+        startLoadingGastosRecurrentes,
+    } = useSgahGastoStore();
 
     useEffect(() => {
-        if (!categoriasGasto || categoriasGasto.length <= 1) {
-            startLoadingCategoriasGasto();
+        if (!gastosRecurrentes || gastosRecurrentes.length <= 1) {
+            startLoadingGastosRecurrentes();
         }
     }, []);
 
@@ -66,12 +62,16 @@ export const useGastoForm = () => {
         }
 
         const ingresoGasto = ingresos * (porcentaje / 100);
-
         const { code, message } = await startSavingGasto({
             monto: ingresoGasto,
-            cdGastoRecurrente,
+            gastoRecurrente: {
+                cdGasto,
+            },
             descripcion,
-            cdTipoMovimiento,
+            tipoMovimiento: {
+                cdTipo: 1,
+                nbTipo: 'Ingreso',
+            },
         });
 
         usePrintMessage(code, message);
@@ -86,9 +86,9 @@ export const useGastoForm = () => {
 
     return {
         porcentaje,
-        cdGastoRecurrente,
+        cdGasto,
         descripcion,
-        categoriasGasto,
+        gastosRecurrentes,
         onInputChange,
         onSubmit,
         hasPermissionEditG,

@@ -1,11 +1,11 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
-.gasto {
+.color-gasto {
 	color: rgb(245, 149, 149, 0.8);
 }
 
-.ingreso {
+.color-ingreso {
 	color: rgba(52, 179, 243, 0.8);
 }
 

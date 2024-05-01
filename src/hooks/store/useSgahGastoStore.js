@@ -6,11 +6,11 @@ import {
     onAddNewGasto,
     onIncrementSaldoDisponibleG,
     onSubtractSaldoDisponibleG,
-    onLoadCategoriasGasto,
+    onLoadGastosRecurrentes,
     onIncrementSaldoUtilizadoG,
 } from '../../store';
 import {
-    findCategoriasGasto,
+    findGastosRecurrentes,
     findGastos,
     getSaldosG,
     saveGasto,
@@ -19,15 +19,15 @@ import {
 export const useSgahGastoStore = () => {
     const dispatch = useDispatch();
 
-    const { categoriasGasto, gastos, saldoDisponible, saldoUtilizado } =
+    const { gastosRecurrentes, gastos, saldoDisponible, saldoUtilizado } =
         useSelector((state) => state.sgahGasto);
 
-    const startLoadingCategoriasGasto = async () => {
+    const startLoadingGastosRecurrentes = async () => {
         console.log('categoria');
         const {
             data: { gastosRecurrentes },
-        } = await findCategoriasGasto();
-        dispatch(onLoadCategoriasGasto(gastosRecurrentes));
+        } = await findGastosRecurrentes();
+        dispatch(onLoadGastosRecurrentes(gastosRecurrentes));
     };
 
     const startLoadingGastos = async () => {
@@ -50,12 +50,18 @@ export const useSgahGastoStore = () => {
         console.log('startSavingGasto');
 
         try {
+            console.log(formData);
             const { status, data } = await saveGasto(formData);
 
-            if (formData.cdTipoMovimiento === 2) {
+            if (formData.tipoMovimiento.cdTipo === 2) {
                 startSubtractSaldoDisponibleG(formData.monto);
                 startIncrementSaldoUtilizadoG(formData.monto);
-                dispatch(onAddNewGasto(data.gasto));
+                dispatch(
+                    onAddNewGasto({
+                        ...formData,
+                        fechaCreacion: getCurrentDateByString(),
+                    })
+                );
             }
 
             return {
@@ -85,19 +91,37 @@ export const useSgahGastoStore = () => {
         dispatch(onIncrementSaldoUtilizadoG(saldo));
     };
 
+    const getCategoriaGastoById = (cdGasto) => {
+        console.log(gastosRecurrentes, cdGasto);
+        return gastosRecurrentes.find(
+            (categoria) => categoria.cdGasto == cdGasto
+        );
+    };
+
+    const getCurrentDateByString = () => {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+
+        return `${year}-${month}-${day}`;
+    };
+
     return {
         // * Propiedades
-        categoriasGasto,
+        gastosRecurrentes,
         gastos,
         saldoDisponibleG: saldoDisponible,
         saldoUtilizadoG: saldoUtilizado,
 
         // * Metodos
-        startLoadingCategoriasGasto,
+        startLoadingGastosRecurrentes,
         startLoadingGastos,
         startLoadingSaldoGasto,
         startSavingGasto,
         startIncrementSaldoDisponibleG,
         startSubtractSaldoDisponibleG,
+        getCategoriaGastoById,
+        getCurrentDateByString,
     };
 };

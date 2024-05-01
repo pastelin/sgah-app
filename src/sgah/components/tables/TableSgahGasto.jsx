@@ -2,7 +2,6 @@ import { formatCurrency, useSgahGastoStore } from '../../../hooks';
 
 export const TableSgahGasto = () => {
     const { gastos } = useSgahGastoStore();
-    console.log(gastos.length);
     return (
         <div className="contenedor-table">
             <table>
@@ -20,9 +19,9 @@ export const TableSgahGasto = () => {
                     {gastos.map((gasto) => (
                         <tr
                             className={`${
-                                gasto.nbTipoMovimiento === 'Gasto'
-                                    ? 'gasto'
-                                    : 'ingreso'
+                                gasto?.tipoMovimiento?.nbTipo === 'Gasto'
+                                    ? 'color-gasto'
+                                    : 'color-ingreso'
                             }`}
                             key={
                                 window.crypto.getRandomValues(
@@ -33,8 +32,8 @@ export const TableSgahGasto = () => {
                             <td>{gasto.fechaCreacion}</td>
                             <td>{formatCurrency(gasto.monto)}</td>
                             <td>{gasto.descripcion}</td>
-                            <td>{gasto.nbGastoRecurrente}</td>
-                            <td>{gasto.nbTipoMovimiento}</td>
+                            <td>{gasto?.gastoRecurrente?.nbGasto}</td>
+                            <td>{gasto?.tipoMovimiento?.nbTipo}</td>
                         </tr>
                     ))}
                 </tbody>

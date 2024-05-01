@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 export const sgahSliceGasto = createSlice({
     name: 'sgahGasto',
     initialState: {
-        categoriasGasto: [{}],
+        gastosRecurrentes: [{}],
         gastos: [{}],
         saldoDisponible: 0,
         saldoUtilizado: 0,
     },
     reducers: {
-        onLoadCategoriasGasto: (state, action) => {
-            state.categoriasGasto = action.payload;
+        onLoadGastosRecurrentes: (state, action) => {
+            state.gastosRecurrentes = action.payload;
         },
         onLoadGastos: (state, action) => {
             state.gastos = action.payload;
@@ -37,7 +37,7 @@ export const sgahSliceGasto = createSlice({
 });
 
 export const {
-    onLoadCategoriasGasto,
+    onLoadGastosRecurrentes,
     onLoadGastos,
     onLoadSaldoDisponibleG,
     onLoadSaldoUtilizadoG,

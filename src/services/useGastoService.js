@@ -8,7 +8,7 @@ export const findGastos = async () => {
     return await sgahApi.get('sgah/v0/gasto/');
 };
 
-export const findCategoriasGasto = async () => {
+export const findGastosRecurrentes = async () => {
     return await sgahApi.get('sgah/v0/gasto/categoria');
 };
 

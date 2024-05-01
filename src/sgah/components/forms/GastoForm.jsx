@@ -9,25 +9,22 @@ import { DetailSaldoParagraph } from '../paragraphs';
 
 const formData = {
     monto: '',
-    cdGastoRecurrente: '',
+    cdGasto: '',
     descripcion: '',
-    cdTipoMovimiento: 2,
 };
 
 export const GastoForm = () => {
-    const { categoriasGasto, saldoDisponibleG, startSavingGasto } =
-        useSgahGastoStore();
+    const {
+        gastosRecurrentes,
+        saldoDisponibleG,
+        startSavingGasto,
+        getCategoriaGastoById,
+    } = useSgahGastoStore();
 
     const { styleDisplayNone, handleShowFormGasto } = useGastoUi();
 
-    const {
-        monto,
-        cdGastoRecurrente,
-        descripcion,
-        cdTipoMovimiento,
-        onInputChange,
-        onResetForm,
-    } = useForm(formData);
+    const { monto, cdGasto, descripcion, onInputChange, onResetForm } =
+        useForm(formData);
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -41,11 +38,18 @@ export const GastoForm = () => {
             return;
         }
 
+        const gastoR = getCategoriaGastoById(cdGasto);
         const { code, message } = await startSavingGasto({
-            monto,
-            cdGastoRecurrente,
+            monto: parseInt(monto),
+            gastoRecurrente: {
+                cdGasto,
+                nbGasto: gastoR?.nbGasto,
+            },
             descripcion,
-            cdTipoMovimiento,
+            tipoMovimiento: {
+                cdTipo: 2,
+                nbTipo: 'Gasto',
+            },
         });
 
         usePrintMessage(code, message);
@@ -95,14 +99,14 @@ export const GastoForm = () => {
 
                     <div className="form__group">
                         <select
-                            name="cdGastoRecurrente"
-                            id="cdGastoRecurrente"
-                            value={cdGastoRecurrente}
+                            name="cdGasto"
+                            id="cdGasto"
+                            value={cdGasto}
                             onChange={onInputChange}
                             required
                         >
                             <option value="">Seleccionar tipo de gasto</option>
-                            {categoriasGasto.map(
+                            {gastosRecurrentes.map(
                                 ({ cdGasto, nbGasto, cdEstatus }) =>
                                     cdEstatus !== 2 && (
                                         <option
