@@ -2,12 +2,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     onAddInversion,
     onIncrementSaldoInvertido,
-    onLoadGruposFinancieros,
+    onLoadProductosFinancieros,
     onLoadInversion,
     onLoadInversiones,
     onLoadSaldoInvertido,
     onSubstractSaldoInvertido,
-    onUpdateAddMontoInversion,
+    onIncrementMontoInversion,
     onUpdateMontoInversion,
 } from '../../store/sgah/sgahSliceInversion';
 import { useSgahAhorroStore } from './useSgahAhorroStore';
@@ -15,7 +15,7 @@ import { formatCurrency } from '../useUtilities';
 import {
     findAllI,
     findInversionByFolio,
-    getGruposFinancieros,
+    getProductosFinancieros,
     getSaldoInvertidoI,
     saveInversion,
     updateInversion,
@@ -24,7 +24,7 @@ import {
 export const useSgahInversionStore = () => {
     const dispatch = useDispatch();
 
-    const { saldoInvertido, inversiones, inversion, gruposFinancieros } =
+    const { saldoInvertido, inversiones, inversion, productosFinancieros } =
         useSelector((state) => state.sgahInversion);
 
     const {
@@ -36,21 +36,26 @@ export const useSgahInversionStore = () => {
 
     const startLoadingSaldoInvertido = async () => {
         console.log('startLoadingSaldoInvertido');
-        const { data: {saldoInvertido} } = await getSaldoInvertidoI();
+        const {
+            data: { saldoInvertido },
+        } = await getSaldoInvertidoI();
         dispatch(onLoadSaldoInvertido(saldoInvertido));
     };
 
     const startLoadingInversiones = async () => {
         console.log('startLoadingInversiones');
-        const { data: {inversiones} } = await findAllI();
+        const {
+            data: { inversiones },
+        } = await findAllI();
         dispatch(onLoadInversiones(inversiones));
     };
 
-    // TODO: Refactorizar método para no requerir que el back regrese la clase inversion
     const startLoadingProductosFinancieros = async () => {
         console.log('startLoadingProductosFinancieros');
-        const { data: {productosFinancieros} } = await getGruposFinancieros();
-        dispatch(onLoadGruposFinancieros(productosFinancieros));
+        const {
+            data: { productosFinancieros },
+        } = await getProductosFinancieros();
+        dispatch(onLoadProductosFinancieros(productosFinancieros));
     };
 
     const startSavingInversion = async (formData) => {
@@ -58,32 +63,41 @@ export const useSgahInversionStore = () => {
 
         try {
             const { status, data } = await saveInversion(formData);
+            const { mensaje, folio, fecha } = data;
 
-            startIncrementSaldoInvertido(data.inversion.monto);
-            startSubtractSaldoDisponibleA(data.inversion.monto);
+            startIncrementSaldoInvertido(formData.monto);
+            startSubtractSaldoDisponibleA(formData.monto);
 
             let isInversionExist = false;
 
             for (let inversion of inversiones) {
                 if (
-                    inversion.nbAppInversion === data.inversion.nbAppInversion
+                    inversion?.productoFinanciero?.nbApp ===
+                    formData.productoFinanciero.nbApp
                 ) {
                     isInversionExist = true;
                 }
             }
 
             if (isInversionExist) {
-                dispatch(onUpdateAddMontoInversion(data.inversion));
+                dispatch(
+                    onIncrementMontoInversion({
+                        ...formData,
+                        folio,
+                        fechaCreacion: fecha,
+                    })
+                );
             } else {
-                dispatch(onAddInversion(data.inversion));
+                dispatch(
+                    onAddInversion({ ...formData, folio, fechaCreacion: fecha })
+                );
             }
 
             return {
                 code: status,
-                message: data.mensaje,
+                message: mensaje,
             };
         } catch (error) {
-            console.log(error);
             return {
                 code: error.code,
                 message: error?.responese?.data?.mensaje,
@@ -91,21 +105,21 @@ export const useSgahInversionStore = () => {
         }
     };
 
-    // TODO: Refactorizar método para no requerir que el back regrese la clase inversion
     const startUpdatingInversion = async (formData) => {
         console.log('startUpdatingInversion');
 
         try {
-            const { status, data } = await updateInversion(formData);
+            const { status, data } = await updateInversion({ ...formData });
+            const { mensaje, monto } = data;
 
             startSubtractSaldoInvertido(formData.monto);
-            startIncrementSaldoDisponibleA(formatCurrency(formData.monto));
+            startIncrementSaldoDisponibleA(formData.monto);
 
-            dispatch(onUpdateMontoInversion(data.inversion));
+            dispatch(onUpdateMontoInversion({ ...formData, monto }));
 
             return {
                 code: status,
-                message: data.mensaje,
+                message: mensaje,
             };
         } catch (error) {
             console.log(error);
@@ -118,7 +132,9 @@ export const useSgahInversionStore = () => {
 
     const startLoadingInversion = async (folio) => {
         console.log('startLoadingInversion');
-        const { data: {inversion} } = await findInversionByFolio(folio);
+        const {
+            data: { inversion },
+        } = await findInversionByFolio(folio);
         dispatch(onLoadInversion(inversion));
     };
 
@@ -132,12 +148,20 @@ export const useSgahInversionStore = () => {
         dispatch(onSubstractSaldoInvertido(formatCurrency(montoRetirado)));
     };
 
+    const getProductoFinancieroById = (cdApp) => {
+        console.log('getProductosFinancieroById');
+
+        return productosFinancieros.find(
+            (productoFinanciero) => productoFinanciero.cdApp == cdApp
+        );
+    };
+
     return {
         // * Propiedades
         saldoDisponibleA,
         saldoInvertido,
         inversiones,
-        gruposFinancieros,
+        productosFinancieros,
         inversion,
 
         // * Metodos
@@ -148,5 +172,6 @@ export const useSgahInversionStore = () => {
         startSavingInversion,
         startLoadingInversion,
         startUpdatingInversion,
+        getProductoFinancieroById,
     };
 };

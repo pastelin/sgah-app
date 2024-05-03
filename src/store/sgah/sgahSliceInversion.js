@@ -6,25 +6,25 @@ export const sgahSliceInversion = createSlice({
 		saldoInvertido: 0,
 		inversiones: [{}],
 		inversion: {},
-		gruposFinancieros: [],
+		productosFinancieros: [],
 	},
 	reducers: {
 		onLoadSaldoInvertido: (state, { payload }) => {
 			state.saldoInvertido = payload;
 		},
         onIncrementSaldoInvertido: (state, { payload }) => {
-            state.saldoInvertido += payload;
+            state.saldoInvertido += parseInt(payload);
 		},
         onSubstractSaldoInvertido: (state, { payload }) => {
-            state.saldoInvertido -= payload;
+            state.saldoInvertido -= parseInt(payload);
 		},
 		onLoadInversiones: (state, { payload }) => {
 			state.inversiones = payload;
 		},
-		onUpdateAddMontoInversion: (state, { payload }) => {
+		onIncrementMontoInversion: (state, { payload }) => {
 			state.inversiones.forEach((data) => {
-				if (data.nbAppInversion === payload.nbAppInversion) {
-					data.monto += payload.monto;
+				if (data?.productoFinanciero?.nbApp === payload?.productoFinanciero?.nbApp) {
+					data.monto += (+payload.monto);
 				}
 			});
 		},
@@ -41,8 +41,8 @@ export const sgahSliceInversion = createSlice({
 		onLoadInversion: (state, { payload }) => {
 			state.inversion = payload;
 		},
-		onLoadGruposFinancieros: (state, { payload }) => {
-			state.gruposFinancieros = payload;
+		onLoadProductosFinancieros: (state, { payload }) => {
+			state.productosFinancieros = payload;
 		},
 	},
 });
@@ -52,8 +52,8 @@ export const {
 	onLoadSaldoInvertido,
     onIncrementSaldoInvertido,
     onSubstractSaldoInvertido,
-	onLoadGruposFinancieros,
-    onUpdateAddMontoInversion,
+	onLoadProductosFinancieros,
+    onIncrementMontoInversion,
     onUpdateMontoInversion,
 	onAddInversion,
 	onLoadInversion,

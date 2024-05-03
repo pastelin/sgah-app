@@ -22,8 +22,9 @@ export const FormNewInversion = () => {
         saldoDisponibleA,
         startLoadingSaldoDisponibleA,
         startLoadingProductosFinancieros,
-        gruposFinancieros,
+        productosFinancieros,
         startSavingInversion,
+        getProductoFinancieroById,
     } = useSgahInversionStore();
 
     useEffect(() => {
@@ -46,10 +47,14 @@ export const FormNewInversion = () => {
             return;
         }
 
+        let {nbApp} = getProductoFinancieroById(cdAppInversion);
         const { code, message } = await startSavingInversion({
             monto,
             descripcion,
-            cdAppInversion,
+            productoFinanciero: {
+                cdApp: cdAppInversion,
+                nbApp,
+            },
         });
 
         usePrintMessage(code, message);
@@ -104,16 +109,16 @@ export const FormNewInversion = () => {
                             <option value="">
                                 Seleccionar grupo financiero
                             </option>
-                            {gruposFinancieros.map((grupoFinanciero) => (
+                            {productosFinancieros.map((productoFinanciero) => (
                                 <option
                                     key={
                                         window.crypto.getRandomValues(
                                             new Uint32Array(1)
                                         )[0]
                                     }
-                                    value={grupoFinanciero.cdAppInversion}
+                                    value={productoFinanciero.cdApp}
                                 >
-                                    {grupoFinanciero.nbAppInversion}
+                                    {productoFinanciero.nbApp}
                                 </option>
                             ))}
                         </select>

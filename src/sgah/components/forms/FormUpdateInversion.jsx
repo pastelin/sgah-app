@@ -4,7 +4,6 @@ import {
     usePrintMessage,
     useInversionUi,
 } from '../../../hooks';
-import Swal from 'sweetalert2';
 import { DetailSaldoParagraph } from '../paragraphs';
 
 const formDada = {
@@ -21,14 +20,9 @@ export const FormUpdateInversion = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
 
-        if (monto > inversion.monto) {
-            Swal.fire('Validar monto a retirar', '', 'error');
-            return;
-        }
-
         const { code, message } = await startUpdatingInversion({
             ...inversion,
-            monto: monto,
+            monto,
         });
 
         usePrintMessage(code, message);

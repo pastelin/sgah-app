@@ -39,8 +39,8 @@ export const TableSgahInversion = () => {
                         >
                             <td>{inversion.fechaCreacion}</td>
                             <td>{inversion.descripcion}</td>
-                            <td>{inversion.nbAppInversion}</td>
-                            <td>{formatCurrency(inversion.monto)}</td>
+                            <td>{inversion?.productoFinanciero?.nbApp}</td>
+                            <td>{formatCurrency(parseInt(inversion.monto))}</td>
                             <td>
                                 <button
                                     className="btn btn-update"
