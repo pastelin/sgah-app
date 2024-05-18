@@ -26,9 +26,9 @@ export const FormUpdatePrestamo = () => {
     const {
         folio,
         newMontoPagado,
-        montoPrestado,
+        saldoPrestado,
         fechaCreacion,
-        montoPagado,
+        saldoPagado,
         descripcion,
         onInputChange,
         onResetForm,
@@ -37,7 +37,7 @@ export const FormUpdatePrestamo = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
 
-        const montoLiquidar = montoPrestado - montoPagado;
+        const montoLiquidar = saldoPrestado - saldoPagado;
         if (newMontoPagado > montoLiquidar) {
             Swal.fire(
                 'El monto no debe ser mayor a la deuda actual',
@@ -58,10 +58,10 @@ export const FormUpdatePrestamo = () => {
 
         const { code, message } = await startUpdatingPrestamo({
             folio,
-            montoPrestado,
+            saldoPrestado,
             descripcion,
             fechaCreacion,
-            montoPagado: newMontoPagado,
+            saldoPagado: newMontoPagado,
         });
 
         usePrintMessage(code, message);
@@ -91,7 +91,7 @@ export const FormUpdatePrestamo = () => {
                 <div className="contenedor-saldo text-center">
                     <DetailSaldoParagraph
                         label="Deuda Actual"
-                        saldo={montoPrestado - montoPagado}
+                        saldo={saldoPrestado - saldoPagado}
                     />
 
                     <DetailSaldoParagraph

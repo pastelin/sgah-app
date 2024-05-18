@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import { DetailSaldoParagraph } from '../paragraphs';
 
 const formData = {
-    montoPrestado: '',
+    saldoPrestado: '',
     descripcion: '',
 };
 
@@ -28,19 +28,19 @@ export const FormNewPrestamo = () => {
         startLoadingSaldoDisponibleA();
     }, []);
 
-    const { montoPrestado, descripcion, onInputChange, onResetForm } =
+    const { saldoPrestado, descripcion, onInputChange, onResetForm } =
         useForm(formData);
 
     const onSubmit = async (event) => {
         event.preventDefault();
 
-        if (montoPrestado > saldoDisponibleA) {
+        if (saldoPrestado > saldoDisponibleA) {
             Swal.fire('Validar monto ingresado', '', 'error');
             return;
         }
 
         const { code, message } = await startSavingPrestamo({
-            montoPrestado,
+            saldoPrestado,
             descripcion,
         });
 
@@ -79,9 +79,9 @@ export const FormNewPrestamo = () => {
                         <label htmlFor="montoPrestado">Monto:</label>
                         <input
                             type="number"
-                            name="montoPrestado"
-                            id="montoPrestado"
-                            value={montoPrestado}
+                            name="saldoPrestado"
+                            id="saldoPrestado"
+                            value={saldoPrestado}
                             onChange={onInputChange}
                             required
                         />

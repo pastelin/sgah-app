@@ -39,12 +39,16 @@ export const TableSgahPrestamo = () => {
                             }
                         >
                             <td>{prestamo.fechaCreacion}</td>
-                            <td>{formatCurrency(prestamo.montoPrestado)}</td>
+                            <td>
+                                {formatCurrency(
+                                    parseInt(prestamo.saldoPrestado)
+                                )}
+                            </td>
                             <td>{prestamo.descripcion}</td>
                             <td>
                                 {formatCurrency(
-                                    prestamo.montoPrestado -
-                                        prestamo.montoPagado
+                                    prestamo.saldoPrestado -
+                                        prestamo.saldoPagado
                                 )}
                             </td>
                             <td>
