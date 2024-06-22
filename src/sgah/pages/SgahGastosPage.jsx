@@ -9,13 +9,13 @@ export const SgahGastosPage = () => {
         saldoDisponibleG,
         saldoUtilizadoG,
         startLoadingGastosRecurrentes,
-        startLoadingGastos,
+        startLoadingGastosByCurrentMonth,
         startLoadingSaldoGasto,
     } = useSgahGastoStore();
 
     useEffect(() => {
         startLoadingGastosRecurrentes();
-        startLoadingGastos();
+        startLoadingGastosByCurrentMonth();
         startLoadingSaldoGasto();
     }, []);
 

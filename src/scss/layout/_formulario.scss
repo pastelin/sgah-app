@@ -2,65 +2,73 @@
 @use 'base/mixins' as m;
 
 .overlay {
-	background-color: rgba(0, 0, 0, 0.7);
-	position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-	height: 100vh;
+    height: 100vh;
 
-	.contenedor-form {
-		background-color: v.$blanco;
-		width: 55vw;
-		min-width: v.$minWidth;
-		box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-		border-radius: 1rem;
+    .contenedor-form {
+        background-color: v.$blanco;
+        width: 55vw;
+        min-width: v.$minWidth;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+        border-radius: 1rem;
 
-		> h3 {
-			text-align: center;
-			margin-top: -1.5rem;
-		}
-	}
+        > h3 {
+            text-align: center;
+            margin-top: -1.5rem;
+        }
+    }
 }
 
 .form__group {
-	margin-top: 2rem;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 1rem;
-	flex-direction: column;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
 
-	> *:not(label) {
-		border-radius: 0.5rem;
-		border: 3px solid rgba(0, 0, 0, 0.35);
-		outline: none;
-	}
+    > *:not(label) {
+        border-radius: 0.5rem;
+        border: 3px solid rgba(0, 0, 0, 0.35);
+        outline: none;
+    }
 
-	> *:not(label):focus {
-		border: thick solid rgba(0, 0, 0, 0.35);
-	}
+    > *:not(label):focus {
+        border: thick solid rgba(0, 0, 0, 0.35);
+    }
 
-	&:first-of-type {
-		margin-top: 0;
-	}
+    &:first-of-type {
+        margin-top: 0;
+    }
 
-	input,
-	textarea,
-	select {
-		width: 40vw;
-		min-width: 250px;
-		max-width: 450px;
-	}
+    input,
+    textarea,
+    select {
+        width: 40vw;
+        min-width: 250px;
+        max-width: 450px;
+    }
 
-	input,
-	select {
-		height: 2.5rem;
-	}
+    input,
+    select {
+        height: 2.5rem;
+    }
 
-	textarea {
-		max-height: 6rem;
-		min-height: 6rem;
-	}
+    textarea {
+        max-height: 6rem;
+        min-height: 6rem;
+    }
+}
+
+.select {
+    text-align: center;
+    border-radius: 0.5rem;
+    border: 3px solid rgba(0, 0, 0, 0.5);
+    outline: none;
+	padding: .2rem;
 }

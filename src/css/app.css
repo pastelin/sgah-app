@@ -342,6 +342,10 @@ h2 {
   font-size: calc(25px + 7 * (100vw - 380px) / 1020);
 }
 
+h3 {
+  font-size: calc(20px + 12 * (100vw - 380px) / 1020);
+}
+
 img {
   min-width: 100%;
   display: block;
@@ -372,7 +376,8 @@ img {
   height: 100vh;
 }
 
-aside h2 {
+aside h2,
+aside h3 {
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -390,11 +395,23 @@ aside h2 {
 }
 
 .m-0 {
-  margin: 0;
+  margin: 0 !important;
+}
+
+.mb-05 {
+  margin-bottom: 0.5rem;
 }
 
 .mt-2 {
   margin-top: 2rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
 }
 
 .my-2 {
@@ -408,7 +425,6 @@ hr {
 .flex-responsive-row {
   display: flex;
   flex-flow: row wrap;
-  gap: 1rem;
 }
 
 .flex-responsive-column {
@@ -423,6 +439,10 @@ hr {
 
 .justify-center {
   justify-content: center;
+}
+
+.align-center {
+  align-items: center;
 }
 
 .justify-sa {
@@ -458,6 +478,52 @@ hr {
 .contenedor-saldo > p > span {
   letter-spacing: 0.2rem;
   color: #ff4c4c;
+}
+
+.box-shadow {
+  box-shadow: 0.25rem 0.25rem 1rem rgba(0, 0, 0, 0.25);
+}
+
+.alert {
+  width: 90%;
+  margin-inline: auto;
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+.alert h3 {
+  text-align: center;
+  margin: 0;
+  opacity: 0.6;
+}
+
+.alert-info {
+  background-color: #c1f1fc;
+}
+
+/* ************* Spinner ************* */
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.spinner {
+  width: 7vw;
+  height: 7vw;
+  min-width: 50px;
+  min-height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0.5vw solid rgba(0, 0, 0, 0.4);
+  border-left-color: white;
+  border-radius: 50%;
+  animation: spinner 1s ease-out infinite;
+}
+
+.visibility-hiddent {
+  visibility: hidden;
 }
 
 .btn {
@@ -543,6 +609,25 @@ hr {
   color: #ff4c4c;
 }
 
+svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+svg:hover {
+  opacity: 0.7;
+}
+
+svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.svg-small {
+  width: 3rem;
+  height: 1.4rem;
+}
+
 .navbar {
   min-width: 280px;
   background-color: rgba(0, 0, 0, 0.8);
@@ -603,6 +688,7 @@ hr {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: 6rem;
 }
 .navbar ul a {
   position: relative;
@@ -616,10 +702,10 @@ hr {
   overflow: hidden;
 }
 .navbar ul a:hover {
-  color: rgba(255, 255, 255, 0.6);
+  opacity: 0.7;
 }
 .navbar ul .link--active {
-  color: rgba(255, 255, 255, 0.6);
+  opacity: 0.7;
 }
 .navbar ul .link--active::after {
   content: "";
@@ -739,6 +825,44 @@ hr {
   bottom: 6px;
 }
 
+/* ------------------Dropdown-------------------- */
+.dropdown {
+  margin-bottom: -8rem;
+  transition: all 0.8s ease;
+  pointer-events: none;
+}
+
+.dropdown > a {
+  pointer-events: auto;
+}
+
+.dropdown--active {
+  margin-bottom: 0;
+}
+
+.dropdown-menu {
+  margin-top: -1rem;
+  background-color: white;
+  transition: all 0.6s ease-in-out;
+  position: relative;
+  top: -8.4rem;
+  opacity: 0;
+}
+
+.dropdown-menu > ul > li > a {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.dropdown-menu > ul > li > a:hover {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.dropdown-menu--active {
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .detalle {
   width: 100%;
   margin-top: 2rem;
@@ -838,6 +962,14 @@ hr {
   min-height: 6rem;
 }
 
+.select {
+  text-align: center;
+  border-radius: 0.5rem;
+  border: 3px solid rgba(0, 0, 0, 0.5);
+  outline: none;
+  padding: 0.2rem;
+}
+
 .color-gasto {
   color: rgba(245, 149, 149, 0.8);
 }
@@ -922,11 +1054,18 @@ hr {
   margin-top: 0;
 }
 
+/* ************* Flip ************* */
+.flip-container {
+  width: 50%;
+  margin-inline: auto;
+  min-width: 360px;
+  top: -50px;
+}
+
 .flip-card {
   height: 430px;
   position: relative;
-  cursor: pointer;
-  transition: transform 1s ease-in-out;
+  transition: transform 1s ease-in-out, top 1s ease-in-out;
   transform-style: preserve-3d;
   transform-origin: center right;
 }
@@ -937,6 +1076,7 @@ hr {
 }
 
 .flip-card-hover {
+  top: 0px;
   transform: translateX(-100%) rotateY(-180deg);
 }
 
@@ -954,4 +1094,133 @@ hr {
 
 .flip-back {
   transform: rotateY(180deg);
+}
+
+/* ************* Fade in down ************* */
+.fade-in-down {
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out, bottom 1s ease-in-out;
+  transform: translate(0, -50px);
+  opacity: 0;
+  pointer-events: none;
+  position: relative;
+  bottom: 50px;
+}
+
+.fade-in-down.active {
+  bottom: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(0, 0);
+}
+
+/* ************* ProgressBar Scroll************* */
+.progress-container::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.progress-container::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+
+.progress-container::-webkit-scrollbar-button:increment,
+.progress-container::-webkit-scrollbar-button {
+  display: none;
+}
+
+.progress-container::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+.progress-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+}
+
+.progress-container::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* ************* ProgressBar ************* */
+.progress-container {
+  max-height: 60vh;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.progress {
+  margin: 0 auto 1.5rem auto;
+  cursor: pointer;
+  border: none;
+  display: block;
+  width: 100%;
+  background-color: transparent;
+}
+
+.progress:hover {
+  opacity: 0.7;
+}
+
+.progress > p {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.progress-blue {
+  width: 100%;
+  height: 1rem;
+  background-color: rgba(52, 179, 243, 0.8);
+  opacity: 0.7;
+}
+
+.progress-blue::-webkit-progress-bar {
+  background-color: #c1f1fc;
+}
+
+.progress-blue::-webkit-progress-value {
+  background-color: rgba(52, 179, 243, 0.8);
+}
+
+.progress-blue::-moz-progress-bar {
+  background-color: #c1f1fc;
+}
+
+.progress-red {
+  width: 100%;
+  height: 1rem;
+  background-color: rgba(221, 0, 0, 0.6);
+  opacity: 0.5;
+}
+
+.progress-red::-webkit-progress-bar {
+  background-color: #ffc2e5;
+}
+
+.progress-red::-webkit-progress-value {
+  background-color: rgba(221, 0, 0, 0.6);
+}
+
+.progress-red::-moz-progress-bar {
+  background-color: #ffc2e5;
+}
+
+.progress-orange {
+  width: 100%;
+  height: 1rem;
+  background-color: rgba(240, 166, 28, 0.8);
+  opacity: 0.7;
+}
+
+.progress-orange::-webkit-progress-bar {
+  background-color: rgb(250, 227, 185);
+}
+
+.progress-orange::-webkit-progress-value {
+  background-color: rgba(240, 166, 28, 0.7);
+}
+
+.progress-orange::-moz-progress-bar {
+  background-color: rgb(250, 227, 185);
 }

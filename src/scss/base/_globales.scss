@@ -2,71 +2,76 @@
 @use 'base/mixins' as m;
 
 html {
-	font-size: calc(14px + (16 - 14) * ((100vw - 380px) / (1400 - 380)));
-	box-sizing: border-box;
+    font-size: calc(14px + (16 - 14) * ((100vw - 380px) / (1400 - 380)));
+    box-sizing: border-box;
 }
 
 *,
 *:before,
 *:after {
-	box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 body {
-	font-family: v.$fuente_principal;
+    font-family: v.$fuente_principal;
 }
 
 p {
-	color: v.$negro;
-	line-height: 1.7;
+    color: v.$negro;
+    line-height: 1.7;
 }
 
 a {
-	text-decoration: none !important;
+    text-decoration: none !important;
 }
 
 h1,
 h2,
 h3 {
-	margin: 1rem 0 2rem 0;
-	opacity: 0.4;
+    margin: 1rem 0 2rem 0;
+    opacity: 0.4;
 }
 
 h2 {
-	font-size: calc(25px + (32 - 25) * ((100vw - 380px) / (1400 - 380)));
+    font-size: calc(25px + (32 - 25) * ((100vw - 380px) / (1400 - 380)));
+}
+
+h3 {
+    font-size: calc(20px + (32 - 20) * ((100vw - 380px) / (1400 - 380)));
 }
 
 img {
-	min-width: 100%;
-	display: block;
-	height: auto;
-	width: 100%;
+    min-width: 100%;
+    display: block;
+    height: auto;
+    width: 100%;
 }
 
 .contenedor {
-	min-width: v.$minWidth;
-	overflow-y: hidden;
-	height: 100vh;
-	@include m.tablet {
-		display: flex;
-	}
+    min-width: v.$minWidth;
+    overflow-y: hidden;
+    height: 100vh;
+    @include m.tablet {
+        display: flex;
+    }
 }
 
 .display--none {
-	display: none !important; 
+    display: none !important;
 }
 
 .display--block {
-	display: block !important; 
+    display: block !important;
 }
 
 .h-100vh {
-	height: 100vh;
+    height: 100vh;
 }
 
-aside h2 {
-	text-align: center;
-	margin-bottom: 2rem;
+aside h2,
+aside h3 {
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 .fz-3 {
@@ -82,11 +87,23 @@ aside h2 {
 }
 
 .m-0 {
-	margin: 0;
+    margin: 0 !important;
+}
+
+.mb-05 {
+    margin-bottom: 0.5rem;
 }
 
 .mt-2 {
-	margin-top: 2rem;
+    margin-top: 2rem;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
 }
 
 .my-2 {
@@ -94,43 +111,47 @@ aside h2 {
 }
 
 hr {
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
 }
 
 .flex-responsive-row {
-	display: flex;
-	flex-flow: row wrap;
-	gap: 1rem;
+    display: flex;
+    flex-flow: row wrap;
+    // gap: 1rem;
 }
 
 .flex-responsive-column {
-	display: flex;
-	flex-flow: column wrap;
-	gap: 1rem;
+    display: flex;
+    flex-flow: column wrap;
+    gap: 1rem;
 }
 
 .justify-end {
-	justify-content: end;
+    justify-content: end;
 }
 
 .justify-center {
-	justify-content: center;
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
 }
 
 .justify-sa {
-	justify-content: space-around;
+    justify-content: space-around;
 }
 
 .align-end {
-	align-items: end;
+    align-items: end;
 }
 
 .text-center {
-	text-align: center;
+    text-align: center;
 }
 
 .text-end {
-	text-align: end;
+    text-align: end;
 }
 
 .center-x-y {
@@ -139,18 +160,68 @@ hr {
 }
 
 .contenedor-aside {
-	width: 100%;
+    width: 100%;
 }
 
 .contenedor-saldo {
-	> p {
-		font-weight: 500;
-		opacity: 0.8;
-		margin: 1rem;
+    > p {
+        font-weight: 500;
+        opacity: 0.8;
+        margin: 1rem;
 
-		> span {
-			letter-spacing: 0.2rem;
-			color: v.$rojo;
-		}
-	}
+        > span {
+            letter-spacing: 0.2rem;
+            color: v.$rojo;
+        }
+    }
+}
+
+.box-shadow {
+    box-shadow: 0.25rem 0.25rem 1rem rgba(0, 0, 0, 0.25);
+}
+
+.alert {
+    width: 90%;
+    margin-inline: auto;
+    padding: 2rem;
+    border-radius: 0.5rem;
+
+    h3 {
+        text-align: center;
+        margin: 0;
+        opacity: 0.6;
+    }
+}
+
+.alert-info {
+    background-color: v.$azulClaro;
+}
+
+/* ************* Spinner ************* */
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    width: 7vw;
+    height: 7vw;
+    min-width: 50px;
+    min-height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 0.5vw solid rgb(0, 0, 0, 0.4);
+    border-left-color: white;
+    border-radius: 50%;
+    animation: spinner 1s ease-out infinite;
+}
+
+.visibility-hiddent {
+    visibility: hidden;
 }

@@ -8,19 +8,38 @@ import {
     onSubtractSaldoDisponibleG,
     onLoadGastosRecurrentes,
     onIncrementSaldoUtilizadoG,
+    onLoadHistoricalBalanceByMonths,
 } from '../../store';
 import {
     findGastosRecurrentes,
-    findGastos,
+    findGastosByMonth,
     getSaldosG,
     saveGasto,
+    findGastosByYear,
 } from '../../services';
+import {
+    getCurrentDateByString,
+    getCurrentMonth,
+    getCurrentYear,
+} from '../useUtilities';
+import { useGastoUi } from '../ui';
+import { useGastoHistoricoPage } from '../pages/useGastoHistoricoPage';
 
 export const useSgahGastoStore = () => {
     const dispatch = useDispatch();
 
-    const { gastosRecurrentes, gastos, saldoDisponible, saldoUtilizado } =
-        useSelector((state) => state.sgahGasto);
+    const {
+        gastosRecurrentes,
+        gastos,
+        saldoDisponible,
+        saldoUtilizado,
+        gastoMensualPermitido,
+        ingresoMensual,
+        historicalBalanceByMonths,
+    } = useSelector((state) => state.sgahGasto);
+
+    const { handleShowLoaderGasto } = useGastoUi();
+    const { getSaldoGastadoByMonth } = useGastoHistoricoPage();
 
     const startLoadingGastosRecurrentes = async () => {
         console.log('categoria');
@@ -30,12 +49,21 @@ export const useSgahGastoStore = () => {
         dispatch(onLoadGastosRecurrentes(gastosRecurrentes));
     };
 
-    const startLoadingGastos = async () => {
-        console.log('startLoadingGastos');
+    const startLoadingGastosByCurrentMonth = async () => {
+        console.log('startLoadingGastosByCurrentMonth');
         const {
             data: { gastos },
-        } = await findGastos();
+        } = await findGastosByMonth(getCurrentYear(), getCurrentMonth());
         dispatch(onLoadGastos(gastos));
+    };
+
+    const startLoadingGastosByYear = async (year) => {
+        console.log('startLoadingGastosByYear');
+        handleShowLoaderGasto(true);
+        const {
+            data: { gastos },
+        } = await findGastosByYear(year);
+        dispatch(onLoadHistoricalBalanceByMonths(getSaldoGastadoByMonth(gastos)));
     };
 
     const startLoadingSaldoGasto = async () => {
@@ -98,30 +126,24 @@ export const useSgahGastoStore = () => {
         );
     };
 
-    const getCurrentDateByString = () => {
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-
-        return `${year}-${month}-${day}`;
-    };
-
     return {
         // * Propiedades
         gastosRecurrentes,
         gastos,
         saldoDisponibleG: saldoDisponible,
         saldoUtilizadoG: saldoUtilizado,
+        gastoMensualPermitido,
+        ingresoMensual,
+        historicalBalanceByMonths,
 
         // * Metodos
         startLoadingGastosRecurrentes,
-        startLoadingGastos,
+        startLoadingGastosByCurrentMonth,
         startLoadingSaldoGasto,
         startSavingGasto,
         startIncrementSaldoDisponibleG,
         startSubtractSaldoDisponibleG,
         getCategoriaGastoById,
-        getCurrentDateByString,
+        startLoadingGastosByYear,
     };
 };

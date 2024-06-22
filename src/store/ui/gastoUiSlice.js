@@ -5,6 +5,8 @@ export const gastoUiSlice = createSlice({
     initialState: {
         isShowFormGasto: false,
         hasPermissionEdit: true,
+        isShowLoaderGasto: false,
+        isHoverFlipCard: false,
     },
     reducers: {
         onToggleShowFormGasto: (state, { payload }) => {
@@ -13,8 +15,14 @@ export const gastoUiSlice = createSlice({
         onToggleHasPermissionEditG: (state, { payload }) => {
             state.hasPermissionEdit = payload;
         },
+        onToggleShowLoaderGasto: (state, { payload }) => {
+            state.isShowLoaderGasto = payload;
+        },
+        onToggleShowFlipCardGasto: (state, { payload }) => {
+            state.isHoverFlipCard = payload;
+        }
     },
 });
 
-export const { onToggleShowFormGasto, onToggleHasPermissionEditG } =
+export const { onToggleShowFormGasto, onToggleHasPermissionEditG, onToggleShowLoaderGasto, onToggleShowFlipCardGasto } =
     gastoUiSlice.actions;

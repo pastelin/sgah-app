@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { useSgahUi } from '../hooks';
 import {
+    SgahGastoHistoricoPage,
     SgahGastosPage,
     SgahIngresosPage,
     SgahInversionPage,
@@ -15,9 +16,11 @@ import {
 } from '../sgah/pages';
 import { SgahAhorrosPage } from '../sgah/pages/SgahAhorrosPage';
 import { useState } from 'react';
+import { ArrowDownSvg, ArrowRightSvg } from '../sgah/components';
 
 export const Navigation = () => {
     const [isOpenIcon, setIsOpenIcon] = useState(false);
+    const [isDropdownActive, setIsDropdownActive] = useState(false);
 
     const { styleHightNavbar, styleShowMenuNavbar, handleShowNavbar } =
         useSgahUi();
@@ -51,7 +54,6 @@ export const Navigation = () => {
                 </div>
 
                 <div className={`menu ${styleShowMenuNavbar}`}>
-                    {/* <h1 className="logo">SGAH</h1> */}
                     <h3 className="usuario">
                         <i className="fa-regular fa-user"></i>
                         &nbsp; Juan Pastelin
@@ -68,8 +70,8 @@ export const Navigation = () => {
                                 to="/detalle"
                                 onClick={handleOpenIcon}
                             >
+                                <ArrowRightSvg />
                                 Detalle
-                                <i className="fa-solid fa-angles-right"></i>
                             </NavLink>
                         </li>
                         <li>
@@ -82,8 +84,8 @@ export const Navigation = () => {
                                 to="/ingresos"
                                 onClick={handleOpenIcon}
                             >
+                                <ArrowRightSvg />
                                 Ingresos
-                                <i className="fa-solid fa-angles-right"></i>
                             </NavLink>
                         </li>
                         <li>
@@ -96,23 +98,60 @@ export const Navigation = () => {
                                 to="/ahorro"
                                 onClick={handleOpenIcon}
                             >
+                                <ArrowRightSvg />
                                 Ahorro
-                                <i className="fa-solid fa-angles-right"></i>
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink
-                                className={({ isActive }) =>
-                                    `nav-link anim-link ${
-                                        isActive ? 'link--active' : ''
-                                    }`
-                                }
-                                to="/gastos"
-                                onClick={handleOpenIcon}
+                            <div
+                                className={`dropdown ${
+                                    isDropdownActive ? 'dropdown--active' : ''
+                                }`}
+                                onMouseEnter={() => setIsDropdownActive(true)}
+                                onMouseLeave={() => setIsDropdownActive(false)}
                             >
-                                Gastos
-                                <i className="fa-solid fa-angles-right"></i>
-                            </NavLink>
+                                <NavLink
+                                    className={({ isActive }) =>
+                                        `nav-link anim-link ${
+                                            isActive ? 'link--active' : ''
+                                        }`
+                                    }
+                                    to="/gastos"
+                                >
+                                    <ArrowDownSvg />
+                                    Gastos
+                                </NavLink>
+
+                                <div
+                                    className={`dropdown-menu ${
+                                        isDropdownActive
+                                            ? 'dropdown-menu--active'
+                                            : ''
+                                    }`}
+                                >
+                                    <ul>
+                                        <li>
+                                            <NavLink
+                                                className="nav-link"
+                                                to="/gastos"
+                                                onClick={handleOpenIcon}
+                                            >
+                                                Detalle Mensual
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                className="nav-link"
+                                                to="gastoHistorico"
+                                    
+                                                onClick={handleOpenIcon}
+                                            >
+                                                Detalle Histórico
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
                         <li>
                             <NavLink
@@ -124,8 +163,8 @@ export const Navigation = () => {
                                 to="/prestamos"
                                 onClick={handleOpenIcon}
                             >
+                                <ArrowRightSvg />
                                 Prestamos
-                                <i className="fa-solid fa-angles-right"></i>
                             </NavLink>
                         </li>
                         <li>
@@ -138,8 +177,8 @@ export const Navigation = () => {
                                 to="/inversion"
                                 onClick={handleOpenIcon}
                             >
+                                <ArrowRightSvg />
                                 Inversión
-                                <i className="fa-solid fa-angles-right"></i>
                             </NavLink>
                         </li>
                     </ul>
@@ -156,6 +195,7 @@ export const Navigation = () => {
                 <Route path="/ingresos" element={<SgahIngresosPage />} />
                 <Route path="/ahorro" element={<SgahAhorrosPage />} />
                 <Route path="/gastos" element={<SgahGastosPage />} />
+                <Route path="/gastoHistorico" element={<SgahGastoHistoricoPage />} />
                 <Route path="/prestamos" element={<SgahPrestamosPage />} />
                 <Route path="/inversion" element={<SgahInversionPage />} />
 

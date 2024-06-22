@@ -1,10 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const ingresoMensual = 25000;
+
 export const sgahSliceGasto = createSlice({
     name: 'sgahGasto',
     initialState: {
-        gastosRecurrentes: [{}],
-        gastos: [{}],
+        ingresoMensual: ingresoMensual,
+        gastoMensualPermitido: ingresoMensual * 0.8,
+        gastosRecurrentes: [],
+        gastos: [],
+        historicalBalanceByMonths: [],
+        historicalBalanceByMonth: [],
         saldoDisponible: 0,
         saldoUtilizado: 0,
     },
@@ -20,6 +26,12 @@ export const sgahSliceGasto = createSlice({
         },
         onLoadSaldoDisponibleG: (state, { payload }) => {
             state.saldoDisponible = payload;
+        },
+        onLoadHistoricalBalanceByMonths: (state, { payload }) => {
+            state.historicalBalanceByMonths = payload;
+        },
+        onLoadHistoricalBalanceByMonth: (state, { payload }) => {
+            state.historicalBalanceByMonth = payload;
         },
         onIncrementSaldoDisponibleG: (state, { payload }) => {
             state.saldoDisponible += parseInt(payload);
@@ -45,4 +57,6 @@ export const {
     onIncrementSaldoDisponibleG,
     onSubtractSaldoDisponibleG,
     onIncrementSaldoUtilizadoG,
+    onLoadHistoricalBalanceByMonths,
+    onLoadHistoricalBalanceByMonth,
 } = sgahSliceGasto.actions;
