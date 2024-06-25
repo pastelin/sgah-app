@@ -37,7 +37,7 @@ export const useGastoForm = () => {
     } = useSgahGastoStore();
 
     useEffect(() => {
-        if (!gastosRecurrentes || gastosRecurrentes.length <= 1) {
+        if (gastosRecurrentes.length === 0) {
             startLoadingGastosRecurrentes();
         }
     }, []);

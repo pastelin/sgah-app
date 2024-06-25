@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
     getCurrentYearByString,
     useGastoUi,
@@ -13,12 +13,12 @@ import {
 export const SgahGastoHistoricoPage = () => {
     const {
         startLoadingGastosByYear,
+        startLoadingGastosRecurrentes,
         historicalBalanceByMonths,
         gastosRecurrentes,
     } = useSgahGastoStore();
     const [year, setYear] = useState(getCurrentYearByString());
     const { isShowLoaderGasto, handleShowFlipCard } = useGastoUi();
-    const { startLoadingGastosRecurrentes } = useSgahGastoStore();
 
     useEffect(() => {
         startLoadingGastosByYear(year);
@@ -30,14 +30,19 @@ export const SgahGastoHistoricoPage = () => {
         }
     }, []);
 
-    const onChangeYear = ({ target }) => {
-        setYear(target.value);
-        handleShowFlipCard(false);
-    };
+    // Utilicé useCallback para memoizar onChangeYear y evitar recreaciones innecesarias de esta función en cada renderizado.
+    const onChangeYear = useCallback(
+        ({ target }) => {
+            console.log('onChangeYear');
+            setYear(target.value);
+            handleShowFlipCard(false);
+        },
+        [handleShowFlipCard]
+    );
 
     return (
         <aside className="contenedor-aside">
-            <h3 className='text-center'>Detalle Histórico del año {year}</h3>
+            <h3 className="text-center">Histórico del año {year}</h3>
             <div className="text-center mb-1">
                 <select className="select" onChange={onChangeYear}>
                     <option value="2024">2024</option>
@@ -54,7 +59,7 @@ export const SgahGastoHistoricoPage = () => {
                 <WithoutInfoAlert />
             )}
 
-            {!isShowLoaderGasto || <LoaderComponent />}
+            {isShowLoaderGasto && <LoaderComponent />}
         </aside>
     );
 };

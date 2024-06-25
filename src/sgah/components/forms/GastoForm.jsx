@@ -6,6 +6,7 @@ import {
     useGastoUi,
 } from '../../../hooks';
 import { DetailSaldoParagraph } from '../paragraphs';
+import { useEffect } from 'react';
 
 const formData = {
     monto: '',
@@ -18,8 +19,15 @@ export const GastoForm = () => {
         gastosRecurrentes,
         saldoDisponibleG,
         startSavingGasto,
+        startLoadingGastosRecurrentes,
         getCategoriaGastoById,
     } = useSgahGastoStore();
+
+    useEffect(() => {
+        if (gastosRecurrentes.length === 0) {
+            startLoadingGastosRecurrentes();
+        }
+    }, []);
 
     const { styleDisplayNone, handleShowFormGasto } = useGastoUi();
 

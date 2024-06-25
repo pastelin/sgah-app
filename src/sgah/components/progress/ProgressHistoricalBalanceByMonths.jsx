@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useGastoUi, useSgahGastoStore } from '../../../hooks';
 import { Progress } from './Progress';
 
-export const ProgressHistoricalBalanceByMonths = ({ label, value, monthNumber, year }) => {
+export const ProgressHistoricalBalanceByMonths = ({
+    label,
+    value,
+    monthNumber,
+    year,
+}) => {
     const [progressColor, setProgressColor] = useState('');
     const { ingresoMensual, gastoMensualPermitido } = useSgahGastoStore();
     const { handleShowFlipCard, startLoadingGastosByHistoricalMonth } =
@@ -16,19 +22,25 @@ export const ProgressHistoricalBalanceByMonths = ({ label, value, monthNumber, y
         } else {
             setProgressColor('progress-blue');
         }
-    }, []);
+    }, [value, gastoMensualPermitido, ingresoMensual]);
 
-    const handleKeyDown = (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-            handleShowFlipCard(true);
-        }
-    };
+    const handleKeyDown = useCallback(
+        (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                handleShowFlipCard(true);
+            }
+        },
+        []
+    );
 
-    const onClickProgress = () => {
-        console.log('HI THERE', year, monthNumber);
+    const onClickProgress = useCallback(() => {
         handleShowFlipCard(true);
         startLoadingGastosByHistoricalMonth(year, monthNumber);
-    };
+    }, [
+        startLoadingGastosByHistoricalMonth,
+        year,
+        monthNumber,
+    ]);
 
     return (
         <button
@@ -44,4 +56,11 @@ export const ProgressHistoricalBalanceByMonths = ({ label, value, monthNumber, y
             />
         </button>
     );
+};
+
+ProgressHistoricalBalanceByMonths.propTypes = {
+    label: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    monthNumber: PropTypes.number.isRequired,
+    year: PropTypes.string.isRequired,
 };

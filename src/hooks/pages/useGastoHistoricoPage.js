@@ -1,8 +1,4 @@
-import { useGastoUi } from '../ui';
-
 export const useGastoHistoricoPage = () => {
-    const { handleShowLoaderGasto } = useGastoUi();
-
     const months = [
         'Enero',
         'Febrero',
@@ -18,51 +14,32 @@ export const useGastoHistoricoPage = () => {
         'Diciembre',
     ];
 
-    // TODO: validar el uso de new Date() para obtener el mes con UTC
-    const createNewArray = (gastos) => {
-        return gastos.map((gasto) => {
-            return {
-                month: gasto.fechaCreacion.slice(5, 7),
-                saldo: gasto.monto,
-            };
+    const getHistoricalBalanceByMonths = (gastos) => {
+        console.log('getHistoricalBalanceByMonths');
+
+        let saldoGastadoByMonth = new Array(12).fill(0);
+        let saldoGastadoByMonthDetails = [];
+
+        gastos.forEach((gasto) => {
+            const monthIndex =
+                parseInt(gasto.fechaCreacion.slice(5, 7), 10) - 1;
+            saldoGastadoByMonth[monthIndex] += gasto.monto;
         });
-    };
 
-    const getSaldoGastadoByMonth = (gastos) => {
-        console.log('getSaldoGastadoByMonth');
-
-        let saldoGastadoByMonth = [];
-        let counter = 1;
-
-        let newGastos = createNewArray(gastos);
-        while (counter <= 12) {
-            let getGastosByOneMonth = newGastos.filter(
-                (gasto) => gasto.month == counter
-            );
-
-            // console.log('getGastosByOneMonth', getGastosByOneMonth);
-
-            if (getGastosByOneMonth.length >= 1) {
-                let getSaldoGastado = getGastosByOneMonth.reduce(
-                    (acc, gasto) => acc + gasto.saldo,
-                    0
-                );
-
-                saldoGastadoByMonth.push({
-                    month: months[counter - 1],
-                    saldoGastado: getSaldoGastado,
-                    monthNumber: counter,
+        saldoGastadoByMonth.forEach((saldo, index) => {
+            if (saldo > 0) {
+                saldoGastadoByMonthDetails.push({
+                    month: months[index],
+                    saldoGastado: saldo,
+                    monthNumber: index + 1,
                 });
             }
+        });
 
-            counter++;
-        }
-
-        handleShowLoaderGasto(false);
-        return saldoGastadoByMonth;
+        return saldoGastadoByMonthDetails;
     };
 
     return {
-        getSaldoGastadoByMonth,
+        getHistoricalBalanceByMonths,
     };
 };

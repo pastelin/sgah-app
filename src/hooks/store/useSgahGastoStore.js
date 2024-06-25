@@ -39,10 +39,10 @@ export const useSgahGastoStore = () => {
     } = useSelector((state) => state.sgahGasto);
 
     const { handleShowLoaderGasto } = useGastoUi();
-    const { getSaldoGastadoByMonth } = useGastoHistoricoPage();
+    const { getHistoricalBalanceByMonths } = useGastoHistoricoPage();
 
     const startLoadingGastosRecurrentes = async () => {
-        console.log('categoria');
+        console.log('startLoadingGastosRecurrentes');
         const {
             data: { gastosRecurrentes },
         } = await findGastosRecurrentes();
@@ -60,10 +60,18 @@ export const useSgahGastoStore = () => {
     const startLoadingGastosByYear = async (year) => {
         console.log('startLoadingGastosByYear');
         handleShowLoaderGasto(true);
-        const {
-            data: { gastos },
-        } = await findGastosByYear(year);
-        dispatch(onLoadHistoricalBalanceByMonths(getSaldoGastadoByMonth(gastos)));
+
+        try {
+            const {
+                data: { gastos },
+            } = await findGastosByYear(year);
+            dispatch(
+                onLoadHistoricalBalanceByMonths(getHistoricalBalanceByMonths(gastos))
+            );
+        } catch (error) {
+            console.log(error);
+        }
+        handleShowLoaderGasto(false);
     };
 
     const startLoadingSaldoGasto = async () => {

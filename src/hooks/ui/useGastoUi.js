@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import {
     onToggleHasPermissionEditG,
     onToggleShowFlipCardGasto,
@@ -61,45 +61,58 @@ export const useGastoUi = () => {
     const getHistoricalBalanceByMonth = (gastos) => {
         console.log('getHistoricalBalanceByMonth');
 
-        let historicalBalanceByMonth = [];
-
-        for (let i = 0; i < gastosRecurrentes.length; i++) {
-            let cdGasto = gastosRecurrentes[i].cdGasto;
-
-            let getGastoByCategoria = gastos.filter(
-                (gasto) =>
-                    gasto.gastoRecurrente.cdGasto != 11 &&
-                    gasto.gastoRecurrente.cdGasto === cdGasto
-            );
-
-            if (getGastoByCategoria.length >= 1) {
-                let saldoGastado = getGastoByCategoria.reduce(
-                    (acc, gasto) => acc + gasto.monto,
-                    0
-                );
-
-                historicalBalanceByMonth.push({
-                    categoria: gastosRecurrentes[i].nbGasto,
-                    saldoGastado,
-                    tipoMovimiento:
-                        getGastoByCategoria[0].tipoMovimiento.cdTipo,
-                });
+        // Agrupar gastos por cdGasto, excluyendo el cdGasto 11 y sumando montos
+        const gastosAgrupados = gastos.reduce((acc, gasto) => {
+            if (gasto.gastoRecurrente.cdGasto !== 11) {
+                const { cdGasto } = gasto.gastoRecurrente;
+                if (!acc.has(cdGasto)) {
+                    acc.set(cdGasto, {
+                        saldoGastado: 0,
+                        tipoMovimiento: gasto.tipoMovimiento.cdTipo,
+                    });
+                }
+                acc.get(cdGasto).saldoGastado += gasto.monto;
             }
-        }
+            return acc;
+        }, new Map());
+
+        // Construir el resultado final basado en gastosRecurrentes y los gastos agrupados
+        let historicalBalanceByMonth = gastosRecurrentes.reduce(
+            (acc, gastoRecurrente) => {
+                if (gastosAgrupados.has(gastoRecurrente.cdGasto)) {
+                    const gastoAgrupado = gastosAgrupados.get(
+                        gastoRecurrente.cdGasto
+                    );
+                    acc.push({
+                        categoria: gastoRecurrente.nbGasto,
+                        saldoGastado: gastoAgrupado.saldoGastado,
+                        tipoMovimiento: gastoAgrupado.tipoMovimiento,
+                    });
+                }
+                return acc;
+            },
+            []
+        );
 
         return historicalBalanceByMonth;
     };
 
     const calcularSaldoGastado = (gastos) => {
-        return gastos
-            .filter((gasto) => gasto.tipoMovimiento === 2)
-            .reduce((acc, gasto) => acc + gasto.saldoGastado, 0);
+        return gastos.reduce((acc, gasto) => {
+            if (gasto.tipoMovimiento === 2) {
+                acc += gasto.saldoGastado;
+            }
+            return acc;
+        }, 0);
     };
 
     const calcularIngresos = (gastos) => {
-        return gastos
-            .filter((gasto) => gasto.tipoMovimiento === 1)
-            .reduce((acc, gasto) => acc + gasto.saldoGastado, 0);
+        return gastos.reduce((acc, gasto) => {
+            if (gasto.tipoMovimiento === 1) {
+                acc += gasto.saldoGastado;
+            }
+            return acc;
+        }, 0);
     };
 
     return {

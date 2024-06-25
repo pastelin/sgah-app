@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const ingresoMensual = 25000;
+const ingresoMensual = 26528;
 
 export const sgahSliceGasto = createSlice({
     name: 'sgahGasto',

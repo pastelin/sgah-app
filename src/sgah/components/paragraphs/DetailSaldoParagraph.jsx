@@ -1,9 +1,12 @@
-import { formatCurrency } from "../../../hooks";
+import React from 'react';
+import { formatCurrency } from '../../../hooks';
 
-export const DetailSaldoParagraph = ({ label, saldo }) => {
+const DetailSaldoParagraph = React.memo(({ label, saldo }) => {
     return (
         <p>
             {label}: <span>{formatCurrency(saldo)}</span>
         </p>
     );
-};
+});
+
+export { DetailSaldoParagraph };

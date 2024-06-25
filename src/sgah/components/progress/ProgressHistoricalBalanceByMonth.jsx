@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { Progress } from './Progress';
 
-export const ProgressHistoricalBalanceByMonth = ({
-    label,
-    value,
-    tipoMovimiento,
-}) => {
-    const [progressColor, setProgressColor] = useState('');
+export const ProgressHistoricalBalanceByMonth = React.memo(
+    ({ label, value, tipoMovimiento }) => {
+        const progressColor = useMemo(() => {
+            return tipoMovimiento === 1 ? 'progress-blue' : 'progress-red';
+        }, [tipoMovimiento]);
 
-    useEffect(() => {
-        if (tipoMovimiento === 1) {
-            setProgressColor('progress-blue');
-        } else {
-            setProgressColor('progress-red');
-        }
-    }, []);
+        return (
+            <button className="progress">
+                <Progress
+                    label={label}
+                    value={value}
+                    progressColor={progressColor}
+                    progressMax={5000}
+                />
+            </button>
+        );
+    }
+);
 
-    return (
-        <button className="progress">
-            <Progress
-                label={label}
-                value={value}
-                progressColor={progressColor}
-                progressMax={5000}
-            />
-        </button>
-    );
+ProgressHistoricalBalanceByMonth.propTypes = {
+    label: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    tipoMovimiento: PropTypes.number.isRequired,
 };
