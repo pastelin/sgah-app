@@ -1,36 +1,48 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSgahDetalleStore } from '../../hooks';
+import { PropTypes } from 'prop-types';
+
+const BalanceDetail = React.memo(({ etiqueta, monto }) => (
+    <div className="balance-detail">
+        <p>{etiqueta}</p>
+        <p>{monto}</p>
+    </div>
+));
 
 export const SgahResumenPage = () => {
-    const {
-        montoAhorro,
-        montoGasto,
-        montoInversion,
-        montoPrestamo,
-        startDetalleResumen,
-    } = useSgahDetalleStore();
+    const { startDetalleResumen, resumen } = useSgahDetalleStore();
+
+    const { montoAhorro, montoGasto, montoInversion, montoPrestamo } = resumen;
 
     useEffect(() => {
-        startDetalleResumen();
+        if (!resumen || Object.keys(resumen).length === 0) {
+            startDetalleResumen();
+        }
     }, []);
 
     return (
-        <aside className="detalle flex-responsive-column center-x-y">
-            <h2>Detalle de Montos</h2>
-            <div className="contenedor-detalle">
-                <div className="detalle-label">
-                    <p>Ahorro Total: </p>
-                    <p>Monto para gastos: </p>
-                    <p>Monto prestado: </p>
-                    <p>Inversión total:</p>
-                </div>
-                <div className="montos">
-                    <p>{montoAhorro}</p>
-                    <p>{montoGasto}</p>
-                    <p>{montoPrestamo}</p>
-                    <p>{montoInversion}</p>
-                </div>
+        <aside className="detail flex-responsive-column center-x-y">
+            <h2>Detalle de Saldos</h2>
+            <div className="balance-container">
+                <BalanceDetail etiqueta="Saldo Ahorrado" monto={montoAhorro} />
+                <BalanceDetail
+                    etiqueta="Saldo para gastos"
+                    monto={montoGasto}
+                />
+                <BalanceDetail
+                    etiqueta="Saldo prestado"
+                    monto={montoPrestamo}
+                />
+                <BalanceDetail
+                    etiqueta="Saldo Invertido"
+                    monto={montoInversion}
+                />
             </div>
         </aside>
     );
+};
+
+BalanceDetail.propTypes = {
+    etiqueta: PropTypes.string.isRequired,
+    monto: PropTypes.string,
 };

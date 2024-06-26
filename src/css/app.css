@@ -863,47 +863,30 @@ svg {
   pointer-events: auto;
 }
 
-.detalle {
+.detail {
   width: 100%;
   margin-top: 2rem;
 }
-.detalle h2 {
-  margin-bottom: 4rem;
-}
 @media (min-width: 768px) {
-  .detalle {
+  .detail {
     margin-top: 0;
   }
 }
 
-.contenedor-detalle {
+.balance-container {
+  width: 90%;
+  max-width: 600px;
+}
+.balance-container .balance-detail {
   display: flex;
-  justify-content: space-around;
-  min-width: 360px;
-  width: 80vw;
-  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 }
-@media (min-width: 768px) {
-  .contenedor-detalle {
-    min-width: 450px;
-    width: 50vw;
-  }
-}
-.contenedor-detalle .detalle-label p,
-.contenedor-detalle .montos p {
+.balance-container .balance-detail p {
   font-weight: 700;
   opacity: 0.4;
-  margin-top: 0;
-  margin-bottom: 5rem;
   letter-spacing: 0.15rem;
   font-size: calc(15px + 9 * (100vw - 380px) / 1100);
-}
-.contenedor-detalle .detalle-label p:last-of-type,
-.contenedor-detalle .montos p:last-of-type {
-  margin-bottom: 0;
-}
-.contenedor-detalle .detalle-label {
-  text-align: right;
 }
 
 .overlay {

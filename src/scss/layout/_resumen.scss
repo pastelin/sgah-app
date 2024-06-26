@@ -1,47 +1,30 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
-.detalle {
-	width: 100%;
+.detail {
+    width: 100%;
     margin-top: 2rem;
-	h2 {
-        margin-bottom: 4rem;
-	}
 
     @include m.tablet {
         margin-top: 0;
-	}
+    }
 }
 
-.contenedor-detalle {
-    display: flex;
-	justify-content: space-around;
-	min-width: v.$minWidth;
-	width: 80vw;
-	align-items: center;
-    
-	@include m.tablet {
-        min-width: 450px;
-		width: 50vw;
-	}
-    
-	.detalle-label,
-	.montos {
+.balance-container {
+    width: 90%;
+    max-width: 600px;
+
+    .balance-detail {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2rem;
         p {
             font-weight: 700;
             opacity: 0.4;
-			margin-top: 0;
-			margin-bottom: 5rem;
-			letter-spacing: 0.15rem;
-			font-size: calc(15px + (24 - 15) * ((100vw - 380px) / (1400 - 300)));
-
-			&:last-of-type {
-				margin-bottom: 0;
-			}
-		}
-	}
-
-	.detalle-label {
-		text-align: right;
-	}
+            letter-spacing: 0.15rem;
+            font-size: calc(
+                15px + (24 - 15) * ((100vw - 380px) / (1400 - 300))
+            );
+        }
+    }
 }
