@@ -4,6 +4,15 @@ import { useIngresoPage } from '../../hooks/pages/useIngresoPage';
 import { ToggleCardButton } from '../components';
 import { AhorroForm } from '../components/forms/AhorroForm';
 import { IngresoGForm } from '../components/forms/';
+import PropTypes from 'prop-types';
+
+const CardSection = ({ label, title, FormComponent, styleFront, onToggle }) => (
+    <section className={`contenedor-form flip-face ${styleFront}`}>
+        <ToggleCardButton label={label} onToggleFlipCard={onToggle} />
+        <h3>{title}</h3>
+        <FormComponent />
+    </section>
+);
 
 export const SgahIngresosPage = () => {
     const {
@@ -50,31 +59,34 @@ export const SgahIngresosPage = () => {
                 </p>
             </div>
 
-            {!ingresos || (
+            {ingresos && (
                 <section
                     className={`contenedor-forms-ingresos flip-card ${styleFlipCardHover}`}
                 >
-                    <section className="contenedor-form flip-face flip-front">
-                        <ToggleCardButton
-                            label="Ahorro"
-                            onToggleFlipCard={onToggleFlipCard}
-                        />
-
-                        <h3>Gastos</h3>
-
-                        <IngresoGForm />
-                    </section>
-
-                    <section className="contenedor-form flip-face flip-back">
-                        <ToggleCardButton
-                            label="Gasto"
-                            onToggleFlipCard={onToggleFlipCard}
-                        />
-                        <h3>Ahorro</h3>
-                        <AhorroForm />
-                    </section>
+                    <CardSection
+                        label="Ahorro"
+                        title="Gastos"
+                        FormComponent={IngresoGForm}
+                        styleFront="flip-front"
+                        onToggle={onToggleFlipCard}
+                    />
+                    <CardSection
+                        label="Gasto"
+                        title="Ahorro"
+                        FormComponent={AhorroForm}
+                        styleFront="flip-back"
+                        onToggle={onToggleFlipCard}
+                    />
                 </section>
             )}
         </aside>
     );
+};
+
+CardSection.propTypes = {
+    label: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    FormComponent: PropTypes.elementType.isRequired,
+    styleFront: PropTypes.string.isRequired,
+    onToggle: PropTypes.func.isRequired,
 };

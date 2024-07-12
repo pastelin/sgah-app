@@ -7,32 +7,33 @@ export const useIngresoPage = () => {
         availablePercentage,
         hasPermissionEdit,
         saldoUtilizado,
-        startUpdatingSaldoUtilizado,
         handleHasPermissionEdit,
-        startUpdatingAvailablePercentage,
         handleResetInitialState,
-        startUpdatingIngresos,
+        updateState,
     } = useSgahIngresoStore();
 
     const [isHoverFlipCard, setIsHoverFlipCard] = useState(false);
 
+    // Toggle the flip card hover state
     const onToggleFlipCard = () => {
         setIsHoverFlipCard(!isHoverFlipCard);
     };
 
+    // Handle input change for ingresos, with validation
     const onInputChangeIngresos = ({ target: { value } }) => {
         let parseValue = !value ? '' : parseInt(value);
-        startUpdatingIngresos(parseValue);
+        if (!isNaN(parseValue)) {
+            updateState('ingresos', parseValue);
+        }
     };
 
+    // Memoize the class name for flip card hover effect
     const styleFlipCardHover = useMemo(() => {
         return isHoverFlipCard ? 'flip-card-hover' : '';
     }, [isHoverFlipCard]);
 
     return {
         handleHasPermissionEdit,
-        startUpdatingSaldoUtilizado,
-        startUpdatingAvailablePercentage,
         hasPermissionEdit,
         availablePercentage,
         onInputChangeIngresos,
@@ -41,5 +42,6 @@ export const useIngresoPage = () => {
         ingresos,
         saldoUtilizado,
         styleFlipCardHover,
+        updateState,
     };
 };

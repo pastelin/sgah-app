@@ -1,6 +1,7 @@
 import { useGastoForm } from '../../../hooks';
+import React from 'react';
 
-export const IngresoGForm = () => {
+export const IngresoGForm = React.memo(() => {
     const {
         porcentaje,
         cdGasto,
@@ -64,8 +65,8 @@ export const IngresoGForm = () => {
                 ></textarea>
             </div>
 
-            {!hasPermissionEditG || (
-                <div className="text-center mt-2">
+            {hasPermissionEditG && (
+                <div className="text-center mt-1">
                     <button className="btn btn-submit" type="submit">
                         Guardar Gasto
                     </button>
@@ -73,4 +74,4 @@ export const IngresoGForm = () => {
             )}
         </form>
     );
-};
+});

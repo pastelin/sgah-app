@@ -25,9 +25,8 @@ export const useGastoForm = () => {
         ingresos,
         availablePercentage,
         hasPermissionEdit,
-        startUpdatingSaldoUtilizado,
-        startUpdatingAvailablePercentage,
         handleHasPermissionEdit,
+        updateState,
     } = useIngresoPage();
 
     const {
@@ -77,10 +76,10 @@ export const useGastoForm = () => {
         usePrintMessage(code, message);
 
         if (code === 200 || code === 201) {
-            startUpdatingSaldoUtilizado(ingresoGasto);
-            startUpdatingAvailablePercentage(porcentaje);
-            !hasPermissionEdit || handleHasPermissionEdit(false);
-            !hasPermissionEditG || handleHasPermissionEditG(false);
+            updateState('saldoUtilizado', ingresoGasto);
+            updateState('availablePercentage', porcentaje);
+            hasPermissionEdit && handleHasPermissionEdit(false);
+            hasPermissionEditG && handleHasPermissionEditG(false);
         }
     };
 

@@ -27,9 +27,8 @@ export const useAhorroForm = () => {
         ingresos,
         availablePercentage,
         hasPermissionEdit,
-        startUpdatingSaldoUtilizado,
-        startUpdatingAvailablePercentage,
         handleHasPermissionEdit,
+        updateState,
     } = useSgahIngresoStore();
 
     const { startSavingAhorro } = useSgahAhorroStore();
@@ -63,10 +62,10 @@ export const useAhorroForm = () => {
         usePrintMessage(code, message);
 
         if (code === 200 || code === 201) {
-            startUpdatingSaldoUtilizado(ingresoAhorro);
-            startUpdatingAvailablePercentage(porcentaje);
-            !hasPermissionEdit || handleHasPermissionEdit(false);
-            !hasPermissionEditA || handleHasPermissionEditA(false);
+            updateState('saldoUtilizado', ingresoAhorro);
+            updateState('availablePercentage', porcentaje);
+            hasPermissionEdit && handleHasPermissionEdit(false);
+            hasPermissionEditA && handleHasPermissionEditA(false);
         }
     };
 
