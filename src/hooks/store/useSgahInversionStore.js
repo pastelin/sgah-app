@@ -20,12 +20,16 @@ import {
     saveInversion,
     updateInversion,
 } from '../../services';
+import { useSgahUi } from '../ui';
+import { usePrintMessage } from '../messages';
 
 export const useSgahInversionStore = () => {
     const dispatch = useDispatch();
 
     const { saldoInvertido, inversiones, inversion, productosFinancieros } =
         useSelector((state) => state.sgahInversion);
+
+    const { handleShowLoader } = useSgahUi();
 
     const {
         startLoadingSaldoDisponibleA,
@@ -44,10 +48,18 @@ export const useSgahInversionStore = () => {
 
     const startLoadingInversiones = async () => {
         console.log('startLoadingInversiones');
-        const {
-            data: { inversiones },
-        } = await findAllI();
-        dispatch(onLoadInversiones(inversiones));
+        handleShowLoader(true);
+
+        try {
+            const {
+                data: { inversiones },
+            } = await findAllI();
+            dispatch(onLoadInversiones(inversiones));
+        } catch (error) {
+            usePrintMessage(error.code);
+        }
+
+        handleShowLoader(false);
     };
 
     const startLoadingProductosFinancieros = async () => {

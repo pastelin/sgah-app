@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
-import { useSgahInversionStore } from '../../hooks';
+import { useSgahInversionStore, useSgahUi } from '../../hooks';
 import {
     FormNewInversion,
     TableSgahInversion,
     FormUpdateInversion,
     DetailSaldoParagraph,
+    LoaderComponent,
+    WithoutInfoAlert,
 } from '../components';
 import { useInversionUi } from '../../hooks/ui/useInversionUi';
 
@@ -13,7 +15,10 @@ export const SgahInversionPage = () => {
         saldoInvertido,
         startLoadingSaldoInvertido,
         startLoadingInversiones,
+        inversiones,
     } = useSgahInversionStore();
+
+    const { isShowLoader } = useSgahUi();
 
     const { handleShowNewFormInversion } = useInversionUi();
 
@@ -43,7 +48,13 @@ export const SgahInversionPage = () => {
                     </button>
                 </div>
 
-                <TableSgahInversion />
+                {inversiones.length > 0 ? (
+                    <TableSgahInversion />
+                ) : (
+                    <WithoutInfoAlert />
+                )}
+
+                {isShowLoader && <LoaderComponent />}
             </aside>
 
             <FormNewInversion />

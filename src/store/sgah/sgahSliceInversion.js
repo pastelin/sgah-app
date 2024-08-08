@@ -4,7 +4,7 @@ export const sgahSliceInversion = createSlice({
 	name: 'sgahInversion',
 	initialState: {
 		saldoInvertido: 0,
-		inversiones: [{}],
+		inversiones: [],
 		inversion: {},
 		productosFinancieros: [],
 	},
