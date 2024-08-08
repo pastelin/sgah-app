@@ -4,7 +4,6 @@ import {
     onToggleHasPermissionEditG,
     onToggleShowFlipCardGasto,
     onToggleShowFormGasto,
-    onToggleShowLoaderGasto,
 } from '../../store/ui/gastoUiSlice';
 import { findGastosByMonth } from '../../services';
 import { onLoadHistoricalBalanceByMonth } from '../../store';
@@ -14,12 +13,9 @@ export const useGastoUi = () => {
         (state) => state.sgahGasto
     );
 
-    const {
-        isShowFormGasto,
-        hasPermissionEdit,
-        isShowLoaderGasto,
-        isHoverFlipCard,
-    } = useSelector((state) => state.gastoUi);
+    const { isShowFormGasto, hasPermissionEdit, isHoverFlipCard } = useSelector(
+        (state) => state.gastoUi
+    );
 
     const dispatch = useDispatch();
 
@@ -33,10 +29,6 @@ export const useGastoUi = () => {
 
     const handleHasPermissionEdit = (flag) => {
         dispatch(onToggleHasPermissionEditG(flag));
-    };
-
-    const handleShowLoaderGasto = (flag) => {
-        dispatch(onToggleShowLoaderGasto(flag));
     };
 
     const styleFlipCardHover = useMemo(() => {
@@ -119,7 +111,6 @@ export const useGastoUi = () => {
         // * Propiedades
         isShowFormGasto,
         hasPermissionEdit,
-        isShowLoaderGasto,
         styleFlipCardHover,
         historicalBalanceByMonth,
         // * Metodos
@@ -127,7 +118,6 @@ export const useGastoUi = () => {
         isHoverFlipCard,
         handleHasPermissionEdit,
         handleShowFormGasto,
-        handleShowLoaderGasto,
         handleShowFlipCard,
         startLoadingGastosByHistoricalMonth,
         calcularSaldoGastado,

@@ -22,8 +22,9 @@ import {
     getCurrentMonth,
     getCurrentYear,
 } from '../useUtilities';
-import { useGastoUi } from '../ui';
+import { useSgahUi } from '../ui';
 import { useGastoHistoricoPage } from '../pages/useGastoHistoricoPage';
+import { usePrintMessage } from '../messages';
 
 export const useSgahGastoStore = () => {
     const dispatch = useDispatch();
@@ -38,15 +39,23 @@ export const useSgahGastoStore = () => {
         historicalBalanceByMonths,
     } = useSelector((state) => state.sgahGasto);
 
-    const { handleShowLoaderGasto } = useGastoUi();
     const { getHistoricalBalanceByMonths } = useGastoHistoricoPage();
+    const { handleShowLoader } = useSgahUi();
 
     const startLoadingGastosRecurrentes = async () => {
         console.log('startLoadingGastosRecurrentes');
-        const {
-            data: { gastosRecurrentes },
-        } = await findGastosRecurrentes();
-        dispatch(onLoadGastosRecurrentes(gastosRecurrentes));
+        handleShowLoader(true);
+
+        try {
+            const {
+                data: { gastosRecurrentes },
+            } = await findGastosRecurrentes();
+            dispatch(onLoadGastosRecurrentes(gastosRecurrentes));
+        } catch (error) {
+            usePrintMessage(error.code);
+        }
+
+        handleShowLoader(false);
     };
 
     const startLoadingGastosByCurrentMonth = async () => {
@@ -59,19 +68,21 @@ export const useSgahGastoStore = () => {
 
     const startLoadingGastosByYear = async (year) => {
         console.log('startLoadingGastosByYear');
-        handleShowLoaderGasto(true);
+        handleShowLoader(true);
 
         try {
             const {
                 data: { gastos },
             } = await findGastosByYear(year);
             dispatch(
-                onLoadHistoricalBalanceByMonths(getHistoricalBalanceByMonths(gastos))
+                onLoadHistoricalBalanceByMonths(
+                    getHistoricalBalanceByMonths(gastos)
+                )
             );
         } catch (error) {
             console.log(error);
         }
-        handleShowLoaderGasto(false);
+        handleShowLoader(false);
     };
 
     const startLoadingSaldoGasto = async () => {
@@ -105,9 +116,9 @@ export const useSgahGastoStore = () => {
                 message: data.mensaje,
             };
         } catch (error) {
+            usePrintMessage(error.code, error?.response?.data?.mensaje);
             return {
-                code: error.code,
-                message: error?.response?.data?.mensaje,
+                code: error.code
             };
         }
     };

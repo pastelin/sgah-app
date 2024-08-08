@@ -3,7 +3,6 @@ import { useIngresoPage } from '../pages/useIngresoPage';
 import { useSgahGastoStore } from '../store';
 import { useGastoUi } from '../ui';
 import { useForm } from './useForm';
-import { usePrintMessage } from '../messages/usePrintMessage';
 import Swal from 'sweetalert2';
 
 const formDataGasto = {
@@ -32,14 +31,7 @@ export const useGastoForm = () => {
     const {
         startSavingGasto,
         gastosRecurrentes,
-        startLoadingGastosRecurrentes,
     } = useSgahGastoStore();
-
-    useEffect(() => {
-        if (gastosRecurrentes.length === 0) {
-            startLoadingGastosRecurrentes();
-        }
-    }, []);
 
     useEffect(() => {
         if (availablePercentage === 0) {
@@ -61,7 +53,7 @@ export const useGastoForm = () => {
         }
 
         const ingresoGasto = ingresos * (porcentaje / 100);
-        const { code, message } = await startSavingGasto({
+        const { code } = await startSavingGasto({
             monto: ingresoGasto,
             gastoRecurrente: {
                 cdGasto,
@@ -72,8 +64,6 @@ export const useGastoForm = () => {
                 nbTipo: 'Ingreso',
             },
         });
-
-        usePrintMessage(code, message);
 
         if (code === 200 || code === 201) {
             updateState('saldoUtilizado', ingresoGasto);

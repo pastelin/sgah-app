@@ -1,15 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const uiSlice = createSlice({
-	name: 'ui',
-	initialState: {
-		isShowNavbar: false,
-	},
-	reducers: {
-		onToggleShowNabvar: (state, { payload }) => {
-			state.isShowNavbar = payload;
-		},
-	},
+    name: 'ui',
+    
+    initialState: {
+        isShowNavbar: false,
+		isShowLoader: false,
+    },
+    reducers: {
+        onToggleShowNabvar: (state, { payload }) => {
+            state.isShowNavbar = payload;
+        },
+        onToggleShowLoader: (state, { payload }) => {
+            state.isShowLoader = payload;
+        },
+    },
 });
 
-export const { onToggleShowNabvar } = uiSlice.actions;
+export const { onToggleShowNabvar, onToggleShowLoader } = uiSlice.actions;

@@ -3,6 +3,7 @@ import {
     getCurrentYearByString,
     useGastoUi,
     useSgahGastoStore,
+    useSgahUi,
 } from '../../hooks';
 import {
     ProgressGastoContainer,
@@ -18,7 +19,8 @@ export const SgahGastoHistoricoPage = () => {
         gastosRecurrentes,
     } = useSgahGastoStore();
     const [year, setYear] = useState(getCurrentYearByString());
-    const { isShowLoaderGasto, handleShowFlipCard } = useGastoUi();
+    const { handleShowFlipCard } = useGastoUi();
+    const {isShowLoader} = useSgahUi();
 
     useEffect(() => {
         startLoadingGastosByYear(year);
@@ -59,7 +61,7 @@ export const SgahGastoHistoricoPage = () => {
                 <WithoutInfoAlert />
             )}
 
-            {isShowLoaderGasto && <LoaderComponent />}
+            {isShowLoader && <LoaderComponent />}
         </aside>
     );
 };

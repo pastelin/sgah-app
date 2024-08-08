@@ -11,8 +11,8 @@ export const usePrintMessage = (code, message) => {
             break;
         case 'ERR_NETWORK':
             Swal.fire(
-                'Error en el sistema',
-                'Favor de reintentar en 5 minutos',
+                'Conéctate a Internet',
+                'No estás conectado. Compruebe la conexión.',
                 'error'
             );
             break;

@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
-import { formatCurrency } from '../../hooks';
+import { formatCurrency, useSgahGastoStore, useSgahUi } from '../../hooks';
 import { useIngresoPage } from '../../hooks/pages/useIngresoPage';
-import { ToggleCardButton } from '../components';
+import {
+    LoaderComponent,
+    ToggleCardButton,
+    WithoutInfoAlert,
+} from '../components';
 import { AhorroForm } from '../components/forms/AhorroForm';
 import { IngresoGForm } from '../components/forms/';
 import PropTypes from 'prop-types';
@@ -25,6 +29,17 @@ export const SgahIngresosPage = () => {
         styleFlipCardHover,
         handleResetInitialState,
     } = useIngresoPage();
+
+    const { gastosRecurrentes, startLoadingGastosRecurrentes } =
+        useSgahGastoStore();
+
+    const { isShowLoader } = useSgahUi();
+
+    useEffect(() => {
+        if (gastosRecurrentes.length === 0) {
+            startLoadingGastosRecurrentes();
+        }
+    }, []);
 
     useEffect(() => {
         if (availablePercentage === 0) {
@@ -59,7 +74,7 @@ export const SgahIngresosPage = () => {
                 </p>
             </div>
 
-            {ingresos && (
+            {ingresos && gastosRecurrentes.length > 0 ? (
                 <section
                     className={`contenedor-forms-ingresos flip-card ${styleFlipCardHover}`}
                 >
@@ -78,7 +93,11 @@ export const SgahIngresosPage = () => {
                         onToggle={onToggleFlipCard}
                     />
                 </section>
+            ) : (
+                <WithoutInfoAlert />
             )}
+
+            {isShowLoader && <LoaderComponent />}
         </aside>
     );
 };

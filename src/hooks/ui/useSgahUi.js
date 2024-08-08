@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { onToggleShowNabvar } from '../../store';
+import { onToggleShowLoader, onToggleShowNabvar } from '../../store';
 import { useMemo } from 'react';
 
 export const useSgahUi = () => {
-    const { isShowNavbar } = useSelector((state) => state.ui);
+    const { isShowNavbar, isShowLoader } = useSelector((state) => state.ui);
 
     const dispatch = useDispatch();
 
@@ -22,12 +22,18 @@ export const useSgahUi = () => {
         return isShowNavbar ? 'display--block' : '';
     }, [isShowNavbar]);
 
+    const handleShowLoader = (flag) => {
+        dispatch(onToggleShowLoader(flag));
+    };
+
     return {
         //* Propiedades
         styleHightNavbar,
         styleShowMenuNavbar,
+        isShowLoader,
 
         //* Metodos
         handleShowNavbar,
+        handleShowLoader,
     };
 };
