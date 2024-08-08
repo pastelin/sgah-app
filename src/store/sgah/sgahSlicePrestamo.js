@@ -4,7 +4,7 @@ export const sgahSlicePrestamos = createSlice({
     name: 'sgahPrestamo',
     initialState: {
         prestamo: {},
-        prestamos: [{}],
+        prestamos: [],
         saldoUtilizadoP: 0,
     },
     reducers: {

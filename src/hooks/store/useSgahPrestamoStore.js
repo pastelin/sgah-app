@@ -9,7 +9,7 @@ import {
     onUpdatePrestamo,
     onIncrementSaldoUtilizadoP,
 } from '../../store';
-import { useSgahAhorroStore, useSgahGastoStore } from '../../hooks';
+import { usePrintMessage, useSgahAhorroStore, useSgahGastoStore, useSgahUi } from '../../hooks';
 import {
     findAll,
     findPrestamoByFolio,
@@ -34,6 +34,8 @@ export const useSgahPrestamoStore = () => {
         startSubtractSaldoDisponibleG,
     } = useSgahGastoStore();
 
+    const { handleShowLoader } = useSgahUi();
+
     const { startSubtractSaldoDisponibleA, startIncrementSaldoDisponibleA } =
         useSgahAhorroStore();
 
@@ -47,10 +49,18 @@ export const useSgahPrestamoStore = () => {
 
     const startLoadingPrestamos = async () => {
         console.log('startLoadingPrestamos');
-        const {
-            data: { prestamos },
-        } = await findAll();
-        dispatch(onLoadPrestamos(prestamos));
+        handleShowLoader(true);
+
+        try {
+            const {
+                data: { prestamos },
+            } = await findAll();
+            dispatch(onLoadPrestamos(prestamos));
+        } catch (error) {
+            usePrintMessage(error.code);
+        }
+
+        handleShowLoader(false);
     };
 
     const startSavingPrestamo = async (formData) => {

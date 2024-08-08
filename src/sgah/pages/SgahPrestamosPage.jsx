@@ -1,19 +1,24 @@
 import { useMemo } from 'react';
-import { useSgahPrestamoStore, usePrestamoUi } from '../../hooks';
+import { useSgahPrestamoStore, usePrestamoUi, useSgahUi } from '../../hooks';
 import {
     DetailSaldoParagraph,
     FormNewPrestamo,
     FormUpdatePrestamo,
+    LoaderComponent,
     TableSgahPrestamo,
+    WithoutInfoAlert,
 } from '../components';
 
 export const SgahPrestamosPage = () => {
     const { handleShowNewFormPrestamo } = usePrestamoUi();
 
+    const { isShowLoader } = useSgahUi();
+
     const {
         saldoUtilizadoP,
         startLoadingSaldoUtilizadoP,
         startLoadingPrestamos,
+        prestamos,
     } = useSgahPrestamoStore();
 
     useMemo(() => {
@@ -42,7 +47,13 @@ export const SgahPrestamosPage = () => {
                     </button>
                 </div>
 
-                <TableSgahPrestamo />
+                {prestamos.length > 0 ? (
+                    <TableSgahPrestamo />
+                ) : (
+                    <WithoutInfoAlert />
+                )}
+
+                {isShowLoader && <LoaderComponent />}
             </aside>
 
             <FormNewPrestamo />
