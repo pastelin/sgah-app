@@ -1,6 +1,12 @@
 import { useEffect } from 'react';
-import { useSgahGastoStore, useGastoUi } from '../../hooks';
-import { TableSgahGasto, GastoForm, DetailSaldoParagraph } from '../components';
+import { useSgahGastoStore, useGastoUi, useSgahUi } from '../../hooks';
+import {
+    TableSgahGasto,
+    GastoForm,
+    DetailSaldoParagraph,
+    LoaderComponent,
+    WithoutInfoAlert,
+} from '../components';
 
 export const SgahGastosPage = () => {
     const { handleShowFormGasto } = useGastoUi();
@@ -10,7 +16,10 @@ export const SgahGastosPage = () => {
         saldoUtilizadoG,
         startLoadingGastosByCurrentMonth,
         startLoadingSaldoGasto,
+        gastos,
     } = useSgahGastoStore();
+
+    const { isShowLoader } = useSgahUi();
 
     useEffect(() => {
         startLoadingGastosByCurrentMonth();
@@ -33,7 +42,7 @@ export const SgahGastosPage = () => {
                     />
                 </div>
 
-                <div className="text-center mt-2">
+                <div className="text-center m-2">
                     <button
                         className="btn btn-submit btn-xl "
                         onClick={() => handleShowFormGasto(true)}
@@ -42,7 +51,9 @@ export const SgahGastosPage = () => {
                     </button>
                 </div>
 
-                <TableSgahGasto />
+                {gastos.length > 0 ? <TableSgahGasto /> : <WithoutInfoAlert />}
+
+                {isShowLoader && <LoaderComponent />}
             </aside>
 
             <GastoForm />
