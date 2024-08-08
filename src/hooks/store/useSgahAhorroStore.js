@@ -6,9 +6,12 @@ import {
     onSubtractSaldoDisponibleA,
 } from '../../store';
 import { findAhorros, getSaldoDisponibleA, saveAhorro } from '../../services';
+import { useSgahUi } from '../ui';
+import { usePrintMessage } from '../messages';
 
 export const useSgahAhorroStore = () => {
     const dispatch = useDispatch();
+    const { handleShowLoader } = useSgahUi();
     const { saldoDisponibleA, ahorros } = useSelector(
         (state) => state.sgahAhorro
     );
@@ -34,13 +37,25 @@ export const useSgahAhorroStore = () => {
 
     const startLoadingAhorros = async () => {
         console.log('startLoadingAhorros');
-        const { data: {ahorros} } = await findAhorros();
-        dispatch(onLoadAhorros(ahorros));
+        handleShowLoader(true);
+
+        try {
+            const {
+                data: { ahorros },
+            } = await findAhorros();
+            dispatch(onLoadAhorros(ahorros));
+        } catch (error) {
+            usePrintMessage(error.code);
+        }
+
+        handleShowLoader(false);
     };
 
     const startLoadingSaldoDisponibleA = async () => {
         console.log('startLoadingSaldoDisponibleA');
-        const { data: {saldoDisponible} } = await getSaldoDisponibleA();
+        const {
+            data: { saldoDisponible },
+        } = await getSaldoDisponibleA();
         dispatch(onLoadSaldoDisponibleA(saldoDisponible));
     };
 

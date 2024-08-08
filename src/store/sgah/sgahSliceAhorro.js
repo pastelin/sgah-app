@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const sgahSliceAhorro = createSlice({
     name: 'sgahAhorro',
     initialState: {
-        ahorros: [{}],
+        ahorros: [],
         saldoDisponibleA: 0,
     },
     reducers: {
