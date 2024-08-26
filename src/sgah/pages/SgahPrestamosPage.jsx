@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 import { useSgahPrestamoStore, usePrestamoUi, useSgahUi } from '../../hooks';
 import {
     DetailSaldoParagraph,
@@ -21,7 +21,7 @@ export const SgahPrestamosPage = () => {
         prestamos,
     } = useSgahPrestamoStore();
 
-    useMemo(() => {
+    useEffect(() => {
         startLoadingSaldoUtilizadoP();
         startLoadingPrestamos();
     }, []);

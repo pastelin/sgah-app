@@ -16,7 +16,7 @@ export const sgahSlicePrestamos = createSlice({
         },
         onLoadPrestamo: (state, action) => {
             state.prestamo = action.payload;
-            state.prestamo.newMontoPagado = '';
+            // state.prestamo.newMontoPagado = '';
         },
         onAddNewPrestamo: (state, { payload }) => {
             state.prestamos.push(payload);

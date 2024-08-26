@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
     useForm,
     usePrestamoUi,
@@ -16,6 +16,8 @@ export const FormUpdatePrestamo = () => {
         startLoadingSaldoGasto,
     } = useSgahPrestamoStore();
 
+    const [newMontoPagado, setNewMontoPagado] = useState('');
+
     useEffect(() => {
         startLoadingSaldoGasto();
     }, []);
@@ -25,7 +27,6 @@ export const FormUpdatePrestamo = () => {
 
     const {
         folio,
-        newMontoPagado,
         saldoPrestado,
         fechaCreacion,
         saldoPagado,
@@ -69,6 +70,7 @@ export const FormUpdatePrestamo = () => {
         if (code === 200) {
             handleShowUpdateFormPrestamo(false);
             onResetForm();
+            setNewMontoPagado('');
         }
     };
 
@@ -107,7 +109,7 @@ export const FormUpdatePrestamo = () => {
                             name="newMontoPagado"
                             id="newMontoPagado"
                             value={newMontoPagado}
-                            onChange={onInputChange}
+                            onChange={(e) => setNewMontoPagado(e.target.value)}
                             required
                         />
                     </div>

@@ -74,7 +74,7 @@ export const SgahIngresosPage = () => {
                 </p>
             </div>
 
-            {ingresos && gastosRecurrentes.length > 0 ? (
+            {ingresos && gastosRecurrentes.length > 0 && (
                 <section
                     className={`contenedor-forms-ingresos flip-card ${styleFlipCardHover}`}
                 >
@@ -93,9 +93,9 @@ export const SgahIngresosPage = () => {
                         onToggle={onToggleFlipCard}
                     />
                 </section>
-            ) : (
-                <WithoutInfoAlert />
             )}
+
+            {gastosRecurrentes.length === 0 && <WithoutInfoAlert />}
 
             {isShowLoader && <LoaderComponent />}
         </aside>

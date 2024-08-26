@@ -9,7 +9,7 @@ export const TableSgahInversion = () => {
     const { handleShowUpdateFormInversion } = useInversionUi();
 
     const handleOpenForm = (folio) => {
-        if (!!folio) {
+        if (folio) {
             startLoadingInversion(folio);
             handleShowUpdateFormInversion(true);
         }

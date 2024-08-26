@@ -10,7 +10,7 @@ export const TableSgahPrestamo = () => {
     const { handleShowUpdateFormPrestamo } = usePrestamoUi();
 
     const handleOpenFormUpdatePrestamo = (folio) => {
-        if (!!folio) {
+        if (folio) {
             startLoadingPrestamo(folio);
             handleShowUpdateFormPrestamo(true);
         }
@@ -30,41 +30,38 @@ export const TableSgahPrestamo = () => {
                 </thead>
 
                 <tbody>
-                    {prestamos.map((prestamo) => (
-                        <tr
-                            key={
-                                window.crypto.getRandomValues(
-                                    new Uint32Array(1)
-                                )[0]
-                            }
-                        >
-                            <td>{prestamo.fechaCreacion}</td>
-                            <td>
-                                {formatCurrency(
-                                    parseInt(prestamo.saldoPrestado)
-                                )}
-                            </td>
-                            <td>{prestamo.descripcion}</td>
-                            <td>
-                                {formatCurrency(
-                                    prestamo.saldoPrestado -
-                                        prestamo.saldoPagado
-                                )}
-                            </td>
-                            <td>
-                                <button
-                                    className="btn btn-update"
-                                    onClick={() =>
-                                        handleOpenFormUpdatePrestamo(
-                                            prestamo.folio
-                                        )
-                                    }
-                                >
-                                    Pagar
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
+                    {prestamos.map(
+                        ({
+                            folio,
+                            fechaCreacion,
+                            saldoPrestado,
+                            saldoPagado,
+                            descripcion,
+                        }) => (
+                            <tr key={folio}>
+                                <td>{fechaCreacion}</td>
+                                <td>
+                                    {formatCurrency(parseInt(saldoPrestado))}
+                                </td>
+                                <td>{descripcion}</td>
+                                <td>
+                                    {formatCurrency(
+                                        saldoPrestado - saldoPagado
+                                    )}
+                                </td>
+                                <td>
+                                    <button
+                                        className="btn btn-update"
+                                        onClick={() =>
+                                            handleOpenFormUpdatePrestamo(folio)
+                                        }
+                                    >
+                                        Editar
+                                    </button>
+                                </td>
+                            </tr>
+                        )
+                    )}
                 </tbody>
             </table>
         </div>
