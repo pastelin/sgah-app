@@ -12,12 +12,14 @@ export const usePrestamoUi = () => {
         (state) => state.prestamoUi
     );
 
-    const styleDisplayNoneAdd = useMemo(() => {
-        return isShowNewFormPrestamo ? '' : 'display--none';
+    const styleForNewForm = useMemo(() => {
+        return isShowNewFormPrestamo ? 'display--visible' : 'display--hidden';
     }, [isShowNewFormPrestamo]);
 
-    const styleDisplayNoneUpdate = useMemo(() => {
-        return isShowUpdateFormPrestamo ? '' : 'display--none';
+    const styleForUpdateForm = useMemo(() => {
+        return isShowUpdateFormPrestamo
+            ? 'display--visible'
+            : 'display--hidden';
     }, [isShowUpdateFormPrestamo]);
 
     const handleShowNewFormPrestamo = (flag) => {
@@ -33,7 +35,7 @@ export const usePrestamoUi = () => {
         // * Metodos
         handleShowNewFormPrestamo,
         handleShowUpdateFormPrestamo,
-        styleDisplayNoneAdd,
-        styleDisplayNoneUpdate,
+        styleForNewForm,
+        styleForUpdateForm,
     };
 };

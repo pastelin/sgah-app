@@ -29,7 +29,7 @@ export const GastoForm = () => {
         }
     }, []);
 
-    const { styleDisplayNone, handleShowFormGasto } = useGastoUi();
+    const { styleForNewForm, handleShowFormGasto } = useGastoUi();
 
     const { monto, cdGasto, descripcion, onInputChange, onResetForm } =
         useForm(formData);
@@ -70,7 +70,7 @@ export const GastoForm = () => {
 
     return (
         <section
-            className={`overlay flex-responsive-row center-x-y ${styleDisplayNone}`}
+            className={`overlay flex-responsive-row center-x-y ${styleForNewForm}`} 
         >
             <div className="contenedor-form">
                 <div className="text-end p-1">

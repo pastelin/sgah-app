@@ -15,7 +15,7 @@ const formData = {
 };
 
 export const FormNewInversion = () => {
-    const { handleShowNewFormInversion, styleDisplayNewFormInversion } =
+    const { handleShowNewFormInversion, styleForNewForm } =
         useInversionUi();
 
     const {
@@ -67,7 +67,7 @@ export const FormNewInversion = () => {
 
     return (
         <section
-            className={`overlay flex-responsive-row center-x-y ${styleDisplayNewFormInversion}`}
+            className={`overlay flex-responsive-row center-x-y ${styleForNewForm}`}
         >
             <div className="contenedor-form">
                 <div className="text-end p-1" id="closeMenu">

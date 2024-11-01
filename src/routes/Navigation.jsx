@@ -143,7 +143,6 @@ export const Navigation = () => {
                                             <NavLink
                                                 className="nav-link"
                                                 to="gastoHistorico"
-                                    
                                                 onClick={handleOpenIcon}
                                             >
                                                 Detalle Histórico
@@ -195,7 +194,10 @@ export const Navigation = () => {
                 <Route path="/ingresos" element={<SgahIngresosPage />} />
                 <Route path="/ahorro" element={<SgahAhorrosPage />} />
                 <Route path="/gastos" element={<SgahGastosPage />} />
-                <Route path="/gastoHistorico" element={<SgahGastoHistoricoPage />} />
+                <Route
+                    path="/gastoHistorico"
+                    element={<SgahGastoHistoricoPage />}
+                />
                 <Route path="/prestamos" element={<SgahPrestamosPage />} />
                 <Route path="/inversion" element={<SgahInversionPage />} />
 

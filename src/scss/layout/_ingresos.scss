@@ -2,18 +2,18 @@
 @use './base/variables' as v;
 
 .contenedor-forms-ingresos {
-	margin-top: 2rem;
-	width: 45vw;
-	margin-inline: auto;
-	min-width: v.$minWidth;
+    margin-top: 2rem;
+    width: 45vw;
+    margin-inline: auto;
+    min-width: v.$minWidth;
 
-	.contenedor-form {
-		padding: 1rem;
-		box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.15);
+    .contenedor-form {
+        padding: 1rem;
+        box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.15);
 
-		h3 {
-			text-align: center;
-			margin-top: 0;
-		}
-	}
+        h3 {
+            text-align: center;
+            margin-top: 0;
+        }
+    }
 }

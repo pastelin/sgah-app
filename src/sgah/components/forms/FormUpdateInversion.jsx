@@ -11,7 +11,7 @@ const formDada = {
 };
 
 export const FormUpdateInversion = () => {
-    const { handleShowUpdateFormInversion, styleDisplayUpdateFormInversion } =
+    const { handleShowUpdateFormInversion, styleForUpdateForm } =
         useInversionUi();
     const { inversion, startUpdatingInversion } = useSgahInversionStore();
 
@@ -35,7 +35,7 @@ export const FormUpdateInversion = () => {
 
     return (
         <section
-            className={`overlay flex-responsive-row center-x-y ${styleDisplayUpdateFormInversion}`}
+            className={`overlay flex-responsive-row center-x-y ${styleForUpdateForm}`}
         >
             <div className="contenedor-form">
                 <div className="text-end p-1" id="closeMenu">

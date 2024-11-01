@@ -12,12 +12,14 @@ export const useInversionUi = () => {
 
     const dispatch = useDispatch();
 
-    const styleDisplayNewFormInversion = useMemo(() => {
-        return isShowNewFormInversion ? '' : 'display--none';
+    const styleForNewForm = useMemo(() => {
+        return isShowNewFormInversion ? 'display--visible' : 'display--hidden';
     }, [isShowNewFormInversion]);
 
-    const styleDisplayUpdateFormInversion = useMemo(() => {
-        return isShowUpdateFormInversion ? '' : 'display--none';
+    const styleForUpdateForm = useMemo(() => {
+        return isShowUpdateFormInversion
+            ? 'display--visible'
+            : 'display--hidden';
     }, [isShowUpdateFormInversion]);
 
     const handleShowNewFormInversion = (flag) => {
@@ -31,8 +33,8 @@ export const useInversionUi = () => {
     return {
         // * Propiedades
         // * Metodos
-        styleDisplayNewFormInversion,
-        styleDisplayUpdateFormInversion,
+        styleForNewForm,
+        styleForUpdateForm,
         handleShowNewFormInversion,
         handleShowUpdateFormInversion,
     };

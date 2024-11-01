@@ -22,7 +22,7 @@ export const FormUpdatePrestamo = () => {
         startLoadingSaldoGasto();
     }, []);
 
-    const { styleDisplayNoneUpdate, handleShowUpdateFormPrestamo } =
+    const { styleForUpdateForm, handleShowUpdateFormPrestamo } =
         usePrestamoUi();
 
     const {
@@ -76,7 +76,7 @@ export const FormUpdatePrestamo = () => {
 
     return (
         <section
-            className={`overlay flex-responsive-row center-x-y ${styleDisplayNoneUpdate}`}
+            className={`overlay flex-responsive-row center-x-y ${styleForUpdateForm}`}
             id="formularioUpdatePrestamo"
         >
             <div className="contenedor-form">

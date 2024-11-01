@@ -74,9 +74,18 @@ export const SgahIngresosPage = () => {
                 </p>
             </div>
 
-            {ingresos && gastosRecurrentes.length > 0 && (
+            <div
+                className={`${
+                    ingresos && gastosRecurrentes.length > 0
+                        ? 'display--visible'
+                        : 'display--hidden'
+                }`}
+            >
                 <section
-                    className={`contenedor-forms-ingresos flip-card ${styleFlipCardHover}`}
+                    className={`
+                        contenedor-forms-ingresos
+                        flip-card 
+                        ${styleFlipCardHover}`}
                 >
                     <CardSection
                         label="Ahorro"
@@ -93,7 +102,7 @@ export const SgahIngresosPage = () => {
                         onToggle={onToggleFlipCard}
                     />
                 </section>
-            )}
+            </div>
 
             {gastosRecurrentes.length === 0 && <WithoutInfoAlert />}
 

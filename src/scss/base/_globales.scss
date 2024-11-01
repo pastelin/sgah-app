@@ -37,7 +37,7 @@ h2 {
 }
 
 h3 {
-    font-size: calc(20px + (32 - 20) * ((100vw - 380px) / (1400 - 380)));
+    font-size: calc(16px + (22 - 16) * ((100vw - 380px) / (1400 - 380)));
 }
 
 img {
@@ -228,3 +228,14 @@ hr {
 .visibility-hiddent {
     visibility: hidden;
 }
+
+.display--hidden {
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+.display--visible {
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+} 

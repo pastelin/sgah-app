@@ -22,7 +22,7 @@ export const FormNewPrestamo = () => {
     const { startLoadingSaldoDisponibleA, saldoDisponibleA } =
         useSgahAhorroStore();
 
-    const { styleDisplayNoneAdd, handleShowNewFormPrestamo } = usePrestamoUi();
+    const { styleForNewForm, handleShowNewFormPrestamo } = usePrestamoUi();
 
     useEffect(() => {
         startLoadingSaldoDisponibleA();
@@ -54,7 +54,7 @@ export const FormNewPrestamo = () => {
 
     return (
         <section
-            className={`overlay flex-responsive-row center-x-y ${styleDisplayNoneAdd}`}
+            className={`overlay flex-responsive-row center-x-y ${styleForNewForm}`}
         >
             <div className="contenedor-form">
                 <div className="text-end p-1" id="closeMenu">

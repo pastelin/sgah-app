@@ -19,8 +19,8 @@ export const useGastoUi = () => {
 
     const dispatch = useDispatch();
 
-    const styleDisplayNone = useMemo(() => {
-        return isShowFormGasto ? '' : 'display--none';
+    const styleForNewForm = useMemo(() => {
+        return isShowFormGasto ? 'display--visible' : 'display--hidden'; 
     }, [isShowFormGasto]);
 
     const handleShowFormGasto = (flag) => {
@@ -114,7 +114,7 @@ export const useGastoUi = () => {
         styleFlipCardHover,
         historicalBalanceByMonth,
         // * Metodos
-        styleDisplayNone,
+        styleForNewForm,
         isHoverFlipCard,
         handleHasPermissionEdit,
         handleShowFormGasto,

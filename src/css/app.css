@@ -343,7 +343,7 @@ h2 {
 }
 
 h3 {
-  font-size: calc(20px + 12 * (100vw - 380px) / 1020);
+  font-size: calc(16px + 6 * (100vw - 380px) / 1020);
 }
 
 img {
@@ -528,6 +528,17 @@ hr {
 
 .visibility-hiddent {
   visibility: hidden;
+}
+
+.display--hidden {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+}
+
+.display--visible {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
 }
 
 .btn {
@@ -945,8 +956,8 @@ svg {
   height: 2.5rem;
 }
 .form__group textarea {
-  max-height: 6rem;
-  min-height: 6rem;
+  height: 6rem;
+  resize: none;
 }
 
 .select {
@@ -970,6 +981,7 @@ svg {
   height: 50vh;
   padding: 0.2rem;
   margin-top: 2rem;
+  border: 10px;
 }
 .contenedor-table > table {
   width: 90%;
@@ -984,7 +996,7 @@ svg {
 .contenedor-table > table > thead {
   position: sticky;
   top: 0;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(234, 194, 194);
 }
 .contenedor-table > table > thead th,
 .contenedor-table > table > thead td,
