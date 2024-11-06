@@ -9,7 +9,7 @@ export const sgahSliceGasto = createSlice({
         gastoMensualPermitido: ingresoMensual * 0.8,
         gastosRecurrentes: [],
         gastos: [],
-        historicalBalanceByMonths: [],
+        historicalBalanceByYear: [],
         historicalBalanceByMonth: [],
         saldoDisponible: 0,
         saldoUtilizado: 0,
@@ -27,8 +27,8 @@ export const sgahSliceGasto = createSlice({
         onLoadSaldoDisponibleG: (state, { payload }) => {
             state.saldoDisponible = payload;
         },
-        onLoadHistoricalBalanceByMonths: (state, { payload }) => {
-            state.historicalBalanceByMonths = payload;
+        onLoadHistoricalBalanceByYear: (state, { payload }) => {
+            state.historicalBalanceByYear = payload;
         },
         onLoadHistoricalBalanceByMonth: (state, { payload }) => {
             state.historicalBalanceByMonth = payload;
@@ -57,6 +57,6 @@ export const {
     onIncrementSaldoDisponibleG,
     onSubtractSaldoDisponibleG,
     onIncrementSaldoUtilizadoG,
-    onLoadHistoricalBalanceByMonths,
+    onLoadHistoricalBalanceByYear,
     onLoadHistoricalBalanceByMonth,
 } = sgahSliceGasto.actions;

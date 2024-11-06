@@ -8,14 +8,14 @@ import {
     onSubtractSaldoDisponibleG,
     onLoadGastosRecurrentes,
     onIncrementSaldoUtilizadoG,
-    onLoadHistoricalBalanceByMonths,
+    onLoadHistoricalBalanceByYear,
 } from '../../store';
 import {
     findGastosRecurrentes,
     findGastosByMonth,
     getSaldosG,
     saveGasto,
-    findGastosByYear,
+    findHistoricalBalanceByYear,
 } from '../../services';
 import {
     getCurrentDateByString,
@@ -23,7 +23,6 @@ import {
     getCurrentYear,
 } from '../useUtilities';
 import { useSgahUi } from '../ui';
-import { useGastoHistoricoPage } from '../pages/useGastoHistoricoPage';
 import { usePrintMessage } from '../messages';
 
 export const useSgahGastoStore = () => {
@@ -36,10 +35,9 @@ export const useSgahGastoStore = () => {
         saldoUtilizado,
         gastoMensualPermitido,
         ingresoMensual,
-        historicalBalanceByMonths,
+        historicalBalanceByYear,
     } = useSelector((state) => state.sgahGasto);
 
-    const { getHistoricalBalanceByMonths } = useGastoHistoricoPage();
     const { handleShowLoader } = useSgahUi();
 
     const startLoadingGastosRecurrentes = async () => {
@@ -66,19 +64,15 @@ export const useSgahGastoStore = () => {
         dispatch(onLoadGastos(gastos));
     };
 
-    const startLoadingGastosByYear = async (year) => {
-        console.log('startLoadingGastosByYear');
+    const startLoadingHistoricalBalanceByYear = async (year) => {
+        console.log('startLoadingHistoricalBalanceByYear');
         handleShowLoader(true);
 
         try {
             const {
-                data: { gastos },
-            } = await findGastosByYear(year);
-            dispatch(
-                onLoadHistoricalBalanceByMonths(
-                    getHistoricalBalanceByMonths(gastos)
-                )
-            );
+                data: { historicalBalance },
+            } = await findHistoricalBalanceByYear(year);
+            dispatch(onLoadHistoricalBalanceByYear(historicalBalance));
         } catch (error) {
             console.log(error);
         }
@@ -118,7 +112,7 @@ export const useSgahGastoStore = () => {
         } catch (error) {
             usePrintMessage(error.code, error?.response?.data?.mensaje);
             return {
-                code: error.code
+                code: error.code,
             };
         }
     };
@@ -153,7 +147,7 @@ export const useSgahGastoStore = () => {
         saldoUtilizadoG: saldoUtilizado,
         gastoMensualPermitido,
         ingresoMensual,
-        historicalBalanceByMonths,
+        historicalBalanceByYear,
 
         // * Metodos
         startLoadingGastosRecurrentes,
@@ -163,6 +157,6 @@ export const useSgahGastoStore = () => {
         startIncrementSaldoDisponibleG,
         startSubtractSaldoDisponibleG,
         getCategoriaGastoById,
-        startLoadingGastosByYear,
+        startLoadingHistoricalBalanceByYear,
     };
 };

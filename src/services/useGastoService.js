@@ -5,8 +5,11 @@ export const getSaldosG = async () => {
 };
 
 export const findGastosByMonth = async (year, month) => {
-    console.log('findGastosByMonth', year, month);
     return await sgahApi.get(`sgah/v0/gasto/${year}/${month}`);
+};
+
+export const findHistoricalBalanceByMonth = async (year, month) => {
+    return await sgahApi.get(`sgah/v0/gasto/historical/${year}/${month}`);
 };
 
 export const findGastosRecurrentes = async () => {
@@ -17,6 +20,6 @@ export const saveGasto = async (formData) => {
     return await sgahApi.post('sgah/v0/gasto/', formData);
 };
 
-export const findGastosByYear = async (year) => {
+export const findHistoricalBalanceByYear = async (year) => {
     return await sgahApi.get(`sgah/v0/gasto/${year}`);
 }
