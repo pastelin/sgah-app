@@ -3,26 +3,27 @@ import PropTypes from 'prop-types';
 import { useGastoUi, useSgahGastoStore } from '../../../hooks';
 import { Progress } from './Progress';
 
-export const ProgressHistoricalBalanceByMonths = ({
+export const ProgressHistoricalBalanceByYear = ({
     label,
-    value,
+    gastos,
     monthNumber,
     year,
+    ingresos,
 }) => {
     const [progressColor, setProgressColor] = useState('');
-    const { ingresoMensual, gastoMensualPermitido } = useSgahGastoStore();
-    const { handleShowFlipCard, startLoadingGastosByHistoricalMonth } =
+    const { gastoMensualPermitido } = useSgahGastoStore();
+    const { handleShowFlipCard, startLoadingHistoricalBalanceByMonth } =
         useGastoUi();
 
     useEffect(() => {
-        if (value >= gastoMensualPermitido && value < ingresoMensual) {
-            setProgressColor('progress-orange');
-        } else if (value >= ingresoMensual) {
-            setProgressColor('progress-red');
-        } else {
+        if (gastos <= gastoMensualPermitido) {
             setProgressColor('progress-blue');
+        } else if (gastos >= gastoMensualPermitido && gastos < ingresos) {
+            setProgressColor('progress-orange');
+        } else {
+            setProgressColor('progress-red');
         }
-    }, [value, gastoMensualPermitido, ingresoMensual]);
+    }, [gastos, gastoMensualPermitido, ingresos]);
 
     const handleKeyDown = useCallback(
         (event) => {
@@ -35,9 +36,9 @@ export const ProgressHistoricalBalanceByMonths = ({
 
     const onClickProgress = useCallback(() => {
         handleShowFlipCard(true);
-        startLoadingGastosByHistoricalMonth(year, monthNumber);
+        startLoadingHistoricalBalanceByMonth(year, monthNumber);
     }, [
-        startLoadingGastosByHistoricalMonth,
+        startLoadingHistoricalBalanceByMonth,
         year,
         monthNumber,
     ]);
@@ -50,7 +51,7 @@ export const ProgressHistoricalBalanceByMonths = ({
         >
             <Progress
                 label={label}
-                value={value}
+                value={gastos}
                 progressColor={progressColor}
                 progressMax={33000}
             />
@@ -58,9 +59,10 @@ export const ProgressHistoricalBalanceByMonths = ({
     );
 };
 
-ProgressHistoricalBalanceByMonths.propTypes = {
+ProgressHistoricalBalanceByYear.propTypes = {
     label: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
+    gastos: PropTypes.number.isRequired,
     monthNumber: PropTypes.number.isRequired,
     year: PropTypes.string.isRequired,
+    ingresos: PropTypes.number.isRequired,
 };

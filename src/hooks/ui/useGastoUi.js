@@ -5,11 +5,13 @@ import {
     onToggleShowFlipCardGasto,
     onToggleShowFormGasto,
 } from '../../store/ui/gastoUiSlice';
-import { findGastosByMonth } from '../../services';
+import {
+    findHistoricalBalanceByMonth,
+} from '../../services';
 import { onLoadHistoricalBalanceByMonth } from '../../store';
 
 export const useGastoUi = () => {
-    const { historicalBalanceByMonth, gastosRecurrentes } = useSelector(
+    const { historicalBalanceByMonth } = useSelector(
         (state) => state.sgahGasto
     );
 
@@ -20,7 +22,7 @@ export const useGastoUi = () => {
     const dispatch = useDispatch();
 
     const styleForNewForm = useMemo(() => {
-        return isShowFormGasto ? 'display--visible' : 'display--hidden'; 
+        return isShowFormGasto ? 'display--visible' : 'display--hidden';
     }, [isShowFormGasto]);
 
     const handleShowFormGasto = (flag) => {
@@ -40,67 +42,18 @@ export const useGastoUi = () => {
         dispatch(onToggleShowFlipCardGasto(flag));
     };
 
-    const startLoadingGastosByHistoricalMonth = async (year, month) => {
-        console.log('startLoadingGastosByHistoricalMonth');
+    const startLoadingHistoricalBalanceByMonth = async (year, month) => {
+        console.log('startLoadingHistoricalBalanceByMonth');
         const {
-            data: { gastos },
-        } = await findGastosByMonth(year, month);
-        dispatch(
-            onLoadHistoricalBalanceByMonth(getHistoricalBalanceByMonth(gastos))
-        );
+            data: { historicalBalance },
+        } = await findHistoricalBalanceByMonth(year, month);
+
+        dispatch(onLoadHistoricalBalanceByMonth(historicalBalance));
     };
 
-    const getHistoricalBalanceByMonth = (gastos) => {
-        console.log('getHistoricalBalanceByMonth');
-
-        // Agrupar gastos por cdGasto, excluyendo el cdGasto 11 y sumando montos
-        const gastosAgrupados = gastos.reduce((acc, gasto) => {
-            if (gasto.gastoRecurrente.cdGasto !== 11) {
-                const { cdGasto } = gasto.gastoRecurrente;
-                if (!acc.has(cdGasto)) {
-                    acc.set(cdGasto, {
-                        saldoGastado: 0,
-                        tipoMovimiento: gasto.tipoMovimiento.cdTipo,
-                    });
-                }
-                acc.get(cdGasto).saldoGastado += gasto.monto;
-            }
-            return acc;
-        }, new Map());
-
-        // Construir el resultado final basado en gastosRecurrentes y los gastos agrupados
-        let historicalBalanceByMonth = gastosRecurrentes.reduce(
-            (acc, gastoRecurrente) => {
-                if (gastosAgrupados.has(gastoRecurrente.cdGasto)) {
-                    const gastoAgrupado = gastosAgrupados.get(
-                        gastoRecurrente.cdGasto
-                    );
-                    acc.push({
-                        categoria: gastoRecurrente.nbGasto,
-                        saldoGastado: gastoAgrupado.saldoGastado,
-                        tipoMovimiento: gastoAgrupado.tipoMovimiento,
-                    });
-                }
-                return acc;
-            },
-            []
-        );
-
-        return historicalBalanceByMonth;
-    };
-
-    const calcularSaldoGastado = (gastos) => {
+    const calcularSaldo = (gastos, tipoMovimiento) => {
         return gastos.reduce((acc, gasto) => {
-            if (gasto.tipoMovimiento === 2) {
-                acc += gasto.saldoGastado;
-            }
-            return acc;
-        }, 0);
-    };
-
-    const calcularIngresos = (gastos) => {
-        return gastos.reduce((acc, gasto) => {
-            if (gasto.tipoMovimiento === 1) {
+            if (gasto.tipoMovimiento === tipoMovimiento) {
                 acc += gasto.saldoGastado;
             }
             return acc;
@@ -119,8 +72,7 @@ export const useGastoUi = () => {
         handleHasPermissionEdit,
         handleShowFormGasto,
         handleShowFlipCard,
-        startLoadingGastosByHistoricalMonth,
-        calcularSaldoGastado,
-        calcularIngresos,
+        startLoadingHistoricalBalanceByMonth,
+        calcularSaldo,
     };
 };

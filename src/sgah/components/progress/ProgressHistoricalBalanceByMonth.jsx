@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Progress } from './Progress';
 
 export const ProgressHistoricalBalanceByMonth = React.memo(
-    ({ label, value, tipoMovimiento }) => {
+    ({ label, gastos, tipoMovimiento }) => {
         const progressColor = useMemo(() => {
             return tipoMovimiento === 1 ? 'progress-blue' : 'progress-red';
         }, [tipoMovimiento]);
@@ -12,7 +12,7 @@ export const ProgressHistoricalBalanceByMonth = React.memo(
             <button className="progress">
                 <Progress
                     label={label}
-                    value={value}
+                    value={gastos}
                     progressColor={progressColor}
                     progressMax={5000}
                 />
@@ -23,6 +23,6 @@ export const ProgressHistoricalBalanceByMonth = React.memo(
 
 ProgressHistoricalBalanceByMonth.propTypes = {
     label: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
+    gastos: PropTypes.number.isRequired,
     tipoMovimiento: PropTypes.number.isRequired,
 };

@@ -1,11 +1,9 @@
 import React from 'react';
-import {
-    ProgressHistoricalBalanceByMonths,
-    ProgressHistoricalBalanceByMonth,
-} from './';
 import PropTypes from 'prop-types';
 import { useGastoUi, useSgahGastoStore } from '../../../hooks';
 import { DetailSaldoParagraph } from '../paragraphs';
+import { ProgressHistoricalBalanceByMonth } from './ProgressHistoricalBalanceByMonth';
+import { ProgressHistoricalBalanceByYear } from './ProgressHistoricalBalanceByYear';
 
 export const ProgressGastoContainer = React.memo(({ year }) => {
     const {
@@ -13,11 +11,10 @@ export const ProgressGastoContainer = React.memo(({ year }) => {
         handleShowFlipCard,
         historicalBalanceByMonth,
         isHoverFlipCard,
-        calcularSaldoGastado,
-        calcularIngresos,
+        calcularSaldo,
     } = useGastoUi();
 
-    const { historicalBalanceByMonths } = useSgahGastoStore();
+    const { historicalBalanceByYear } = useSgahGastoStore();
 
     return (
         <>
@@ -25,11 +22,11 @@ export const ProgressGastoContainer = React.memo(({ year }) => {
                 <div className="contenedor-saldo flex-responsive-row justify-sa">
                     <DetailSaldoParagraph
                         label="Ingresos"
-                        saldo={calcularIngresos(historicalBalanceByMonth)}
+                        saldo={calcularSaldo(historicalBalanceByMonth, 1)}
                     />
                     <DetailSaldoParagraph
                         label="Saldo Gastado"
-                        saldo={calcularSaldoGastado(historicalBalanceByMonth)}
+                        saldo={calcularSaldo(historicalBalanceByMonth, 2)}
                     />
                 </div>
 
@@ -55,17 +52,23 @@ export const ProgressGastoContainer = React.memo(({ year }) => {
                 className={`flip-container flip-card ${styleFlipCardHover}`}
             >
                 <article className="progress-container box-shadow flip-face flip-front">
-                    {historicalBalanceByMonths.map(
-                        ({ saldoGastado, month, monthNumber }) => (
-                            <ProgressHistoricalBalanceByMonths
+                    {historicalBalanceByYear.map(
+                        ({
+                            saldoGastado,
+                            month,
+                            monthNumber,
+                            saldoIngresado,
+                        }) => (
+                            <ProgressHistoricalBalanceByYear
                                 key={
                                     window.crypto.getRandomValues(
                                         new Uint32Array(1)
                                     )[0]
                                 }
                                 label={month}
-                                value={saldoGastado}
                                 monthNumber={monthNumber}
+                                gastos={saldoGastado}
+                                ingresos={saldoIngresado}
                                 year={year}
                             />
                         )
@@ -81,7 +84,7 @@ export const ProgressGastoContainer = React.memo(({ year }) => {
                                     )[0]
                                 }
                                 label={categoria}
-                                value={saldoGastado}
+                                gastos={saldoGastado}
                                 tipoMovimiento={tipoMovimiento}
                             />
                         )

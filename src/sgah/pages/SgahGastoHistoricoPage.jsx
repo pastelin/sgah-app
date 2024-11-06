@@ -13,9 +13,9 @@ import {
 
 export const SgahGastoHistoricoPage = () => {
     const {
-        startLoadingGastosByYear,
+        startLoadingHistoricalBalanceByYear,
         startLoadingGastosRecurrentes,
-        historicalBalanceByMonths,
+        historicalBalanceByYear,
         gastosRecurrentes,
     } = useSgahGastoStore();
     const [year, setYear] = useState(getCurrentYearByString());
@@ -23,7 +23,7 @@ export const SgahGastoHistoricoPage = () => {
     const {isShowLoader} = useSgahUi();
 
     useEffect(() => {
-        startLoadingGastosByYear(year);
+        startLoadingHistoricalBalanceByYear(year);
     }, [year]);
 
     useEffect(() => {
@@ -52,9 +52,9 @@ export const SgahGastoHistoricoPage = () => {
                     <option value="2022">2022</option>
                 </select>
             </div>
-            {historicalBalanceByMonths.length > 0 ? (
+            {historicalBalanceByYear.length > 0 ? (
                 <ProgressGastoContainer
-                    historicalBalanceByMonths={historicalBalanceByMonths}
+                    historicalBalanceByYear={historicalBalanceByYear}
                     year={year}
                 />
             ) : (
@@ -65,3 +65,4 @@ export const SgahGastoHistoricoPage = () => {
         </aside>
     );
 };
+ 
