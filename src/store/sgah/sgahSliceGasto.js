@@ -44,7 +44,7 @@ export const sgahSliceGasto = createSlice({
         },
         onIncrementSaldoUtilizadoG: (state, { payload }) => {
             state.saldoUtilizado += parseInt(payload);
-        },
+        }
     },
 });
 

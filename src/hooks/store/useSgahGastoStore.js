@@ -24,6 +24,7 @@ import {
 } from '../useUtilities';
 import { useSgahUi } from '../ui';
 import { usePrintMessage } from '../messages';
+import { use } from 'react';
 
 export const useSgahGastoStore = () => {
     const dispatch = useDispatch();
@@ -94,12 +95,12 @@ export const useSgahGastoStore = () => {
             console.log(formData);
             const { status, data } = await saveGasto(formData);
 
-            if (formData.tipoMovimiento.cdTipo === 2) {
+            if (formData.origenMovimiento.id === 2) {
                 startSubtractSaldoDisponibleG(formData.monto);
                 startIncrementSaldoUtilizadoG(formData.monto);
                 dispatch(
                     onAddNewGasto({
-                        ...formData,
+                        ...data.gasto,
                         fechaCreacion: getCurrentDateByString(),
                     })
                 );
@@ -132,13 +133,6 @@ export const useSgahGastoStore = () => {
         dispatch(onIncrementSaldoUtilizadoG(saldo));
     };
 
-    const getCategoriaGastoById = (cdGasto) => {
-        console.log(gastosRecurrentes, cdGasto);
-        return gastosRecurrentes.find(
-            (categoria) => categoria.cdGasto == cdGasto
-        );
-    };
-
     return {
         // * Propiedades
         gastosRecurrentes,
@@ -156,7 +150,6 @@ export const useSgahGastoStore = () => {
         startSavingGasto,
         startIncrementSaldoDisponibleG,
         startSubtractSaldoDisponibleG,
-        getCategoriaGastoById,
         startLoadingHistoricalBalanceByYear,
     };
 };

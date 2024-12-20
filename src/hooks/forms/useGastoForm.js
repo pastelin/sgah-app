@@ -7,12 +7,11 @@ import Swal from 'sweetalert2';
 
 const formDataGasto = {
     porcentaje: '',
-    cdGasto: '',
     descripcion: '',
 };
 
 export const useGastoForm = () => {
-    const { porcentaje, cdGasto, descripcion, onInputChange, onResetForm } =
+    const { porcentaje, descripcion, onInputChange, onResetForm } =
         useForm(formDataGasto);
 
     const {
@@ -30,7 +29,6 @@ export const useGastoForm = () => {
 
     const {
         startSavingGasto,
-        gastosRecurrentes,
     } = useSgahGastoStore();
 
     useEffect(() => {
@@ -56,12 +54,11 @@ export const useGastoForm = () => {
         const { code } = await startSavingGasto({
             monto: ingresoGasto,
             gastoRecurrente: {
-                cdGasto,
+                cdGasto: 18,
             },
             descripcion,
-            tipoMovimiento: {
-                cdTipo: 1,
-                nbTipo: 'Ingreso',
+            origenMovimiento: {
+                id: 1,
             },
         });
 
@@ -75,9 +72,7 @@ export const useGastoForm = () => {
 
     return {
         porcentaje,
-        cdGasto,
         descripcion,
-        gastosRecurrentes,
         onInputChange,
         onSubmit,
         hasPermissionEditG,
