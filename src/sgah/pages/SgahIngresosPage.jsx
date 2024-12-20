@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { formatCurrency, useSgahGastoStore, useSgahUi } from '../../hooks';
+import { formatCurrency, useSgahUi } from '../../hooks';
 import { useIngresoPage } from '../../hooks/pages/useIngresoPage';
 import {
     LoaderComponent,
     ToggleCardButton,
-    WithoutInfoAlert,
 } from '../components';
 import { AhorroForm } from '../components/forms/AhorroForm';
 import { IngresoGForm } from '../components/forms/';
@@ -30,16 +29,7 @@ export const SgahIngresosPage = () => {
         handleResetInitialState,
     } = useIngresoPage();
 
-    const { gastosRecurrentes, startLoadingGastosRecurrentes } =
-        useSgahGastoStore();
-
     const { isShowLoader } = useSgahUi();
-
-    useEffect(() => {
-        if (gastosRecurrentes.length === 0) {
-            startLoadingGastosRecurrentes();
-        }
-    }, []);
 
     useEffect(() => {
         if (availablePercentage === 0) {
@@ -76,9 +66,7 @@ export const SgahIngresosPage = () => {
 
             <div
                 className={`${
-                    ingresos && gastosRecurrentes.length > 0
-                        ? 'display--visible'
-                        : 'display--hidden'
+                    ingresos ? 'display--visible' : 'display--hidden'
                 }`}
             >
                 <section
@@ -103,8 +91,6 @@ export const SgahIngresosPage = () => {
                     />
                 </section>
             </div>
-
-            {gastosRecurrentes.length === 0 && <WithoutInfoAlert />}
 
             {isShowLoader && <LoaderComponent />}
         </aside>

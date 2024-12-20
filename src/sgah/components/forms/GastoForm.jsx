@@ -20,7 +20,6 @@ export const GastoForm = () => {
         saldoDisponibleG,
         startSavingGasto,
         startLoadingGastosRecurrentes,
-        getCategoriaGastoById,
     } = useSgahGastoStore();
 
     useEffect(() => {
@@ -46,17 +45,14 @@ export const GastoForm = () => {
             return;
         }
 
-        const gastoR = getCategoriaGastoById(cdGasto);
         const { code, message } = await startSavingGasto({
             monto: parseInt(monto),
             gastoRecurrente: {
                 cdGasto,
-                nbGasto: gastoR?.nbGasto,
             },
             descripcion,
-            tipoMovimiento: {
-                cdTipo: 2,
-                nbTipo: 'Gasto',
+            origenMovimiento: {
+                id: 2,
             },
         });
 
@@ -70,7 +66,7 @@ export const GastoForm = () => {
 
     return (
         <section
-            className={`overlay flex-responsive-row center-x-y ${styleForNewForm}`} 
+            className={`overlay flex-responsive-row center-x-y ${styleForNewForm}`}
         >
             <div className="contenedor-form">
                 <div className="text-end p-1">
@@ -115,19 +111,18 @@ export const GastoForm = () => {
                         >
                             <option value="">Seleccionar tipo de gasto</option>
                             {gastosRecurrentes.map(
-                                ({ cdGasto, nbGasto, cdEstatus }) =>
-                                    cdEstatus !== 2 && (
-                                        <option
-                                            key={
-                                                window.crypto.getRandomValues(
-                                                    new Uint32Array(1)
-                                                )[0]
-                                            }
-                                            value={cdGasto}
-                                        >
-                                            {nbGasto}
-                                        </option>
-                                    )
+                                ({ cdGasto, nbGasto }) => (
+                                    <option
+                                        key={
+                                            window.crypto.getRandomValues(
+                                                new Uint32Array(1)
+                                            )[0]
+                                        }
+                                        value={cdGasto}
+                                    >
+                                        {nbGasto}
+                                    </option>
+                                )
                             )}
                         </select>
                     </div>

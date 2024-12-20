@@ -19,7 +19,7 @@ export const TableSgahGasto = () => {
                     {gastos.map((gasto) => (
                         <tr
                             className={`${
-                                gasto?.tipoMovimiento?.nbTipo === 'Gasto'
+                                gasto?.origenMovimiento?.descripcion === 'Gasto'
                                     ? 'color-gasto'
                                     : 'color-ingreso'
                             }`}
@@ -33,7 +33,7 @@ export const TableSgahGasto = () => {
                             <td>{formatCurrency(gasto.monto)}</td>
                             <td>{gasto.descripcion}</td>
                             <td>{gasto?.gastoRecurrente?.nbGasto}</td>
-                            <td>{gasto?.tipoMovimiento?.nbTipo}</td>
+                            <td>{gasto?.origenMovimiento?.descripcion}</td>
                         </tr>
                     ))}
                 </tbody>

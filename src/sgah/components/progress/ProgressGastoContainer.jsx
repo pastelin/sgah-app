@@ -76,7 +76,7 @@ export const ProgressGastoContainer = React.memo(({ year }) => {
                 </article>
                 <article className="progress-container box-shadow flip-face flip-back">
                     {historicalBalanceByMonth.map(
-                        ({ categoria, saldoGastado, tipoMovimiento }) => (
+                        ({ categoria, saldoGastado, origenMovimiento }) => (
                             <ProgressHistoricalBalanceByMonth
                                 key={
                                     window.crypto.getRandomValues(
@@ -85,7 +85,7 @@ export const ProgressGastoContainer = React.memo(({ year }) => {
                                 }
                                 label={categoria}
                                 gastos={saldoGastado}
-                                tipoMovimiento={tipoMovimiento}
+                                origenMovimiento={origenMovimiento}
                             />
                         )
                     )}

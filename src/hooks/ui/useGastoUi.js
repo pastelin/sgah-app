@@ -51,9 +51,9 @@ export const useGastoUi = () => {
         dispatch(onLoadHistoricalBalanceByMonth(historicalBalance));
     };
 
-    const calcularSaldo = (gastos, tipoMovimiento) => {
+    const calcularSaldo = (gastos, origenMovimiento) => {
         return gastos.reduce((acc, gasto) => {
-            if (gasto.tipoMovimiento === tipoMovimiento) {
+            if (gasto.origenMovimiento === origenMovimiento) {
                 acc += gasto.saldoGastado;
             }
             return acc;

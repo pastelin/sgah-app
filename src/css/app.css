@@ -474,6 +474,10 @@ hr {
   width: 100%;
 }
 
+.mt--430 {
+  margin-top: -430px;
+}
+
 .contenedor-saldo > p {
   font-weight: 500;
   opacity: 0.8;

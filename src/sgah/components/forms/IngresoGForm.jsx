@@ -4,10 +4,8 @@ import React from 'react';
 export const IngresoGForm = React.memo(() => {
     const {
         porcentaje,
-        cdGasto,
         descripcion,
         onInputChange,
-        gastosRecurrentes,
         onSubmit,
         hasPermissionEditG,
     } = useGastoForm();
@@ -25,33 +23,6 @@ export const IngresoGForm = React.memo(() => {
                     required
                     disabled={!hasPermissionEditG}
                 />
-            </div>
-            <div className="form__group">
-                <select
-                    name="cdGasto"
-                    id="cdGasto"
-                    value={cdGasto}
-                    onChange={onInputChange}
-                    required
-                    disabled={!hasPermissionEditG}
-                >
-                    <option value="">Seleccionar tipo de ingreso</option>
-                    {gastosRecurrentes.map(
-                        ({ cdGasto, nbGasto, cdEstatus }) =>
-                            (cdEstatus === 2 || cdGasto === 11) && (
-                                <option
-                                    key={
-                                        window.crypto.getRandomValues(
-                                            new Uint32Array(1)
-                                        )[0]
-                                    }
-                                    value={cdGasto}
-                                >
-                                    {nbGasto}
-                                </option>
-                            )
-                    )}
-                </select>
             </div>
             <div className="form__group">
                 <label htmlFor="descripcion">Descripción:</label>
