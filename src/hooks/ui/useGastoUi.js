@@ -3,31 +3,22 @@ import { useMemo } from 'react';
 import {
     onToggleHasPermissionEditG,
     onToggleShowFlipCardGasto,
-    onToggleShowFormGasto,
 } from '../../store/ui/gastoUiSlice';
-import {
-    findHistoricalBalanceByMonth,
-} from '../../services';
-import { onLoadHistoricalBalanceByMonth } from '../../store';
+import { findMonthlyBalanceHistory } from '../../services';
+import { loadMonthlyBalanceHistory } from '../../store';
 
 export const useGastoUi = () => {
-    const { historicalBalanceByMonth } = useSelector(
+    
+    const dispatch = useDispatch();
+    
+    const { monthlyBalanceHistory } = useSelector(
         (state) => state.sgahGasto
     );
 
-    const { isShowFormGasto, hasPermissionEdit, isHoverFlipCard } = useSelector(
+    const { hasPermissionEdit, isHoverFlipCard } = useSelector(
         (state) => state.gastoUi
     );
 
-    const dispatch = useDispatch();
-
-    const styleForNewForm = useMemo(() => {
-        return isShowFormGasto ? 'display--visible' : 'display--hidden';
-    }, [isShowFormGasto]);
-
-    const handleShowFormGasto = (flag) => {
-        dispatch(onToggleShowFormGasto(flag));
-    };
 
     const handleHasPermissionEdit = (flag) => {
         dispatch(onToggleHasPermissionEditG(flag));
@@ -46,13 +37,13 @@ export const useGastoUi = () => {
         console.log('startLoadingHistoricalBalanceByMonth');
         const {
             data: { historicalBalance },
-        } = await findHistoricalBalanceByMonth(year, month);
+        } = await findMonthlyBalanceHistory(year, month);
 
-        dispatch(onLoadHistoricalBalanceByMonth(historicalBalance));
+        dispatch(loadMonthlyBalanceHistory(historicalBalance));
     };
 
-    const calcularSaldo = (gastos, origenMovimiento) => {
-        return gastos.reduce((acc, gasto) => {
+    const calcularSaldo = (expenses, origenMovimiento) => {
+        return expenses.reduce((acc, gasto) => {
             if (gasto.origenMovimiento === origenMovimiento) {
                 acc += gasto.saldoGastado;
             }
@@ -62,15 +53,12 @@ export const useGastoUi = () => {
 
     return {
         // * Propiedades
-        isShowFormGasto,
         hasPermissionEdit,
         styleFlipCardHover,
-        historicalBalanceByMonth,
+        monthlyBalanceHistory,
         // * Metodos
-        styleForNewForm,
         isHoverFlipCard,
         handleHasPermissionEdit,
-        handleShowFormGasto,
         handleShowFlipCard,
         startLoadingHistoricalBalanceByMonth,
         calcularSaldo,

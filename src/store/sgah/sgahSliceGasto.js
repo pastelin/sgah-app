@@ -1,62 +1,86 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const ingresoMensual = 26528;
+const monthlyIncome = 26528;
 
 export const sgahSliceGasto = createSlice({
     name: 'sgahGasto',
     initialState: {
-        ingresoMensual: ingresoMensual,
-        gastoMensualPermitido: ingresoMensual * 0.8,
-        gastosRecurrentes: [],
-        gastos: [],
-        historicalBalanceByYear: [],
-        historicalBalanceByMonth: [],
-        saldoDisponible: 0,
-        saldoUtilizado: 0,
+        monthlyExpenseLimit: monthlyIncome * 0.8,
+        recurringExpenses: [],
+        expenses: [],
+        annualBalanceHistory: [],
+        monthlyBalanceHistory: [],
+        balanceRemaining: 0,
+        spentBalance: 0,
+        isModalShown: false,
+        currentEditingId: '',
     },
     reducers: {
-        onLoadGastosRecurrentes: (state, action) => {
-            state.gastosRecurrentes = action.payload;
+        loadRecurringExpenses: (state, action) => {
+            state.recurringExpenses = action.payload;
         },
-        onLoadGastos: (state, action) => {
-            state.gastos = action.payload;
+        loadExpenses: (state, action) => {
+            state.expenses = action.payload;
         },
-        onAddNewGasto: (state, { payload }) => {
-            state.gastos.push(payload);
+        addExpense: (state, { payload }) => {
+            state.expenses.push(payload);
         },
-        onLoadSaldoDisponibleG: (state, { payload }) => {
-            state.saldoDisponible = payload;
+        loadRemainingBalance: (state, { payload }) => {
+            state.balanceRemaining = payload;
         },
-        onLoadHistoricalBalanceByYear: (state, { payload }) => {
-            state.historicalBalanceByYear = payload;
+        loadAnnualBalanceHistory: (state, { payload }) => {
+            state.annualBalanceHistory = payload;
         },
-        onLoadHistoricalBalanceByMonth: (state, { payload }) => {
-            state.historicalBalanceByMonth = payload;
+        loadMonthlyBalanceHistory: (state, { payload }) => {
+            state.monthlyBalanceHistory = payload;
         },
-        onIncrementSaldoDisponibleG: (state, { payload }) => {
-            state.saldoDisponible += parseInt(payload);
+        incrementRemainingBalance: (state, { payload }) => {
+            state.balanceRemaining += parseInt(payload);
         },
-        onSubtractSaldoDisponibleG: (state, { payload }) => {
-            state.saldoDisponible -= parseInt(payload);
+        decreaseRemainingBalance: (state, { payload }) => {
+            state.balanceRemaining -= parseInt(payload);
         },
-        onLoadSaldoUtilizadoG: (state, { payload }) => {
-            state.saldoUtilizado = payload;
+        loadSpentBalance: (state, { payload }) => {
+            state.spentBalance = payload;
         },
-        onIncrementSaldoUtilizadoG: (state, { payload }) => {
-            state.saldoUtilizado += parseInt(payload);
-        }
+        showExpenseModal: (state, { payload }) => {
+            state.isModalShown = payload;
+        },
+        hideExpenseModal: (state, { payload }) => {
+            state.isModalShown = payload;
+        },
+        removeExpense: (state, { payload }) => {
+            state.expenses = state.expenses.filter(
+                (expense) => expense.id !== payload
+            );
+        },
+        updateEditingId: (state, { payload }) => {
+            state.currentEditingId = payload;
+        },
+        editExpense: (state, { payload }) => {
+            state.expenses = state.expenses.map((expense) => {
+                if (expense.id === payload.id) {
+                    return payload;
+                }
+                return expense;
+            });
+        },
     },
 });
 
 export const {
-    onLoadGastosRecurrentes,
-    onLoadGastos,
-    onLoadSaldoDisponibleG,
-    onLoadSaldoUtilizadoG,
-    onAddNewGasto,
-    onIncrementSaldoDisponibleG,
-    onSubtractSaldoDisponibleG,
-    onIncrementSaldoUtilizadoG,
-    onLoadHistoricalBalanceByYear,
-    onLoadHistoricalBalanceByMonth,
+    loadRecurringExpenses,
+    loadExpenses,
+    loadRemainingBalance,
+    loadSpentBalance,
+    addExpense,
+    incrementRemainingBalance,
+    decreaseRemainingBalance,
+    loadAnnualBalanceHistory,
+    loadMonthlyBalanceHistory,
+    showExpenseModal,
+    hideExpenseModal,
+    removeExpense,
+    updateEditingId,
+    editExpense,
 } = sgahSliceGasto.actions;

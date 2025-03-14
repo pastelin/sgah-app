@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+
+.detail-list-wrapper {
+    overflow: auto;
+    height: 50vh;
+    padding: 0.2rem;
+    margin-top: 2rem;
+    border: 10px;
+}
+
+/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
+.detail-list-wrapper::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.detail-list-wrapper::-webkit-scrollbar:vertical {
+    width: 10px;
+}
+
+.detail-list-wrapper::-webkit-scrollbar-button:increment,
+.detail-list-wrapper::-webkit-scrollbar-button {
+    display: none;
+}
+
+.detail-list-wrapper::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.detail-list-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+}
+
+.detail-list-wrapper::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+/*** SWIPE LIST OVERRIDES **/
+.swipeable-list-item__leading-actions,
+.swipeable-list-item__trailing-actions {
+    @apply text-white text-lg uppercase font-bold;
+}
+.swipeable-list-item__leading-actions {
+    @apply bg-blue-300;
+}
+.swipeable-list-item__trailing-actions {
+    @apply bg-pink-600;
+}
+.swipeable-list .swipe-action {
+    @apply flex justify-center items-center;
+}
+
+.swipeable-list {
+    height: auto;
+}

@@ -1,29 +1,19 @@
-const { src, dest, watch, parallel } = require('gulp');
+import { src, dest, watch, series } from 'gulp'
+import * as dartSass from 'sass'
+import gulpSass from 'gulp-sass'
 
-// CSS
-const sass = require('gulp-sass')(require('sass'));
-const plumber = require('gulp-plumber');
-const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
-const postcss = require('gulp-postcss');
-const sourcemaps = require('gulp-sourcemaps');
+const sass = gulpSass(dartSass)
 
-const css = (done) => {
-	src('src/scss/**/*.scss') // Identificar el archivo SASS
-		// .pipe(sourcemaps.init())
-		.pipe(plumber()) // ayuda a no detener el workflow cuando algo sale mal
-		.pipe(sass()) // Compilarlo
-		// .pipe(postcss([autoprefixer(), cssnano]))
-		// .pipe(sourcemaps.write('.'))
-		.pipe(dest('src/css')); // Almacenarla en el disco duro
+export function css( done ) {
+    src('src/scss/**/*.scss', {sourcemaps: true})
+        .pipe( sass().on('error', sass.logError) )
+        .pipe( dest('src/css', {sourcemaps: '.'}) )
 
-	done(); // Callback que avisa a gulp cuando llegamos al final
-};
+    done()
+}
 
-const dev = (done) => {
-	watch('src/scss/**/*.scss', css);
-	done();
-};
+export function dev() {
+    watch('src/scss/**/*.scss', css)
+}
 
-exports.css = css;
-exports.dev = parallel(dev);
+export default series(css, dev )

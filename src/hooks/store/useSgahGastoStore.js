@@ -1,55 +1,56 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    onLoadGastos,
-    onLoadSaldoDisponibleG,
-    onLoadSaldoUtilizadoG,
-    onAddNewGasto,
-    onIncrementSaldoDisponibleG,
-    onSubtractSaldoDisponibleG,
-    onLoadGastosRecurrentes,
-    onIncrementSaldoUtilizadoG,
-    onLoadHistoricalBalanceByYear,
+    loadExpenses,
+    loadRemainingBalance,
+    loadSpentBalance,
+    addExpense,
+    decreaseRemainingBalance,
+    loadRecurringExpenses,
+    loadAnnualBalanceHistory,
+    showExpenseModal,
+    hideExpenseModal,
+    removeExpense,
+    updateEditingId,
+    editExpense,
 } from '../../store';
 import {
-    findGastosRecurrentes,
-    findGastosByMonth,
-    getSaldosG,
-    saveGasto,
-    findHistoricalBalanceByYear,
+    findRecurringExpenses,
+    findExpensesByMonth,
+    getBalanceAmounts,
+    saveExpense,
+    findAnnualBalanceHistory,
+    deleteExpense,
+    updateExpense,
 } from '../../services';
-import {
-    getCurrentDateByString,
-    getCurrentMonth,
-    getCurrentYear,
-} from '../useUtilities';
+import { getCurrentMonth, getCurrentYear } from '../useUtilities';
 import { useSgahUi } from '../ui';
 import { usePrintMessage } from '../messages';
-import { use } from 'react';
 
 export const useSgahGastoStore = () => {
     const dispatch = useDispatch();
 
     const {
-        gastosRecurrentes,
-        gastos,
-        saldoDisponible,
-        saldoUtilizado,
-        gastoMensualPermitido,
-        ingresoMensual,
-        historicalBalanceByYear,
+        recurringExpenses,
+        expenses,
+        balanceRemaining,
+        spentBalance,
+        monthlyExpenseLimit,
+        annualBalanceHistory,
+        isModalShown,
+        currentEditingId,
     } = useSelector((state) => state.sgahGasto);
 
     const { handleShowLoader } = useSgahUi();
 
-    const startLoadingGastosRecurrentes = async () => {
-        console.log('startLoadingGastosRecurrentes');
+    const startLoadingRecurringExpenses = async () => {
+        console.log('startLoadingRecurringExpenses');
         handleShowLoader(true);
 
         try {
             const {
                 data: { gastosRecurrentes },
-            } = await findGastosRecurrentes();
-            dispatch(onLoadGastosRecurrentes(gastosRecurrentes));
+            } = await findRecurringExpenses();
+            dispatch(loadRecurringExpenses(gastosRecurrentes));
         } catch (error) {
             usePrintMessage(error.code);
         }
@@ -57,51 +58,47 @@ export const useSgahGastoStore = () => {
         handleShowLoader(false);
     };
 
-    const startLoadingGastosByCurrentMonth = async () => {
-        console.log('startLoadingGastosByCurrentMonth');
+    const startLoadingExpensesByCurrentMonth = async () => {
+        console.log('startLoadingExpensesByCurrentMonth');
         const {
             data: { gastos },
-        } = await findGastosByMonth(getCurrentYear(), getCurrentMonth());
-        dispatch(onLoadGastos(gastos));
+        } = await findExpensesByMonth(getCurrentYear(), getCurrentMonth());
+        dispatch(loadExpenses(gastos));
     };
 
-    const startLoadingHistoricalBalanceByYear = async (year) => {
-        console.log('startLoadingHistoricalBalanceByYear');
+    const startLoadingAnnualBalanceHistory = async (year) => {
+        console.log('startLoadingAnnualBalanceHistory');
         handleShowLoader(true);
 
         try {
             const {
                 data: { historicalBalance },
-            } = await findHistoricalBalanceByYear(year);
-            dispatch(onLoadHistoricalBalanceByYear(historicalBalance));
+            } = await findAnnualBalanceHistory(year);
+            dispatch(loadAnnualBalanceHistory(historicalBalance));
         } catch (error) {
             console.log(error);
         }
         handleShowLoader(false);
     };
 
-    const startLoadingSaldoGasto = async () => {
-        console.log('startLoadingSaldoGasto');
+    const startLoadingExpenseBalance = async () => {
+        console.log('startLoadingExpenseBalance');
 
-        const { data } = await getSaldosG();
-        dispatch(onLoadSaldoDisponibleG(data.montoDisponible));
-        dispatch(onLoadSaldoUtilizadoG(data.montoGastado));
+        const { data } = await getBalanceAmounts();
+        dispatch(loadRemainingBalance(data.montoDisponible));
+        dispatch(loadSpentBalance(data.montoGastado));
     };
 
-    const startSavingGasto = async (formData) => {
-        console.log('startSavingGasto');
+    const startSavingExpense = async (formData) => {
+        console.log('startSavingExpense');
 
         try {
-            console.log(formData);
-            const { status, data } = await saveGasto(formData);
+            const { status, data } = await saveExpense(formData);
 
             if (formData.origenMovimiento.id === 2) {
-                startSubtractSaldoDisponibleG(formData.monto);
-                startIncrementSaldoUtilizadoG(formData.monto);
                 dispatch(
-                    onAddNewGasto({
+                    addExpense({
                         ...data.gasto,
-                        fechaCreacion: getCurrentDateByString(),
                     })
                 );
             }
@@ -118,38 +115,90 @@ export const useSgahGastoStore = () => {
         }
     };
 
-    const startIncrementSaldoDisponibleG = (saldo) => {
-        console.log('startIncrementSaldoDisponibleG');
-        dispatch(onIncrementSaldoDisponibleG(saldo));
+    const startUpdatingExpense = async (formData) => {
+        console.log('startUpdatingExpense');
+        try {
+            const { status, data } = await updateExpense(formData);
+
+            if (status === 200) {
+                dispatch(
+                    editExpense({
+                        ...data.expense,
+                    })
+                );
+
+                return {
+                    code: status,
+                    message: data.mensaje,
+                };
+            }
+        } catch (error) {
+            usePrintMessage(error.code, error?.response?.data?.mensaje);
+            return error.code;
+        }
     };
 
-    const startSubtractSaldoDisponibleG = (saldo) => {
-        console.log('startSubtractSaldoDisponibleG');
-        dispatch(onSubtractSaldoDisponibleG(saldo));
+    const startDeletingExpense = async (id) => {
+        console.log('startDeletingExpense');
+        try {
+            const { status, data } = await deleteExpense(id);
+
+            if (status === 200) {
+                dispatch(removeExpense(data.id));
+
+                return {
+                    code: status,
+                    message: 'Gasto eliminado',
+                };
+            }
+        } catch (error) {
+            usePrintMessage(error.code, error?.response?.data?.mensaje);
+            return error.code;
+        }
     };
 
-    const startIncrementSaldoUtilizadoG = (saldo) => {
-        console.log('startIncrementSaldoUtilizadoG');
-        dispatch(onIncrementSaldoUtilizadoG(saldo));
+    const startDecreaseRemainingBalance = (saldo) => {
+        console.log('startDecreaseRemainingBalance');
+        dispatch(decreaseRemainingBalance(saldo));
+    };
+
+    const openExpenseModal = (flag) => {
+        dispatch(showExpenseModal(flag));
+    };
+
+    const closeExpenseModal = (flag) => {
+        dispatch(hideExpenseModal(flag));
+        dispatch(updateEditingId(''));
+    };
+
+    const startUpdateCurrentEditingId = (value) => {
+        console.log('startUpdateCurrentEditingId');
+        dispatch(updateEditingId(value));
+        dispatch(hideExpenseModal(true));
     };
 
     return {
         // * Propiedades
-        gastosRecurrentes,
-        gastos,
-        saldoDisponibleG: saldoDisponible,
-        saldoUtilizadoG: saldoUtilizado,
-        gastoMensualPermitido,
-        ingresoMensual,
-        historicalBalanceByYear,
+        recurringExpenses,
+        expenses,
+        balanceRemainingG: balanceRemaining,
+        spentBalanceG: spentBalance,
+        monthlyExpenseLimit,
+        annualBalanceHistory,
+        isModalShown,
+        currentEditingId,
 
         // * Metodos
-        startLoadingGastosRecurrentes,
-        startLoadingGastosByCurrentMonth,
-        startLoadingSaldoGasto,
-        startSavingGasto,
-        startIncrementSaldoDisponibleG,
-        startSubtractSaldoDisponibleG,
-        startLoadingHistoricalBalanceByYear,
+        startLoadingRecurringExpenses,
+        startLoadingExpensesByCurrentMonth,
+        startLoadingExpenseBalance,
+        startSavingExpense,
+        startDecreaseRemainingBalance,
+        startLoadingAnnualBalanceHistory,
+        openExpenseModal,
+        closeExpenseModal,
+        startDeletingExpense,
+        startUpdateCurrentEditingId,
+        startUpdatingExpense,
     };
 };

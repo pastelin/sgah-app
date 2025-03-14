@@ -1,5 +1,5 @@
-@use 'base/variables' as v;
-@use 'base/mixins' as m;
+@use 'variables' as v;
+@use 'mixins' as m;
 
 html {
     font-size: calc(14px + (16 - 14) * ((100vw - 380px) / (1400 - 380)));
@@ -17,7 +17,6 @@ body {
 }
 
 p {
-    color: v.$negro;
     line-height: 1.7;
 }
 
@@ -44,7 +43,6 @@ img {
     min-width: 100%;
     display: block;
     height: auto;
-    width: 100%;
 }
 
 .contenedor {
@@ -243,3 +241,17 @@ hr {
     opacity: 1;
     transition: opacity 0.3s ease-in;
 } 
+
+
+/* ************* Colours ************* */
+.text-blue {
+    color: v.$azul;
+}
+
+.bg-blue {
+    background-color: v.$azul;
+}
+
+.text-red {
+    color: v.$rojo;
+}

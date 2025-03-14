@@ -8,6 +8,7 @@ import {
     onSubtractSaldoUtilizadoP,
     onUpdatePrestamo,
     onIncrementSaldoUtilizadoP,
+    incrementRemainingBalance,
 } from '../../store';
 import { usePrintMessage, useSgahAhorroStore, useSgahGastoStore, useSgahUi } from '../../hooks';
 import {
@@ -28,10 +29,9 @@ export const useSgahPrestamoStore = () => {
     );
 
     const {
-        saldoDisponibleG,
-        startLoadingSaldoGasto,
-        startIncrementSaldoDisponibleG,
-        startSubtractSaldoDisponibleG,
+        balanceRemainingG,
+        startLoadingExpenseBalance,
+        startDecreaseRemainingBalance,
     } = useSgahGastoStore();
 
     const { handleShowLoader } = useSgahUi();
@@ -73,7 +73,7 @@ export const useSgahPrestamoStore = () => {
 
             dispatch(onIncrementSaldoUtilizadoP(formData.saldoPrestado));
             startSubtractSaldoDisponibleA(formData.saldoPrestado);
-            startIncrementSaldoDisponibleG(formData.saldoPrestado);
+            dispatch(incrementRemainingBalance(formData.saldoPrestado));
 
             dispatch(
                 onAddNewPrestamo({
@@ -112,7 +112,7 @@ export const useSgahPrestamoStore = () => {
             const { status, data } = await updatePrestamo(formData);
             const { saldoPagado, cdEstatus, mensaje } = data;
 
-            startSubtractSaldoDisponibleG(formData.saldoPagado);
+            startDecreaseRemainingBalance(formData.saldoPagado);
             dispatch(onSubtractSaldoUtilizadoP(formData.saldoPagado));
             startIncrementSaldoDisponibleA(formData.saldoPagado);
 
@@ -141,7 +141,7 @@ export const useSgahPrestamoStore = () => {
         prestamos,
         saldoUtilizadoP,
         prestamo,
-        saldoDisponibleG,
+        balanceRemainingG,
 
         // * Metodos
         startLoadingSaldoUtilizadoP,
@@ -149,6 +149,6 @@ export const useSgahPrestamoStore = () => {
         startSavingPrestamo,
         startLoadingPrestamo,
         startUpdatingPrestamo,
-        startLoadingSaldoGasto,
+        startLoadingExpenseBalance,
     };
 };

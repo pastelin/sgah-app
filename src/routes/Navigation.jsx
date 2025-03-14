@@ -9,14 +9,14 @@ import { useSgahUi } from '../hooks';
 import {
     SgahGastoHistoricoPage,
     SgahGastosPage,
+    SgahAhorrosPage,
     SgahIngresosPage,
     SgahInversionPage,
     SgahPrestamosPage,
     SgahResumenPage,
-} from '../sgah/pages';
-import { SgahAhorrosPage } from '../sgah/pages/SgahAhorrosPage';
+} from '../pages';
 import { useState } from 'react';
-import { ArrowDownSvg, ArrowRightSvg } from '../sgah/components';
+import { ArrowDownSvg, ArrowRightSvg } from '../components';
 
 export const Navigation = () => {
     const [isOpenIcon, setIsOpenIcon] = useState(false);

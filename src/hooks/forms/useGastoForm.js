@@ -28,7 +28,7 @@ export const useGastoForm = () => {
     } = useIngresoPage();
 
     const {
-        startSavingGasto,
+        startSavingExpense,
     } = useSgahGastoStore();
 
     useEffect(() => {
@@ -51,8 +51,8 @@ export const useGastoForm = () => {
         }
 
         const ingresoGasto = ingresos * (porcentaje / 100);
-        const { code } = await startSavingGasto({
-            monto: ingresoGasto,
+        const { code } = await startSavingExpense({
+            amount: ingresoGasto,
             gastoRecurrente: {
                 cdGasto: 18,
             },
@@ -60,6 +60,7 @@ export const useGastoForm = () => {
             origenMovimiento: {
                 id: 1,
             },
+            creationDate: new Date(),
         });
 
         if (code === 200 || code === 201) {

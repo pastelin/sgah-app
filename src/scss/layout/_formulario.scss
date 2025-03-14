@@ -70,5 +70,17 @@
     border-radius: 0.5rem;
     border: 3px solid rgba(0, 0, 0, 0.5);
     outline: none;
-	padding: .2rem;
+    padding: 0.2rem;
 }
+
+input,
+textarea,
+select {
+    border: 3px solid transparent;
+    outline: none;
+    border-radius: .5rem;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: v.$azul;
+} 
