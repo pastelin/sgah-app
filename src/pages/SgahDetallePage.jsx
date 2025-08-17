@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { useSgahDetalleStore } from '../hooks';
 import { PropTypes } from 'prop-types';
 import { WithoutInfoAlert } from '../components/alerts/WithoutInfoAlert';
+import { formatCurrency } from '../helpers';
 
 const BalanceDetail = React.memo(({ etiqueta, monto }) => (
-    <div className="balance-detail">
+    <div className="balance-detail ">
         <p>{etiqueta}</p>
         <p>{monto}</p>
     </div>
@@ -21,26 +22,26 @@ export const SgahResumenPage = () => {
 
     return (
         <aside className="detail flex-responsive-column center-x-y">
-            <h2>Detalle de Saldos</h2>
+            <h2>Resumen Financiero</h2>
             {!resumen || Object.keys(resumen).length === 0 ? (
                 <WithoutInfoAlert />
             ) : (
                 <div className="balance-container">
                     <BalanceDetail
-                        etiqueta="Saldo Ahorrado"
-                        monto={montoAhorro}
+                        etiqueta="Saldo Disponible"
+                        monto={formatCurrency(montoGasto)}
                     />
                     <BalanceDetail
-                        etiqueta="Saldo para gastos"
-                        monto={montoGasto}
+                        etiqueta="Prestamos"
+                        monto={formatCurrency(montoPrestamo)}
                     />
                     <BalanceDetail
-                        etiqueta="Saldo prestado"
-                        monto={montoPrestamo}
+                        etiqueta="Ahorros Acumulados"
+                        monto={formatCurrency(montoAhorro)}
                     />
                     <BalanceDetail
-                        etiqueta="Saldo Invertido"
-                        monto={montoInversion}
+                        etiqueta="Inversiones"
+                        monto={formatCurrency(montoInversion)}
                     />
                 </div>
             )}

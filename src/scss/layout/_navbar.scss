@@ -2,15 +2,11 @@
 @use 'base/mixins' as m;
 
 .navbar {
-    min-width: 280px;
+    min-width: 300px;
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
     h1 {
         opacity: 1;
-    }
-
-    @include m.tablet {
-        width: 26vw;
     }
 
     .menu-mobile {

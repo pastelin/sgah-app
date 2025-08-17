@@ -330,17 +330,12 @@ hr {
 }
 
 .navbar {
-  min-width: 280px;
+  min-width: 300px;
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
 }
 .navbar h1 {
   opacity: 1;
-}
-@media (min-width: 768px) {
-  .navbar {
-    width: 26vw;
-  }
 }
 .navbar .menu-mobile {
   cursor: pointer;
@@ -581,7 +576,7 @@ hr {
 .balance-container .balance-detail {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 .balance-container .balance-detail p {
   font-weight: 700;

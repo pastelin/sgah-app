@@ -53,3 +53,11 @@
 .swipeable-list {
     height: auto;
 }
+
+.w-80p {
+    width: 80%;
+}
+
+.m-w-450 {
+    max-width: 500px;
+}

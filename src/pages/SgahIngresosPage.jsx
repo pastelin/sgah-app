@@ -90,7 +90,7 @@ export const SgahIngresosPage = () => {
                         onToggle={onToggleFlipCard}
                     />
                 </section>
-            </div>
+            </div>       
 
             {isShowLoader && <LoaderComponent />}
         </aside>

@@ -10,15 +10,22 @@ import { AmountDisplay } from '../AmountDisplay';
 import PropTypes from 'prop-types';
 import 'react-swipeable-list/dist/styles.css';
 import { useSgahGastoStore } from '../../hooks';
+import { toast } from 'react-toastify';
 
 export const ExpenseDetail = ({ expense }) => {
+    const { startDeletingExpense, startUpdateCurrentEditingId } =
+        useSgahGastoStore();
 
-    const {startDeletingExpense, startUpdateCurrentEditingId} = useSgahGastoStore();
-
+    const handleExpenseDeletion = async (id) => {
+        const { message } = await startDeletingExpense(id);
+        toast.error(message);
+    };
 
     const leadingActions = () => (
         <LeadingActions>
-            <SwipeAction onClick={() => startUpdateCurrentEditingId(expense.id)}>
+            <SwipeAction
+                onClick={() => startUpdateCurrentEditingId(expense.id)}
+            >
                 Actualizar
             </SwipeAction>
         </LeadingActions>
@@ -26,7 +33,7 @@ export const ExpenseDetail = ({ expense }) => {
 
     const trailingActions = () => (
         <TrailingActions>
-            <SwipeAction onClick={() => startDeletingExpense(expense.id)}>
+            <SwipeAction onClick={() => handleExpenseDeletion(expense.id)}>
                 Eliminar
             </SwipeAction>
         </TrailingActions>
@@ -79,5 +86,6 @@ ExpenseDetail.propTypes = {
         origenMovimiento: PropTypes.shape({
             id: PropTypes.number.isRequired,
         }),
+        id: PropTypes.number.isRequired,
     }).isRequired,
 };

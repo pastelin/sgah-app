@@ -1,5 +1,4 @@
-import Swal from 'sweetalert2';
-import { useForm, useSgahGastoStore, usePrintMessage } from '../../hooks';
+import { useForm, useSgahGastoStore } from '../../hooks';
 import { useEffect, useMemo, useState } from 'react';
 import { BalanceDetail } from '../BalanceDetail';
 import DatePicker from 'react-date-picker';
@@ -7,6 +6,7 @@ import 'react-calendar/dist/Calendar.css';
 import 'react-date-picker/dist/DatePicker.css';
 import { ErrorMessage } from '../alerts';
 import { formatAdjustDate } from '../../helpers';
+import { toast } from 'react-toastify';
 
 const formData = {
     amount: '',
@@ -77,10 +77,8 @@ export const ExpenseForm = () => {
         }
 
         if (updatedBalanceRemaining - amount < 0) {
-            Swal.fire(
-                'El monto ingresado no debe superar el saldo disponible',
-                '',
-                'error'
+            toast.error(
+                'El monto ingresado no debe superar el saldo disponible'
             );
             return;
         }
@@ -116,11 +114,12 @@ export const ExpenseForm = () => {
     };
 
     const printMessage = (code, message) => {
-        usePrintMessage(code, message);
-
-        if (code === 200) {
+        if (code === 200 || code === 201) {
             onResetForm();
             closeExpenseModal(false);
+            toast.success(message);
+        } else {
+            toast.error(message);
         }
     };
 

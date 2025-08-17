@@ -24,8 +24,6 @@ import {
 } from '../../services';
 import { getCurrentMonth, getCurrentYear } from '../useUtilities';
 import { useSgahUi } from '../ui';
-import { usePrintMessage } from '../messages';
-import { use } from 'react';
 
 export const useSgahGastoStore = () => {
     const dispatch = useDispatch();
@@ -53,7 +51,7 @@ export const useSgahGastoStore = () => {
             } = await findRecurringExpenses();
             dispatch(loadRecurringExpenses(gastosRecurrentes));
         } catch (error) {
-            usePrintMessage(error.code);
+            console.log(error);
         }
 
         handleShowLoader(false);
@@ -109,9 +107,9 @@ export const useSgahGastoStore = () => {
                 message: data.mensaje,
             };
         } catch (error) {
-            usePrintMessage(error.code, error?.response?.data?.mensaje);
             return {
                 code: error.code,
+                message: error?.response?.data?.mensaje,
             };
         }
     };
@@ -134,8 +132,10 @@ export const useSgahGastoStore = () => {
                 };
             }
         } catch (error) {
-            usePrintMessage(error.code, error?.response?.data?.mensaje);
-            return error.code;
+            return {
+                code: error.code,
+                message: error?.response?.data?.mensaje,
+            };
         }
     };
 
@@ -144,17 +144,19 @@ export const useSgahGastoStore = () => {
         try {
             const { status, data } = await deleteExpense(id);
 
+            console.log('startDeletingExpense', status);
+
             if (status === 200) {
                 dispatch(removeExpense(data.id));
 
                 return {
-                    code: status,
-                    message: 'Gasto eliminado',
+                    message: 'Gasto eliminado con éxito',
                 };
             }
         } catch (error) {
-            usePrintMessage(error.code, error?.response?.data?.mensaje);
-            return error.code;
+            return {
+                message: error?.response?.data?.mensaje,
+            };
         }
     };
 

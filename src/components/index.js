@@ -7,3 +7,5 @@ export * from './alerts';
 export * from './utils';
 export * from './BalanceDetail'
 export * from './expense'
+export * from './AmountDisplay'
+export * from './SavingsOverviewChart'
