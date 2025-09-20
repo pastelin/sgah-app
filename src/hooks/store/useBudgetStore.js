@@ -1,16 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
     onResetInitialState,
-    onToggleHasPermissionEdit,
     onUpdateAvailablePercentage,
     onUpdateIngresos,
     onUpdateSaldoUtilizado,
 } from '../../store';
 import { useCallback } from 'react';
 
-export const useSgahIngresoStore = () => {
+export const useBudgetStore = () => {
     const dispatch = useDispatch();
-    const { ingresos, saldoUtilizado, availablePercentage, hasPermissionEdit } =
+    const { ingresos, saldoUtilizado, availablePercentage } =
         useSelector((state) => state.sgahIngreso);
 
     // Mapeo de acciones a funciones de actualización
@@ -33,12 +32,6 @@ export const useSgahIngresoStore = () => {
         [dispatch]
     );
 
-    const handleHasPermissionEdit = useCallback(
-        (flag) => {
-            dispatch(onToggleHasPermissionEdit(flag));
-        },
-        [dispatch]
-    );
 
     const handleResetInitialState = useCallback(() => {
         dispatch(onResetInitialState());
@@ -48,8 +41,6 @@ export const useSgahIngresoStore = () => {
         ingresos,
         saldoUtilizado,
         availablePercentage,
-        hasPermissionEdit,
-        handleHasPermissionEdit,
         handleResetInitialState,
         updateState,
     };

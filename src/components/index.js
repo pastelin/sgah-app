@@ -1,6 +1,5 @@
 export * from './forms';
 export * from './tables';
-export * from './buttons';
 export * from './svg';
 export * from './progress';
 export * from './alerts';

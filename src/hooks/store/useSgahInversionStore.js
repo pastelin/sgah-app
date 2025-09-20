@@ -21,7 +21,7 @@ import {
     updateInversion,
 } from '../../services';
 import { useSgahUi } from '../ui';
-import { usePrintMessage } from '../messages';
+import { useToastMessage } from '../messages';
 
 export const useSgahInversionStore = () => {
     const dispatch = useDispatch();
@@ -56,7 +56,7 @@ export const useSgahInversionStore = () => {
             } = await findAllI();
             dispatch(onLoadInversiones(inversiones));
         } catch (error) {
-            usePrintMessage(error.code);
+            useToastMessage(error.code);
         }
 
         handleShowLoader(false);

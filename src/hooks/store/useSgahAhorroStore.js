@@ -7,7 +7,7 @@ import {
 } from '../../store';
 import { findAhorros, getSaldoDisponibleA, saveAhorro } from '../../services';
 import { useSgahUi } from '../ui';
-import { usePrintMessage } from '../messages';
+import { useToastMessage } from '../messages';
 
 export const useSgahAhorroStore = () => {
     const dispatch = useDispatch();
@@ -45,7 +45,7 @@ export const useSgahAhorroStore = () => {
             } = await findAhorros();
             dispatch(onLoadAhorros(ahorros));
         } catch (error) {
-            usePrintMessage(error.code);
+            useToastMessage(error.code);
         }
 
         handleShowLoader(false);

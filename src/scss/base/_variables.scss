@@ -1,17 +1,28 @@
 // Tipografia
 $fuente_principal: 'Montserrat', sans-serif;
 
-// Colores
-$blanco: rgba(255,255,255, 1);
+// Colores base
+$blanco: rgba(255, 255, 255, 1);
 $negro: #000000;
+
+// Tonos derivados
+$grisOscuro: rgba(0, 0, 0, 0.8);
+$gris: rgba(0, 0, 0, 0.5);
+$grisClaro: rgba(0, 0, 0, 0.2);
+$grisMuyClaro: rgba(0, 0, 0, 0.1);
+
+// Colores neutros
+$grisNeutral: #e0e0e0;
+$grisPlata: #c0c0c0;
+$grisHumo: #f5f5f5;
+
+// Colores adicionales
 $azul: #34b3f3;
 $rojo: #ff4c4c;
 $verde: #34bf49;
 $rosaClaro: #ffc2e5;
 $azulClaro: #c1f1fc;
 $verdeClaro: #ebffac;
-$gris: #e1e1e1e1;
-$negroClaro: rgba(0,0,0, 0.7);
 
 // Tamaño de Media Queries
 $telefono: 480px;

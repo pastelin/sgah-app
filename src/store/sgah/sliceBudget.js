@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const sgahSliceIngreso = createSlice({
+export const sliceBudget = createSlice({
 	name: 'sgahIngreso',
 	initialState: {
 		ingresos: '',
 		saldoUtilizado: 0,
 		availablePercentage: 100,
-		hasPermissionEdit: true,
 	},
 	reducers: {
 		onUpdateIngresos: (state, { payload }) => {
@@ -22,10 +21,6 @@ export const sgahSliceIngreso = createSlice({
 			state.ingresos = '';
 			state.saldoUtilizado = 0;
 			state.availablePercentage = 100;
-			state.hasPermissionEdit = true;
-		},
-		onToggleHasPermissionEdit: (state, { payload }) => {
-			state.hasPermissionEdit = payload;
 		},
 	},
 });
@@ -34,6 +29,5 @@ export const {
 	onUpdateIngresos,
 	onUpdateSaldoUtilizado,
 	onUpdateAvailablePercentage,
-	onToggleHasPermissionEdit,
 	onResetInitialState,
-} = sgahSliceIngreso.actions;
+} = sliceBudget.actions;

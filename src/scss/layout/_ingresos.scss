@@ -1,19 +1,72 @@
 @use './base/mixins' as m;
 @use './base/variables' as v;
 
-.contenedor-forms-ingresos {
-    margin-top: 2rem;
-    width: 45vw;
-    margin-inline: auto;
-    min-width: v.$minWidth;
+.tabs-container {
+    // display: none;
+    width: 100%;
+    max-width: 650px;
+    background-color: v.$gris; // Fondo principal de la pestaña
+    border-radius: 12px; // Bordes redondeados para un diseño moderno
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); // Sombra para dar profundidad
+    overflow: hidden;
+    margin-inline: auto; // Centrado horizontal
 
-    .contenedor-form {
-        padding: 1rem;
-        box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.15);
+    .tabs-nav {
+        display: flex;
+        background-color: v.$grisClaro; // Fondo de la barra de navegación
+    }
 
-        h3 {
-            text-align: center;
-            margin-top: 0;
+    .tab-button {
+        padding: 1rem 1.5rem; // Espaciado interno para mejor usabilidad
+        border: none;
+        background-color: transparent; // Fondo transparente por defecto
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        color: v.$grisHumo; // Color de texto neutro
+        transition: all 0.2s ease-in-out; // Transición suave para efectos
+        border-bottom: 3px solid transparent; // Indicador de pestaña activa
+        flex-grow: 1; // Distribución equitativa entre botones
+        text-align: center;
+
+        &:hover {
+            background-color: v.$grisMuyClaro; // Fondo al pasar el cursor
+        }
+
+        &:focus {
+            outline: none; // Eliminar borde predeterminado al enfocar
+        }
+    }
+
+    .tab-button.active {
+        font-weight: 600; // Resaltar texto de pestaña activa
+        color: v.$gris; // Color de texto para pestaña activa
+        background-color: v.$blanco; // Fondo para pestaña activa
+        border: none;
+    }
+
+    .tabs-content {
+        padding: 1.5rem; // Espaciado interno para contenido
+        background-color: v.$blanco; // Fondo del área de contenido
+    }
+
+    .tab-pane {
+        display: none; // Ocultar contenido por defecto
+        animation: fadeIn 0.3s; // Animación de entrada
+    }
+
+    .tab-pane.active {
+        display: block; // Mostrar contenido activo
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px); // Efecto de desplazamiento inicial
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0); // Posición final
         }
     }
 }

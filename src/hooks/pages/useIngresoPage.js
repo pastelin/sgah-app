@@ -1,5 +1,4 @@
-import { useMemo, useState } from 'react';
-import { useSgahIngresoStore } from '../store';
+import { useBudgetStore } from '../store';
 
 export const useIngresoPage = () => {
     const {
@@ -10,14 +9,8 @@ export const useIngresoPage = () => {
         handleHasPermissionEdit,
         handleResetInitialState,
         updateState,
-    } = useSgahIngresoStore();
+    } = useBudgetStore();
 
-    const [isHoverFlipCard, setIsHoverFlipCard] = useState(false);
-
-    // Toggle the flip card hover state
-    const onToggleFlipCard = () => {
-        setIsHoverFlipCard(!isHoverFlipCard);
-    };
 
     // Handle input change for ingresos, with validation
     const onInputChangeIngresos = ({ target: { value } }) => {
@@ -27,10 +20,7 @@ export const useIngresoPage = () => {
         }
     };
 
-    // Memoize the class name for flip card hover effect
-    const styleFlipCardHover = useMemo(() => {
-        return isHoverFlipCard ? 'flip-card-hover' : '';
-    }, [isHoverFlipCard]);
+       
 
     return {
         handleHasPermissionEdit,
@@ -38,10 +28,8 @@ export const useIngresoPage = () => {
         availablePercentage,
         onInputChangeIngresos,
         handleResetInitialState,
-        onToggleFlipCard,
         ingresos,
         saldoUtilizado,
-        styleFlipCardHover,
         updateState,
     };
 };

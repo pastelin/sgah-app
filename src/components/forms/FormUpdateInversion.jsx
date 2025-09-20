@@ -1,7 +1,7 @@
 import {
     useSgahInversionStore,
     useForm,
-    usePrintMessage,
+    useToastMessage,
     useInversionUi,
 } from '../../hooks';
 import { BalanceDetail } from '../BalanceDetail';
@@ -25,7 +25,7 @@ export const FormUpdateInversion = () => {
             monto,
         });
 
-        usePrintMessage(code, message);
+        useToastMessage(code, message);
 
         if (code === 200 || code === 201) {
             handleShowUpdateFormInversion(false);

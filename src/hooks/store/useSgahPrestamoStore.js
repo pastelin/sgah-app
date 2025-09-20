@@ -10,7 +10,7 @@ import {
     onIncrementSaldoUtilizadoP,
     incrementRemainingBalance,
 } from '../../store';
-import { usePrintMessage, useSgahAhorroStore, useSgahGastoStore, useSgahUi } from '../../hooks';
+import { useToastMessage, useSgahAhorroStore, useSgahGastoStore, useSgahUi } from '../../hooks';
 import {
     findAll,
     findPrestamoByFolio,
@@ -57,7 +57,7 @@ export const useSgahPrestamoStore = () => {
             } = await findAll();
             dispatch(onLoadPrestamos(prestamos));
         } catch (error) {
-            usePrintMessage(error.code);
+            useToastMessage(error.code);
         }
 
         handleShowLoader(false);

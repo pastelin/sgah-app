@@ -1,1 +1,1 @@
-export * from './usePrintMessage';
+export * from './useToastMessage';

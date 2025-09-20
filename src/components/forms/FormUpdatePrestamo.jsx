@@ -3,7 +3,7 @@ import {
     useForm,
     usePrestamoUi,
     useSgahPrestamoStore,
-    usePrintMessage,
+    useToastMessage,
 } from '../../hooks';
 import Swal from 'sweetalert2';
 import { BalanceDetail } from '../BalanceDetail';
@@ -65,7 +65,7 @@ export const FormUpdatePrestamo = () => {
             saldoPagado: newMontoPagado,
         });
 
-        usePrintMessage(code, message);
+        useToastMessage(code, message);
 
         if (code === 200) {
             handleShowUpdateFormPrestamo(false);

@@ -4,7 +4,7 @@ import {
     usePrestamoUi,
     useSgahAhorroStore,
     useSgahPrestamoStore,
-    usePrintMessage,
+    useToastMessage,
 } from '../../hooks';
 import Swal from 'sweetalert2';
 import { BalanceDetail } from '../BalanceDetail';
@@ -44,7 +44,7 @@ export const FormNewPrestamo = () => {
             descripcion,
         });
 
-        usePrintMessage(code, message);
+        useToastMessage(code, message);
 
         if (code === 200) {
             handleShowNewFormPrestamo(false);

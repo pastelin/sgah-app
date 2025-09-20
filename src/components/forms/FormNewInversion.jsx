@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import {
-    usePrintMessage,
+    useToastMessage,
     useForm,
     useInversionUi,
     useSgahInversionStore,
@@ -57,7 +57,7 @@ export const FormNewInversion = () => {
             },
         });
 
-        usePrintMessage(code, message);
+        useToastMessage(code, message);
 
         if (code === 200 || code === 201) {
             handleShowNewFormInversion(false);

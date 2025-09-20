@@ -1,0 +1,96 @@
+import { useEffect, useCallback } from 'react';
+
+import {
+    useForm,
+    useToastMessage,
+    useSgahAhorroStore,
+    useBudgetStore,
+    useSgahGastoStore,
+} from '..';
+
+const formDataBudget = {
+    porcentaje: '',
+    descripcion: '',
+};
+
+export const useBudgetForm = () => {
+    const { porcentaje, descripcion, onInputChange, onResetForm } =
+        useForm(formDataBudget);
+
+    const { ingresos, availablePercentage, updateState } = useBudgetStore();
+
+    const { startSavingAhorro } = useSgahAhorroStore();
+    const { startSavingExpense } = useSgahGastoStore();
+
+    // Reset form when available percentage is zero
+    useEffect(() => {
+        if (availablePercentage === 0) {
+            onResetForm();
+        }
+    }, [availablePercentage, onResetForm]);
+
+    // Generic save handler to reduce code duplication
+    const handleSave = useCallback(
+        async (type) => {
+            const ingreso = ingresos * (porcentaje / 100);
+            const payload = {
+                monto: ingreso,
+                descripcion,
+                ...(type === 'gasto' && {
+                    amount: ingreso,
+                    gastoRecurrente: { cdGasto: 18 },
+                    origenMovimiento: { id: 1 },
+                    creationDate: new Date(),
+                }),
+            };
+
+            const saveFunction = type === 'ahorro' ? startSavingAhorro : startSavingExpense;
+
+            if (!saveFunction) {
+                console.warn('Unhandled save type:', type);
+                return;
+            }
+
+            const { code, message } = await saveFunction(payload);
+
+            useToastMessage(code, message);
+
+            if (code === 200 || code === 201) {
+                updateState('saldoUtilizado', ingreso);
+                updateState('availablePercentage', porcentaje);
+                onResetForm();
+            }
+        },
+        [ingresos, porcentaje, descripcion, startSavingAhorro, startSavingExpense, updateState, onResetForm]
+    );
+
+    // Submit handler to determine save type
+    const onSubmit = useCallback(
+        async (event, activeTab) => {
+            event.preventDefault();
+
+            if (!ingresos || ingresos === 0) {
+                useToastMessage('ERR', 'Fondos insuficientes para realizar esta acción');
+                return;
+            }
+
+            if (porcentaje > availablePercentage) {
+                useToastMessage(
+                    'ERR',
+                    'El porcentaje ingresado supera el porcentaje disponible'
+                );
+                return;
+            }
+
+            await handleSave(activeTab);
+        },
+        [ingresos, porcentaje, availablePercentage, handleSave]
+    );
+
+    return {
+        porcentaje,
+        descripcion,
+        onInputChange,
+        onSubmit,
+    };
+};
