@@ -6,6 +6,7 @@ import {
     useSgahAhorroStore,
     useBudgetStore,
     useSgahGastoStore,
+    useSgahPrestamoStore,
 } from '..';
 
 const formDataBudget = {
@@ -21,6 +22,7 @@ export const useBudgetForm = () => {
 
     const { startSavingAhorro } = useSgahAhorroStore();
     const { startSavingExpense } = useSgahGastoStore();
+    const { startSavingPrestamoByBudget } = useSgahPrestamoStore();
 
     // Reset form when available percentage is zero
     useEffect(() => {
@@ -34,17 +36,28 @@ export const useBudgetForm = () => {
         async (type) => {
             const ingreso = ingresos * (porcentaje / 100);
             const payload = {
-                monto: ingreso,
+                ...(type === 'ahorro' && { monto: ingreso }),
                 descripcion,
                 ...(type === 'gasto' && {
                     amount: ingreso,
+                    monto: ingreso,
                     gastoRecurrente: { cdGasto: 18 },
                     origenMovimiento: { id: 1 },
                     creationDate: new Date(),
                 }),
+                ...(type === 'prestamo' && {
+                    origenMovimiento: { id: 1 },
+                    saldoPrestado: ingreso,
+                }),
             };
 
-            const saveFunction = type === 'ahorro' ? startSavingAhorro : startSavingExpense;
+            console.log('Payload to save:', payload);
+            const saveFunction =
+                type === 'ahorro'
+                    ? startSavingAhorro
+                    : type === 'prestamo'
+                    ? startSavingPrestamoByBudget
+                    : startSavingExpense;
 
             if (!saveFunction) {
                 console.warn('Unhandled save type:', type);
@@ -61,7 +74,15 @@ export const useBudgetForm = () => {
                 onResetForm();
             }
         },
-        [ingresos, porcentaje, descripcion, startSavingAhorro, startSavingExpense, updateState, onResetForm]
+        [
+            ingresos,
+            porcentaje,
+            descripcion,
+            startSavingAhorro,
+            startSavingExpense,
+            updateState,
+            onResetForm,
+        ]
     );
 
     // Submit handler to determine save type
@@ -70,7 +91,10 @@ export const useBudgetForm = () => {
             event.preventDefault();
 
             if (!ingresos || ingresos === 0) {
-                useToastMessage('ERR', 'Fondos insuficientes para realizar esta acción');
+                useToastMessage(
+                    'ERR',
+                    'Fondos insuficientes para realizar esta acción'
+                );
                 return;
             }
 

@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import {
-    onToggleHasPermissionEditG,
     onToggleShowFlipCardGasto,
 } from '../../store/ui/gastoUiSlice';
 import { findMonthlyBalanceHistory } from '../../services';
@@ -15,14 +14,10 @@ export const useGastoUi = () => {
         (state) => state.sgahGasto
     );
 
-    const { hasPermissionEdit, isHoverFlipCard } = useSelector(
+    const { isHoverFlipCard } = useSelector(
         (state) => state.gastoUi
     );
 
-
-    const handleHasPermissionEdit = (flag) => {
-        dispatch(onToggleHasPermissionEditG(flag));
-    };
 
     const styleFlipCardHover = useMemo(() => {
         return isHoverFlipCard ? 'flip-card-hover' : '';
@@ -53,12 +48,10 @@ export const useGastoUi = () => {
 
     return {
         // * Propiedades
-        hasPermissionEdit,
         styleFlipCardHover,
         monthlyBalanceHistory,
         // * Metodos
         isHoverFlipCard,
-        handleHasPermissionEdit,
         handleShowFlipCard,
         startLoadingHistoricalBalanceByMonth,
         calcularSaldo,

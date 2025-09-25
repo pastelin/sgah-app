@@ -10,7 +10,12 @@ import {
     onIncrementSaldoUtilizadoP,
     incrementRemainingBalance,
 } from '../../store';
-import { useToastMessage, useSgahAhorroStore, useSgahGastoStore, useSgahUi } from '../../hooks';
+import {
+    useToastMessage,
+    useSgahAhorroStore,
+    useSgahGastoStore,
+    useSgahUi,
+} from '../../hooks';
 import {
     findAll,
     findPrestamoByFolio,
@@ -61,6 +66,24 @@ export const useSgahPrestamoStore = () => {
         }
 
         handleShowLoader(false);
+    };
+
+    const startSavingPrestamoByBudget = async (formData) => {
+        console.log('startSavingPrestamoByBudget');
+
+        try {
+            const { status, data } = await savePrestamo(formData);
+
+            return {
+                code: status,
+                message: data.mensaje,
+            };
+        } catch (error) {
+            return {
+                code: error.code,
+                message: error?.response?.data?.mensaje,
+            };
+        }
     };
 
     const startSavingPrestamo = async (formData) => {
@@ -150,5 +173,6 @@ export const useSgahPrestamoStore = () => {
         startLoadingPrestamo,
         startUpdatingPrestamo,
         startLoadingExpenseBalance,
+        startSavingPrestamoByBudget,
     };
 };

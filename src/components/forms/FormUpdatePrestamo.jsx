@@ -63,6 +63,7 @@ export const FormUpdatePrestamo = () => {
             descripcion,
             fechaCreacion,
             saldoPagado: newMontoPagado,
+            origenMovimiento: prestamo.origenMovimiento,
         });
 
         useToastMessage(code, message);

@@ -25,11 +25,12 @@ h1,
 h2,
 h3 {
   margin: 1rem 0 2rem 0;
-  opacity: 0.4;
 }
 
 h2 {
   font-size: calc(25px + 7 * (100vw - 380px) / 1020);
+  color: #1E2A32;
+  font-weight: 500;
 }
 
 h3 {
@@ -169,12 +170,13 @@ hr {
 
 .contenedor-saldo > p {
   font-weight: 500;
-  opacity: 0.8;
+  color: #6C7A83;
   margin: 1rem;
 }
 .contenedor-saldo > p > span {
   letter-spacing: 0.2rem;
-  color: #ff4c4c;
+  color: #1E2A32;
+  font-weight: 700;
 }
 
 .box-shadow {
@@ -247,12 +249,18 @@ hr {
   color: #ff4c4c;
 }
 
+.icon-nav {
+  filter: invert(100%) brightness(2);
+  width: 24px;
+  height: 24px;
+}
+
 .btn {
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
   overflow: hidden;
-  color: rgb(255, 255, 255);
+  color: #FFFFFF;
 }
 
 .btn-logout {
@@ -595,7 +603,7 @@ hr {
   height: 100vh;
 }
 .overlay .contenedor-form {
-  background-color: rgb(255, 255, 255);
+  background-color: #FFFFFF;
   width: 55vw;
   min-width: 360px;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
@@ -701,7 +709,7 @@ input:focus, textarea:focus, select:focus {
 }
 .contenedor-table > table > tbody > tr:hover {
   background-color: rgba(245, 149, 149, 0.5);
-  color: rgb(255, 255, 255);
+  color: #FFFFFF;
 }
 
 /* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
@@ -732,11 +740,12 @@ input:focus, textarea:focus, select:focus {
 }
 
 .tabs-container {
+  margin-top: 1rem;
   width: 100%;
   max-width: 650px;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   margin-inline: auto;
 }
@@ -765,13 +774,13 @@ input:focus, textarea:focus, select:focus {
 }
 .tabs-container .tab-button.active {
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.5);
-  background-color: rgb(255, 255, 255);
+  color: #6C7A83;
+  background-color: #FFFFFF;
   border: none;
 }
 .tabs-container .tabs-content {
   padding: 1.5rem;
-  background-color: rgb(255, 255, 255);
+  background-color: #FFFFFF;
 }
 .tabs-container .tab-pane {
   display: none;

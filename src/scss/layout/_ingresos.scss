@@ -3,11 +3,12 @@
 
 .tabs-container {
     // display: none;
+    margin-top: 1rem;
     width: 100%;
     max-width: 650px;
     background-color: v.$gris; // Fondo principal de la pestaña
     border-radius: 12px; // Bordes redondeados para un diseño moderno
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); // Sombra para dar profundidad
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); // Sombra para dar profundidad
     overflow: hidden;
     margin-inline: auto; // Centrado horizontal
 
@@ -40,14 +41,14 @@
 
     .tab-button.active {
         font-weight: 600; // Resaltar texto de pestaña activa
-        color: v.$gris; // Color de texto para pestaña activa
-        background-color: v.$blanco; // Fondo para pestaña activa
+        color: v.$secondaryGray; // Color de texto para pestaña activa
+        background-color: v.$mainWhite; // Fondo para pestaña activa
         border: none;
     }
 
     .tabs-content {
         padding: 1.5rem; // Espaciado interno para contenido
-        background-color: v.$blanco; // Fondo del área de contenido
+        background-color: v.$mainWhite; // Fondo del área de contenido
     }
 
     .tab-pane {

@@ -28,11 +28,12 @@ h1,
 h2,
 h3 {
     margin: 1rem 0 2rem 0;
-    opacity: 0.4;
 }
 
 h2 {
     font-size: calc(25px + (32 - 25) * ((100vw - 380px) / (1400 - 380)));
+    color: v.$darkGray;
+    font-weight: 500;
 }
 
 h3 {
@@ -171,12 +172,13 @@ hr {
 .contenedor-saldo {
     > p {
         font-weight: 500;
-        opacity: 0.8;
+        color: v.$secondaryGray;
         margin: 1rem;
 
         > span {
             letter-spacing: 0.2rem;
-            color: v.$rojo;
+            color: v.$darkGray;
+            font-weight: 700;
         }
     }
 }
@@ -254,4 +256,11 @@ hr {
 
 .text-red {
     color: v.$rojo;
+}
+
+.icon-nav {
+    filter: invert(100%) brightness(2);
+    width: 24px;
+    height: 24px;
+
 }

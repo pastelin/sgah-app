@@ -70,7 +70,9 @@ export const Navigation = () => {
                                 to="/detalle"
                                 onClick={handleOpenIcon}
                             >
-                                <ArrowRightSvg />
+                                <div>
+                                    <img className='icon-nav' src="/icons/home.svg" alt="home" />
+                                </div>
                                 Detalle
                             </NavLink>
                         </li>
@@ -84,7 +86,9 @@ export const Navigation = () => {
                                 to="/ingresos"
                                 onClick={handleOpenIcon}
                             >
-                                <ArrowRightSvg />
+                                <div>
+                                    <img className='icon-nav' src="/icons/income.svg" alt="ingresos" />
+                                </div>
                                 Ingresos
                             </NavLink>
                         </li>
@@ -98,7 +102,9 @@ export const Navigation = () => {
                                 to="/ahorro"
                                 onClick={handleOpenIcon}
                             >
-                                <ArrowRightSvg />
+                                <div>
+                                    <img className='icon-nav' src="/icons/savings.svg" alt="ahorro" />
+                                </div>
                                 Ahorro
                             </NavLink>
                         </li>
@@ -118,7 +124,9 @@ export const Navigation = () => {
                                     }
                                     to="/gastos"
                                 >
-                                    <ArrowDownSvg />
+                                    <div>
+                                        <img className='icon-nav' src="/icons/spend.svg" alt="gastos" />
+                                    </div>
                                     Gastos
                                 </NavLink>
 
@@ -162,7 +170,9 @@ export const Navigation = () => {
                                 to="/prestamos"
                                 onClick={handleOpenIcon}
                             >
-                                <ArrowRightSvg />
+                                <div>
+                                    <img className='icon-nav' src="/icons/loan.svg" alt="prestamos" />
+                                </div>
                                 Prestamos
                             </NavLink>
                         </li>
@@ -176,7 +186,9 @@ export const Navigation = () => {
                                 to="/inversion"
                                 onClick={handleOpenIcon}
                             >
-                                <ArrowRightSvg />
+                                <div>
+                                    <img className='icon-nav' src="/icons/investment.svg" alt="inversión" />
+                                </div>
                                 Inversión
                             </NavLink>
                         </li>

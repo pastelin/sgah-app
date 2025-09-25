@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { formatCurrency, useSgahUi } from '../hooks';
-import { LoaderComponent } from '../components';
-import { IngresoGForm } from '../components/forms/';
+import { CircularProgress, LoaderComponent } from '../components';
 import { BudgetForm } from '../components/forms/BudgetForm';
 import { useBudgetStore } from '../hooks/store/useBudgetStore';
 
@@ -38,20 +37,17 @@ export const SgahIngresosPage = () => {
     }, [availablePercentage, handleResetInitialState]);
 
     // Cambia la pestaña activa
-    const showTab = useCallback(
-        (e) => {
-            const targetId = e.target.textContent.toLowerCase();
-            setActiveTab(targetId);
-        },
-        []
-    );
+    const showTab = useCallback((e) => {
+        const targetId = e.target.textContent.toLowerCase();
+        setActiveTab(targetId);
+    }, []);
 
     return (
         <aside className="contenedor-aside">
-            <h2>Ingresos</h2>
+            <h2 className="titulo-ingresos">Ingresos</h2>
 
             {/* Input para ingresos */}
-            <div className="flex-responsive-row justify-center align-end">
+            <section className="flex-responsive-row justify-center align-end">
                 <div className="form__group">
                     <input
                         type="number"
@@ -60,29 +56,41 @@ export const SgahIngresosPage = () => {
                         onChange={onInputChangeIngresos}
                         required
                         disabled={!isInputActive}
+                        min={0}
+                        aria-label="Ingresos"
+                        className="input-ingresos"
                     />
                 </div>
-            </div>
+            </section>
 
-            {/* Información de saldo */}
-            <div className="contenedor-saldo flex-responsive-row justify-sa mt-2">
-                <p>
-                    Porcentaje Disponible: <span>{availablePercentage}%</span>
-                </p>
-                <p>
+            {/* Información de saldo y porcentaje disponible */}
+            <section className="contenedor-saldo flex-responsive-row justify-sa mt-2">
+                <div className="saldo-porcentaje" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <span className="label-porcentaje">Porcentaje Disponible:</span>
+                    <CircularProgress
+                        value={availablePercentage}
+                        size={64}
+                        stroke={8}
+                        label="Porcentaje disponible"
+                        className="progress-porcentaje"
+                    />
+                </div>
+                <p className="saldo-disponible">
                     Saldo disponible:{' '}
                     <span>{formatCurrency(ingresos - saldoUtilizado)}</span>
                 </p>
-            </div>
+            </section>
 
             {/* Contenedor de pestañas */}
-            <div className="tabs-container">
+            <nav className="tabs-container">
                 <div className="tabs-nav">
                     {['ahorro', 'gasto', 'prestamo'].map((tab) => (
                         <button
                             key={tab}
                             className={`tab-button ${activeTab === tab ? 'active' : ''}`}
                             onClick={showTab}
+                            aria-selected={activeTab === tab}
+                            aria-controls={`tab-panel-${tab}`}
                         >
                             {tab.charAt(0).toUpperCase() + tab.slice(1)}
                         </button>
@@ -90,30 +98,24 @@ export const SgahIngresosPage = () => {
                 </div>
 
                 <div className="tabs-content">
-                    {activeTab === 'ahorro' && (
-                        <div id="ahorro" className="tab-pane active">
-                            {/* <h3>Ahorro</h3> */}
-                            <BudgetForm label="Guardar Ahorro" activeTab={activeTab} />
+                    {['ahorro', 'gasto', 'prestamo'].map((tab) => (
+                        <div
+                            key={tab}
+                            id={`tab-panel-${tab}`}
+                            className={`tab-pane${activeTab === tab ? ' active' : ''}`}
+                            role="tabpanel"
+                            aria-hidden={activeTab !== tab}
+                        >
+                            <BudgetForm
+                                label={`Guardar ${tab.charAt(0).toUpperCase() + tab.slice(1)}`}
+                                activeTab={tab}
+                            />
                         </div>
-                    )}
-
-                    {activeTab === 'gasto' && (
-                        <div id="gasto" className="tab-pane active">
-                            {/* <h3>Gasto</h3> */}
-                            <BudgetForm label="Guardar Gasto" activeTab={activeTab} />
-                        </div>
-                    )}
-
-                    {activeTab === 'prestamo' && (
-                        <div id="prestamo" className="tab-pane active">
-                            {/* <h3>Prestamo</h3> */}
-                            <IngresoGForm />
-                        </div>
-                    )}
+                    ))}
                 </div>
-            </div>
+            </nav>
 
-            {/* Loader */}
+            {/* Loader visual */}
             {isShowLoader && <LoaderComponent />}
         </aside>
     );

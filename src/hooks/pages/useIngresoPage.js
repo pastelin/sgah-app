@@ -4,9 +4,7 @@ export const useIngresoPage = () => {
     const {
         ingresos,
         availablePercentage,
-        hasPermissionEdit,
         saldoUtilizado,
-        handleHasPermissionEdit,
         handleResetInitialState,
         updateState,
     } = useBudgetStore();
@@ -23,8 +21,6 @@ export const useIngresoPage = () => {
        
 
     return {
-        handleHasPermissionEdit,
-        hasPermissionEdit,
         availablePercentage,
         onInputChangeIngresos,
         handleResetInitialState,
