@@ -29,7 +29,7 @@ export const SgahGastosPage = () => {
 
     return (
         <>
-            <aside className="max-w-3xl mx-auto py-10">
+            <aside className="contenedor-aside">
                 <h2>Detalle Gastos</h2>
 
                 <div className="contenedor-saldo flex-responsive-row justify-sa">

@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { formatCurrency, useSgahAhorroStore, useSgahUi } from '../hooks';
 import {
+    BalanceDetail,
     LoaderComponent,
+    SavingList,
     TableSgahAhorro,
     WithoutInfoAlert,
 } from '../components';
@@ -18,21 +20,21 @@ export const SgahAhorrosPage = () => {
 
     useEffect(() => {
         startLoadingAhorros();
-        startLoadingSaldoDisponibleA();
     }, []);
+
+    useEffect(() => {
+        startLoadingSaldoDisponibleA();
+    }, [ahorros]);
 
     return (
         <aside className="contenedor-aside">
             <h2>Detalle Ahorros</h2>
 
             <div className="contenedor-saldo text-center">
-                <p>
-                    Saldo Disponible:{' '}
-                    <span>{formatCurrency(saldoDisponibleA)}</span>
-                </p>
+                <BalanceDetail label="Ahorros Acumulados" saldo={saldoDisponibleA} />
             </div>
 
-            {ahorros.length > 0 ? <TableSgahAhorro /> : <WithoutInfoAlert />}
+            {ahorros.length > 0 ? <SavingList /> : <WithoutInfoAlert />}
 
             {isShowLoader && <LoaderComponent />}
         </aside>

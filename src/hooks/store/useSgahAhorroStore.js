@@ -35,6 +35,15 @@ export const useSgahAhorroStore = () => {
         }
     };
 
+
+    const startDeletingSaving = async (id) => {
+        console.log('startDeletingSaving');
+    }
+
+    const startUpdateCurrentEditingId = async (id) => {
+        console.log('startUpdateCurrentEditingId');
+    };
+
     const startLoadingAhorros = async () => {
         console.log('startLoadingAhorros');
         handleShowLoader(true);
@@ -80,5 +89,7 @@ export const useSgahAhorroStore = () => {
         startLoadingSaldoDisponibleA,
         startSubtractSaldoDisponibleA,
         startIncrementSaldoDisponibleA,
+        startDeletingSaving,
+        startUpdateCurrentEditingId
     };
 };

@@ -4,54 +4,67 @@
 .overlay {
     background-color: rgba(0, 0, 0, 0.7);
     position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    inset: 0;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .contenedor-form {
         background-color: v.$mainWhite;
-        width: 55vw;
+        width: 100%;
+        max-width: 480px;
         min-width: v.$minWidth;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+        box-shadow: 0 4px 24px rgba(42, 100, 242, 0.08);
         border-radius: 1rem;
+        padding: 2rem 2.5rem;
+        animation: fadeIn 0.5s;
 
         > h3 {
             text-align: center;
-            margin-top: -1.5rem;
+            margin-top: 0;
+            color: v.$primaryBlue;
+            font-weight: 700;
         }
     }
 }
 
 .form__group {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
     flex-direction: column;
+    gap: .8rem;
+    width: 100%;
+
+    > label {
+        font-weight: 600;
+        color: v.$secondaryGray;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+    }
 
     > *:not(label) {
         border-radius: 0.5rem;
-        border: 3px solid rgba(0, 0, 0, 0.35);
+        border: 2px solid v.$lightGray;
         outline: none;
+        background: v.$mainWhite;
+        transition: border-color 0.2s;
+        font-size: 1.05rem;
+        color: v.$darkGray;
+        box-shadow: 0 2px 8px rgba(42, 100, 242, 0.04);
     }
 
     > *:not(label):focus {
-        border: thick solid rgba(0, 0, 0, 0.35);
-    }
-
-    &:first-of-type {
-        margin-top: 0;
+        border: 2.5px solid v.$primaryBlue;
     }
 
     input,
     textarea,
     select {
-        width: 40vw;
-        min-width: 250px;
-        max-width: 450px;
+        width: 100%;
+        min-width: 220px;
+        // max-width: 420px;
+        padding: 0.7rem 1rem;
     }
 
     input,
@@ -61,26 +74,39 @@
 
     textarea {
         height: 6rem;
-        resize: none;
+        resize: vertical;
     }
 }
 
 .select {
     text-align: center;
     border-radius: 0.5rem;
-    border: 3px solid rgba(0, 0, 0, 0.5);
+    border: 2px solid v.$lightGray;
     outline: none;
-    padding: 0.2rem;
+    padding: 0.4rem 0.8rem;
+    background: v.$mainWhite;
+    font-size: 1rem;
+    color: v.$darkGray;
+    transition: border-color 0.2s;
 }
 
 input,
 textarea,
 select {
-    border: 3px solid transparent;
+    border: 2px solid v.$lightGray;
     outline: none;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
+    background: v.$mainWhite;
+    font-size: 1.05rem;
+    color: v.$darkGray;
+    transition: border-color 0.2s;
 }
 
 input:focus, textarea:focus, select:focus {
-    border-color: v.$azul;
-} 
+    border-color: v.$primaryBlue;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}

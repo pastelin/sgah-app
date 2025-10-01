@@ -48,11 +48,20 @@ img {
 
 .contenedor {
     min-width: v.$minWidth;
-    overflow-y: hidden;
-    height: 100vh;
+    position: relative;
+    // overflow-y: hidden;
+    // height: 100vh;
     @include m.tablet {
         display: flex;
     }
+}
+
+aside {
+    position: relative;
+    left: 300px;
+    // padding: 2rem 1rem 4rem 1rem;
+    max-width: calc(100% - 300px);
+    // margin-inline: auto;
 }
 
 .display--none {
@@ -70,7 +79,7 @@ img {
 aside h2,
 aside h3 {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .fz-3 {
@@ -170,6 +179,9 @@ hr {
 }
 
 .contenedor-saldo {
+    max-width: 70%;
+    margin-inline: auto;
+
     > p {
         font-weight: 500;
         color: v.$secondaryGray;
@@ -177,7 +189,7 @@ hr {
 
         > span {
             letter-spacing: 0.2rem;
-            color: v.$darkGray;
+            color: v.$primaryBlue;
             font-weight: 700;
         }
     }
@@ -242,8 +254,7 @@ hr {
 .display--visible {
     opacity: 1;
     transition: opacity 0.3s ease-in;
-} 
-
+}
 
 /* ************* Colours ************* */
 .text-blue {
@@ -262,5 +273,4 @@ hr {
     filter: invert(100%) brightness(2);
     width: 24px;
     height: 24px;
-
 }

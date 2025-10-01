@@ -8,7 +8,7 @@ export const sgahSliceAhorro = createSlice({
     },
     reducers: {
         onLoadAhorros: (state, action) => {
-            state.ahorros = action.payload;
+            state.ahorros = action.payload.slice().sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion));
         },
         onLoadSaldoDisponibleA: (state, action) => {
             state.saldoDisponibleA = action.payload;
