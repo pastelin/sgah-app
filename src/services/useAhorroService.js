@@ -11,3 +11,11 @@ export const findAhorros = async () => {
 export const saveAhorro = async (formData) => {
     return await sgahApi.post('sgah/v0/ahorro/', formData);
 };
+
+export const modifySaving = async (formData) => {
+    return await sgahApi.put(`sgah/v0/ahorro/`, formData);
+};
+
+export const removeSaving = async (id) => {
+    return await sgahApi.delete(`sgah/v0/ahorro/${id}`);
+}

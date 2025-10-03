@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { formatCurrency, useSgahAhorroStore, useSgahUi } from '../hooks';
+import { useSgahAhorroStore, useSgahUi } from '../hooks';
 import {
     BalanceDetail,
     LoaderComponent,
     SavingList,
-    TableSgahAhorro,
+    SavingModal,
     WithoutInfoAlert,
 } from '../components';
 
@@ -27,16 +27,23 @@ export const SgahAhorrosPage = () => {
     }, [ahorros]);
 
     return (
-        <aside className="contenedor-aside">
-            <h2>Detalle Ahorros</h2>
+        <>
+            <aside className="contenedor-aside">
+                <h2>Detalle Ahorros</h2>
 
-            <div className="contenedor-saldo text-center">
-                <BalanceDetail label="Ahorros Acumulados" saldo={saldoDisponibleA} />
-            </div>
+                <div className="contenedor-saldo text-center">
+                    <BalanceDetail
+                        label="Ahorros Acumulados"
+                        saldo={saldoDisponibleA}
+                    />
+                </div>
 
-            {ahorros.length > 0 ? <SavingList /> : <WithoutInfoAlert />}
+                {ahorros.length > 0 ? <SavingList /> : <WithoutInfoAlert />}
 
-            {isShowLoader && <LoaderComponent />}
-        </aside>
+                {isShowLoader && <LoaderComponent />}
+            </aside>
+
+            <SavingModal />
+        </>
     );
 };

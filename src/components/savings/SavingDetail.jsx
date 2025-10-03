@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     LeadingActions,
     SwipeableList,
@@ -9,21 +8,20 @@ import {
 import { AmountDisplay } from '../AmountDisplay';
 import { useSgahAhorroStore } from '../../hooks';
 import { formatDate } from '../../helpers';
+import { toast } from 'react-toastify';
 
 export const SavingDetail = ({ saving }) => {
-    const { startDeletingSaving, startUpdateCurrentEditingId } =
+    const { handleDeleteSaving, updateEditingSavingId } =
         useSgahAhorroStore();
 
     const handleSavingDeletion = async (id) => {
-        // const { message } = await startDeletingSaving(id);
-        // toast.error(message);
-		//TODDO: Implementar eliminación de ahorro
-		console.log('Eliminar ahorro con id:', id);
+        const { message } = await handleDeleteSaving(id);
+        toast.error(message);
     };
 
     const leadingActions = () => (
         <LeadingActions>
-            <SwipeAction onClick={() => startUpdateCurrentEditingId(1)}>
+            <SwipeAction onClick={() => updateEditingSavingId(saving.id)}>
                 Actualizar
             </SwipeAction>
         </LeadingActions>
@@ -31,7 +29,7 @@ export const SavingDetail = ({ saving }) => {
 
     const trailingActions = () => (
         <TrailingActions>
-            <SwipeAction onClick={() => handleSavingDeletion(1)}>
+            <SwipeAction onClick={() => handleSavingDeletion(saving.id)}>
                 Eliminar
             </SwipeAction>
         </TrailingActions>

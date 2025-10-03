@@ -10,7 +10,7 @@ export const SavingList = () => {
 	<div className='mt-10 detail-list-wrapper max-w-9/12 m-auto'>
 		{
 			ahorros.map( saving => (
-				<SavingDetail key={saving.description} saving={saving} />
+				<SavingDetail key={saving.id} saving={saving} />
 			))
 		}
 	</div>
