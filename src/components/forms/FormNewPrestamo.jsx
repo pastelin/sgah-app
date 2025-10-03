@@ -19,13 +19,13 @@ export const FormNewPrestamo = () => {
     // The selector is called with the store state.
     const { startSavingPrestamo } = useSgahPrestamoStore();
 
-    const { startLoadingSaldoDisponibleA, saldoDisponibleA } =
+    const { startLoadingAvailableBalance, availableBalance } =
         useSgahAhorroStore();
 
     const { styleForNewForm, handleShowNewFormPrestamo } = usePrestamoUi();
 
     useEffect(() => {
-        startLoadingSaldoDisponibleA();
+        startLoadingAvailableBalance();
     }, []);
 
     const { saldoPrestado, descripcion, onInputChange, onResetForm } =
@@ -34,7 +34,7 @@ export const FormNewPrestamo = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
 
-        if (saldoPrestado > saldoDisponibleA) {
+        if (saldoPrestado > availableBalance) {
             Swal.fire('Validar monto ingresado', '', 'error');
             return;
         }
@@ -42,8 +42,10 @@ export const FormNewPrestamo = () => {
         const { code, message } = await startSavingPrestamo({
             saldoPrestado,
             descripcion,
+            origenMovimiento: { id: 2 },
         });
 
+        console.log({ code, message });
         useToastMessage(code, message);
 
         if (code === 200) {
@@ -70,7 +72,7 @@ export const FormNewPrestamo = () => {
                 <div className="contenedor-saldo text-center">
                     <BalanceDetail
                         label="Saldo máximo a tomar prestado"
-                        saldo={saldoDisponibleA}
+                        saldo={availableBalance}
                     />
                 </div>
 

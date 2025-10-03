@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import DatePicker from 'react-date-picker';
 import { useForm, useSgahAhorroStore } from '../../hooks';
 import { toast } from 'react-toastify';
@@ -11,12 +11,12 @@ const formData = {
 
 export const SavingForm = () => {
     const [error, setError] = useState('');
-    const { editingSavingId, ahorros, startUpdatingSaving, closeSavingModal } =
+    const { activeSavingId, savings, startUpdatingSaving, closeSavingModal } =
         useSgahAhorroStore();
 
     const currentSaving = useMemo(() => {
-        return ahorros.find((ahorro) => ahorro.id === editingSavingId);
-    }, [editingSavingId, ahorros]);
+        return savings.find((saving) => saving.id === activeSavingId);
+    }, [activeSavingId, savings]);
 
     const {
         formState,

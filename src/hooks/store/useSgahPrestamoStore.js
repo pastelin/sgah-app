@@ -41,7 +41,7 @@ export const useSgahPrestamoStore = () => {
 
     const { handleShowLoader } = useSgahUi();
 
-    const { startSubtractSaldoDisponibleA, startIncrementSaldoDisponibleA } =
+    const { decreaseAvailableBalance, increaseAvailableBalance } =
         useSgahAhorroStore();
 
     const startLoadingSaldoUtilizadoP = async () => {
@@ -95,7 +95,7 @@ export const useSgahPrestamoStore = () => {
                 data;
 
             dispatch(onIncrementSaldoUtilizadoP(formData.saldoPrestado));
-            startSubtractSaldoDisponibleA(formData.saldoPrestado);
+            decreaseAvailableBalance(formData.saldoPrestado);
             dispatch(incrementRemainingBalance(formData.saldoPrestado));
 
             dispatch(
@@ -108,6 +108,7 @@ export const useSgahPrestamoStore = () => {
                 })
             );
 
+            console.log({ status, mensaje });
             return {
                 code: status,
                 message: mensaje,
@@ -137,7 +138,7 @@ export const useSgahPrestamoStore = () => {
 
             startDecreaseRemainingBalance(formData.saldoPagado);
             dispatch(onSubtractSaldoUtilizadoP(formData.saldoPagado));
-            startIncrementSaldoDisponibleA(formData.saldoPagado);
+            increaseAvailableBalance(formData.saldoPagado);
 
             if (cdEstatus == 2) {
                 dispatch(onDeletePrestamo(formData.folio));

@@ -19,8 +19,8 @@ export const FormNewInversion = () => {
         useInversionUi();
 
     const {
-        saldoDisponibleA,
-        startLoadingSaldoDisponibleA,
+        availableBalance,
+        startLoadingAvailableBalance,
         startLoadingProductosFinancieros,
         productosFinancieros,
         startSavingInversion,
@@ -28,8 +28,8 @@ export const FormNewInversion = () => {
     } = useSgahInversionStore();
 
     useEffect(() => {
-        if (saldoDisponibleA) return;
-        startLoadingSaldoDisponibleA();
+        if (availableBalance) return;
+        startLoadingAvailableBalance();
     }, []);
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export const FormNewInversion = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
 
-        if (monto > saldoDisponibleA) {
+        if (monto > availableBalance) {
             Swal.fire('Validar monto ingresado', '', 'error');
             return;
         }
@@ -83,7 +83,7 @@ export const FormNewInversion = () => {
                 <div className="contenedor-saldo flex-responsive-row justify-center">
                     <BalanceDetail
                         label="Saldo máximo a invertir"
-                        saldo={saldoDisponibleA}
+                        saldo={availableBalance}
                     />
                 </div>
 

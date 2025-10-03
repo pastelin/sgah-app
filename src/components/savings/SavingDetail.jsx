@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
     LeadingActions,
     SwipeableList,
@@ -11,7 +12,15 @@ import { formatDate } from '../../helpers';
 import { toast } from 'react-toastify';
 
 export const SavingDetail = ({ saving }) => {
-    const { handleDeleteSaving, updateEditingSavingId } =
+SavingDetail.propTypes = {
+    saving: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        descripcion: PropTypes.string.isRequired,
+        fechaCreacion: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
+        monto: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    }).isRequired,
+};
+    const { handleDeleteSaving, setActiveSavingId } =
         useSgahAhorroStore();
 
     const handleSavingDeletion = async (id) => {
@@ -21,7 +30,7 @@ export const SavingDetail = ({ saving }) => {
 
     const leadingActions = () => (
         <LeadingActions>
-            <SwipeAction onClick={() => updateEditingSavingId(saving.id)}>
+            <SwipeAction onClick={() => setActiveSavingId(saving.id)}>
                 Actualizar
             </SwipeAction>
         </LeadingActions>

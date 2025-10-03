@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    deleteSaving,
-    hideSavingModal,
-    onAddSaldoDisponibleA,
-    onEditingSavingId,
-    onLoadAhorros,
-    onLoadSaldoDisponibleA,
-    onSubtractSaldoDisponibleA,
-    onUpdateAhorro,
-    showSavingModal,
+    savingDelete,
+    savingHideModal,
+    savingIncreaseAvailableBalance,
+    savingSetActiveId,
+    savingLoadAll,
+    savingLoadAvailableBalance,
+    savingDecreaseAvailableBalance,
+    savingUpdate,
+    savingShowModal,
 } from '../../store';
 import {
     findAhorros,
@@ -23,11 +23,11 @@ import { useToastMessage } from '../messages';
 export const useSgahAhorroStore = () => {
     const dispatch = useDispatch();
     const { handleShowLoader } = useSgahUi();
-    const { saldoDisponibleA, ahorros, editingSavingId, isSavingModalOpen } =
+    const { availableBalance, savings, activeSavingId, isSavingModalOpen } =
         useSelector((state) => state.sgahAhorro);
 
-    const startSavingAhorro = async (formData) => {
-        console.log('startSavingAhorro');
+    const startSaving = async (formData) => {
+        console.log('startSaving');
 
         try {
             const { status, data } = await saveAhorro(formData);
@@ -46,13 +46,13 @@ export const useSgahAhorroStore = () => {
     };
 
     const startUpdatingSaving = async (formData) => {
-        console.log('startUpdateCurrentEditingId');
+        console.log('startUpdatingSaving');
         try {
             const { status, data } = await modifySaving(formData);
 
             if (status === 200) {
                 dispatch(
-                    onUpdateAhorro({
+                    savingUpdate({
                         ...data.ahorro,
                     })
                 );
@@ -76,7 +76,7 @@ export const useSgahAhorroStore = () => {
             const { status, data } = await removeSaving(id);
 
             if (status === 200) {
-                dispatch(deleteSaving(id));
+                dispatch(savingDelete(id));
             }
 
             return {
@@ -92,21 +92,22 @@ export const useSgahAhorroStore = () => {
         }
     };
 
-    const updateEditingSavingId = (id) => {
-        console.log('startUpdateCurrentEditingId');
-        dispatch(onEditingSavingId(id));
-        dispatch(showSavingModal(true));
+    const setActiveSavingId = (id) => {
+        console.log('setActiveSavingId');
+        dispatch(savingSetActiveId(id));
+        dispatch(savingShowModal(true));
     };
 
-    const startLoadingAhorros = async () => {
-        console.log('startLoadingAhorros');
+    const startLoadingSavings = async () => {
+        console.log('startLoadingSavings');
         handleShowLoader(true);
 
         try {
             const {
                 data: { ahorros },
             } = await findAhorros();
-            dispatch(onLoadAhorros(ahorros));
+            console.log({ ahorros });
+            dispatch(savingLoadAll(ahorros));
         } catch (error) {
             useToastMessage(error.code);
         }
@@ -114,49 +115,49 @@ export const useSgahAhorroStore = () => {
         handleShowLoader(false);
     };
 
-    const startLoadingSaldoDisponibleA = async () => {
-        console.log('startLoadingSaldoDisponibleA');
+    const startLoadingAvailableBalance = async () => {
+        console.log('startLoadingAvailableBalance');
         const {
             data: { saldoDisponible },
         } = await getSaldoDisponibleA();
-        dispatch(onLoadSaldoDisponibleA(saldoDisponible));
+        dispatch(savingLoadAvailableBalance(saldoDisponible));
     };
 
-    const startIncrementSaldoDisponibleA = (saldo) => {
-        console.log('startIncrementSaldoDisponibleA');
-        dispatch(onAddSaldoDisponibleA(saldo));
+    const increaseAvailableBalance = (balance) => {
+        console.log('increaseAvailableBalance');
+        dispatch(savingIncreaseAvailableBalance(balance));
     };
 
-    const startSubtractSaldoDisponibleA = (saldo) => {
-        console.log('startSubtractSaldoDisponibleA');
-        dispatch(onSubtractSaldoDisponibleA(saldo));
+    const decreaseAvailableBalance = (balance) => {
+        console.log('decreaseAvailableBalance');
+        dispatch(savingDecreaseAvailableBalance(balance));
     };
 
     const closeSavingModal = () => {
-        dispatch(hideSavingModal(false));
+        dispatch(savingHideModal(false));
     };
 
     const openSavingModal = () => {
-        dispatch(showSavingModal(true));
+        dispatch(savingShowModal(true));
     };
 
     return {
         // * Propiedades
-        saldoDisponibleA,
-        ahorros,
-        isSavingModalOpen,
-        editingSavingId,
+    availableBalance,
+    savings,
+    isSavingModalOpen,
+    activeSavingId,
 
-        // * Metodos
-        startSavingAhorro,
-        startLoadingAhorros,
-        startLoadingSaldoDisponibleA,
-        startSubtractSaldoDisponibleA,
-        startIncrementSaldoDisponibleA,
-        handleDeleteSaving,
-        updateEditingSavingId,
-        startUpdatingSaving,
-        openSavingModal,
-        closeSavingModal,
+    // * Methods
+    startSaving,
+    startLoadingSavings,
+    startLoadingAvailableBalance,
+    decreaseAvailableBalance,
+    increaseAvailableBalance,
+    handleDeleteSaving,
+    setActiveSavingId,
+    startUpdatingSaving,
+    openSavingModal,
+    closeSavingModal,
     };
 };

@@ -10,21 +10,21 @@ import {
 
 export const SgahAhorrosPage = () => {
     const {
-        startLoadingAhorros,
-        startLoadingSaldoDisponibleA,
-        saldoDisponibleA,
-        ahorros,
+        startLoadingSavings,
+        startLoadingAvailableBalance,
+        availableBalance,
+        savings,
     } = useSgahAhorroStore();
 
     const { isShowLoader } = useSgahUi();
 
     useEffect(() => {
-        startLoadingAhorros();
+        startLoadingSavings();
     }, []);
 
     useEffect(() => {
-        startLoadingSaldoDisponibleA();
-    }, [ahorros]);
+        startLoadingAvailableBalance();
+    }, [savings]);
 
     return (
         <>
@@ -34,11 +34,11 @@ export const SgahAhorrosPage = () => {
                 <div className="contenedor-saldo text-center">
                     <BalanceDetail
                         label="Ahorros Acumulados"
-                        saldo={saldoDisponibleA}
+                        saldo={availableBalance}
                     />
                 </div>
 
-                {ahorros.length > 0 ? <SavingList /> : <WithoutInfoAlert />}
+                {savings.length > 0 ? <SavingList /> : <WithoutInfoAlert />}
 
                 {isShowLoader && <LoaderComponent />}
             </aside>

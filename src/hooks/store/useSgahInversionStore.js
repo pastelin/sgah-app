@@ -32,10 +32,10 @@ export const useSgahInversionStore = () => {
     const { handleShowLoader } = useSgahUi();
 
     const {
-        startLoadingSaldoDisponibleA,
-        startIncrementSaldoDisponibleA,
-        startSubtractSaldoDisponibleA,
-        saldoDisponibleA,
+        startLoadingAvailableBalance,
+        increaseAvailableBalance,
+        decreaseAvailableBalance,
+        availableBalance,
     } = useSgahAhorroStore();
 
     const startLoadingSaldoInvertido = async () => {
@@ -78,7 +78,7 @@ export const useSgahInversionStore = () => {
             const { mensaje, folio, fecha } = data;
 
             startIncrementSaldoInvertido(formData.monto);
-            startSubtractSaldoDisponibleA(formData.monto);
+            decreaseAvailableBalance(formData.monto);
 
             let isInversionExist = false;
 
@@ -125,7 +125,7 @@ export const useSgahInversionStore = () => {
             const { mensaje, monto } = data;
 
             startSubtractSaldoInvertido(formData.monto);
-            startIncrementSaldoDisponibleA(formData.monto);
+            increaseAvailableBalance(formData.monto);
 
             dispatch(onUpdateMontoInversion({ ...formData, monto }));
 
@@ -170,7 +170,7 @@ export const useSgahInversionStore = () => {
 
     return {
         // * Propiedades
-        saldoDisponibleA,
+        availableBalance,
         saldoInvertido,
         inversiones,
         productosFinancieros,
@@ -179,7 +179,7 @@ export const useSgahInversionStore = () => {
         // * Metodos
         startLoadingSaldoInvertido,
         startLoadingInversiones,
-        startLoadingSaldoDisponibleA,
+        startLoadingAvailableBalance,
         startLoadingProductosFinancieros,
         startSavingInversion,
         startLoadingInversion,

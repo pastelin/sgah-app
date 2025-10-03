@@ -3,60 +3,60 @@ import { createSlice } from '@reduxjs/toolkit';
 export const sgahSliceAhorro = createSlice({
     name: 'sgahAhorro',
     initialState: {
-        ahorros: [],
-        saldoDisponibleA: 0,
-        editingSavingId: '',
-        isSavingModalOpen: false,
+    savings: [],
+    availableBalance: 0,
+    activeSavingId: '',
+    isSavingModalOpen: false,
     },
     reducers: {
-        onLoadAhorros: (state, action) => {
-            state.ahorros = action.payload
+        savingLoadAll: (state, action) => {
+            state.savings = action.payload
                 .slice()
                 .sort(
                     (a, b) =>
                         new Date(b.fechaCreacion) - new Date(a.fechaCreacion)
                 );
         },
-        onLoadSaldoDisponibleA: (state, action) => {
-            state.saldoDisponibleA = action.payload;
+        savingLoadAvailableBalance: (state, action) => {
+            state.availableBalance = action.payload;
         },
-        onAddSaldoDisponibleA: (state, { payload }) => {
-            state.saldoDisponibleA += parseInt(payload);
+        savingIncreaseAvailableBalance: (state, { payload }) => {
+            state.availableBalance += parseInt(payload);
         },
-        onSubtractSaldoDisponibleA: (state, { payload }) => {
-            state.saldoDisponibleA -= parseInt(payload);
+        savingDecreaseAvailableBalance: (state, { payload }) => {
+            state.availableBalance -= parseInt(payload);
         },
-        onUpdateAhorro: (state, { payload }) => {
-            const index = state.ahorros.findIndex(
-                (ahorro) => ahorro.id === payload.id
+        savingUpdate: (state, { payload }) => {
+            const index = state.savings.findIndex(
+                (saving) => saving.id === payload.id
             );
             if (index !== -1) {
-                state.ahorros[index] = payload;
+                state.savings[index] = payload;
             }
         },
-        onEditingSavingId: (state, { payload }) => {
-            state.editingSavingId = payload;
+        savingSetActiveId: (state, { payload }) => {
+            state.activeSavingId = payload;
         },
-        showSavingModal: (state, { payload }) => {
+        savingShowModal: (state, { payload }) => {
             state.isSavingModalOpen = payload;
         },
-        hideSavingModal: (state, { payload }) => {
+        savingHideModal: (state, { payload }) => {
             state.isSavingModalOpen = payload;
         },
-        deleteSaving: (state, { payload }) => {
-            state.ahorros = state.ahorros.filter((ahorro) => ahorro.id !== payload);
+        savingDelete: (state, { payload }) => {
+            state.savings = state.savings.filter((saving) => saving.id !== payload);
         },
     },
 });
 
 export const {
-    onLoadAhorros,
-    onLoadSaldoDisponibleA,
-    onAddSaldoDisponibleA,
-    onSubtractSaldoDisponibleA,
-    onUpdateAhorro,
-    onEditingSavingId,
-    showSavingModal,
-    hideSavingModal,
-    deleteSaving,
+    savingLoadAll,
+    savingLoadAvailableBalance,
+    savingIncreaseAvailableBalance,
+    savingDecreaseAvailableBalance,
+    savingUpdate,
+    savingSetActiveId,
+    savingShowModal,
+    savingHideModal,
+    savingDelete,
 } = sgahSliceAhorro.actions;

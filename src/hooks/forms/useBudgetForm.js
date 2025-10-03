@@ -20,7 +20,7 @@ export const useBudgetForm = () => {
 
     const { ingresos, availablePercentage, updateState } = useBudgetStore();
 
-    const { startSavingAhorro } = useSgahAhorroStore();
+    const { startSaving } = useSgahAhorroStore();
     const { startSavingExpense } = useSgahGastoStore();
     const { startSavingPrestamoByBudget } = useSgahPrestamoStore();
 
@@ -36,7 +36,10 @@ export const useBudgetForm = () => {
         async (type) => {
             const ingreso = ingresos * (porcentaje / 100);
             const payload = {
-                ...(type === 'ahorro' && { monto: ingreso }),
+                ...(type === 'ahorro' && {
+                    monto: ingreso,
+                    fechaCreacion: new Date(),
+                }),
                 descripcion,
                 ...(type === 'gasto' && {
                     amount: ingreso,
@@ -54,7 +57,7 @@ export const useBudgetForm = () => {
             console.log('Payload to save:', payload);
             const saveFunction =
                 type === 'ahorro'
-                    ? startSavingAhorro
+                    ? startSaving
                     : type === 'prestamo'
                     ? startSavingPrestamoByBudget
                     : startSavingExpense;
@@ -78,7 +81,7 @@ export const useBudgetForm = () => {
             ingresos,
             porcentaje,
             descripcion,
-            startSavingAhorro,
+            startSaving,
             startSavingExpense,
             updateState,
             onResetForm,
