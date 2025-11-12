@@ -1,5 +1,5 @@
 export * from './sgahSliceDetalle';
 export * from './sgahSliceGasto';
-export * from './sgahSlicePrestamo';
+export * from './loanSlice';
 export * from './sgahSliceAhorro';
 export * from './sliceBudget';

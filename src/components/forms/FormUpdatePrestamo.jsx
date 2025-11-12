@@ -10,7 +10,7 @@ import { BalanceDetail } from '../BalanceDetail';
 
 export const FormUpdatePrestamo = () => {
     const {
-        prestamo,
+        loan,
         startUpdatingPrestamo,
         balanceRemainingG,
         startLoadingExpenseBalance,
@@ -33,7 +33,7 @@ export const FormUpdatePrestamo = () => {
         descripcion,
         onInputChange,
         onResetForm,
-    } = useForm(prestamo);
+    } = useForm(loan);
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -63,7 +63,7 @@ export const FormUpdatePrestamo = () => {
             descripcion,
             fechaCreacion,
             saldoPagado: newMontoPagado,
-            origenMovimiento: prestamo.origenMovimiento,
+            origenMovimiento: loan.origenMovimiento,
         });
 
         useToastMessage(code, message);
@@ -94,12 +94,12 @@ export const FormUpdatePrestamo = () => {
                 <div className="contenedor-saldo text-center">
                     <BalanceDetail
                         label="Deuda Actual"
-                        saldo={saldoPrestado - saldoPagado}
+                        balance={saldoPrestado - saldoPagado}
                     />
 
                     <BalanceDetail
                         label="Saldo disponible"
-                        saldo={balanceRemainingG}
+                        balance={balanceRemainingG}
                     />
                 </div>
                 <form className="mt-2" onSubmit={onSubmit}>

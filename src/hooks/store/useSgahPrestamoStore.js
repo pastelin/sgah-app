@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    onAddNewPrestamo,
-    onDeletePrestamo,
-    onLoadPrestamo,
-    onLoadPrestamos,
-    onLoadSaldoUtilizadoP,
-    onSubtractSaldoUtilizadoP,
-    onUpdatePrestamo,
-    onIncrementSaldoUtilizadoP,
+    addNewLoan,
+    deleteLoan,
+    setLoan,
+    setActiveLoans,
+    setTotalLoanDebt,
+    decreaseTotalLoanDebt,
+    updateLoan,
+    increaseTotalLoanDebt,
     incrementRemainingBalance,
 } from '../../store';
 import {
@@ -29,8 +29,8 @@ export const useSgahPrestamoStore = () => {
 
     // A hook to access the redux store's state.
     // This hook takes a selector function as an argument.The selector is called with the store state.
-    const { prestamos, saldoUtilizadoP, prestamo } = useSelector(
-        (state) => state.sgahPrestamo
+    const { loans, totalLoanDebt, loan } = useSelector(
+        (state) => state.loans
     );
 
     const {
@@ -49,7 +49,7 @@ export const useSgahPrestamoStore = () => {
         const {
             data: { saldoUtilizado },
         } = await getSaldoUtilizado();
-        dispatch(onLoadSaldoUtilizadoP(saldoUtilizado));
+        dispatch(setTotalLoanDebt(saldoUtilizado));
     };
 
     const startLoadingPrestamos = async () => {
@@ -58,9 +58,9 @@ export const useSgahPrestamoStore = () => {
 
         try {
             const {
-                data: { prestamos },
+                data: { loans },
             } = await findAll();
-            dispatch(onLoadPrestamos(prestamos));
+            dispatch(setActiveLoans(loans));
         } catch (error) {
             useToastMessage(error.code);
         }
@@ -94,12 +94,12 @@ export const useSgahPrestamoStore = () => {
             const { mensaje, folio, fechaCreacion, saldoPagado, cdEstatus } =
                 data;
 
-            dispatch(onIncrementSaldoUtilizadoP(formData.saldoPrestado));
+            dispatch(increaseTotalLoanDebt(formData.saldoPrestado));
             decreaseAvailableBalance(formData.saldoPrestado);
             dispatch(incrementRemainingBalance(formData.saldoPrestado));
 
             dispatch(
-                onAddNewPrestamo({
+                addNewLoan({
                     ...formData,
                     folio,
                     fechaCreacion,
@@ -124,9 +124,9 @@ export const useSgahPrestamoStore = () => {
     const startLoadingPrestamo = async (folio) => {
         console.log('startLoadingPrestamo');
         const {
-            data: { prestamo },
+            data: { loan },
         } = await findPrestamoByFolio(folio);
-        dispatch(onLoadPrestamo(prestamo));
+        dispatch(setLoan(loan));
     };
 
     const startUpdatingPrestamo = async (formData) => {
@@ -137,14 +137,14 @@ export const useSgahPrestamoStore = () => {
             const { saldoPagado, cdEstatus, mensaje } = data;
 
             startDecreaseRemainingBalance(formData.saldoPagado);
-            dispatch(onSubtractSaldoUtilizadoP(formData.saldoPagado));
+            dispatch(decreaseTotalLoanDebt(formData.saldoPagado));
             increaseAvailableBalance(formData.saldoPagado);
 
             if (cdEstatus == 2) {
-                dispatch(onDeletePrestamo(formData.folio));
+                dispatch(deleteLoan(formData.folio));
             } else {
                 dispatch(
-                    onUpdatePrestamo({ ...formData, saldoPagado, cdEstatus })
+                    updateLoan({ ...formData, saldoPagado, cdEstatus })
                 );
             }
 
@@ -162,9 +162,9 @@ export const useSgahPrestamoStore = () => {
 
     return {
         // * Propiedades
-        prestamos,
-        saldoUtilizadoP,
-        prestamo,
+        loans,
+        totalLoanDebt,
+        loan,
         balanceRemainingG,
 
         // * Metodos

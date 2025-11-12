@@ -22,11 +22,11 @@ export const ProgressGastoContainer = React.memo(({ year }) => {
                 <div className="contenedor-saldo flex-responsive-row justify-sa">
                     <BalanceDetail
                         label="Ingresos"
-                        saldo={calcularSaldo(monthlyBalanceHistory, 1)}
+                        balance={calcularSaldo(monthlyBalanceHistory, 1)}
                     />
                     <BalanceDetail
                         label="Saldo Gastado"
-                        saldo={calcularSaldo(monthlyBalanceHistory, 2)}
+                        balance={calcularSaldo(monthlyBalanceHistory, 2)}
                     />
                 </div>
 

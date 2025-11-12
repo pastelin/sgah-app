@@ -83,7 +83,7 @@ export const FormNewInversion = () => {
                 <div className="contenedor-saldo flex-responsive-row justify-center">
                     <BalanceDetail
                         label="Saldo máximo a invertir"
-                        saldo={availableBalance}
+                        balance={availableBalance}
                     />
                 </div>
 

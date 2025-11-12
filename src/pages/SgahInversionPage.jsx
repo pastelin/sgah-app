@@ -35,7 +35,7 @@ export const SgahInversionPage = () => {
                 <div className="contenedor-saldo text-center">
                     <BalanceDetail
                         label="Saldo Invertido"
-                        saldo={saldoInvertido}
+                        balance={saldoInvertido}
                     />
                 </div>
 

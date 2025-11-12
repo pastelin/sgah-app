@@ -35,11 +35,11 @@ export const SgahGastosPage = () => {
                 <div className="contenedor-saldo flex-responsive-row justify-sa">
                     <BalanceDetail
                         label="Saldo Disponible"
-                        saldo={balanceRemainingG}
+                        balance={balanceRemainingG}
                     />
                     <BalanceDetail
                         label="Saldo Gastado"
-                        saldo={spentBalanceG}
+                        balance={spentBalanceG}
                     />
                 </div>
 

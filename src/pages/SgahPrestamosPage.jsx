@@ -7,7 +7,7 @@ import {
     LoaderComponent,
     TableSgahPrestamo,
     WithoutInfoAlert,
-} from '../components';
+} from '../components'; 
 
 export const SgahPrestamosPage = () => {
     const { handleShowNewFormPrestamo } = usePrestamoUi();
@@ -15,10 +15,10 @@ export const SgahPrestamosPage = () => {
     const { isShowLoader } = useSgahUi();
 
     const {
-        saldoUtilizadoP,
+        totalLoanDebt,
         startLoadingSaldoUtilizadoP,
         startLoadingPrestamos,
-        prestamos,
+        loans,
     } = useSgahPrestamoStore();
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export const SgahPrestamosPage = () => {
                 <div className="contenedor-saldo text-center">
                     <BalanceDetail
                         label="Deuda Actual"
-                        saldo={saldoUtilizadoP}
+                        balance={totalLoanDebt}
                     />
                 </div>
 
@@ -47,7 +47,7 @@ export const SgahPrestamosPage = () => {
                     </button>
                 </div>
 
-                {prestamos.length > 0 ? (
+                {loans.length > 0 ? (
                     <TableSgahPrestamo />
                 ) : (
                     <WithoutInfoAlert />

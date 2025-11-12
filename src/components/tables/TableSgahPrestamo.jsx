@@ -5,7 +5,7 @@ import {
 } from '../../hooks';
 
 export const TableSgahPrestamo = () => {
-    const { prestamos, startLoadingPrestamo } = useSgahPrestamoStore();
+    const { loans, startLoadingPrestamo } = useSgahPrestamoStore();
 
     const { handleShowUpdateFormPrestamo } = usePrestamoUi();
 
@@ -30,7 +30,7 @@ export const TableSgahPrestamo = () => {
                 </thead>
 
                 <tbody>
-                    {prestamos.map(
+                    {loans.map(
                         ({
                             folio,
                             fechaCreacion,

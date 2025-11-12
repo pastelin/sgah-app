@@ -72,7 +72,7 @@ export const FormNewPrestamo = () => {
                 <div className="contenedor-saldo text-center">
                     <BalanceDetail
                         label="Saldo máximo a tomar prestado"
-                        saldo={availableBalance}
+                        balance={availableBalance}
                     />
                 </div>
 

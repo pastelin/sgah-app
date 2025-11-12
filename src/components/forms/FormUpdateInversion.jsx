@@ -50,7 +50,7 @@ export const FormUpdateInversion = () => {
                 <div className="contenedor-saldo text-center">
                     <BalanceDetail
                         label="Saldo máximo a retirar"
-                        saldo={inversion.monto}
+                        balance={inversion.monto}
                     />
                 </div>
 

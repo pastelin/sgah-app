@@ -132,7 +132,7 @@ export const ExpenseForm = () => {
             <div>
                 <BalanceDetail
                     label="Saldo Disponible"
-                    saldo={updatedBalanceRemaining}
+                    balance={updatedBalanceRemaining}
                 />
             </div>
 

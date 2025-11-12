@@ -34,7 +34,7 @@ export const SgahAhorrosPage = () => {
                 <div className="contenedor-saldo text-center">
                     <BalanceDetail
                         label="Ahorros Acumulados"
-                        saldo={availableBalance}
+                        balance={availableBalance}
                     />
                 </div>
 
