@@ -5,13 +5,13 @@ import {
 } from '../../hooks';
 
 export const TableSgahPrestamo = () => {
-    const { loans, startLoadingPrestamo } = useSgahPrestamoStore();
+    const { loans, loadLoanByFolio } = useSgahPrestamoStore();
 
     const { handleShowUpdateFormPrestamo } = usePrestamoUi();
 
     const handleOpenFormUpdatePrestamo = (folio) => {
         if (folio) {
-            startLoadingPrestamo(folio);
+            loadLoanByFolio(folio);
             handleShowUpdateFormPrestamo(true);
         }
     };

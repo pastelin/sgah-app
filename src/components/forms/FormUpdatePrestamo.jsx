@@ -11,7 +11,7 @@ import { BalanceDetail } from '../BalanceDetail';
 export const FormUpdatePrestamo = () => {
     const {
         loan,
-        startUpdatingPrestamo,
+        processLoanUpdate,
         balanceRemainingG,
         startLoadingExpenseBalance,
     } = useSgahPrestamoStore();
@@ -57,7 +57,7 @@ export const FormUpdatePrestamo = () => {
             return;
         }
 
-        const { code, message } = await startUpdatingPrestamo({
+        const { code, message } = await processLoanUpdate({
             folio,
             saldoPrestado,
             descripcion,

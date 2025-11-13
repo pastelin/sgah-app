@@ -22,7 +22,7 @@ export const useBudgetForm = () => {
 
     const { startSaving } = useSgahAhorroStore();
     const { startSavingExpense } = useSgahGastoStore();
-    const { startSavingPrestamoByBudget } = useSgahPrestamoStore();
+    const { saveLoanFromBudget } = useSgahPrestamoStore();
 
     // Reset form when available percentage is zero
     useEffect(() => {
@@ -59,7 +59,7 @@ export const useBudgetForm = () => {
                 type === 'ahorro'
                     ? startSaving
                     : type === 'prestamo'
-                    ? startSavingPrestamoByBudget
+                    ? saveLoanFromBudget
                     : startSavingExpense;
 
             if (!saveFunction) {

@@ -17,11 +17,11 @@ import {
     useSgahUi,
 } from '../../hooks';
 import {
-    findAll,
-    findPrestamoByFolio,
-    getSaldoUtilizado,
-    savePrestamo,
-    updatePrestamo,
+    fetchActiveLoans,
+    fetchLoanByFolio,
+    fetchTotalLoanDebt,
+    saveLoan,
+    editLoan,
 } from '../../services/usePrestamoService';
 
 export const useSgahPrestamoStore = () => {
@@ -44,22 +44,22 @@ export const useSgahPrestamoStore = () => {
     const { decreaseAvailableBalance, increaseAvailableBalance } =
         useSgahAhorroStore();
 
-    const startLoadingSaldoUtilizadoP = async () => {
-        console.log('startLoadingSaldoUtilizadoP');
+    const loadTotalLoanDebt = async () => {
+        console.log('loadTotalLoanDebt');
         const {
             data: { saldoUtilizado },
-        } = await getSaldoUtilizado();
+        } = await fetchTotalLoanDebt();
         dispatch(setTotalLoanDebt(saldoUtilizado));
     };
 
-    const startLoadingPrestamos = async () => {
-        console.log('startLoadingPrestamos');
+    const loadActiveLoans = async () => {
+        console.log('loadActiveLoans');
         handleShowLoader(true);
 
         try {
             const {
                 data: { loans },
-            } = await findAll();
+            } = await fetchActiveLoans();
             dispatch(setActiveLoans(loans));
         } catch (error) {
             useToastMessage(error.code);
@@ -68,11 +68,11 @@ export const useSgahPrestamoStore = () => {
         handleShowLoader(false);
     };
 
-    const startSavingPrestamoByBudget = async (formData) => {
-        console.log('startSavingPrestamoByBudget');
+    const saveLoanFromBudget = async (formData) => {
+        console.log('saveLoanFromBudget');
 
         try {
-            const { status, data } = await savePrestamo(formData);
+            const { status, data } = await saveLoan(formData);
 
             return {
                 code: status,
@@ -86,11 +86,11 @@ export const useSgahPrestamoStore = () => {
         }
     };
 
-    const startSavingPrestamo = async (formData) => {
-        console.log('startSavingPrestamo');
+    const saveLoanFromExpense = async (formData) => {
+        console.log('saveLoanFromExpense');
 
         try {
-            const { status, data } = await savePrestamo(formData);
+            const { status, data } = await saveLoan(formData);
             const { mensaje, folio, fechaCreacion, saldoPagado, cdEstatus } =
                 data;
 
@@ -121,19 +121,19 @@ export const useSgahPrestamoStore = () => {
         }
     };
 
-    const startLoadingPrestamo = async (folio) => {
-        console.log('startLoadingPrestamo');
+    const loadLoanByFolio = async (folio) => {
+        console.log('loadLoanByFolio');
         const {
             data: { loan },
-        } = await findPrestamoByFolio(folio);
+        } = await fetchLoanByFolio(folio);
         dispatch(setLoan(loan));
     };
 
-    const startUpdatingPrestamo = async (formData) => {
-        console.log('startUpdatingPrestamo');
+    const processLoanUpdate = async (formData) => {
+        console.log('processLoanUpdate');
 
         try {
-            const { status, data } = await updatePrestamo(formData);
+            const { status, data } = await editLoan(formData);
             const { saldoPagado, cdEstatus, mensaje } = data;
 
             startDecreaseRemainingBalance(formData.saldoPagado);
@@ -168,12 +168,12 @@ export const useSgahPrestamoStore = () => {
         balanceRemainingG,
 
         // * Metodos
-        startLoadingSaldoUtilizadoP,
-        startLoadingPrestamos,
-        startSavingPrestamo,
-        startLoadingPrestamo,
-        startUpdatingPrestamo,
+        loadTotalLoanDebt,
+        loadActiveLoans,
+        saveLoanFromExpense,
+        loadLoanByFolio,
+        processLoanUpdate,
         startLoadingExpenseBalance,
-        startSavingPrestamoByBudget,
+        saveLoanFromBudget,
     };
 };

@@ -16,14 +16,14 @@ export const SgahPrestamosPage = () => {
 
     const {
         totalLoanDebt,
-        startLoadingSaldoUtilizadoP,
-        startLoadingPrestamos,
+        loadTotalLoanDebt,
+        loadActiveLoans,
         loans,
     } = useSgahPrestamoStore();
 
     useEffect(() => {
-        startLoadingSaldoUtilizadoP();
-        startLoadingPrestamos();
+        loadTotalLoanDebt();
+        loadActiveLoans();
     }, []);
 
     return (

@@ -17,7 +17,7 @@ const formData = {
 export const FormNewPrestamo = () => {
     // A hook to access the redux store's state. This hook takes a selector function as an argument.
     // The selector is called with the store state.
-    const { startSavingPrestamo } = useSgahPrestamoStore();
+    const { saveLoanFromExpense } = useSgahPrestamoStore();
 
     const { startLoadingAvailableBalance, availableBalance } =
         useSgahAhorroStore();
@@ -39,7 +39,7 @@ export const FormNewPrestamo = () => {
             return;
         }
 
-        const { code, message } = await startSavingPrestamo({
+        const { code, message } = await saveLoanFromExpense({
             saldoPrestado,
             descripcion,
             origenMovimiento: { id: 2 },
