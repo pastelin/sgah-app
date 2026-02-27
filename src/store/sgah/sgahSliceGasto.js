@@ -35,10 +35,10 @@ export const sgahSliceGasto = createSlice({
             state.monthlyBalanceHistory = payload;
         },
         incrementRemainingBalance: (state, { payload }) => {
-            state.balanceRemaining += parseInt(payload);
+            state.balanceRemaining += Number.parseInt(payload);
         },
         decreaseRemainingBalance: (state, { payload }) => {
-            state.balanceRemaining -= parseInt(payload);
+            state.balanceRemaining -= Number.parseInt(payload);
         },
         loadSpentBalance: (state, { payload }) => {
             state.spentBalance = payload;

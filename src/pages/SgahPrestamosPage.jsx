@@ -8,6 +8,8 @@ import {
     TableSgahPrestamo,
     WithoutInfoAlert,
 } from '../components'; 
+import { LoanList } from '../components/loans';
+import { LoanModal } from '../components/loans/LoanModal';
 
 export const SgahPrestamosPage = () => {
     const { handleShowNewFormPrestamo } = usePrestamoUi();
@@ -48,17 +50,20 @@ export const SgahPrestamosPage = () => {
                 </div>
 
                 {loans.length > 0 ? (
-                    <TableSgahPrestamo />
+                    <LoanList />
                 ) : (
                     <WithoutInfoAlert />
                 )}
 
-                {isShowLoader && <LoaderComponent />}
+                {isShowLoader && <LoaderComponent />} 
             </aside>
 
-            <FormNewPrestamo />
 
-            <FormUpdatePrestamo />
+                
+            {/* <FormNewPrestamo /> */}
+
+            {/* <FormUpdatePrestamo /> */}
+            <LoanModal />
         </>
     );
 };

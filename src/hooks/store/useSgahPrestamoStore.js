@@ -9,6 +9,8 @@ import {
     updateLoan,
     increaseTotalLoanDebt,
     incrementRemainingBalance,
+    setLoanModalVisibility,
+    setCurrentLoanEditingId,
 } from '../../store';
 import {
     useToastMessage,
@@ -29,7 +31,7 @@ export const useSgahPrestamoStore = () => {
 
     // A hook to access the redux store's state.
     // This hook takes a selector function as an argument.The selector is called with the store state.
-    const { loans, totalLoanDebt, loan } = useSelector(
+    const { loans, totalLoanDebt, loan, isModalShown, currentEditingId } = useSelector(
         (state) => state.loans
     );
 
@@ -160,12 +162,27 @@ export const useSgahPrestamoStore = () => {
         }
     };
 
+    const setModalVisibility  = (isVisible) => {
+        dispatch( setLoanModalVisibility(isVisible) );
+        if(!isVisible) {
+            dispatch(setCurrentLoanEditingId(''));
+        }
+    };
+
+    const setCurrentEditingId = (value) => {
+        console.log('setCurrentEditingId');
+        dispatch(setCurrentLoanEditingId(value));
+        dispatch( setLoanModalVisibility(true) );
+    }
+
     return {
         // * Propiedades
         loans,
         totalLoanDebt,
         loan,
         balanceRemainingG,
+        isModalShown,
+        currentEditingId,
 
         // * Metodos
         loadTotalLoanDebt,
@@ -175,5 +192,7 @@ export const useSgahPrestamoStore = () => {
         processLoanUpdate,
         startLoadingExpenseBalance,
         saveLoanFromBudget,
+        setModalVisibility,
+        setCurrentEditingId,
     };
 };

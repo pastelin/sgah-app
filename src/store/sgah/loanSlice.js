@@ -6,6 +6,8 @@ export const loanSlice = createSlice({
         loan: {},
         loans: [],
         totalLoanDebt: 0,
+        isModalShown: false,
+        currentEditingId: '',
     },
     reducers: {
         setActiveLoans: (state, action) => {
@@ -40,6 +42,12 @@ export const loanSlice = createSlice({
                 (loan) => loan.folio !== payload
             );
         },
+        setLoanModalVisibility: (state, { payload }) => {
+            state.isModalShown = payload;
+        },
+        setCurrentLoanEditingId: (state, { payload }) => {
+            state.currentEditingId = payload;
+        },
     },
 });
 
@@ -52,4 +60,6 @@ export const {
     decreaseTotalLoanDebt,
     updateLoan,
     deleteLoan,
+    setLoanModalVisibility,
+    setCurrentLoanEditingId,
 } = loanSlice.actions;
