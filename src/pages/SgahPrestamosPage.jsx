@@ -7,7 +7,7 @@ import {
     LoaderComponent,
     TableSgahPrestamo,
     WithoutInfoAlert,
-} from '../components'; 
+} from '../components';
 import { LoanList } from '../components/loans';
 import { LoanModal } from '../components/loans/LoanModal';
 
@@ -40,26 +40,17 @@ export const SgahPrestamosPage = () => {
                     />
                 </div>
 
-                <div className="text-center mt-2">
-                    <button
-                        className="btn btn-submit btn-xl"
-                        onClick={() => handleShowNewFormPrestamo(true)}
-                    >
-                        Agregar Prestamo
-                    </button>
-                </div>
-
                 {loans.length > 0 ? (
                     <LoanList />
                 ) : (
                     <WithoutInfoAlert />
                 )}
 
-                {isShowLoader && <LoaderComponent />} 
+                {isShowLoader && <LoaderComponent />}
             </aside>
 
 
-                
+
             {/* <FormNewPrestamo /> */}
 
             {/* <FormUpdatePrestamo /> */}

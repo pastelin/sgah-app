@@ -21,6 +21,7 @@ export const FormNewPrestamo = () => {
         useSgahPrestamoStore();
 
     const [error, setError] = useState('');
+    const [payFullDebt, setPayFullDebt] = useState(false);
 
     const { startLoadingAvailableBalance, availableBalance } =
         useSgahAhorroStore();
@@ -57,15 +58,18 @@ export const FormNewPrestamo = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
 
-        if (Object.values(formState).some((value) => !value)) {
-            setError('Todos los campos son obligatorios');
-            return;
-        }
-
-
         if (currentLoan) {
-            const montoLiquidar = currentLoan?.saldoPrestado - currentLoan?.saldoPagado;
-            if (saldoPrestado > montoLiquidar) {
+            // Si payFullDebt es true, usar el monto total de la deuda
+            const montoAPagar = payFullDebt 
+                ? currentLoan.saldoPrestado - currentLoan.saldoPagado 
+                : saldoPrestado;
+
+            if (!payFullDebt && !saldoPrestado) {
+                setError('Debes ingresar un monto o marcar "Pagar deuda completa"');
+                return;
+            }
+
+            if (montoAPagar > currentLoan.saldoPrestado - currentLoan.saldoPagado) {
                 Swal.fire(
                     'El monto no debe ser mayor a la deuda actual',
                     '',
@@ -74,7 +78,7 @@ export const FormNewPrestamo = () => {
                 return;
             }
 
-            if (saldoPrestado > balanceRemainingG) {
+            if (montoAPagar > balanceRemainingG) {
                 Swal.fire(
                     'El monto no debe ser mayor al saldo disponible',
                     '',
@@ -86,7 +90,7 @@ export const FormNewPrestamo = () => {
             const { code, message } = await processLoanUpdate({
                 ...currentLoan,
                 descripcion,
-                saldoPagado: saldoPrestado,
+                saldoPagado: montoAPagar,
             });
 
             useToastMessage(code, message);
@@ -94,8 +98,19 @@ export const FormNewPrestamo = () => {
             if (code === 200) {
                 setModalVisibility(false);
                 onResetForm();
+                setPayFullDebt(false);
             }
         } else {
+            if (!saldoPrestado) {
+                setError('Todos los campos son obligatorios');
+                return;
+            }
+
+            if (!descripcion) {
+                setError('Todos los campos son obligatorios');
+                return;
+            }
+
             if (saldoPrestado > availableBalance) {
                 setError(
                     'El monto solicitado excede el saldo disponible para préstamos',
@@ -115,9 +130,6 @@ export const FormNewPrestamo = () => {
                 onResetForm();
             }
         }
-
-
-
     };
 
     return (
@@ -282,6 +294,30 @@ export const FormNewPrestamo = () => {
 
             {error && <ErrorMessage>{error}</ErrorMessage>}
 
+            {currentLoan && (
+                <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 p-4 rounded-lg shadow-md">
+                    <label className="flex items-center gap-3 cursor-pointer">
+                        <input
+                            type="checkbox"
+                            checked={payFullDebt}
+                            onChange={(e) => {
+                                setPayFullDebt(e.target.checked);
+                                setError('');
+                            }}
+                            className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500"
+                        />
+                        <div className="flex-1">
+                            <span className="text-base font-semibold text-gray-700">
+                                Pagar deuda completa
+                            </span>
+                            <p className="text-xs text-gray-600 mt-1">
+                                ${(currentLoan.saldoPrestado - currentLoan.saldoPagado).toLocaleString()}
+                            </p>
+                        </div>
+                    </label>
+                </div>
+            )}
+
             <div className="flex flex-col gap-3">
                 <label
                     htmlFor="saldoPrestado"
@@ -314,15 +350,23 @@ export const FormNewPrestamo = () => {
                         name="saldoPrestado"
                         id="saldoPrestado"
                         placeholder="500"
-                        className="w-full pl-8 pr-4 py-3 bg-white border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-lg font-medium"
-                        value={saldoPrestado}
+                        disabled={payFullDebt}
+                        className={`w-full pl-8 pr-4 py-3 bg-white border-2 rounded-lg transition-all outline-none text-lg font-medium ${
+                            payFullDebt 
+                                ? 'border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed' 
+                                : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
+                        }`}
+                        value={payFullDebt ? (currentLoan?.saldoPrestado - currentLoan?.saldoPagado) || '' : saldoPrestado}
                         onChange={onInputChange}
                         min="1"
                         max={currentLoan ? balanceRemainingG : availableBalance}
                     />
                 </div>
                 <p className="text-xs text-gray-800 italic">
-                    Máximo: ${currentLoan ? balanceRemainingG.toLocaleString() : availableBalance.toLocaleString()}
+                    {payFullDebt 
+                        ? `Pagarás: $${(currentLoan?.saldoPrestado - currentLoan?.saldoPagado).toLocaleString()}` 
+                        : `Máximo: $${currentLoan ? balanceRemainingG.toLocaleString() : availableBalance.toLocaleString()}`
+                    }
                 </p>
             </div>
 
